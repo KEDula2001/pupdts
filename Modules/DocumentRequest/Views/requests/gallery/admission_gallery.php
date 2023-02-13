@@ -53,7 +53,7 @@
                       <div align="center">
                         <label style="color:#dc3545;">Form 137</label>
                         <br>
-                        <label class = "label label-sucess fw-bold">STATUS</label>
+                        <label class = "label label-sucess fw-bold"><?esc($studentadmisison_status['f137_status'])?>STATUS</label>
                       </div>
                   </a>
                   <a href="<?php echo base_url('uploads/'.isset($studentadmission_files['g10_files'])); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
@@ -65,7 +65,7 @@
                       <div align="center">
                         <label style="color:#dc3545;">Grade 10 Card</label>
                         <br>
-                        <label class = "label label-sucess fw-bold">STATUS</label>
+                        <label class = "label label-sucess fw-bold"><?esc($studentadmisison_status['g10_status'])?>STATUS</label>
                       </div>
                   </a>
                   <a href="<?php echo base_url('uploads/'.isset($studentadmission_files['g11_files'])); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
@@ -77,7 +77,7 @@
                       <div align="center">
                         <label style="color:#dc3545;">Grade 11 Card</label>
                         <br>
-                        <label class = "label label-sucess fw-bold">STATUS</label>
+                        <label class = "label label-sucess fw-bold"><?esc($studentadmisison_status['g11_status'])?>STATUS</label>
                       </div>
                   </a>
                   <a href="<?php echo base_url('uploads/'.isset($studentadmission_files['g12_files'])); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
@@ -89,7 +89,7 @@
                       <div align="center">
                         <label style="color:#dc3545;">Grade 12 Card</label>
                         <br>
-                        <label class = "label label-sucess fw-bold">STATUS</label>
+                        <label class = "label label-sucess fw-bold"><?esc($studentadmisison_status['g12_status'])?>STATUS</label>
                       </div>
                   </a>
                   <a href="<?php echo base_url('uploads/'.isset($studentadmission_files['psa_nso_files'])); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
@@ -101,7 +101,7 @@
                       <div align="center">
                         <label style="color:#dc3545;">PSA/NSO</label>
                         <br>
-                        <label class = "label label-sucess fw-bold">STATUS</label>
+                        <label class = "label label-sucess fw-bold"><?esc($studentadmisison_status['psa_nso_status'])?>STATUS</label>
                       </div>
                   </a>
                   <a href="<?php echo base_url('uploads/'.isset($studentadmission_files['good_moral_files'])); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
@@ -113,7 +113,7 @@
                       <div align="center">
                         <label style="color:#dc3545;">Certification of Good Moral</label>
                         <br>
-                        <label class = "label label-sucess fw-bold">STATUS</label>
+                        <label class = "label label-sucess fw-bold"><?esc($studentadmisison_status['good_moral_status'])?>STATUS</label>
                       </div>
                   </a>
                   <a href="<?php echo base_url('uploads/'.isset($studentadmission_files['medical_cert_files'])); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
@@ -125,7 +125,7 @@
                       <div align="center">
                         <label style="color:#dc3545;">Medical Clearance</label>
                         <br>
-                        <label class = "label label-sucess fw-bold">STATUS</label>
+                        <label class = "label label-sucess fw-bold"><?esc($studentadmisison_status['medical_cert_status'])?>STATUS</label>
                       </div>
                   </a>
                   <a href="<?php echo base_url('uploads/'.isset($studentadmission_files['picture_two_by_two_files'])); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
@@ -137,7 +137,7 @@
                       <div align="center">
                         <label style="color:#dc3545;">2x2 Picture</label>
                         <br>
-                        <label class = "label label-sucess fw-bold">STATUS</label>
+                        <label class = "label label-sucess fw-bold"><?esc($studentadmisison_status['twobytwo_status'])?>STATUS</label>
                       </div>
                   </a>
               </div>

@@ -112,20 +112,6 @@ class AdmissionController extends BaseController
 			
 		}
 	}
-									
-								
-							
-						
-					
-				
-				
-
-
-		
-
-	
-
-
 
 
 	 public function StudentAdDocumentStatus($id){

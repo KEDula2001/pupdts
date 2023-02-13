@@ -129,6 +129,13 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function($rout
 	$routes->get('admission/retrieved-report', 'AdmissionController::admissionretrievedreport');	
 //admission report
 
+
+
+$routes->group('users', ['namespace' => 'Modules\UserManagement\Controllers'], function($routes){
+	$routes->match(['get', 'post'], 'add', 'Users::add');
+
+}); 
+
 // student admission routes
 	$routes->get('studentadmission/view-admission-history/(:num)', 'StudentadmissionhistoryController::index/$1');
 	$routes->post('studentadmission/rechecking-mydocuments/(:num)', 'AdmissionController::updateRecheckingDocuments/$1');

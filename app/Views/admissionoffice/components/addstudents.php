@@ -32,7 +32,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>
             <?php endif; ?>
-            <form class="form-floating" action="<?php echo base_url('/admission/insert-student'); ?>" method="post" autocomplete="off">
+            <form class="form-floating" action="<?php echo base_url('/users/add'); ?>" method="post" autocomplete="off">
               <!-- first row -->
               <div class="row justify-content-center">
               <!-- student no. -->
