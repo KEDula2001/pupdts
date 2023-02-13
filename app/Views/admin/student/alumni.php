@@ -36,9 +36,7 @@
       <hr>
       <footer class="text-center">
         <div class="mb-2">
-          <small>
-            © 2021 made with <i class="fa fa-heart" style="color:red"></i> by - Mitsu Tech
-          </small>
+          
         </div>
       </footer>
     </div>

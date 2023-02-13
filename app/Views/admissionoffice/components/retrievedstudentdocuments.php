@@ -95,7 +95,7 @@
               <td>Retrieved</td>
               <td><?=esc($student['retrieved_at'])?></td>
               <td>
-                <a href="" class="btn btn-edit text-dark btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop<?php echo $student['student_number']; ?>">Edit</a> 
+                <a href="" class="btn btn-edit text-dark btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop<?php echo $student['student_number']; ?>">Update Checklist</a> 
               </td>
 
 
@@ -107,7 +107,7 @@
                               <div class="modal-title" id="staticBackdropLabel"></div>
                                 <h5>
                                   <?php if (!empty($student['middlename'])): ?>
-                                  <?=esc(ucwords($student['firstname'].' '.$student['middlename'][0].'. '.$student['lastname']))?>
+                                  <?=esc(ucwords($student['firstname'].' '.$student['middlename'].' '.$student['lastname']))?>
                                   <?php else: ?>
                                     <?=esc(ucwords($student['firstname'].' '.$student['lastname']))?>
                                   <?php endif ?>
@@ -127,21 +127,33 @@
                                                                   
                                     $res = $getstudentadmission->__getSAMDetails($id);
                                   ?>  
-
-                                    <input type="checkbox" value="1" name="sar_pupcct_resultID" <?php if(!empty($res['sar_pupcct_resultID'])){echo 'checked';} ?>>SAR Form/PUPCCT Results<br>
-                                     <input type="checkbox" value="2" name="f137ID" <?php if(!empty($res['f137ID'])){echo 'checked';} ?>>F137<br>
-                                     <input type="checkbox" value="3" name="f138ID" <?php if(!empty($res['f138ID'])){echo 'checked';} ?>>Grade 10 Card<br>
-                                     <input type="checkbox" value="11" name="cert_dry_sealID" <?php if(!empty($res['cert_dry_sealID'])){echo 'checked';} ?>>Grade 11 Card<br>
-                                     <input type="checkbox" value="4" name="psa_nsoID" <?php if(!empty($res['psa_nsoID'])){echo 'checked';} ?>>PSA/NSO<br>
-                                     <input type="checkbox" value="5" name="good_moralID" <?php if(!empty($res['good_moralID'])){echo 'checked';} ?>>Certification of Good Moral<br>
-                                     <input type="checkbox" value="6" name="medical_certID" <?php if(!empty($res['medical_certID'])){echo 'checked';} ?>>Medical Clearance<br>
-                                     <input type="checkbox" value="7" name="picture_two_by_twoID" <?php if(!empty($res['picture_two_by_twoID'])){echo 'checked';} ?>>2x2 Picture<br>
+                                    <input type="checkbox" value="1" name="sar_pupcct_resultID" <?php if(!empty($res['sar_pupcct_resultID'])){echo 'checked';} ?>>
+                                    <label for="sar_pupcct_resultID">SAR Form/PUPCCT Results</label><br>
+                                     <input type="checkbox" value="2" name="f137ID" <?php if(!empty($res['f137ID'])){echo 'checked';} ?>>
+                                     <label for="f137ID">F137</label><br>
+                                     <input type="checkbox" value="3" name="f138ID" <?php if(!empty($res['f138ID'])){echo 'checked';} ?>>
+                                     <label for="f138ID">Grade 10 Card</label><br>
+                                     <input type="checkbox" value="11" name="cert_dry_sealID" <?php if(!empty($res['cert_dry_sealID'])){echo 'checked';} ?>>
+                                     <label for="cert_dry_sealID">Grade 11 Card</label><br>
+                                     <input type="checkbox" value="12" name="cert_dry_sealID_twelve" <?php if(!empty($res['cert_dry_sealID_twelve'])){echo 'checked';} ?>>
+                                     <label for="cert_dry_sealID_twelve">Grade 12 Card</label><br>
+                                     <input type="checkbox" value="4" name="psa_nsoID" <?php if(!empty($res['psa_nsoID'])){echo 'checked';} ?>>
+                                     <label for="psa_nsoID">PSA/NSO</label><br>
+                                     <input type="checkbox" value="5" name="good_moralID" <?php if(!empty($res['good_moralID'])){echo 'checked';} ?>>
+                                     <label for="good_moralID">Certification of Good Moral</label><br>
+                                     <input type="checkbox" value="6" name="medical_certID" <?php if(!empty($res['medical_certID'])){echo 'checked';} ?>>
+                                     <label for="medical_certID">Medical Clearance</label><br>
+                                     <input type="checkbox" value="7" name="picture_two_by_twoID" <?php if(!empty($res['picture_two_by_twoID'])){echo 'checked';} ?>>
+                                     <label for="picture_two_by_twoID">2x2 Picture</label><br>
                                     <hr>
                                     <label>Other Documents:</label><br>
-                                    <input type="checkbox" value="8" name="nc_non_enrollmentID" <?php if(!empty($res['nc_non_enrollmentID'])){echo 'checked';} ?>>Notarized Cert of Non-enrollment<br>
-                                    <input type="checkbox" value="9" name="coc_hs_shsID" <?php if(!empty($res['coc_hs_shsID'])){echo 'checked';} ?>>COC (HS/SHS)<br>
-                                    <input type="checkbox" value="10" name="ac_pept_alsID" <?php if(!empty($res['ac_pept_alsID'])){echo 'checked';} ?>>Authenticated Copy PEPT/ALS<br>
-                                    <hr>
+                                     <input type="checkbox" value="8" name="nc_non_enrollmentID" <?php if(!empty($res['nc_non_enrollmentID'])){echo 'checked';} ?>>
+                                     <label for="nc_non_enrollmentID">Notarized Cert of Non-enrollment</label><br> 
+                                     <input type="checkbox" value="9" name="coc_hs_shsID" <?php if(!empty($res['coc_hs_shsID'])){echo 'checked';} ?>>
+                                     <label for="coc_hs_shsID">COC (HS/SHS)</label><br> 
+                                      <input type="checkbox" value="10" name="ac_pept_alsID" <?php if(!empty($res['ac_pept_alsID'])){echo 'checked';} ?>>
+                                      <label for="ac_pept_alsID">Authenticated Copy PEPT/ALS<br></label><br> 
+                                      <hr>
                                     <label>Graduation Requirements:</label><br>
                                       <input type="checkbox" value="13" name="app_grad" <?php if(!empty($res['app_grad'])){echo 'checked';} ?>>Application for Graduation<br>
                                       <input type="checkbox" value="14" name="or_app_grad" <?php if(!empty($res['or_app_grad'])){echo 'checked';} ?>>O.R. of Application of Graduation<br>

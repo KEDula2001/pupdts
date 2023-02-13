@@ -15,9 +15,7 @@
   <?php else: ?>
     <footer class="footer p-3 bg-transparent">
     <div class="container-fluid text-center align-items-center">
-      <small class="text-muted">
-        © 2021 made by - <img src="/img/logo.png" alt=""> Mitsu Tech
-      </small>
+      
     </div>
   <?php endif; ?>
         

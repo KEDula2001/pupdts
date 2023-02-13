@@ -62,7 +62,7 @@
                     <?php if (!empty($image_file_record['f137_files'])): ?>  
                       <img src="<?php echo base_url('uploads/'.$image_file_record['f137_files']); ?>" class="img-fluid card">
                     <?php else: ?>
-                      <h3 align="center">NO Files</h3>
+                      <h3 align="center">No Files</h3>
                     <?php endif ?>
                       <div align="center">
                         <label style="color:#dc3545;">Form 137</label>
@@ -204,7 +204,7 @@
                       <?php if (!empty($image_file_record['good_moral_files'])): ?>  
                         <img src="<?php echo base_url('uploads/'.$image_file_record['good_moral_files']); ?>" class="img-fluid card">
                       <?php else: ?>
-                        <h3 align="center">NO Files</h3>
+                        <h3 align="center">No Files</h3>
                       <?php endif ?>
                       <div align="center">
                         <label style="color:#dc3545;">Certification of Good Moral</label>
@@ -230,7 +230,7 @@
                       <?php if (!empty($image_file_record['medical_cert_files'])): ?>  
                         <img src="<?php echo base_url('uploads/'.$image_file_record['medical_cert_files']); ?>" class="img-fluid card">
                       <?php else: ?>
-                        <h3 align="center">NO Files</h3>
+                        <h3 align="center">No Files</h3>
                       <?php endif ?>
                       <div align="center">
                         <label style="color:#dc3545;">Medical Clearance</label>
@@ -257,7 +257,7 @@
                       <?php if (!empty($image_file_record['picture_two_by_two_files'])): ?>  
                         <img src="<?php echo base_url('uploads/'.$image_file_record['picture_two_by_two_files']); ?>" class="img-fluid card">
                       <?php else: ?>
-                        <h3 align="center">NO Files</h3>
+                        <h3 align="center">No Files</h3>
                       <?php endif ?>
                       <div align="center">
                         <label style="color:#dc3545;">2x2 Picture</label>
@@ -280,7 +280,7 @@
               </div>
             </div>
           </div>
-          <div align = "right">
+          <div align = "right" style="padding:  20px">
           <button type = "submit" class = "btn btn-primary font-weight-bold">Submit</button>
                       </div>
             </form> 
@@ -289,3 +289,4 @@
     </div>
   </div>
 </div>
+

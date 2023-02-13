@@ -770,11 +770,12 @@ class AdmissionController extends BaseController
 				return redirect()->to(base_url('admission/complete'));
 			}elseif ($res['admission_status'] == 'incomplete') {
 				return redirect()->to(base_url('admission/notify/'.$res['userID']));
-			}
-		} else {
-			$this->session->setFlashData('error', 'Error encountered!');
-			return redirect()->to(base_url('admission'));
-		}
+			}elseif ($res['admission_status'] == 'rechecking') {
+				return redirect()->to(base_url('admission/request-rechecking/'));
+			} else {
+				$this->session->setFlashData('error', 'Error encountered!');
+				return redirect()->to(base_url('admission'));
+			}}
 		
 		if ($this->isAjax()) {
 			return view('admissionoffice/admissiondashboard', $this->data);
