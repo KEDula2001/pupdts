@@ -10,14 +10,14 @@
     </script>
 <?php endif; ?>
 
-<?php if (isset($_SESSION['success'])) : ?>
+<?php if (session()->get('success')) : ?>
     <script type="text/javascript">
-        alert_success('<?= $_SESSION['success']; ?>');
+        alert_success('<?= session()->get('success'); ?>');
     </script>
 <?php endif; ?>
 
-<?php if (isset($_SESSION['error'])) : ?>
+<?php if (session()->get('error')) : ?>
     <script type="text/javascript">
-        alert_error('<?= $_SESSION['error']; ?>');
+        alert_error('<?=session()->get('error') ?>');
     </script>
 <?php endif; ?>

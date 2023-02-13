@@ -700,7 +700,7 @@ class AdmissionController extends BaseController
 		$insertstudentadmission = new StudentadmissionModel;
 		$is_result = $insertstudentadmission->__getSAMDetails($id);
 		if($_POST['admission_status']){
-			echo "<script>alert('Please select admission status!');</script>";
+			$this->session->setFlashData('error', 'Please select admission status!');
 		}
 		if (!empty($is_result)) {	
 			$data = [

@@ -9,5 +9,7 @@
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.23/sl-1.3.1/datatables.min.js"></script>
     <script src="<?php echo base_url('/js/admin.js'); ?>" charset="utf-8"></script>
+    <script src="<?php echo base_url('/js/alerts.js'); ?>" charset="utf-8"></script>
   </body>
 </html>
+<?= $this->include('template/notifications'); ?>
