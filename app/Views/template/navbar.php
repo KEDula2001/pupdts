@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg sticky">
   <div class="container-fluid">
     <!-- <i class="fas fa-bars"></i> -->
-    <span>PUPT ONLINE ADMISSION CREDENTIALS TRACKING AND DOCUMENT REQUEST SYSTEM</span>
+    <span>PUPT ONLINE CREDENTIALS TRACKING AND DOCUMENT REQUEST SYSTEM</span>
 
     <div class="d-flex logout" id="navbarSupportedContent">
       <ul class="navbar-nav">

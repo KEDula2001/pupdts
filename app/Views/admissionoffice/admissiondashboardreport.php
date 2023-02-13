@@ -1,6 +1,6 @@
 <br>
 <h1 style = "font-weight: bold;">REGISTRATION AND ADMISSION OFFICE</h1>
-<h2>Summary List of Submitted Admission Credentials </h2>
+<h2>Summary Report of Admission Credentials Submission Sttaus</h2>
 <h4>Month Date - Month Date</h4>
 
 

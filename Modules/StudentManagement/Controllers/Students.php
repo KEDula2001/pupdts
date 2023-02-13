@@ -200,20 +200,20 @@ class Students extends BaseController
 			$mail = \Config\Services::email();
 			$mail->setTo($email);
 			$mail->setSubject('User Account Password');
-			$mail->setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig ACT-DRS');
+			$mail->setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig OCT-DRS');
 			$mail->setMessage('Your Account has been sucessfully made! <br> Username: ' .  $username . ' <br> Password: '  . $password);
       if ($mail->send()) {
         return true;
       }
       return false;
     }
-    public function sendLackingStudentDocuments($email, $no_dry_seal, $sc_true_copy, $sc_pup_remarks, $s_one_photocopy, $submit_original, $remarks)
+    public function sendLackingStudentDocuments($email, $no_dry_seal, $sc_true_copy, $sc_pup_remarks, $s_one_photocopy, $submit_original, $not_submit, $remarks)
     {
       $mail = \Config\Services::email();
       $mail->setTo($email);
       $mail->setSubject('Notice of Lacking Documents');
-      $mail->setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig ACT-DRS');
-      $mail->setMessage('Good Day!<br><br>Sending herewith the list of your lacking docuements <br><br><ul><li>'.$no_dry_seal.'</li><li>'.$sc_true_copy.'</li><li>'.$sc_pup_remarks.'</li><li>'.$s_one_photocopy.'</li><li>'.$submit_original.'</li></ul><br>Remarks:'.$remarks);
+      $mail->setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig OCT-DRS');
+      $mail->setMessage('Good Day!<br><br>Sending herewith the list of your lacking docuements <br><br><ul><li>'.$no_dry_seal.'</li><li>'.$sc_true_copy.'</li><li>'.$sc_pup_remarks.'</li><li>'.$s_one_photocopy.'</li><li>'.$submit_original.'</li><li>'.$not_submit.'</li></ul><br>Remarks:'.$remarks);
       if ($mail->send()) {
         return true;
       }

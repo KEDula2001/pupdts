@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.23/sl-1.3.1/datatables.min.css"/>
     <link rel="stylesheet" href="<?php echo base_url('css/student/student.css'); ?>">
     
-    <title>ACT-DRS</title>
+    <title>OCT-DRS</title>
 
   </head>
   <main class="page-content" id="content">
@@ -24,7 +24,7 @@
           <img src="<?php echo base_url('img/pupt-logo.png'); ?>" alt=" ">
           <!-- hindi ko alam bakit sa isang page hindi nagview ang logo hmpk -->
           <a href="<?php echo base_url('admission'); ?>" class="align-middle"> 
-              PUP Taguig | ADMISSION CREDENTIALS MONITORING
+              PUP Taguig | ONLINE CREDENTIALS TRACKING SYSTEM
           </a>
           <div class="navbar-nav ms-auto">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav" aria-controls="main_nav" aria-expanded="false" aria-label="Toggle navigation">

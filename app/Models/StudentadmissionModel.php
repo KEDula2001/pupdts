@@ -13,7 +13,9 @@ class StudentadmissionModel extends Model
 		'stud_admissionID', 'studID', 'sar_pupcct_resultID', 'f137ID', 'f138ID', 
 		'psa_nsoID', 'good_moralID', 'medical_certID', 'picture_two_by_twoID', 
 		'nc_non_enrollmentID', 'coc_hs_shsID', 'ac_pept_alsID', 'cert_dry_sealID', 
-		'cert_dry_sealID_twelve','app_grad','or_app_grad','or_app_grad',
+		'cert_dry_sealID_twelve','app_grad','or_app_grad','latest_regi','eval_res',
+		'course_curri', 'cert_candi', 'gen_clear', 'or_grad_fee', 'cert_confer',
+		'schoolid', 'honor_dis', 'trans_rec',
 		'admission_status', 'created_at'
 	];
 

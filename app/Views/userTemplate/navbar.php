@@ -3,7 +3,7 @@
       <img src="img/pupt-logo.png" alt="">
       <!-- hindi ko alam bakit sa isang page hindi nagview ang logo hmpk -->
       <a class="navbar-brand" href="/<?=$_SESSION['landing_page']?>">
-          PUP TAGUIG | ONLINE ADMISSION CREDENTIALS TRACKING AND DOCUMENT REQUEST SYSTEM
+          PUP TAGUIG | ONLINE CREDENTIALS TRACKING AND DOCUMENT REQUEST SYSTEM
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>

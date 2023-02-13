@@ -5,7 +5,7 @@
         <div class="card-body">
           <div class="row">
             <div class="col-md-6">
-              <h3>Hello, <?=esc($_SESSION['name'])?>!</h3>
+              <h3>Hello, <?=esc($_SESSION['user_id  '])?>!</h3>
               <p style="font-style: italic; font-size: .9em;">Request for a copy of your academic related documents.</p>
             </div>
             <div class="col-md-6">

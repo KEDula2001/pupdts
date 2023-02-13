@@ -11,13 +11,13 @@ class RefremarksModel extends Model
 	protected $table                = 'ref_for_remarks';
 	protected $allowedFields        = ['id', 'user_id', 'no_dry_seal', 'sc_true_copy', 'sc_pup_remarks', 's_one_photocopy', 'submit_original', 'other_remarks', 'created_at'];
 
-	public function insertSendLackingDocuments($email, $userID, $no_dry_seal, $sc_true_copy, $sc_pup_remarks, $s_one_photocopy, $submit_original, $remarks)
+	public function insertSendLackingDocuments($email, $userID, $no_dry_seal, $sc_true_copy, $sc_pup_remarks, $s_one_photocopy, $submit_original, $not_submit, $remarks)
 	{
 		$this->transBegin();
 
 		$student = new Students();
 		// var_dump($email);
-	      if($student->sendLackingStudentDocuments($email, $no_dry_seal, $sc_true_copy, $sc_pup_remarks, $s_one_photocopy, $submit_original, $remarks))
+	      if($student->sendLackingStudentDocuments($email, $no_dry_seal, $sc_true_copy, $sc_pup_remarks, $s_one_photocopy, $submit_original, $not_submit,$remarks))
 	      {
 
 	        $this->transCommit();
@@ -28,6 +28,7 @@ class RefremarksModel extends Model
 			$this->set('sc_pup_remarks', $sc_pup_remarks);
 			$this->set('s_one_photocopy', $s_one_photocopy);
 			$this->set('submit_original', $submit_original);
+			$this->set('not_submit', $not_submit);
 			$this->set('other_remarks', $remarks);
 			$this->insert();
 	        

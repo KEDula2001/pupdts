@@ -3,7 +3,7 @@
   <img src="<?=base_url()?>/img/pupt-logo.png" alt="">
 
     <a class="navbar-brand" href="/<?=$_SESSION['landing_page']?>">
-      PUP TAGUIG | ACT-DRS
+      PUP TAGUIG | OCT-DRS
     </a>
     <div class="navbar-nav ms-auto">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav" aria-controls="main_nav" aria-expanded="false" aria-label="Toggle navigation">

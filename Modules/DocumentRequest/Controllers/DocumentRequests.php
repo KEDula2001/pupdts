@@ -47,7 +47,7 @@ class DocumentRequests extends BaseController
 
     $this->email->setTo($student[0]['email']);
     $this->email->setSubject('Document Request Update');
-    $this->email->setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig ACT-DRS');
+    $this->email->setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig OCT-DRS');
     $this->email->setMessage('Your Request has been denied (' . $_POST['remark'] .') <br> Try Requesting again');
     if($this->requestModel->denyRequest($_POST))
       $this->email->send();
@@ -59,7 +59,7 @@ class DocumentRequests extends BaseController
       $student = $this->userModel->get(['username' => $_POST['data'][$key][1]]);
       $this->email->setTo($student[0]['email']);
       $this->email->setSubject('Document Request Update');
-      $this->email->setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig ACT-DRS');
+      $this->email->setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig OCT-DRS');
       $this->email->setMessage('<p>Good day!</p> <p>Your requested document/s has been approved!</p> <p>You may now download the payment stub and pay the indicated price in the stub.
 </p> <p>Thank you!</p>');
       if($this->requestModel->confirmRequest($_POST['data']))
@@ -77,7 +77,7 @@ class DocumentRequests extends BaseController
 
     $this->email->setTo($student[0]['email']);
     $this->email->setSubject('Document Request Update');
-    $this->email->setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig ACT-DRS');
+    $this->email->setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig OCT-DRS');
     $this->email->setMessage('<p>Good day!</p> <p>Your requested document/s has been approved and processed!</p> <p>Please be reminded that you\'ll be notified via email once your requested document is done and is ready for its next step process.
 </p> <p>Thank you!</p>');
     if($this->requestModel->acceptPaid($_POST['id']))
@@ -92,7 +92,7 @@ class DocumentRequests extends BaseController
 
     $this->email->setTo($student[0]['email']);
     $this->email->setSubject('Document Request Update');
-    $this->email->setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig ACT-DRS');
+    $this->email->setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig OCT-DRS');
     $this->email->setMessage('<p>Good day!</p> <p> There is something wrong in your uploaded receipt please double check your upload and try it uploading again. (This will be serve as proof of your payment)
 </p> <p>Thank you!</p>');
     if($this->requestModel->denyPaid($_POST['id']))
@@ -132,7 +132,7 @@ class DocumentRequests extends BaseController
 
     $this->email->setTo($student[0]['email']);
     $this->email->setSubject('Document Request Update');
-    $this->email->setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig ACT-DRS');
+    $this->email->setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig OCT-DRS');
     $this->email->setMessage('<p>Good day!</p> <p>Your requested document/s has been denied due to the following reasons!</p> <p>'. $_POST['remark'].'<p>Please check your ODRS Account for further information.</p></p> <p>Thank you!</p> ');
     if($this->officeApprovalModel->holdRequest($_POST))
       $this->email->send();
@@ -146,7 +146,7 @@ class DocumentRequests extends BaseController
       $students = $this->userModel->get(['username' => $_POST['data'][$key][2]]);
       $this->email->setTo($students[0]['email']);
       $this->email->setSubject('Document Request Update');
-      $this->email->setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig ACT-DRS');
+      $this->email->setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig OCT-DRS');
       $this->email->setMessage('<p>Good day!</p> <p>Your requested document/s has been approved by the Office of the '.$office['office'].'!</p> <p>'.  $_POST['data'][$key][5].' <p>Please be reminded that you\'ll be notified via email once your requested document is done and is ready for its next step process.</p> </p> <p>Thank you!</p>');
 
       $this->email->send();
@@ -228,7 +228,7 @@ class DocumentRequests extends BaseController
     $mail = \Config\Services::email();
     $mail->setTo($_POST['email']);
     $mail->setSubject('Document Request Update');
-    $mail->setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig ACT-DRS');
+    $mail->setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig OCT-DRS');
     $mail->setMessage('<p>Good day! </p><p>Your requested document is now ready to be claimed</p>' . $request['document'] . '<p>Just present the receipt to claim the document.</p><p>Thank you!</p>');
     $mail->send();
     return $data['page'].'';
@@ -241,7 +241,7 @@ class DocumentRequests extends BaseController
 
     $this->email->setTo($student[0]['email']);
     $this->email->setSubject('Document Request Update');
-    $this->email->setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig ACT-DRS');
+    $this->email->setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig OCT-DRS');
     $this->email->setMessage('Your Form 137 Request has been approved, you may now download the request form.');
     if($this->formRequestModel->acceptForm($_POST['id']))
       $this->email->send();

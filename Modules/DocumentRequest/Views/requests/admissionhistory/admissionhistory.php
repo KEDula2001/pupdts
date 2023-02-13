@@ -156,6 +156,9 @@
                           <?php if(!empty($value['submit_original'])): ?>
                             <i class="fas fa-info"></i> <?php echo $value['submit_original']; ?><br>
                           <?php endif ?>
+                          <?php if(!empty($value['not_submit'])): ?>
+                            <i class="fas fa-info"></i> <?php echo $value['not_submit']; ?><br>
+                          <?php endif ?>
                           <hr>
                           <label>Other Remarks:</label><br>
                           <?php if(!empty($value['other_remarks'])): ?>
