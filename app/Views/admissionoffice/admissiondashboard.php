@@ -1,4 +1,3 @@
-<div style="padding: 20px">
 <div class="container-fluid-admission">
 <section class="container-fluid" style="margin-top: 50px; padding-left: 20px; padding-right: 20px">
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -139,7 +138,7 @@
                         <td><?=esc($student['student_number'])?></td>
                         <td>
                           <?php if (!empty($student['middlename'])): ?>
-                            <?=esc(ucwords($student['firstname'].' '.$student['middlename'].' '.$student['lastname']))?>
+                            <?=esc(ucwords($student['firstname'].' '.$student['middlename'][0].'. '.$student['lastname']))?>
                           <?php else: ?>
                             <?=esc(ucwords($student['firstname'].' '.$student['lastname']))?>
                           <?php endif ?>
@@ -159,7 +158,7 @@
                                 </div>
                               <?php endif ?>
                             <?php else: ?>
-                              <diwdv class="badge bg-default text-wrap" style="width: 6rem;color:black;">
+                              <div class="badge bg-default text-wrap" style="width: 6rem;color:black;">
                                 No Files
                               </div>
                             <?php endif ?>
@@ -182,7 +181,7 @@
                               <div class="modal-title" id="staticBackdropLabel"></div>
                                 <h5>
                                   <?php if (!empty($student['middlename'])): ?>
-                                  <?=esc(ucwords($student['firstname'].' '.$student['middlename'].' '.$student['lastname']))?>
+                                  <?=esc(ucwords($student['firstname'].' '.$student['middlename'][0].'. '.$student['lastname']))?>
                                   <?php else: ?>
                                     <?=esc(ucwords($student['firstname'].' '.$student['lastname']))?>
                                   <?php endif ?>
@@ -222,15 +221,6 @@
                                       <input type="checkbox" value="13" name="app_grad" <?php if(!empty($res['app_grad'])){echo 'checked';} ?>>Application for Graduation<br>
                                       <input type="checkbox" value="14" name="or_app_grad" <?php if(!empty($res['or_app_grad'])){echo 'checked';} ?>>O.R. of Application of Graduation<br>
                                       <input type="checkbox" value="15" name="latest_regi" <?php if(!empty($res['latest_regi'])){echo 'checked';} ?>>Latest Registration Card<br>
-                                      <input type="checkbox" value="16" name="eval_res" <?php if(!empty($res['eval_res'])){echo 'checked';} ?>>Evaluation Result<br>
-                                      <input type="checkbox" value="17" name="course_curri" <?php if(!empty($res['course_curri'])){echo 'checked';} ?>>Course Curriculum<br>
-                                      <input type="checkbox" value="18" name="cert_candi" <?php if(!empty($res['cert_candi'])){echo 'checked';} ?>>Certificate of Candidacy<br>
-                                      <input type="checkbox" value="19" name="gen_clear" <?php if(!empty($res['gen_clear'])){echo 'checked';} ?>>General Clearance<br>
-                                      <input type="checkbox" value="20" name="or_grad_fee" <?php if(!empty($res['or_grad_fee'])){echo 'checked';} ?>>O.R. of Graduation Fees<br>
-                                      <input type="checkbox" value="21" name="cert_confer" <?php if(!empty($res['cert_confer'])){echo 'checked';} ?>>Certificate of Conferment<br>
-                                      <input type="checkbox" value="22" name="schoolid" <?php if(!empty($res['schoolid'])){echo 'checked';} ?>>PUP Taguig School ID<br>
-                                      <input type="checkbox" value="23" name="honor_dis" <?php if(!empty($res['honor_dis'])){echo 'checked';} ?>>PUP Taguig Honorable Dismissal<br>
-                                      <input type="checkbox" value="24" name="trans_rec" <?php if(!empty($res['trans_rec'])){echo 'checked';} ?>>PUP Taguig Trancript of Record<br>
                                   <br>
                                   <br>
                                   <select class="form-select" name="admission_status" required>
@@ -263,7 +253,7 @@
                               <div class="modal-body">
                                 <label>
                                   <?php if (!empty($student['middlename'])): ?>
-                                  <?=esc(ucwords($student['firstname'].' '.$student['middlename'].' '.$student['lastname']))?>
+                                  <?=esc(ucwords($student['firstname'].' '.$student['middlename'][0].'. '.$student['lastname']))?>
                                   <?php else: ?>
                                     <?=esc(ucwords($student['firstname'].' '.$student['lastname']))?>
                                   <?php endif ?>
@@ -283,7 +273,7 @@
                                     <textarea class="form-control" placeholder="Reason:" name="reasons" required></textarea>
                                   <br>
                                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                  <button type="submit" class="btn btn-primary" name="btnretrieved">Retrieve</button>
+                                  <button type="submit" class="btn btn-primary" name="btnretrieved">Save Changes</button>
                                 </form>
                               </div>
                           </div>
@@ -299,4 +289,3 @@
       </div>
 </section>
 </form>
-</div>

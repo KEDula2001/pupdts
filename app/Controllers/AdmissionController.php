@@ -82,96 +82,72 @@ class AdmissionController extends BaseController
 					$picture_two_by_two_files->move(ROOTPATH. 'public/uploads/', $filepath_twobytwo_name);
 				}
 											
-		$data = [
-			'studID' => $id,
-			'sar_pupcct_results_files' => $filepath_sar_pupcct_results_name,
-			'f137_files' => $filepath_f137_name, 
-			'g10_files' => $filepath_g10_name, 
-			'g11_files' => $filepath_g11_name, 
-			'g12_files' => $filepath_g12_name, 
-			'psa_nso_files' => $filepath_psa_nso_name, 
-			'good_moral_files' => $filepath_good_moral_name, 
-			'medical_cert_files' => $filepath_medicalcert_name, 
-			'picture_two_by_two_files' => $filepath_twobytwo_name
-		];
-		
-		if ($getStudentAdFileModel->setInsertAdmissionFiles($data)){
-			$this->session->setFlashData('success_message', 'Successfully Inserted!');
-			return redirect()->to(base_url('studentadmission/view-admission-history/'.$id));
-		}elseif($is_upload == 'error'){
+			$data = [
+				'studID' => $id,
+				'sar_pupcct_results_files' => $filepath_sar_pupcct_results_name,
+				'f137_files' => $filepath_f137_name, 
+				'g10_files' => $filepath_g10_name, 
+				'g11_files' => $filepath_g11_name, 
+				'g12_files' => $filepath_g12_name, 
+				'psa_nso_files' => $filepath_psa_nso_name, 
+				'good_moral_files' => $filepath_good_moral_name, 
+				'medical_cert_files' => $filepath_medicalcert_name, 
+				'picture_two_by_two_files' => $filepath_twobytwo_name
+			];
 			
-			$this->session->setFlashData('error_message', 'Please Contact School IT Support!');
-		
-			return redirect()->to(base_url('studentadmission/view-admission-history/'.$id));
-		}
-												
-												
-
-												
-													
+			if ($getStudentAdFileModel->setInsertAdmissionFiles($data)){
+				$this->session->setFlashData('success_message', 'Successfully Inserted!');
+				return redirect()->to(base_url('studentadmission/view-admission-history/'.$id));
+			}elseif($is_upload == 'error'){
+				
+				$this->session->setFlashData('error_message', 'Please Contact School IT Support!');
 			
+				return redirect()->to(base_url('studentadmission/view-admission-history/'.$id));
+			}
 		}
 	}
-									
-								
-							
-						
-					
-				
-				
-
-
-		
-
-	
-
-
-
 
 	 public function StudentAdDocumentStatus($id){
 		
 		$model = new AdmissionDocumentStatusModel(); 
+		$getStudentFileImages = new StudentadmissionfilesModel;
 		$getstudent = new StudentsModel;
-		$getstudentID = new AdmissionDocumentStatusModel(); 
-		
-		
-		$getchecklist = new ChecklistModel;
-		$getstudentadmissionmodel = new StudentadmissionModel;
-		$getRetrievedRecord = new RefForRetrievedModel;
 
-		$data['retrieved_record'] = $getRetrievedRecord->__getRetrievedRecord();
-		$data['count_incomplete'] = $getstudentadmissionmodel->__getIncompleteDocs();
-		$data['count_complete'] = $getstudentadmissionmodel->__getCompleteDocs();
-		$data['count_recheck'] = $getstudentadmissionmodel->__getRecheckDocs();
-		$data['students'] = $getstudent->__getStudentDetails();
-		$data['checklists'] = $getchecklist->__getChecklistDetails();
-		 
-		
-
-		// die($studID);
-		// die(print_r($_POST)); 
+		helper(['form']);
 		if ($this->request->getMethod() == 'post'){
 			if(!$this->validate('admissionStatus')){
-				$data['errors'] = $this->validation->getErrors();
-                $data['value'] = $_POST;
-				
-			}
-			else{
-				
-				if($model->__updateAdmissionDocument($id,$_POST['sar_pupcet_result_status'], $_POST['f137_status'], $_POST['g10_status'],  $_POST['g11_status'], $_POST['g12_status'], $_POST['psa_nso_status'],$_POST['goodmoral_status'],$_POST['medical_cert_status'],
-				$_POST['pictwobytwo_status'])){
-				echo '<script>alert("Successfully inserted")</script>';
-				}
-				else{
+				$this->data['errors'] = $this->validation->getErrors();
+                $this->data['value'] = $_POST;
+				// die(print_r($_POST));
+			} else {
+				$admissionStatusData = [
+					'sar_pupcet_result_status' => $_POST['sar_pupcet_result_status'],
+					'f137_status' => $_POST['f137_status'],
+					'g10_status' => $_POST['g10_status'],
+					'g11_status' => $_POST['g11_status'],
+					'g12_status' => $_POST['g12_status'],
+					'psa_nso_status' => $_POST['psa_nso_status'],
+					'goodmoral_status' => $_POST['goodmoral_status'],
+					'medical_cert_status' => $_POST['medical_cert_status'],
+					'pictwobytwo_status' => $_POST['pictwobytwo_status'],
+				];
+				if($model->__updateAdmissionDocument($id, $admissionStatusData)){
+					echo '<script>alert("Successfully inserted")</script>';
+					return redirect()->to(base_url('admission'));
+				}else{
 					die('error');
 				}
 			}
-			
-
 		}
-		echo view('admissionoffice/header', $data);
-		echo view('admissionoffice/admissiondashboard', $data);	
-		return view('admissionoffice/footer', $data);
+		
+		$this->data['image_file_record'] = $getStudentFileImages->__getStudentImageFiles($id);
+		$this->data['student'] = $getstudent->__getStudentWhereEqualToUserID($id);
+		if ($this->isAjax()) {
+				return view('admissionoffice/components/student_admission_files_gallery', $this->data);
+		}
+		echo view('admissionoffice/header', $this->data);
+		echo view('admissionoffice/components/student_admission_files_gallery', $this->data);
+		return view('admissionoffice/footer', $this->data);
 	
 	}
 
@@ -709,9 +685,23 @@ class AdmissionController extends BaseController
 	}
 	public function insertStudentAdmissionForwarded($id)
 	{
+		$getstudent = new StudentsModel;
+		$getchecklist = new ChecklistModel;
+		$getstudentadmissionmodel = new StudentadmissionModel;
+		$getRetrievedRecord = new RefForRetrievedModel;
+
+		$this->data['retrieved_record'] = $getRetrievedRecord->__getRetrievedRecord();
+		$this->data['count_incomplete'] = $getstudentadmissionmodel->__getIncompleteDocs();
+		$this->data['count_complete'] = $getstudentadmissionmodel->__getCompleteDocs();
+		$this->data['count_recheck'] = $getstudentadmissionmodel->__getRecheckDocs();
+		$this->data['students'] = $getstudent->__getStudentDetails();
+		$this->data['checklists'] = $getchecklist->__getChecklistDetails();
+
 		$insertstudentadmission = new StudentadmissionModel;
 		$is_result = $insertstudentadmission->__getSAMDetails($id);
-
+		if($_POST['admission_status']){
+			echo "<script>alert('Please select admission status!');</script>";
+		}
 		if (!empty($is_result)) {	
 			$data = [
 				'studID'=> $id,	
@@ -784,6 +774,13 @@ class AdmissionController extends BaseController
 			$this->session->setFlashData('error', 'Error encountered!');
 			return redirect()->to(base_url('admission'));
 		}
+		
+		if ($this->isAjax()) {
+			return view('admissionoffice/admissiondashboard', $this->data);
+		}
+		echo view('admissionoffice/header', $this->data);
+		echo view('admissionoffice/admissiondashboard', $this->data);
+		return view('admissionoffice/footer', $this->data);
 	}
 	public function showNotifier($id){
 		

@@ -25,22 +25,11 @@ class AdmissionDocumentStatusModel extends Model
 
 	}
 	
-	public function __updateAdmissionDocument($id, $sar_pupcet_result_status, $f137_status, $g10_status, $g11_status, $g12_status, $psa_nso_status, $goodmoral_status, $medical_cert_status, $pictwobytwo_status)
+	public function __updateAdmissionDocument($id, $data)
 	{	
-		$this->set('sar_pupcet_result_status', $sar_pupcet_result_status);
-		$this->set('f137_status', $f137_status);
-		$this->set('g10_status', $g10_status);
-		$this->set('g11_status', $g11_status);
-		$this->set('g12_status', $g12_status);
-		$this->set('psa_nso_status', $psa_nso_status);
-		$this->set('good_moral_status', $goodmoral_status);
-		$this->set('medical_cert_status', $medical_cert_status);
-		$this->set('twobytwo_status', $pictwobytwo_status);
-
+		$this->set($data);
 		$this->where('studID', $id);
         return $this->update();
-		
-		
 	}
 
 	public function __getStudentAdmissionStatus($id){ 
