@@ -245,7 +245,7 @@
                                   <br>
                                   <br>
                                   <select class="form-select" name="admission_status" required>
-                                    <option <?php if (empty($res['admission_status'])){echo 'selected';}?>>Select Status</option>
+                                    <option value="select_status"?<?php if (isset($res['admission_status']) == 'select_status'){echo 'selected';}?>>Select Status</option>
                                     <option value="complete" <?php if (isset($res['admission_status']) == 'complete'){echo 'selected';}?>>Complete</option>
                                     <option value="incomplete" <?php if (isset($res['admission_status']) == 'incomplete'){echo 'selected';}?>>Incomplete</option>
                                     <option value="rechecking" <?php if (isset($res['admission_status']) == 'rechecking'){echo 'selected';}?>>Rechecking</option>

@@ -1,6 +1,6 @@
 function alert_error(message){
 	Swal.fire(
-		'Opps!',
+		'Oops!',
 		message,
 		'error'
 	  );

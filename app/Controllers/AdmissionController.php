@@ -699,9 +699,10 @@ class AdmissionController extends BaseController
 
 		$insertstudentadmission = new StudentadmissionModel;
 		$is_result = $insertstudentadmission->__getSAMDetails($id);
-		if($_POST['admission_status']){
+		if($_POST['admission_status']=='select_status'){
 			$this->session->setFlashData('error', 'Please select admission status!');
 		}
+
 		if (!empty($is_result)) {	
 			$data = [
 				'studID'=> $id,	
@@ -764,7 +765,7 @@ class AdmissionController extends BaseController
 		}
 
 		if ($res) {
-			$this->session->setFlashData('success', 'Successfully Added Student!');
+			$this->session->setFlashData('success', 'Successfully Inserted!');
 			if ($res['admission_status'] == 'complete') {
 				return redirect()->to(base_url('admission/complete'));
 			}elseif ($res['admission_status'] == 'incomplete') {
@@ -819,15 +820,15 @@ class AdmissionController extends BaseController
 			$remarks = $_POST['remarks'];}else{$remarks = NUll;}
 
 		// var_dump($userID.', '.$email.', '.$admission_status.', '.$no_dry_seal.', '.$sc_true_copy.', '.$sc_pup_remarks.', '.$s_one_photocopy.', '.$submit_original.', '.$not_submit.', '.$remarks);	
-		if ($admission_status == 'incomplete') {			
+		if ($admission_status == 'incomplete' && $admission_status =='complete' && $admission_status =='rechecking') {			
 			$getrefmodel = new RefremarksModel;
 			$res = $getrefmodel->insertSendLackingDocuments($email, $userID, $no_dry_seal, $sc_true_copy, $sc_pup_remarks, $s_one_photocopy, $submit_original, $not_submit, $remarks);
 
 	 			if ($res) {
-					$this->session->setFlashData('success_message', 'Successfully Added Student');
+					$this->session->setFlashData('success', 'Successfully Inserted!');
 	            	return redirect()->to(base_url('admission'));
 				}else{
-					$this->session->setFlashData('error_message', 'Error');
+					$this->session->setFlashData('warning', 'Error');
 	            	return redirect()->to(base_url('admission'));
 				}
 		}else{
