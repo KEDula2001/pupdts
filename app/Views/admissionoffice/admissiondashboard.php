@@ -144,8 +144,7 @@
                           <?php endif ?>
                         </td>
                         <td><?=esc($student['course'])?></td>
-                        <td><?=esc($student['year_graduated'])?></td>
-                        
+                        <td><?=esc($student['student_number'][0]).esc($student['student_number'][1]).esc($student['student_number'][2]).esc($student['student_number'][3])?></td>
                         <td>
                             <?php if ($res != NUll): ?>
                               <?php if ($res['admission_status'] == 'complete'): ?>
