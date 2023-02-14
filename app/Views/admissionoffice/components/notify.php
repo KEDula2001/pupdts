@@ -161,7 +161,7 @@
             <div align="center">
               <label><h4>NOTIFY USER</h4></label>
             </div>
-            <form action="<?php echo base_url('admission/sendmail-lacking-documents/'.$studentadmission_details['studID']); ?>" method="post">
+            <form action="<?php echo base_url('admission/sendmail-lacking-documents/'.isset($studentadmission_details['studID'])); ?>" method="post">
               <input type="hidden" value="<?php echo $studentadmission_details['email']; ?>" name="email">
               <input type="hidden" value="<?php echo $studentadmission_details['admission_status']; ?>" name="admission_status">
               <input type="checkbox" value="No Dry Seal" name="no_dry_seal"> No Dry Seal<br>
@@ -176,11 +176,10 @@
               <br>
               <label>Send To: <?php echo $studentadmission_details['email']; ?></label>
               <div align="center">
-                <button type="submit" class="btn btn-primary">
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  Send Email
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                </button>
+              
+              <button type="submit" class="btn btn-primary">
+                <option value="send-email"?<?php if (isset($res['send_button']) == 'send-email'){echo 'selected';}?>>Send Email</option>
+              </button>  
               </div>
             </form>
         </div>

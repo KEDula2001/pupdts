@@ -40,7 +40,7 @@
                       <h3 align="center">No files</h3>
                     <?php endif ?>
                     <div align="center">
-                      <label style="color:#dc3545;">PUPCET/CAEPUP</label>
+                      <label style="color:#dc3545;">SAR Form/PUPCET/CAEPUP Result</label>
                     </div>
                     </a>
                     <div align = "center">

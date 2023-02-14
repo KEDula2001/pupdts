@@ -34,7 +34,7 @@
               <td>
                 <?php 
                   if ($record['requirementsID'] == 1){
-                    echo 'SAR/PUPCET RESULTS';
+                    echo 'SAR Form/PUPCET/CAEPUP Result';
                   }elseif ($record['requirementsID'] == 2) {
                     echo 'F137';
                   }elseif ($record['requirementsID'] == 3) {

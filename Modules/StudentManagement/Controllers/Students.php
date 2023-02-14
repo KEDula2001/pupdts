@@ -143,7 +143,7 @@ class Students extends BaseController
         } elseif ($_POST['status'] == 'alumni') {
           $_POST['year_graduated'] = $_POST['level'];
           $_POST['level'] = null;
-        } else {
+        } else { 
           $_POST['year_graduated'] = null;
           $_POST['level'] = null;
         }
@@ -207,16 +207,47 @@ class Students extends BaseController
       }
       return false;
     }
-    public function sendLackingStudentDocuments($email, $no_dry_seal, $sc_true_copy, $sc_pup_remarks, $s_one_photocopy, $submit_original, $not_submit, $remarks)
+    //add parameters
+    //seperate firstname, middlename, lastname
+    //ibukod yung di related sa <li>  (remarks, email, name)
+    public function sendLackingStudentDocuments($student_number=NULL, $firstname=NULL, $middlename=NULL, $lastname=NULL, $email=NULL, $no_dry_seal=NULL, $sc_true_copy=NULL, $sc_pup_remarks=NULL, $s_one_photocopy=NULL, $submit_original=NULL, $not_submit=NULL, $remarks=NULL)
     {
       $mail = \Config\Services::email();
       $mail->setTo($email);
       $mail->setSubject('Notice of Lacking Documents');
       $mail->setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig OCT-DRS');
-      $mail->setMessage('Good Day!<br><br>Sending herewith the list of your lacking docuements <br><br><ul><li>'.$no_dry_seal.'</li><li>'.$sc_true_copy.'</li><li>'.$sc_pup_remarks.'</li><li>'.$s_one_photocopy.'</li><li>'.$submit_original.'</li><li>'.$not_submit.'</li></ul><br>Remarks:'.$remarks);
+      $mail->setMessage('Good Day!<br><br>Good day, '.$$firstname.' '.$middlename[0].$lastname.'! Following up on your Admission Credentials, ghere are the documents you need to submit/resubmit with their corresponding remarks. Please comply immediately. <br> Thank you! <br><br><ul><li>'
+      .$no_dry_seal.'</li><li>'.$sc_true_copy.'</li><li>'.$sc_pup_remarks.'</li><li>'.$s_one_photocopy.'</li><li>'.$submit_original.'</li><li>'.$not_submit.'</li></ul><br>Remarks:'.$remarks);
       if ($mail->send()) {
         return true;
       }
       return false;
+    }
+
+    public function sendSpecificStudentDocuments($data){
+      $mail = \Config\Services::email();
+      $mail->setTo($email);
+      $setFrom('norereply@rodras.puptaguigcs.net', 'PUP-Taguig OCT-DRS');
+      $mail->setMessage('Good Day! <br> <br> Good day! Sending here with the list of your lacking documents. Please comply'); 
+      $mail->setMessage('<ul>'); 
+      foreach($data as $value){
+        if($data[$value] > 1){
+        $mail->setMessage('<br><br><li>'.$data[$value].'</li>');
+        }
+      }
+      $mail->setMessage('</ul>');
+    }
+
+    public function sendNotifiedLackingDocuments($data){
+      $mail = \Config\Services::email(); 
+      $mail->setTo($email); 
+      $setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig OCT-DRS');
+      $mail->setMessage('Good Day! <br> <br> Good day! Sending here with the list of your lacking documents. Please comply');
+      $mail->setMessage('<ul>'); 
+      
+      foreach($data as $value){
+        $this->setMessage("<li>".$value."</li>"); 
+      }
+      $mail->setMessage('<ul>');
     }
 }

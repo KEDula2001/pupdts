@@ -821,12 +821,12 @@ class AdmissionController extends BaseController
 			$remarks = $_POST['remarks'];}else{$remarks = NUll;}
 
 		// var_dump($userID.', '.$email.', '.$admission_status.', '.$no_dry_seal.', '.$sc_true_copy.', '.$sc_pup_remarks.', '.$s_one_photocopy.', '.$submit_original.', '.$not_submit.', '.$remarks);	
-		if ($admission_status == 'incomplete' && $admission_status =='complete' && $admission_status =='rechecking') {			
+		if ($admission_status == 'incomplete' || $admission_status =='complete' || $admission_status =='rechecking') {			
 			$getrefmodel = new RefremarksModel;
-			$res = $getrefmodel->insertSendLackingDocuments($email, $userID, $no_dry_seal, $sc_true_copy, $sc_pup_remarks, $s_one_photocopy, $submit_original, $not_submit, $remarks);
+			$res = $getrefmodel->insertSendLackingDocuments($email=NULL, $userID=NULL, $no_dry_seal, $sc_true_copy=NULL, $sc_pup_remarks=NULL, $s_one_photocopy=NULL, $submit_original=NULL, $not_submit=NULL, $remarks=NULL);
 
+			$this->session->setFlashData('success', 'Email Sent!');
 	 			if ($res) {
-					$this->session->setFlashData('success', 'Successfully Inserted!');
 	            	return redirect()->to(base_url('admission'));
 				}else{
 					$this->session->setFlashData('warning', 'Error');

@@ -17,7 +17,7 @@ class RefremarksModel extends Model
 
 		$student = new Students();
 		// var_dump($email);
-	      if($student->sendLackingStudentDocuments($email, $no_dry_seal, $sc_true_copy, $sc_pup_remarks, $s_one_photocopy, $submit_original, $not_submit,$remarks))
+	      if($student->sendLackingStudentDocuments($email=NULL, $no_dry_seal=NULL, $sc_true_copy=NULL, $sc_pup_remarks=NULL, $s_one_photocopy=NULL, $submit_original=NULL, $not_submit=NULL,$remarks=NULL))
 	      {
 
 	        $this->transCommit();
@@ -29,7 +29,8 @@ class RefremarksModel extends Model
 			$this->set('s_one_photocopy', $s_one_photocopy);
 			$this->set('submit_original', $submit_original);
 			$this->set('not_submit', $not_submit);
-			$this->set('other_remarks', $remarks);
+			$this->set('send_button', $send_button);
+			
 			$this->insert();
 	        
 	        return true;
