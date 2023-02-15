@@ -10,7 +10,7 @@
           <div class="row">
             <div class="col-12">
             
-                <input type="checkbox" name="gender" value="SAR">SAR Form/PUPCET Results</input><br>
+                <input type="checkbox" name="gender" value="SAR">SAR Form/PUPCET/CAEPUP Result</input><br>
                 <input type="checkbox" name="gender" value="F137">F137</input><br>
                 <input type="checkbox" name="gender" value="F138">Grade 10 Card</input><br>
                 <input type="checkbox" name="gender" value="SAR">Grade 11 Card</input><br>

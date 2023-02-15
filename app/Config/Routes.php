@@ -110,6 +110,8 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function($rout
 	$routes->post('admission/insert-admission/(:num)', 'AdmissionController::insertStudentAdmissionForwarded/$1');
 	$routes->get('admission/notify/(:num)', 'AdmissionController::showNotifier/$1');
 	$routes->post('admission/sendmail-lacking-documents/(:num)', 'AdmissionController::sendLackingDocumentstoMail/$1');
+	//added new specific route for send mail 
+	$routes->post('admission/sendnotifystudents/(:num)', 'AdmissionController::sendLackingDocumentstoMail/$1');
 	$routes->get('admission/incomplete', 'AdmissionController::showstudentIncompleteAdmission');
 	$routes->get('admission/request-rechecking', 'AdmissionController::showstudentRecheckingAdmission');
 	$routes->post('admission/retreived-admission-files/(:num)', 'AdmissionController::setForRetrievingFiles/$1');

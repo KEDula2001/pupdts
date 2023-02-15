@@ -50,7 +50,7 @@
                   </div>
                   <div class="card-body">
                       <?php if (!empty($studentadmission_details['sar_pupcct_resultID'])): ?>
-                        <input type="checkbox" value="1" name="sar_pupcct_resultID" checked> SAR Form/PUPCCT Results<br>
+                        <input type="checkbox" value="1" name="sar_pupcct_resultID" checked>SAR Form/PUPCET/CAEPUP Result<br>
                       <?php endif ?>
                       <?php if (!empty($studentadmission_details['f137ID'])): ?>
                         <input type="checkbox" value="1" name="f137ID" checked> Form 137<br>
@@ -232,7 +232,7 @@
 
                   <!-- PSA/NSO -->
                   <div class="mb-3">
-                    <label for="formFile4" class="form-label">PSA/NSO:</label>
+                    <label for="formFile4" class="form-label">SAR Form/PUPCET/CAEPUP Result:</label>
                     <input class="form-control" type="file" name="psa_nso_files" id="formFile4">
                   </div>
                   <!-- PSA/NSO -->

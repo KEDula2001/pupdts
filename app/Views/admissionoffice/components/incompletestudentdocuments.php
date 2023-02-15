@@ -124,7 +124,7 @@
                                       $res = $getstudentadmission->__getSAMDetails($id);
                                     ?>  
 <input type="checkbox" value="1" name="sar_pupcct_resultID" <?php if(!empty($res['sar_pupcct_resultID'])){echo 'checked';} ?>>
-                                    <label for="sar_pupcct_resultID">SAR Form/PUPCCT Results</label><br>
+                                    <label for="sar_pupcct_resultID">SAR Form/PUPCET/CAEPUP Result</label><br>
                                      <input type="checkbox" value="2" name="f137ID" <?php if(!empty($res['f137ID'])){echo 'checked';} ?>>
                                      <label for="f137ID">F137</label><br>
                                      <input type="checkbox" value="3" name="f138ID" <?php if(!empty($res['f138ID'])){echo 'checked';} ?>>
