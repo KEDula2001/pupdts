@@ -804,90 +804,86 @@ class AdmissionController extends BaseController
 	}
 	public function sendLackingDocumentstoMail($id)
 	{
-		$userID = $id;
-		$email = $_POST['email'];
-		$admission_status = $_POST['admission_status'];
-
-		//die(print_r($_POST));
-
 		$getrefmodel = new RefremarksModel;
 		$is_result = $getrefmodel->__getadmissionremarks($id);
-
 		if(!empty($is_result)){
 			$data = [
-				
-				'sc_pup_remarks' => (!empty($_POST['sc_pup_remarks']) ? $_POST['sc_pup_remarks'] : ""),
-				's_one_photocopy_sarform' => (!empty($_POST['s_one_photocopy_sarform']) ? $_POST['s_one_photocopy_sarform'] : ""),
-				'submit_original_sarform' => (!empty($_POST['submit_original_sarform']) ? $_POST['submit_original_sarform'] : ""),//
-				'no_dry_sealf137' => (!empty($_POST['no_dry_sealf137']) ? $_POST['no_dry_sealf137'] : ""),
-				'submit_original_f137' => (!empty($_POST['submit_original_f137']) ? $_POST['submit_original_f137'] : ""),			
-				'no_dry_sealgrade10' => (!empty($_POST['no_dry_sealgrade10']) ? $_POST['no_dry_sealgrade10'] : ""),
-				's_one_photocopy_grade10' => (!empty($_POST['s_one_photocopy_grade10']) ? $_POST['s_one_photocopy_grade10'] : ""),
-				'submit_original_grade10' => (!empty($_POST['submit_original_grade10']) ? $_POST['submit_original_grade10'] : ""),		
-				'no_dry_sealgrade11' => (!empty($_POST['no_dry_sealgrade11']) ? $_POST['no_dry_sealgrade11'] : ""),
-				's_one_photocopy_grade11' => (!empty($_POST['s_one_photocopy_grade11']) ? $_POST['s_one_photocopy_grade11'] : ""),
-				'submit_original_grade11' => (!empty($_POST['submit_orignal_grade11']) ? $_POST['submit_orignal_grade11'] : ""),		
-				'no_dry_sealgrade12' => (!empty($_POST['no_dry_sealgrade12']) ? $_POST['no_dry_sealgrade12'] : ""),
-				's_one_photocopy_grade12' => (!empty($_POST['s_one_photocopy_grade12']) ? $_POST['s_one_photocopy_grade12'] : ""),
-				'submit_original_grade12' => (!empty($_POST['submit_original_grade12']) ? $_POST['submit_original_grade12'] : ""),
-				's_one_photocopy_psa' => (!empty($_POST['s_one_photocopy_psa']) ? $_POST['s_one_photocopy_psa'] : ""),
-				'submit_original_psa' => (!empty($_POST['submit_original_psa']) ? $_POST['submit_original_psa'] : ""),
-				'no_dry_sealgoodmoral' => (!empty($_POST['no_dry_sealgoodmoral']) ? $_POST['no_dry_sealgoodmoral'] : ""),
-				's_one_photocopy_goodmoral' => (!empty($_POST['s_one_photocopy_goodmoral']) ? $_POST['s_one_photocopy_goodmoral'] : ""),
-				'submit_original_goodmoral' => (!empty($_POST['submit_original_goodmoral']) ? $_POST['submit_original_goodmoral'] : ""),
-				'submit_original_medcert' => (!empty($_POST['submit_original_medcert']) ? $_POST['submit_original_medcert'] : ""),
-				'submit_twobytwo' => (!empty($_POST['submit_twobytwo']) ? $_POST['submit_twobytwo'] : "")
+				'sc_pup_remarks' => (!empty($_POST['sc_pup_remarks']) ? $_POST['sc_pup_remarks'] : null),
+				's_one_photocopy_sarform' => (!empty($_POST['s_one_photocopy_sarform']) ? $_POST['s_one_photocopy_sarform'] : null),
+				'submit_original_sarform' => (!empty($_POST['submit_original_sarform']) ? $_POST['submit_original_sarform'] : null),
+				'no_dry_sealf137' => (!empty($_POST['no_dry_sealf137']) ? $_POST['no_dry_sealf137'] : null),
+				'submit_original_f137' => (!empty($_POST['submit_original_f137']) ? $_POST['submit_original_f137'] : null),			
+				'no_dry_sealgrade10' => (!empty($_POST['no_dry_sealgrade10']) ? $_POST['no_dry_sealgrade10'] : null),
+				's_one_photocopy_grade10' => (!empty($_POST['s_one_photocopy_grade10']) ? $_POST['s_one_photocopy_grade10'] : null),
+				'submit_original_grade10' => (!empty($_POST['submit_original_grade10']) ? $_POST['submit_original_grade10'] : null),		
+				'no_dry_sealgrade11' => (!empty($_POST['no_dry_sealgrade11']) ? $_POST['no_dry_sealgrade11'] : null),
+				's_one_photocopy_grade11' => (!empty($_POST['s_one_photocopy_grade11']) ? $_POST['s_one_photocopy_grade11'] : null),
+				'submit_original_grade11' => (!empty($_POST['submit_original_grade11']) ? $_POST['submit_original_grade11'] : null),		
+				'no_dry_sealgrade12' => (!empty($_POST['no_dry_sealgrade12']) ? $_POST['no_dry_sealgrade12'] : null),
+				's_one_photocopy_grade12' => (!empty($_POST['s_one_photocopy_grade12']) ? $_POST['s_one_photocopy_grade12'] : null),
+				'submit_original_grade12' => (!empty($_POST['submit_original_grade12']) ? $_POST['submit_original_grade12'] : null),
+				's_one_photocopy_psa' => (!empty($_POST['s_one_photocopy_psa']) ? $_POST['s_one_photocopy_psa'] : null),
+				'submit_original_psa' => (!empty($_POST['submit_original_psa']) ? $_POST['submit_original_psa'] : null),
+				'no_dry_sealgoodmoral' => (!empty($_POST['no_dry_sealgoodmoral']) ? $_POST['no_dry_sealgoodmoral'] : null),
+				's_one_photocopy_goodmoral' => (!empty($_POST['s_one_photocopy_goodmoral']) ? $_POST['s_one_photocopy_goodmoral'] : null),
+				'submit_original_goodmoral' => (!empty($_POST['submit_original_goodmoral']) ? $_POST['submit_original_goodmoral'] : null),
+				'submit_original_medcert' => (!empty($_POST['submit_original_medcert']) ? $_POST['submit_original_medcert'] : null),
+				'submit_twobytwo' => (!empty($_POST['submit_twobytwo']) ? $_POST['submit_twobytwo'] : null)
 			];
-			$res = $getrefmodel->updateSendLackingDocuments($userID, $email ,$data);
-
+			$res = $getrefmodel->updateSendLackingDocuments(
+				$id, 
+				$_POST['email'], 
+				$data, 
+				$_POST['remarks']
+			);
 		}else{
 			$data = [
-				'user_id' => $userID,
-				'sc_pup_remarks' => (!empty($_POST['sc_pup_remarks']) ? $_POST['sc_pup_remarks'] : ""),
-				's_one_photocopy_sarform' => (!empty($_POST['s_one_photocopy_sarform']) ? $_POST['s_one_photocopy_sarform'] : ""),
-				'submit_original_sarform' => (!empty($_POST['submit_original_sarform']) ? $_POST['submit_original_sarform'] : ""),//
-				'no_dry_sealf137' => (!empty($_POST['no_dry_sealf137']) ? $_POST['no_dry_sealf137'] : ""),
-				'submit_original_f137' => (!empty($_POST['submit_original_f137']) ? $_POST['submit_original_f137'] : ""),			
-				'no_dry_sealgrade10' => (!empty($_POST['no_dry_sealgrade10']) ? $_POST['no_dry_sealgrade10'] : ""),
-				's_one_photocopy_grade10' => (!empty($_POST['s_one_photocopy_grade10']) ? $_POST['s_one_photocopy_grade10'] : ""),
-				'submit_original_grade10' => (!empty($_POST['submit_original_grade10']) ? $_POST['submit_original_grade10'] : ""),		
-				'no_dry_sealgrade11' => (!empty($_POST['no_dry_sealgrade11']) ? $_POST['no_dry_sealgrade11'] : ""),
-				's_one_photocopy_grade11' => (!empty($_POST['s_one_photocopy_grade11']) ? $_POST['s_one_photocopy_grade11'] : ""),
-				'submit_original_grade11' => (!empty($_POST['submit_orignal_grade11']) ? $_POST['submit_orignal_grade11'] : ""),		
-				'no_dry_sealgrade12' => (!empty($_POST['no_dry_sealgrade12']) ? $_POST['no_dry_sealgrade12'] : ""),
-				's_one_photocopy_grade12' => (!empty($_POST['s_one_photocopy_grade12']) ? $_POST['s_one_photocopy_grade12'] : ""),
-				'submit_original_grade12' => (!empty($_POST['submit_original_grade12']) ? $_POST['submit_original_grade12'] : ""),
-				's_one_photocopy_psa' => (!empty($_POST['s_one_photocopy_psa']) ? $_POST['s_one_photocopy_psa'] : ""),
-				'submit_original_psa' => (!empty($_POST['submit_original_psa']) ? $_POST['submit_original_psa'] : ""),
-				'no_dry_sealgoodmoral' => (!empty($_POST['no_dry_sealgoodmoral']) ? $_POST['no_dry_sealgoodmoral'] : ""),
-				's_one_photocopy_goodmoral' => (!empty($_POST['s_one_photocopy_goodmoral']) ? $_POST['s_one_photocopy_goodmoral'] : ""),
-				'submit_original_goodmoral' => (!empty($_POST['submit_original_goodmoral']) ? $_POST['submit_original_goodmoral'] : ""),
-				'submit_original_medcert' => (!empty($_POST['submit_original_medcert']) ? $_POST['submit_original_medcert'] : ""),
-				'submit_twobytwo' => (!empty($_POST['submit_twobytwo']) ? $_POST['submit_twobytwo'] : "")
-				
-				
+				'sc_pup_remarks' => (!empty($_POST['sc_pup_remarks']) ? $_POST['sc_pup_remarks'] : null),
+				's_one_photocopy_sarform' => (!empty($_POST['s_one_photocopy_sarform']) ? $_POST['s_one_photocopy_sarform'] : null),
+				'submit_original_sarform' => (!empty($_POST['submit_original_sarform']) ? $_POST['submit_original_sarform'] : null),
+				'no_dry_sealf137' => (!empty($_POST['no_dry_sealf137']) ? $_POST['no_dry_sealf137'] : null),
+				'submit_original_f137' => (!empty($_POST['submit_original_f137']) ? $_POST['submit_original_f137'] : null),			
+				'no_dry_sealgrade10' => (!empty($_POST['no_dry_sealgrade10']) ? $_POST['no_dry_sealgrade10'] : null),
+				's_one_photocopy_grade10' => (!empty($_POST['s_one_photocopy_grade10']) ? $_POST['s_one_photocopy_grade10'] : null),
+				'submit_original_grade10' => (!empty($_POST['submit_original_grade10']) ? $_POST['submit_original_grade10'] : null),		
+				'no_dry_sealgrade11' => (!empty($_POST['no_dry_sealgrade11']) ? $_POST['no_dry_sealgrade11'] : null),
+				's_one_photocopy_grade11' => (!empty($_POST['s_one_photocopy_grade11']) ? $_POST['s_one_photocopy_grade11'] : null),
+				'submit_original_grade11' => (!empty($_POST['submit_original_grade11']) ? $_POST['submit_original_grade11'] : null),		
+				'no_dry_sealgrade12' => (!empty($_POST['no_dry_sealgrade12']) ? $_POST['no_dry_sealgrade12'] : null),
+				's_one_photocopy_grade12' => (!empty($_POST['s_one_photocopy_grade12']) ? $_POST['s_one_photocopy_grade12'] : null),
+				'submit_original_grade12' => (!empty($_POST['submit_original_grade12']) ? $_POST['submit_original_grade12'] : null),
+				's_one_photocopy_psa' => (!empty($_POST['s_one_photocopy_psa']) ? $_POST['s_one_photocopy_psa'] : null),
+				'submit_original_psa' => (!empty($_POST['submit_original_psa']) ? $_POST['submit_original_psa'] : null),
+				'no_dry_sealgoodmoral' => (!empty($_POST['no_dry_sealgoodmoral']) ? $_POST['no_dry_sealgoodmoral'] : null),
+				's_one_photocopy_goodmoral' => (!empty($_POST['s_one_photocopy_goodmoral']) ? $_POST['s_one_photocopy_goodmoral'] : null),
+				'submit_original_goodmoral' => (!empty($_POST['submit_original_goodmoral']) ? $_POST['submit_original_goodmoral'] : null),
+				'submit_original_medcert' => (!empty($_POST['submit_original_medcert']) ? $_POST['submit_original_medcert'] : null),
+				'submit_twobytwo' => (!empty($_POST['submit_twobytwo']) ? $_POST['submit_twobytwo'] : null),
 			];
-			//die(print_r($data));
-			$res = $getrefmodel->insertSendLackingDocuments($userID, $email ,$data);
+			$res = $getrefmodel->insertSendLackingDocuments(
+				$id, 
+				$_POST['email'], 
+				$data, 
+				$_POST['remarks']
+			);
 		}
-		
-		//die(print_r($_POST));
-		//EMAIL ALERT
-
-		if ($admission_status == 'incomplete' || $admission_status =='complete' || $admission_status =='rechecking') {			
-			$this->session->setFlashData('success', 'Email Sent!');
-	 			if ($res) {
-	            	return redirect()->to(base_url('admission'));
-				}else{
-					$this->session->setFlashData('warning', 'Error');
-	            	return redirect()->to(base_url('admission'));
-				}
+		if (
+			$_POST['admission_status'] == 'incomplete' || 
+			$_POST['admission_status'] =='complete' || 
+			$_POST['admission_status'] =='rechecking'
+		) {
+			if ($res) {
+				$this->session->setFlashData('success', 'Email Sent!');
+				return redirect()->to(base_url('admission'));
+			} else {
+				$this->session->setFlashData('warning', 'Error');
+				return redirect()->to(base_url('admission'));
+			}
 		}else{
-			$this->session->setFlashData('error_message', 'Error');
+			$this->session->setFlashData('error', 'Please select adminssion status!');
 	        return redirect()->to(base_url('admission'));
 		}	
 	}
-
 	
 	public function showstudentIncompleteAdmission()
 	{

@@ -207,17 +207,30 @@ class Students extends BaseController
       }
       return false;
     }
-    //add parameters
-    //seperate firstname, middlename, lastname
-    //ibukod yung di related sa <li>  (remarks, email, name)
-    public function sendLackingStudentDocuments($email=NULL, $no_dry_seal=NULL, $sc_true_copy=NULL, $sc_pup_remarks=NULL, $s_one_photocopy=NULL, $submit_original=NULL, $not_submit=NULL, $remarks=NULL)
-    {
+
+    public function sendLackingStudentDocuments(
+        $firstname = null, 
+        $middlename = null, 
+        $lastname= null, 
+        $email = null, 
+        $data = [], 
+        $remarks = null
+    ) {
+      $html = "<ul>";
+      foreach($data as $value){
+        if(!empty($value)){
+          $html .= '<br><br><li>'.$value.'</li>';
+        }
+      }
+      $html .= "</ul>";
+      $html .= "<br><br><br>Remarks:".$remarks;
       $mail = \Config\Services::email();
       $mail->setTo($email);
       $mail->setSubject('Notice of Lacking Documents');
       $mail->setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig OCT-DRS');
-      $mail->setMessage('Good Day!<br><br>Good day, '.$$firstname.' '.$middlename[0].$lastname.'! Following up on your Admission Credentials, ghere are the documents you need to submit/resubmit with their corresponding remarks. Please comply immediately. <br> Thank you! <br><br><ul><li>'
-      .$no_dry_seal.'</li><li>'.$sc_true_copy.'</li><li>'.$sc_pup_remarks.'</li><li>'.$s_one_photocopy.'</li><li>'.$submit_original.'</li><li>'.$not_submit.'</li></ul><br>Remarks:'.$remarks);
+      $mail->setMessage('Good Day!<br><br>Good day, '.$firstname.' '.$middlename.' '.$lastname.'! 
+        Following up on your Admission Credentials, here are the documents you need to submit/resubmit with their corresponding remarks. 
+        Please comply immediately. <br> Thank you!'.$html); 
       if ($mail->send()) {
         return true;
       }
