@@ -100,7 +100,7 @@ class RefremarksModel extends Model
 			$remarks
 		)) {
 	        $this->transCommit();
-			
+
 			$this->set($data);	
 			$this->set('other_remarks', $remarks);	
 			$this->where('user_id', $userID);
@@ -114,9 +114,7 @@ class RefremarksModel extends Model
 	        return false;
 	    }
 	}
-
-
-
+	
 	public function __getadmissionremarks($id)
 	{
 		return $this->db->table($this->table)

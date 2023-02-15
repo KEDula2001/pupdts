@@ -162,7 +162,6 @@
               <label><h4>NOTIFY USER</h4></label>
             </div>
             
-            
         <div class="row">
           <div class="col">
             <form action="<?php echo base_url('admission/sendnotifystudents/'.$studentadmission_details['studID']); ?>" method="post">
@@ -306,6 +305,7 @@
               <label>Send to: <?php echo $studentadmission_details['email']; ?></label>
 
               <div align="center">
+
               <button type="submit" class="btn btn-primary">
                 <option value="send-email"?<?php if (isset($res['send_button']) == 'send-email'){echo 'selected';}?>>Send Email</option>
               </button>  
@@ -316,7 +316,6 @@
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </button> -->
 
-               
               </div>
             </form>
         </div>

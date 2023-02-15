@@ -224,6 +224,7 @@ class Students extends BaseController
       }
       $html .= "</ul>";
       $html .= "<br><br><br>Remarks:".$remarks;
+
       $mail = \Config\Services::email();
       $mail->setTo($email);
       $mail->setSubject('Notice of Lacking Documents');
