@@ -7,6 +7,7 @@
           <button type="submit" class="float-end btn btn-secondary" formtarget="_blank"> Generate Report</button>
               <!--        <i class="fas fa-download fa-sm"></i> Generate Report</a>       -->
     </div>
+    
   </div>
 </div>
     <div class="row">

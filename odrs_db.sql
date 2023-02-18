@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 13, 2023 at 05:53 AM
+-- Generation Time: Feb 17, 2023 at 03:20 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -75,7 +75,8 @@ INSERT INTO `admins` (`id`, `firstname`, `lastname`, `middlename`, `contact`, `u
 (17, 'Harvz', 'IT', 'Tech', '09359452475', 214, '2022-12-13 12:01:37', '2022-12-13 13:00:32', '2022-12-13 13:00:32'),
 (18, 'HARVZ', 'IT', 'TEch', '093595151', 215, '2022-12-13 13:23:30', '2022-12-13 13:23:30', NULL),
 (19, 'edmon', 'delacruz', 'madronio', '09635243546', 219, '2023-02-11 21:06:59', '2023-02-11 21:06:59', NULL),
-(20, 'dfdfdf', 'dfdfdf', 'dfdfdf', '09878789876', 220, '2023-02-11 21:11:02', '2023-02-11 21:11:02', NULL);
+(20, 'dfdfdf', 'dfdfdf', 'dfdfdf', '09878789876', 220, '2023-02-11 21:11:02', '2023-02-17 19:59:53', '2023-02-17 19:59:53'),
+(21, 'Mhel', 'test', 'aa', '09159632301', 227, '2023-02-17 20:00:48', '2023-02-17 20:00:48', NULL);
 
 -- --------------------------------------------------------
 
@@ -607,7 +608,8 @@ INSERT INTO `requests` (`id`, `slug`, `student_id`, `reason`, `remark`, `status`
 (119, 'hti6yNjkwTvc', 132, 'scholarship', NULL, 'c', NULL, NULL, '2022-10-17 20:35:26', NULL, NULL, '2022-10-17 20:49:31', '2022-10-17 08:50:17', '2022-10-17 20:35:12', '2022-10-17 20:50:17', NULL),
 (120, 'RnLTEdNsbaPu', 132, 'scholarship', NULL, 'c', NULL, NULL, '2022-10-17 20:52:08', NULL, NULL, '2022-10-17 20:52:16', NULL, '2022-10-17 20:51:56', '2022-10-17 20:52:16', NULL),
 (121, 'ZXKB0FirndtN', 136, 'scholarship', NULL, 'c', NULL, NULL, '2022-10-22 09:57:46', NULL, NULL, '2022-10-22 09:59:30', '2022-10-22 10:01:18', '2022-10-22 09:55:54', '2022-10-22 10:01:18', NULL),
-(122, 'e9lxq8uLyGOR', 145, 'scholarship', NULL, 'p', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-12-16 13:50:39', '2022-12-17 15:30:01', '2022-12-17 15:30:01');
+(122, 'e9lxq8uLyGOR', 145, 'scholarship', NULL, 'p', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-12-16 13:50:39', '2022-12-17 15:30:01', '2022-12-17 15:30:01'),
+(123, 'QMmHTf4gBDUi', 151, 'scholarship', NULL, 'p', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-02-17 19:59:18', '2023-02-17 19:59:18', NULL);
 
 -- --------------------------------------------------------
 
@@ -707,7 +709,8 @@ INSERT INTO `request_details` (`id`, `request_id`, `document_id`, `remark`, `sta
 (219, 122, 6, NULL, 'p', 1, NULL, 0, NULL, NULL, '2022-12-16 13:50:39', '2022-12-17 15:30:01', '2022-12-17 15:30:01'),
 (220, 122, 9, NULL, 'p', 1, NULL, 0, NULL, NULL, '2022-12-16 13:50:39', '2022-12-17 15:30:01', '2022-12-17 15:30:01'),
 (221, 122, 17, NULL, 'p', 1, NULL, 0, NULL, NULL, '2022-12-16 13:50:39', '2022-12-17 15:30:01', '2022-12-17 15:30:01'),
-(222, 122, 19, NULL, 'p', 1, NULL, 1, NULL, NULL, '2022-12-16 13:50:39', '2022-12-17 15:30:01', '2022-12-17 15:30:01');
+(222, 122, 19, NULL, 'p', 1, NULL, 1, NULL, NULL, '2022-12-16 13:50:39', '2022-12-17 15:30:01', '2022-12-17 15:30:01'),
+(223, 123, 6, NULL, 'p', 1, NULL, 0, NULL, NULL, '2023-02-17 19:59:18', '2023-02-17 19:59:18', NULL);
 
 -- --------------------------------------------------------
 
@@ -844,10 +847,9 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`id`, `student_number`, `firstname`, `lastname`, `middlename`, `suffix`, `gender`, `contact`, `birthdate`, `level`, `status`, `year_graduated`, `course_id`, `user_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(142, '2017-00234-TG-0', 'wqeqwew', 'qweqeqwe', 'ewwqeqweq', NULL, NULL, NULL, '2001-02-28', NULL, NULL, NULL, 2, 213, '2022-11-24 13:26:35', '2022-11-24 13:26:35', NULL),
 (145, '2019-00425-TG-0', 'Harvey', 'Buena', 'Almerino', NULL, NULL, NULL, '1999-02-04', NULL, NULL, 2019, 2, 218, '2022-12-15 15:08:12', '2022-12-15 15:08:12', NULL),
-(146, 'dfsdfsdf', 'sdfsdf', 'sdfsdf', 'sdfsdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 221, '2023-02-11 22:32:13', '2023-02-11 22:32:13', NULL),
-(147, 'cute-ako', 'cute ako', 'cute ako', 'cute ako', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 222, '2023-02-11 22:46:38', '2023-02-11 22:46:38', NULL);
+(148, '2020-00212-TG-0', 'Harley', 'Davidson', 'Dimaatupag', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 223, '2023-02-17 17:56:55', '2023-02-17 17:56:55', NULL),
+(151, '2019-00439-TG-0', 'Kyle Errold ', 'Dula', 'Errold', NULL, 'm', '09159632301', NULL, NULL, 'alumni', 2019, 2, 226, '2023-02-17 19:54:56', '2023-02-17 19:56:20', NULL);
 
 -- --------------------------------------------------------
 
@@ -1015,8 +1017,6 @@ INSERT INTO `users` (`id`, `username`, `password`, `email`, `status`, `role_id`,
 (198, '2018-00239-TG-0', '$2y$10$10fYKAvzjz4.prVD4E/FPuTWABiIaTafALbTzCNjScNtSqYI0DXxq', 'harveyjohn1926@gmail.com', 'a', 4, NULL, NULL, '2021-07-25 17:11:15', '2021-07-25 17:11:15', NULL),
 (199, 'sampleuser', '$2y$10$ZPY0NqwvhtcYBhxW1/aKgOV1aywtw8cOdTvFXODOWVwrF1klD3TeO', 'sample@gmail.com', 'a', 2, 1, 'acae4c9e83e53b63ffc7740215898a65', '2021-07-29 08:07:51', '2021-07-29 08:07:51', NULL),
 (200, '2019-00440-TG-0', '$2y$10$2HLnVcx6m9I8HzwWYCwjduvWqz1X4hskNOzAq.kU3OBDCpltlaV8O', 'maiachristina.gaerlan@gmail.com', 'a', 4, NULL, NULL, '2021-07-29 12:08:48', '2021-07-29 12:08:48', NULL),
-(201, '2019-00439-TG-0', '$2y$10$oAV5F9DLJOQdMej2RqzS/.RefXS.gfMP8w0Ndgs.GoMid2SFL7goe', 'kyledula28@gmail.com', 'a', 4, NULL, NULL, '2022-09-19 16:44:28', '2023-02-03 15:10:27', NULL),
-(202, '2018-00124-TG-0', '$2y$10$K2M7odx8Fe.veUDr5G6dZeuPrzpx9QJI9/NWJzs/USPBeBqJU0pGq', 'kyledula29@gmail.com', 'a', 4, NULL, NULL, '2022-10-03 17:01:24', '2022-10-03 17:01:24', NULL),
 (203, '2019-00433-TG-0', '$2y$10$EJoK7uMDGek/lwfyPFV3luMb1DxEvx.hj4AHS8nFAeiRY0aFhua6q', 'axiecryptodula@gmail.com', 'a', 4, NULL, NULL, '2022-10-03 18:51:06', '2022-10-03 18:51:06', NULL),
 (205, '2019-00460-TG-0', '$2y$10$1BiUjoOzqvLyxXWUBnXXyezqpuvFEjpr4LjO6tkryZ13wh/zM.vVO', 'kyledula33@gmail.com', 'a', 4, NULL, NULL, '2022-10-22 09:52:33', '2022-10-22 09:52:33', NULL),
 (206, '2020-00439-TG-0', '$2y$10$T28qw4Hsx7iFZMLv1WJANOmFuNS1G9R3Q2j6JjXP9vcjsjuM5sghW', 'kyledula32@gmail.com', 'a', 4, NULL, NULL, '2022-11-17 13:25:44', '2022-11-17 13:25:44', NULL),
@@ -1031,9 +1031,12 @@ INSERT INTO `users` (`id`, `username`, `password`, `email`, `status`, `role_id`,
 (215, 'hbuena1', '$2y$10$peVJYaAJJ4mQAFozVPPE9OHUndP64Jkv2SQnHXzuENJ0cx5MYhvaG', 'harvz.buena1@gmail.com', 'a', 8, 1, 'a15336249a17c76a85a66edf026ad1bc', '2022-12-13 13:23:30', '2022-12-13 13:23:30', NULL),
 (218, '2019-00425-TG-0', '$2y$10$peVJYaAJJ4mQAFozVPPE9OHUndP64Jkv2SQnHXzuENJ0cx5MYhvaG', 'nmpcdsmts@gmail.com', 'a', 4, NULL, NULL, '2022-12-15 15:08:12', '2022-12-15 15:08:12', NULL),
 (219, 'admincute', '$2y$10$KefgllqWJUw7nw6Hk/wmbeCFOE3pSavVdCKT5kJXyrTaLPFWuQILy', 'edmondelacruz110@gmail.com', 'a', 2, 1, '0f694b519220903a8bc0ee459678de20', '2023-02-11 21:06:59', '2023-02-11 21:06:59', NULL),
-(220, 'adminone', '$2y$10$RxAsDtPgHTasv3ipZkX1VOFDXE46WIQh5sJgOttt0YCWIRBzquAC6', 'adminone@gmail.com', 'a', 5, 5, '21f9188e66d4c94c09b7e096f8deda50', '2023-02-11 21:11:02', '2023-02-11 21:11:02', NULL),
+(220, 'adminone', '$2y$10$RxAsDtPgHTasv3ipZkX1VOFDXE46WIQh5sJgOttt0YCWIRBzquAC6', 'adminone@gmail.com', 'a', 5, 5, '21f9188e66d4c94c09b7e096f8deda50', '2023-02-11 21:11:02', '2023-02-17 19:59:53', '2023-02-17 19:59:53'),
 (221, 'dfsdfsdf', '$2y$10$7ya5ximfVPAWqaT/.tsBL.9c2IFu5ryxxKQaTLbazZYVWslbKs4se', 'sdfs@gmail.com', 'a', 4, NULL, NULL, '2023-02-11 22:32:13', '2023-02-11 22:32:13', NULL),
-(222, 'cute ako', '$2y$10$Aqlq8FUE.zJVdgNieHaNiO807H.vESqkS68K0R0RCl6YhRg5P0dKi', 'cuteako@gmail.com', 'a', 4, NULL, NULL, '2023-02-11 22:46:38', '2023-02-11 22:46:38', NULL);
+(222, 'cute ako', '$2y$10$Aqlq8FUE.zJVdgNieHaNiO807H.vESqkS68K0R0RCl6YhRg5P0dKi', 'cuteako@gmail.com', 'a', 4, NULL, NULL, '2023-02-11 22:46:38', '2023-02-11 22:46:38', NULL),
+(223, '2020-00212-TG-0', '$2y$10$AhDMUr/Yd.V6tivhJiQnoODrA1AlFR.r052OPgGFtSRZme.uxuLh.', 'HarleyDiaamatupag@gmail.com', 'a', 4, NULL, NULL, '2023-02-17 17:56:55', '2023-02-17 17:56:55', NULL),
+(226, '2019-00439-TG-0', '$2y$10$5xJynWVm6.KZChd64oloUO.aOwhq31diTz.pRcObu0pcbpNKfLD7W', 'kyledula28@gmail.com', 'a', 4, NULL, NULL, '2023-02-17 19:54:56', '2023-02-17 19:55:43', NULL),
+(227, 'RegistrarOffice', '$2y$10$uP/559gLNgKvH3F9hOoS6umRbBLY1m12w2LsA65GMElaP9I7i3jva', 'kyledula29@gmail.com', 'a', 2, 1, 'e3274be5c857fb42ab72d786e281b4b8', '2023-02-17 20:00:48', '2023-02-17 20:00:48', NULL);
 
 --
 -- Indexes for dumped tables
@@ -1231,7 +1234,7 @@ ALTER TABLE `academic_status`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `checklists`
@@ -1321,7 +1324,7 @@ ALTER TABLE `ref_for_retrieved`
 -- AUTO_INCREMENT for table `requests`
 --
 ALTER TABLE `requests`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
 
 --
 -- AUTO_INCREMENT for table `request_approvals`
@@ -1333,7 +1336,7 @@ ALTER TABLE `request_approvals`
 -- AUTO_INCREMENT for table `request_details`
 --
 ALTER TABLE `request_details`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=223;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=224;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -1351,7 +1354,7 @@ ALTER TABLE `role_permissions`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=148;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=152;
 
 --
 -- AUTO_INCREMENT for table `student_admission`
@@ -1369,7 +1372,7 @@ ALTER TABLE `student_admission_files`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=223;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=228;
 
 --
 -- Constraints for dumped tables

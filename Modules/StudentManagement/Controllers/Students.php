@@ -26,6 +26,17 @@ class Students extends BaseController
         return view('template/index', $this->data);
     }
 
+
+    public function edit($id)
+    {
+        $this->data['students'] = $this->studentModel->getDetail();
+        $this->data['students_inc'] = $this->studentModel->get(['course_id' => null]);
+        $this->data['courses'] = $this->courseModel->get();
+        $this->data['academic_status'] = $this->academicStatusModel->get();
+        $this->data['view'] = 'Modules\StudentManagement\Views\students\index';
+        return view('template/index', $this->data);
+    }
+
     public function add()
     {
       $this->data['courses'] = $this->courseModel->get();
@@ -61,7 +72,9 @@ class Students extends BaseController
       if($this->studentModel->softDeleteByUserId($id))
       {
         if ($this->userModel->softDelete($id)) {
+          
           $this->session->setFlashData('success_message', 'Successfully deleted student');
+          return redirect()->to(base_url('students'));
         }
       }
       else
@@ -231,7 +244,9 @@ class Students extends BaseController
       $mail->setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig OCT-DRS');
       $mail->setMessage('Good Day!<br><br>Good day, '.$firstname.' '.$middlename.' '.$lastname.'! 
         Following up on your Admission Credentials, here are the documents you need to submit/resubmit with their corresponding remarks. 
-        Please comply immediately. <br> Thank you!'.$html); 
+        Please comply immediately. <br> Thank you!'.$html. '<br><br><br><br> Regards, <br>PUPT ACT-DRS'
+      ); 
+      
       if ($mail->send()) {
         return true;
       }

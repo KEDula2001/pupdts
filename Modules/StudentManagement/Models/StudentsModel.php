@@ -118,7 +118,7 @@ class StudentsModel extends BaseModel
   }
 
   public function getNull($id){
-    $this->select('contact, gender,_id, status');
+    $this->select('contact, gender, id, status');
     $this->where('id', $id);
     return $this->findAll();
   }

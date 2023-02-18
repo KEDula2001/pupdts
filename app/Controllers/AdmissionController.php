@@ -631,7 +631,7 @@ class AdmissionController extends BaseController
 	public function insertstudent()
 	{
 		if (! $this->validate([
-            'student_number' => 'required|alpha_numeric_punct',
+            'student_number' => 'required|exact_length[15]|alpha_dash|regex_match[/[0-9]{4}-[0-9]{5}-TG-0/]',
 			'firstname' => 'required',
 			'lastname' => 'required',
 			'middlename' => 'required',
