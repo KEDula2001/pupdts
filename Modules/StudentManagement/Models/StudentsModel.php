@@ -19,6 +19,29 @@ class StudentsModel extends BaseModel
     parent::__construct();
   }
 
+  public function getStudentID($id){ 
+    $this->select('user_id');
+    $this->where('id', $id);
+
+    return $this->findAll();
+  }
+
+  public function getStudentDetails($id){ 
+    $this->select('students.*, u.email');
+    $this->join('users as u', 'students.user_id = u.id', 'left');
+    $this->where('students.id', $id);
+
+    return $this->findAll();
+  }
+
+  public function getStudentDetailsByUserId($id){ 
+    $this->select('students.*, u.email');
+    $this->join('users as u', 'students.user_id = u.id', 'left');
+    $this->where('students.user_id', $id);
+
+    return $this->findAll();
+  }
+
   public function insertStudent($data)
   {
     $this->transBegin();
@@ -54,33 +77,48 @@ class StudentsModel extends BaseModel
 
   }
 
-  public function editStudents($data)
+  public function editStudents($data, $id)
   {
-    $this->transBegin();
+    //$this->transBegin();
+    //die($data['email']);
+    $s_data = [
+            'student_number' => $data['student_number'], 
+            'birthdate' =>      $data['birthdate'],
+            'firstname' =>      $data['firstname'],
+            'middlename' =>     $data['middlename'],
+            'lastname' =>       $data['lastname']
+    ];
 
+      $student = new Students();
+      $studID = $this->getStudentID($id)[0];
       $user = new UsersModel();
       $userData = [
         'email' => $data['email'],
       ];
 
-      $user->insert($userData);
-      $id = $user->getInsertID();
+    $user->update($studID['user_id'],$userData);
 
-      $data['user_id'] = $id;
+    
+    //die($studID['user_id']);
 
-      $this->insert($data);
+    //die($user->getInsertID());
+    
+    //$this->set($s_data);
+    //$this->where('id', $id);
+      return $this->update($id, $s_data);
 
-      $student = new Students();
-      if($student->sendPassword($password, $data['email']))
-      {
-        $this->transCommit();
-        return true;
-      }
-      else
-      {
-        $this->transRollback();
-        return false;
-      }
+      
+      
+      // if($student->sendPassword($password, $data['email']))
+      // {
+      //   //$this->transCommit();
+      //   return true;
+      // }
+      // else
+      // {
+      //   //$this->transRollback();
+      //   return false;
+      // }
 
   }
 
@@ -118,7 +156,7 @@ class StudentsModel extends BaseModel
   }
 
   public function getNull($id){
-    $this->select('contact, gender,_id, status');
+    $this->select('contact, gender, id, status');
     $this->where('id', $id);
     return $this->findAll();
   }

@@ -9,19 +9,19 @@
 		</nav>
 		<hr>
 
-		<h3>Add Student</h3>
+		<h3><?= $title; ?> Student</h3>
     <?php if (isset($errors['names'])): ?>
       <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <?=$errors['names']?>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
     <?php endif; ?>
-		<form class="" action="add" method="post">
+		<form class="" action =<?= $edit == true ? $id : 'add'?> method="post">
 			<div class="row register-form">
 				<div class="col-md-6">
 					<div class="form-group mb-3">
-						<label for="student_number" class="form-label">Student Number* </label>
-						<input type="text" name="student_number" id="student_number" class="form-control" placeholder="Student Number" value="" />
+						<label for="student_number" class="form-label">Student Number </label>
+						<input type="text" name="student_number" id="student_number" class="form-control" placeholder="Student Number" value="<?=isset($values['student_number']) ? $values['student_number'] : '' ?>">
 						<?php if (isset($errors['student_number'])): ?>
 							<div class="text-danger">
 								<?=esc($errors['student_number'])?>
@@ -29,8 +29,8 @@
 						<?php endif; ?>
 					</div>
 					<div class="form-group mb-3">
-						<label for="email" class="form-label">Email *</label>
-						<input type="text" name="email" id="email" class="form-control" placeholder="Email" value="" />
+						<label for="email" class="form-label">Email</label>
+						<input type="text" name="email" id="email" class="form-control" placeholder="Email" value="<?=isset($values['email']) ? $values['email'] : '' ?>" />
 						<?php if (isset($errors['email'])): ?>
 							<div class="text-danger">
 								<?=esc($errors['email'])?>
@@ -39,7 +39,7 @@
 					</div>
           <div class="form-group mb-3">
             <label for="birthdate" class="form-label">Birthdate *</label>
-            <input type="date" name="birthdate" id="birthdate" class="form-control" placeholder="Birthdate" value="" />
+            <input type="date" name="birthdate" id="birthdate" class="form-control" placeholder="Birthdate" value="<?=isset($values['birthdate']) ? $values['birthdate'] : '' ?>" />
             <?php if (isset($errors['birthdate'])): ?>
               <div class="text-danger">
                 <?=esc($errors['birthdate'])?>
@@ -50,7 +50,7 @@
 				<div class="col-md-6">
 					<div class="form-group mb-3">
 						<label for="firstname" class="form-label">First Name *</label>
-						<input type="text" name="firstname" class="form-control" value="">
+						<input type="text" name="firstname" class="form-control" value="<?=isset($values['firstname']) ? $values['firstname'] : '' ?>">
 						<?php if (isset($errors['firstname'])): ?>
 							<div class="text-danger">
 								<?=esc($errors['firstname'])?>
@@ -59,7 +59,7 @@
 					</div>
 					<div class="form-group mb-3">
 						<label for="middlename" class="form-label">Middle Name</label>
-						<input type="text" class="form-control" name="middlename" value="">
+						<input type="text" class="form-control" name="middlename" value="<?=isset($values['middlename']) ? $values['middlename'] : '' ?>">
 						<?php if (isset($errors['middlename'])): ?>
 							<div class="text-danger">
 								<?=esc($errors['middlename'])?>
@@ -68,7 +68,7 @@
 					</div>
 					<div class="form-group mb-3">
 						<label for="lastname" class="form-label">Last Name *</label>
-						<input type="text" class="form-control" name="lastname" value="">
+						<input type="text" class="form-control" name="lastname" value="<?=isset($values['lastname']) ? $values['lastname'] : '' ?>">
 						<?php if (isset($errors['lastname'])): ?>
 							<div class="text-danger">
 								<?=esc($errors['lastname'])?>

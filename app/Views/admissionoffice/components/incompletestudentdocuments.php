@@ -6,7 +6,7 @@
           <li class="breadcrumb-item"><a href="<?php echo base_url('admission'); ?>"><i class="fas fa-home"></i></a></li>
           <li class="breadcrumb-item active" aria-current="page">Back to Dashboard</li>
         </ol>
-        <form  action="/admission/complete-report" method="get">  
+        <form  action="/admission/incomplete-report" method="get">  
           <button type="submit" class="float-end btn btn-primary" formtarget="_blank"> Generate Report</button>
         </form>
       </nav>

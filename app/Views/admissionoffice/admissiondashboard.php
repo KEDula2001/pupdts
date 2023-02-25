@@ -1,16 +1,17 @@
 <div class="container-fluid-admission">
 <section class="container-fluid" style="margin-top: 50px; padding-left: 20px; padding-right: 20px">
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0">Admission Dashboard</h1>
+  <h1 class="h3 mb-0">Admission Dashboard</h1>
         <!-- Button trigger modal -->
-          <div class="col-2">
-          <form  action="admission/report" method="get">  
-            <!-- di ko din alam kung paano nagana to kahit wala namang controller haha -->         
-            <button type="submit" class="float-end btn btn-primary" formtarget="_blank"> Generate Report</button>
-          </form>
-          <a href="<?php echo base_url('admission/add-student-form'); ?>" class="btn btn-primary">
-            Add Student
-          </a>
+        <div class="row">
+          <div class="col-auto">
+             <form  action="admission/report" method="get">        
+              <button type="submit" class="btn btn-primary btn-lg active" formtarget="_blank"> Generate Report</button>
+            </form>
+            </div>
+          <div class="col-auto">
+            <a href="<?php echo base_url('admission/add-student-form'); ?>" class="btn btn-primary btn-lg active">Add Student</a>
+            </div>
         </div>
   </div>
   <div class="row">
@@ -154,6 +155,9 @@
                               <?php elseif($res['admission_status'] == 'incomplete'): ?>
                                 <div class="badge bg-danger text-wrap" style="width: 6rem;">
                                   <?php echo $res['admission_status']; ?>
+                              <?php elseif($res['admission_status'] == 'rechecking'): ?>
+                                <div class="badge bg-warning text-wrap" style="width: 6rem;">
+                                  <?php echo $res['admission_status']; ?>
                                 </div>
                               <?php endif ?>
                             <?php else: ?>
@@ -201,7 +205,7 @@
                                     $res = $getstudentadmission->__getSAMDetails($id);
                                   ?>  
 
-                                    <input type="checkbox" value="1" name="sar_pupcct_resultID" <?php if(!empty($res['sar_pupcct_resultID'])){echo 'checked';} ?>>
+                                    <input type="checkbox" value="1" id="sar_pupcct_resultID" name="sar_pupcct_resultID" <?php if(!empty($res['sar_pupcct_resultID'])){echo 'checked';} ?>>
                                     <label for="sar_pupcct_resultID">SAR Form/PUPCET/CAEPUP Result</label><br>
                                      <input type="checkbox" value="2" name="f137ID" <?php if(!empty($res['f137ID'])){echo 'checked';} ?>>
                                      <label for="f137ID">F137</label><br>
@@ -219,6 +223,8 @@
                                      <label for="medical_certID">Medical Clearance</label><br>
                                      <input type="checkbox" value="7" name="picture_two_by_twoID" <?php if(!empty($res['picture_two_by_twoID'])){echo 'checked';} ?>>
                                      <label for="picture_two_by_twoID">2x2 Picture</label><br>
+                                     <input type="checkbox" value="25" name="certicate_of_completion" <?php if(!empty($res['certicate_of_completion'])){echo 'checked';} ?>>
+                                     <label for="certicate_of_completion">Certificate of Completion</label><br>
                                     <hr>
                                     <label>Other Documents:</label><br>
                                      <input type="checkbox" value="8" name="nc_non_enrollmentID" <?php if(!empty($res['nc_non_enrollmentID'])){echo 'checked';} ?>>
@@ -283,16 +289,32 @@
                                   <?=esc(ucwords($student['abbreviation'].' '.$student['year_graduated']))?>
                                 </label>
                                 <hr>
-                                <form action="<?php echo base_url('admission/retreived-admission-files/'.$student['user_id']); ?>" method="post" autocomplete="off">                            
-                                  <input type="checkbox" value="2" name="f137ID"> F137<br>
-                                  <input type="checkbox" value="3" name="f138ID"> Grade 10 Card<br>
-                                  <input type="checkbox" value="11" name="cert_dry_sealID"> Grade 11 Card<br>
-                                  <input type="checkbox" value="12" name="cert_dry_sealID_twelve"> Grade 12 Card<br>
+                                <form action="<?php echo base_url('admission/retreived-admission-files/'.$student['user_id']); ?>" method="post" autocomplete="off">   
+                                  <?php if($student['f137ID'] != 0):?>                         
+                                    <input type="checkbox" value="2" name="f137ID"> F137<br>
+                                  <?php else:?>                       
+                                    <input type="checkbox" value="2" name="f137ID" disabled> F137<br>
+                                  <?php endif;?> 
+                                  <?php if($student['f138ID'] != 0):?>                         
+                                    <input type="checkbox" value="3" name="f138ID"> Grade 10 Card<br>
+                                  <?php else:?>                       
+                                    <input type="checkbox" value="3" name="f138ID" disabled> Grade 10 Card<br>
+                                  <?php endif;?>    
+                                  <?php if($student['cert_dry_sealID'] != 0):?>                         
+                                    <input type="checkbox" value="11" name="cert_dry_sealID"> Grade 11 Card<br>
+                                  <?php else:?>                       
+                                    <input type="checkbox" value="11" name="cert_dry_sealID" disabled> Grade 11 Card<br>
+                                  <?php endif;?>     
+                                  <?php if($student['cert_dry_sealID_twelve'] != 0):?>                         
+                                    <input type="checkbox" value="12" name="cert_dry_sealID_twelve"> Grade 12 Card<br>
+                                  <?php else:?>                       
+                                    <input type="checkbox" value="12" name="cert_dry_sealID_twelve" disabled> Grade 12 Card<br>
+                                  <?php endif;?>   
                                   <hr>
-                                    <textarea class="form-control" placeholder="Reason:" name="reasons" required></textarea>
+                                  <textarea class="form-control" placeholder="Reason:" name="reasons" required></textarea>
                                   <br>
                                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                  <button type="submit" class="btn btn-primary" name="btnretrieved">Save Changes</button>
+                                  <button type="submit" class="btn btn-primary">Retrieve</button>
                                 </form>
                               </div>
                           </div>

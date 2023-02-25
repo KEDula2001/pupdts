@@ -10,13 +10,35 @@ class StudentadmissionModel extends Model
 {
 	protected $table = 'student_admission';
 	protected $allowedFields = [
-		'stud_admissionID', 'studID', 'sar_pupcct_resultID', 'f137ID', 'f138ID', 
-		'psa_nsoID', 'good_moralID', 'medical_certID', 'picture_two_by_twoID', 
-		'nc_non_enrollmentID', 'coc_hs_shsID', 'ac_pept_alsID', 'cert_dry_sealID', 
-		'cert_dry_sealID_twelve','app_grad','or_app_grad','latest_regi','eval_res',
-		'course_curri', 'cert_candi', 'gen_clear', 'or_grad_fee', 'cert_confer',
-		'schoolid', 'honor_dis', 'trans_rec',
-		'admission_status', 'created_at'
+		'stud_admissionID', 
+		'studID', 
+		'sar_pupcct_resultID', 
+		'f137ID', 
+		'f138ID', 
+		'psa_nsoID', 
+		'good_moralID', 
+		'medical_certID', 
+		'picture_two_by_twoID', 
+		'certicate_of_completion',
+		'nc_non_enrollmentID', 
+		'coc_hs_shsID', 
+		'ac_pept_alsID', 
+		'cert_dry_sealID', 
+		'cert_dry_sealID_twelve',
+		'app_grad',
+		'or_app_grad',
+		'latest_regi',
+		'eval_res',
+		'course_curri', 
+		'cert_candi', 
+		'gen_clear', 
+		'or_grad_fee', 
+		'cert_confer',
+		'schoolid', 
+		'honor_dis', 
+		'trans_rec',
+		'admission_status', 
+		'created_at'
 	];
 
 	public function insertAdmissionStudents($userID = 0, $data, $admission_status = "")
@@ -42,6 +64,24 @@ class StudentadmissionModel extends Model
 		];
 
 		return  $rdata;
+	}
+
+	public function updateAdmissionStudentsForRetrieveFiles($userID = 0, $data = [])
+	{	
+		// die(print_r($data));
+		($data['f137ID'] != 0 ? $this->set('f137ID', 0) : '');
+		($data['f138ID'] != 0 ? $this->set('f138ID', 0) : '');
+		($data['cert_dry_sealID'] != 0 ? $this->set('cert_dry_sealID', 0) : '');
+		($data['cert_dry_sealID_twelve'] != 0 ? $this->set('cert_dry_sealID_twelve', 0) : '');
+
+		$this->where('studID', $userID);
+
+		($data['f137ID'] != 0 ? $this->where('f137ID', $data['f137ID']) : '');
+		($data['f138ID'] != 0 ? $this->where('f138ID', $data['f138ID']) : '');
+		($data['cert_dry_sealID'] != 0 ? $this->where('cert_dry_sealID', $data['cert_dry_sealID']) : '');
+		($data['cert_dry_sealID_twelve'] != 0 ? $this->where('cert_dry_sealID_twelve', $data['cert_dry_sealID_twelve']) : '');
+
+        return $this->update();
 	}
 	public function __getSAMDetails($id){
 		return $this->db->table($this->table)

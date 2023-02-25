@@ -112,4 +112,20 @@ class UsersModel extends BaseModel
     return $this->countAllResults();
   }
 
+  public function getStudentID($id){ 
+    $student = new StudentsModel();
+    $student->select('user_id');
+    $student->where('id', $id);
+
+    return $student->findAll();
+}
+
+ public function softDeleteUsers($id)
+  {       
+    $data = $this->getStudentID($id)[0];
+    //die($data['user_id']);
+    
+    return $this->delete($data['user_id']);
+  }
+
 }

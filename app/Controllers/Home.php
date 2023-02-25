@@ -53,6 +53,7 @@ class Home extends BaseController
 									'identifier' => $user['identifier'],
 									'role_id' => $user['role_id'],
 									'office_id' => $user['office_id'],
+									'office' => $admins[0]['office'],
 									'role' => $user['role'],
 									'admin_id' => $admins[0]['id'],
 									'landing_page' => $user['landing_page'],

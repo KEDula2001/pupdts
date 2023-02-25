@@ -27,7 +27,8 @@ class DocumentRequests extends BaseController
     $this->data['view'] = 'Modules\DocumentRequest\Views\requests\completed';
     return view('template/index', $this->data);
   }
-  public function index()
+
+  public function index() 
   {
     $this->data['requests'] = $this->requestModel->getDetails(['requests.status' => 'p']);
     $this->data['request_documents'] = $this->requestDetailModel->getDetails(['request_details.received_at' => null]);
@@ -114,13 +115,78 @@ class DocumentRequests extends BaseController
     return view('template/index', $this->data);
   }
 
-  public function approval()
-  {
-      $this->data['request_approvals'] = $this->officeApprovalModel->getDetails(['office_id' => $_SESSION['office_id'], 'request_approvals.status' => 'p', 'requests.status !=' => 'p']);
-    $this->data['request_approvals_hold'] = $this->officeApprovalModel->getDetails(['office_id' => $_SESSION['office_id'], 'request_approvals.status' => 'h']);
-    $this->data['view'] = 'Modules\DocumentRequest\Views\requests\approval';
+  public function approval() {
+    $this->data['requests'] = $this->requestDetailModel->getDetails(['requests.status' => 'f']);
+    // $this->data['view'] = 'Modules\DocumentRequest\Views\requests\approval';
+    // die(print_r($this->data['request_approvals']));
+    echo view('admissionoffice/header', $this->data);
+		echo view('Modules\DocumentRequest\Views\requests\approval', $this->data);
+		return view('admissionoffice/footer', $this->data);
+  }
 
-    return view('template/index', $this->data);
+  public function applyApproval($id, $office_route_id, $request_id) {
+    if($office_route_id == 1){
+      $office['library'] = 1; 
+    }elseif($office_route_id == 2){
+      $office['laboratory'] = 1; 
+    }elseif($office_route_id == 3){
+      $office['rotc'] = 1; 
+    }elseif($office_route_id == 4){
+      $office['accounting_office'] = 1; 
+    }elseif($office_route_id == 5){
+      $office['internal_audit'] = 1; 
+    }elseif($office_route_id == 6){
+      $office['legal_office'] = 1; 
+    }else{
+      die('No Route ID');
+    }
+    $cnt = 0;
+    $is_approve_ok = false;
+    if($this->requestDetailModel->approveClearance($id, $office)){
+      $is_approve_ok = true;
+    }else{
+      $data = [
+        'status' => 'Error!',
+        'status_message' => 'Failed to update data!',
+        'status_icon' => 'error',
+      ];
+      return $this->response->setJSON($data);
+    }
+    if($is_approve_ok = true){
+      $requestDataList = $this->requestDetailModel->getRequestDetailList($request_id);
+      $countRequestDetails = count($requestDataList);
+      foreach ($requestDataList as $requestDetail) {
+        $countPerRequestDetails = count($requestDetail);
+        foreach ($requestDetail as $requestOffice) {
+          if($requestOffice == 1){
+            $cnt++;
+          }
+        }
+      }
+      $total_count_requests = $countRequestDetails * $countPerRequestDetails;
+      if($cnt == $total_count_requests){
+        $data = [
+          'status' => 'Success!',
+          'status_message' => 'Sucessfully Cleared!',
+          'status_icon' => 'success',
+        ];
+        return $this->response->setJSON($data);
+      }else{
+        $data = [
+          'status' => 'Warning!',
+          'status_message' => 'Something went wrong!',
+          'status_icon' => 'warning',
+        ];
+        return $this->response->setJSON($data);
+      }
+    }else{
+      $data = [
+        'status' => 'Error!',
+        'status_message' => 'Failed to update data!',
+        'status_icon' => 'error',
+      ];
+      return $this->response->setJSON($data);
+    }
   }
 
 
@@ -180,9 +246,13 @@ class DocumentRequests extends BaseController
 
   public function printed()
   {
+    $this->data['request_documents'] = $this->requestDetailModel->getDetails();
+    $this->data['requests'] = $this->requestModel->getDetails(['student_id' => $_SESSION['student_id'], 'requests.completed_at !=' => null, 'requests.status !=' => 'd']);
+    $this->data['office_approvals'] = $this->officeApprovalModel->getDetails(['requests.student_id' => $_SESSION['student_id'], 'requests.completed_at !=' => null, 'request_details.status !=' => 'd']);
     $this->data['documents'] = $this->documentModel->get();
     $this->data['request_details_release'] = $this->requestDetailModel->getDetails(['request_details.status' => 'r', 'requests.status' => 'c']);
     $this->data['view'] = 'Modules\DocumentRequest\Views\requests\printed';
+    
     return view('template/index', $this->data);
   }
 
@@ -635,9 +705,18 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
   }
 
   public function formRequests(){
-    $this->data['view'] = 'Modules\DocumentRequest\Views\requests\formrequestlist';
+    if(session()->get('role') == 'Admin'){
+      $this->data['view'] = 'Modules\DocumentRequest\Views\requests\formrequestlist';
+    }
     $this->data['requests'] = $this->formRequestModel->getDetails();
-    return view('template/index', $this->data);
+    
+    if(session()->get('role') == 'Admin'){
+      return view('template/index', $this->data);
+    }else{
+      echo view('admissionoffice/header', $this->data);
+      echo view('Modules\DocumentRequest\Views\requests\formrequestlist', $this->data);
+      return view('admissionoffice/footer', $this->data);
+    }
   }
 
   public function goodmoral($request_id){
@@ -785,7 +864,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
     <table border="0" cellpadding="2" cellspacing="2" align="center">
      <tr nobr="true">
       <td></td>
-      <td class = "headHL" >MHEL P. GARCIA <br />Head of Admission & Registration Office</td>
+      <td class = "headHL" >MHEL P. GARCIA <br />Head of Registration Office</td>
      </tr>
     </table>
     EOD;

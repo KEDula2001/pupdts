@@ -2,6 +2,7 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0">Dashboard</h1>
               <!--<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">   -->
+              
       <form  action="Admin/generalreport" method="get">
       <div class="col-12">
           <button style= "background-color:#1b71fa" type="submit" class="float-end btn btn-secondary" formtarget="_blank"> Generate Report</button>

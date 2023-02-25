@@ -1,8 +1,9 @@
 <br>
 <h1 style = "font-weight: bold;">REGISTRATION AND ADMISSION OFFICE</h1>
 <h2>Summary of Incomplete Submission of Admission Credentials </h2>
-<h4>Month Date - Month Date</h4>
+<strong>Date:</strong> <?php echo  date("m/d/Y") ?> <strong>Time:</strong> <?php echo date("h:i:sa")?>
 <section class="container-fluid">
+
 
   <div class="card">
     <div class="card-body">
@@ -11,9 +12,10 @@
           <tr style="text-align: center;">
             <th>Student No.</th>
             <th>Student Name</th>
-            <th>Course</th>   
+            <th>Course</th>
             <th>Batch</th>
             <th>Status</th>
+        
           </tr>
         </thead>
         <tbody>
@@ -27,7 +29,7 @@
                 ?>
                 <?php if (!empty($res)): ?>
                   <?php if ($res['admission_status'] == 'incomplete'): ?>
-                    <tr style="text-align: center;">
+                    <tr >
                       <td><?=esc($student['student_number'])?></td>
                       <td>
                         <?php if (!empty($student['middlename'])): ?>
@@ -37,8 +39,8 @@
                         <?php endif ?>
                       </td>
                       <td><?=esc($student['course'])?></td>
-                      <td><?=esc($student['year_graduated'])?></td>
-                      <td></td>
+                      <td><?=esc($student['student_number'][0]).esc($student['student_number'][1]).esc($student['student_number'][2]).esc($student['student_number'][3])?></td>
+                      
                       <td>
                         <?php if ($res != NUll): ?>
                           <?php if ($res['admission_status'] == 'complete'): ?>
@@ -56,8 +58,7 @@
                           </div>
                         <?php endif ?>
                       </td>
-                      
-
+                     
                     </tr>
                   <?php endif ?>
                 <?php endif ?>
@@ -66,5 +67,5 @@
         </tbody>
       </table>
     </div>
-  </div>    
+  </div>
 </section>

@@ -85,7 +85,7 @@ class Requests extends BaseController
 				$request_details['quantity'] = $_POST['quantity'][$index];
 				array_push($data['request_document'], $request_details);
 				// echo "<pre>";
-				// foreach ($document_requirements as $document_requirement) {
+				  // foreach ($document_requirements as $document_requirement) {
 					// 	  $request_approvals['office_id'] = $document_requirement['office_id'];
 					// 	  $this->requestApproval->input($request_approvals);
 					// 	}

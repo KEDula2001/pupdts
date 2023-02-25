@@ -23,10 +23,19 @@ class RequestsModel extends BaseModel
     $this->join('students', 'students.id = student_id');
     $this->join('courses', 'courses.id = students.course_id');
     foreach ($condition as $condition => $value) {
-      $this->where($condition, $value);
+      $this->where($condition, $value); 
     }
     if ($id != null)
       $this->where('requests.id', $id);
+    return $this->findAll();
+  }
+
+  public function getRequestDetails($condition = [], $id = null){
+    $this->select('requests.*, CONCAT(students.firstname, students.lastname) as fullname');
+    $this->join('students', 'students.id = requests.student_id');
+    foreach ($condition as $condition => $value) {
+      $this->where($condition, $value); 
+    }
     return $this->findAll();
   }
 
@@ -120,7 +129,7 @@ class RequestsModel extends BaseModel
           'request_id' => $requestID,
           'document_id' => $details['document_id'],
           'remark' => null,
-          'status' => empty($documentRequirements) ? 'p' : 'a',
+          'status' => empty($documentRequirements) ? 'f' : 'a',
           'quantity' => $details['quantity'],
           'free' => $details['free']
         ];

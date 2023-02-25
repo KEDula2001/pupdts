@@ -1,8 +1,9 @@
 <br>
 <h1>Detailed Report</h1>
-<h1>Total: <?=esc(count($documents))?></h1>
+<strong>Date:</strong> <?php echo  date("m/d/Y") ?> <strong>Time:</strong> <?php echo date("h:i:sa")?><br><br>
+<h3>Total: <?=esc(count($documents))?></h3>
 <br>
-<h2><?=esc($document)?> -  (<?=esc(ucwords($types['t']))?> | <?=date('F', mktime(0, 0, 0, (int)esc($types['a']), 10));?>)</h2>
+<h3><?=esc($document)?> -  (<?=esc(ucwords($types['t']))?> | <?=date('F', mktime(0, 0, 0, (int)esc($types['a']), 10));?>)</h3>
 <table cellspacing="0" cellpadding="5" border="1">
   <tr style="text-align: center;">
     <td width="5%"> <b>#</b> </td>

@@ -3,7 +3,7 @@
     <div class="card-body p-4">
       <nav style="--bs-breadcrumb-divider: '<'; font-weight: bold;" aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/modules"><i class="fas fa-folder-open"></i></a></li>
+          <li class="breadcrumb-item"><a href="/documents"><i class="fas fa-folder-open"></i></a></li>
           <li class="breadcrumb-item active" aria-current="page">Back to Documents</li>
         </ol>
       </nav>
@@ -40,52 +40,7 @@
             </div>
           </div>
         </div>
-        <div class="row justify-content-center">
-          <div class="col-1">
-            <div class="form-group mb-1">
-              <label for="day" class="form-label">Days</label>
-              <input value="<?=isset($value['day']) ? esc($value['day']): ''?>" type="number" name="day" class="form-control" id="day" required>
-              <?php if (isset($error['day'])): ?>
-                <div class="text-danger">
-                  <?=esc($error['day'])?>
-                </div>
-              <?php endif; ?>
-            </div>
-          </div>
-          <div class="col-1">
-            <div class="form-group mb-1">
-              <label for="hour" class="form-label">Hours</label>
-              <input value="<?=isset($value['hour']) ? esc($value['hour']): ''?>" type="number" name="hour" class="form-control" id="hour" required>
-              <?php if (isset($error['hour'])): ?>
-                <div class="text-danger">
-                  <?=esc($error['hour'])?>
-                </div>
-              <?php endif; ?>
-            </div>
-          </div>
-          <div class="col-1">
-            <div class="form-group mb-1">
-              <label for="minute" class="form-label">Minutes</label>
-              <input value="<?=isset($value['minute']) ? esc($value['minute']): ''?>" type="number" name="minute" class="form-control" id="minute" required>
-              <?php if (isset($error['minute'])): ?>
-                <div class="text-danger">
-                  <?=esc($error['minute'])?>
-                </div>
-              <?php endif; ?>
-            </div>
-          </div>
-          <div class="col-1">
-            <div class="form-group mb-1">
-              <label for="second" class="form-label">Seconds</label>
-              <input value="<?=isset($value['second']) ? esc($value['second']): ''?>" type="number" name="second" class="form-control" id="second" required>
-              <?php if (isset($error['second'])): ?>
-                <div class="text-danger">
-                  <?=esc($error['second'])?>
-                </div>
-              <?php endif; ?>
-            </div>
-          </div>
-        </div>
+       
         <div class="row justify-content-center">
           <div class="col-4">
             <div class="form-group mb-3">

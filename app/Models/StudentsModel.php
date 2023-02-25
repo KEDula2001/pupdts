@@ -51,6 +51,7 @@ class StudentsModel extends BaseModel
   { 
     return $this->db->table($this->table)
                         ->join('courses', 'courses.id = students.course_id')  
+                        ->join('student_admission', 'student_admission.studID = students.user_id')
                         ->get()
                         ->getResultArray();
   }

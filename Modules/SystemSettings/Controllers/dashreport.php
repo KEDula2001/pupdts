@@ -26,6 +26,4 @@
           <td class="bold">Completed Requests</td>
           <td> <?=esc($completed_count)?> </td>
         </tr>
-    <?php endforeach; ?>
-  <?php endif; ?>
 </table>

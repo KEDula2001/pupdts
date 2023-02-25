@@ -31,7 +31,10 @@ class AdminsModel extends BaseModel
   }
 
   public function getAdminByUserId($id){
-    $this->where('user_id', $id);
+    $this->select('admins.*, offices.office');
+    $this->join('users', 'users.id = '.$id, 'left');
+    $this->join('offices', 'offices.id = users.office_id', 'left');
+    $this->where('admins.user_id', $id);
     return $this->findAll();
   }
 

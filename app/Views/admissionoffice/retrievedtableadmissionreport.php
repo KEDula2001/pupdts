@@ -1,7 +1,7 @@
 <br>
 <h1 style = "font-weight: bold;">REGISTRATION AND ADMISSION OFFICE</h1>
 <h2>Summary of Incomplete Submission of Admission Credentials </h2>
-<h4>Month Date - Month Date</h4>
+<strong>Date:</strong> <?php echo  date("m/d/Y") ?> <strong>Time:</strong> <?php echo date("h:i:sa")?>
 <section class="container-fluid">
 
 <section class="container-fluid">
@@ -19,9 +19,9 @@
             <th>Date Retrieved</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody style = "align: center">
           <?php foreach ($retrieved_record as $record): ?>
-            <tr>
+            <tr style = "align: center">
               <td><?=esc($record['student_number']) ?></td>
               <td>
                 <?php if (!empty($record['middlename'])): ?>

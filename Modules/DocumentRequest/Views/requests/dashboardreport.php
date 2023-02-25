@@ -1,14 +1,16 @@
 <br>
-<h1>Summary Report</h1>
-<br>
+<h1 style = "font-weight: bold;">REGISTRATION OFFICE</h1>
+<h2>Summary Report of Registrar's Dashboard</h2>
+<strong>Date:</strong> <?php echo  date("m/d/Y") ?> <strong>Time:</strong> <?php echo date("h:i:sa")?><br><br>
 
-<center>
-<table cellspacing="1" cellpadding="5" border="1" style = "align: center">
+
+
+<table cellspacing="1" cellpadding="6" border="1"  width = "100%">
   <tr style="text-align: center;">
-    <td width="20%"> <b>Pending Request</b> </td>
-    <td width="20%"> <b>On Process Documents</b> </td>
-    <td width="20%"> <b>Ready To Claim</b> </td>
-    <td width="20%"> <b>Completed Request</b> </td>
+    <td width="25%"> <b>Pending Request</b> </td>
+    <td width="25%"> <b>On Process Documents</b> </td>
+    <td width="25%"> <b>Ready To Claim</b> </td>
+    <td width="25%"> <b>Completed Request</b> </td>
    
   </tr>
       <tr style="text-align: center;">
@@ -22,4 +24,4 @@
    
 
 </table>
-</center>
+

@@ -18,6 +18,16 @@ class RefForRetrievedModel extends Model
 
 		$this->insert();
 	}
+	public function __getRetrievedAdmissionFilesByStudentId($id, $requirementsID){
+		
+		return $this->db->table($this->table)
+						->where('studID', $id)
+						->where('requirementsID', $requirementsID)
+                        ->get()
+                        ->getResultArray();
+		// $this->where('studID', $id);
+		// return $this->findAll();
+	}
 	public function __getRetrievedRecord()
 	{
 		return $this->db->table($this->table)

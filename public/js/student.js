@@ -160,7 +160,13 @@ $(document).ready(function() {
                   title: `First Time Setup`,
                   html: `Please enter <strong>COURSE</strong>`,
                   showCancelButton: ctr > 0,
+                  preConfirm: (value) => {
+                    if (value == null) {
+                      Swal.showValidationMessage('Please Select Gender')
+                    }
+                  },
                   currentProgressStep: ctr,
+                  
                 })
                 break;
                 case 'status':
@@ -223,6 +229,7 @@ $(document).ready(function() {
               validationMessage: 'This field is required'
             })
 
+            
             let currentStep
             for (currentStep = 0; currentStep < steps.length;) {
               const result = await swalQueueStep.fire(questions[currentStep + 1])
@@ -241,6 +248,7 @@ $(document).ready(function() {
               }
             }
 
+           
             if (currentStep === steps.length) {
               $.ajax({
                 url: 'students/setup',
@@ -249,11 +257,11 @@ $(document).ready(function() {
                 data: {
                   'contact' : values[0],
                   'gender' : values[1],
-                  'course_id' : values[2],
-                  'status' : values[3],
-                  'level' : values[4],
+                  'status' : values[2],
+                  'level' : values[3],
                 },
                 success: function(data){
+                
                   if (data.status == 'success') {
                     Swal.fire({
                       icon: 'success',
@@ -264,7 +272,7 @@ $(document).ready(function() {
                     Swal.fire({
                       icon: 'error',
                       title: 'Oops...',
-                      text: 'Something went wrong!',
+                      text: 'Something went wrong',
                     })
                   }
                 }

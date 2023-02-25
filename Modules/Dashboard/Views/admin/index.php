@@ -4,7 +4,9 @@
               <!--<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">   -->
       <form  action="dashboards/dashreport" method="get">
       <div class="col-12">
+        
           <button type="submit" class="float-end btn btn-secondary" formtarget="_blank"> Generate Report</button>
+          
               <!--        <i class="fas fa-download fa-sm"></i> Generate Report</a>       -->
     </div>
   </div>

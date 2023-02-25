@@ -56,7 +56,7 @@
                         <label class = "label label-sucess fw-bold">STATUS</label>
                       </div>
                   </a>
-                  <a href="<?php echo base_url('uploads/'.isset($studentadmission_files['g10_files'])); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
+                  <a href="<?php echo base_url('uploads/'.$studentadmission_files['g10_files']); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
                       <?php if (!empty($studentadmission_files['g10_files'])): ?>
                         <img src="<?php echo base_url('uploads/'.$studentadmission_files['g10_files']); ?>" class="img-fluid card">
                       <?php else: ?>
@@ -68,9 +68,9 @@
                         <label class = "label label-sucess fw-bold">STATUS</label>
                       </div>
                   </a>
-                  <a href="<?php echo base_url('uploads/'.isset($studentadmission_files['g11_files'])); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
+                  <a href="<?php echo base_url('uploads/'.$studentadmission_files['g11_files']); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
                       <?php if (!empty($studentadmission_files['g11_files'])): ?>
-                        <img src="<?php echo base_url('uploads/'.isset($studentadmission_files['g11_files'])); ?>" class="img-fluid card">
+                        <img src="<?php echo base_url('uploads/'.$studentadmission_files['g11_files']); ?>" class="img-fluid card">
                       <?php else: ?>
                         <h3 align="center">-No Files-</h3>
                       <?php endif ?>
@@ -80,9 +80,9 @@
                         <label class = "label label-sucess fw-bold">STATUS</label>
                       </div>
                   </a>
-                  <a href="<?php echo base_url('uploads/'.isset($studentadmission_files['g12_files'])); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
+                  <a href="<?php echo base_url('uploads/'.$studentadmission_files['g12_files']); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
                       <?php if (!empty($studentadmission_files['g12_files'])): ?>
-                        <img src="<?php echo base_url('uploads/'.isset($studentadmission_files['g12_files'])); ?>" class="img-fluid card">
+                        <img src="<?php echo base_url('uploads/'.$studentadmission_files['g12_files']); ?>" class="img-fluid card">
                       <?php else: ?>
                         <h3 align="center">-No Files-</h3>
                       <?php endif ?>
@@ -92,9 +92,9 @@
                         <label class = "label label-sucess fw-bold">STATUS</label>
                       </div>
                   </a>
-                  <a href="<?php echo base_url('uploads/'.isset($studentadmission_files['psa_nso_files'])); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
+                  <a href="<?php echo base_url('uploads/'.$studentadmission_files['psa_nso_files']); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
                       <?php if (!empty($studentadmission_files['psa_nso_files'])): ?>
-                        <img src="<?php echo base_url('uploads/'.isset($studentadmission_files['psa_nso_files'])); ?>" class="img-fluid card">
+                        <img src="<?php echo base_url('uploads/'.$studentadmission_files['psa_nso_files']); ?>" class="img-fluid card">
                       <?php else: ?>
                         <h3 align="center">-No Files-</h3>
                       <?php endif ?>
@@ -104,9 +104,9 @@
                         <label class = "label label-sucess fw-bold">STATUS</label>
                       </div>
                   </a>
-                  <a href="<?php echo base_url('uploads/'.isset($studentadmission_files['good_moral_files'])); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
+                  <a href="<?php echo base_url('uploads/'.$studentadmission_files['good_moral_files']); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
                       <?php if (!empty($studentadmission_files['good_moral_files'])): ?>
-                        <img src="<?php echo base_url('uploads/'.isset($studentadmission_files['good_moral_files'])); ?>" class="img-fluid card">
+                        <img src="<?php echo base_url('uploads/'.$studentadmission_files['good_moral_files']); ?>" class="img-fluid card">
                       <?php else: ?>
                         <h3 align="center">-No Files-</h3>
                       <?php endif ?>
@@ -116,9 +116,9 @@
                         <label class = "label label-sucess fw-bold">STATUS</label>
                       </div>
                   </a>
-                  <a href="<?php echo base_url('uploads/'.isset($studentadmission_files['medical_cert_files'])); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
+                  <a href="<?php echo base_url('uploads/'.$studentadmission_files['medical_cert_files']); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
                       <?php if (!empty($studentadmission_files['medical_cert_files'])): ?>
-                        <img src="<?php echo base_url('uploads/'.isset($studentadmission_files['medical_cert_files'])); ?>" class="img-fluid card">
+                        <img src="<?php echo base_url('uploads/'.$studentadmission_files['medical_cert_files']); ?>" class="img-fluid card">
                       <?php else: ?>
                         <h3 align="center">-No Files-</h3>
                       <?php endif ?>
@@ -128,9 +128,9 @@
                         <label class = "label label-sucess fw-bold">STATUS</label>
                       </div>
                   </a>
-                  <a href="<?php echo base_url('uploads/'.isset($studentadmission_files['picture_two_by_two_files'])); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
+                  <a href="<?php echo base_url('uploads/'.$studentadmission_files['picture_two_by_two_files']); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
                       <?php if (!empty($studentadmission_files['picture_two_by_two_files'])): ?>
-                        <img src="<?php echo base_url('uploads/'.isset($studentadmission_files['picture_two_by_two_files'])); ?>" class="img-fluid card">
+                        <img src="<?php echo base_url('uploads/'.$studentadmission_files['picture_two_by_two_files']); ?>" class="img-fluid card">
                       <?php else: ?>
                         <h3 align="center">-No Files-</h3>
                       <?php endif ?>

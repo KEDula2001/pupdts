@@ -3,7 +3,7 @@
     <div class="card-body p-4">
       <nav style="--bs-breadcrumb-divider: '<'; font-weight: bold;" aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/modules"><i class="fas fa-folder-open"></i></a></li>
+          <li class="breadcrumb-item"><a href="/documents"><i class="fas fa-folder-open"></i></a></li>
           <li class="breadcrumb-item active" aria-current="page">Back to Documents</li>
         </ol>
       </nav>

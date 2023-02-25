@@ -14,7 +14,7 @@
                   <th>Documents</th>
                   <th>Date Submitted</th>
                   <th>Action</th>
-                </tr>
+                </tr> 
               </thead>
               <tbody>
                 <?php if (!empty($requests)): ?>

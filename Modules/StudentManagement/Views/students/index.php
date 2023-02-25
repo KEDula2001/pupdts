@@ -59,7 +59,8 @@
                               <th>Name</th>
                               <th>Courses</th>
                               <th>Academic Status</th>
-                              <th>Submission Status</th> 
+                              <th>Actions</th> 
+                              
                             </tr>
                           </thead>
                           <tbody>
@@ -71,7 +72,9 @@
                                   <td><?=ucwords(esc($student['firstname'] . ' ' . esc($student['lastname'])))?></td>
                                   <td><?=ucwords(esc($student['abbreviation']))?></td>
                                   <td><?=ucwords(esc($student['status']))?></td>
-                                  <td></td>
+                                  <td class="text-center">
+                                    <?=esc(buttons($allPermissions, ['edit-students','delete-students'], 'students', $student['id']))?>
+                                  </td>
                                 </tr>
                               <?php endforeach; ?>
                             <?php endif; ?>

@@ -167,27 +167,24 @@
             <form action="<?php echo base_url('admission/sendnotifystudents/'.$studentadmission_details['studID']); ?>" method="post">
             <div class="row">
                 <div class="col">
-                    <label for="sar_pupcct_resultID"><strong>SAR Form/PUPCET/CAEPUP Result:</strong></label> <br>
+                    <label><strong>SAR Form/PUPCET/CAEPUP Result:</strong></label> <br>
                     <div style="margin-left: 50px">
-                      <input type="checkbox" value='Sealed Copy with "For PUP Taguig" remarks' name="sc_pup_remarks" >
-                      <label for="sc_pup_remarks"> Sealed Copy with "For PUP Taguig" remarks</label><br>
-                      <input type="checkbox" value="Submit 1 Photocopy" name="s_one_photocopy_sarform" >
+                      <input type="hidden" value="<?php echo $studentadmission_details['email']; ?>" name="email">
+                      <input type="hidden" value="<?php echo $studentadmission_details['admission_status']; ?>" name="admission_status">
+                      <input type="checkbox" value="Submit 1 Photocopy (SAR FORM)" name="s_one_photocopy_sarform" >
                       <label for="s_one_photocopy_sarform"> Submit 1 Photocopy</label><br>
-                      <input type="checkbox" value="Submit Original" name="submit_original_sarform" >
-                      <label for="submit_original_sarform"> Submit Original</label><br>
-                      
-                      
-                      </div>
+                      <input type="checkbox" value="Submit Original (SAR FORM)" name="submit_original_sarform" >
+                      <label for="submit_original_sarform"> Submit Original <small style="display: none">SAR FORM</small></label><br>
+                    </div>
+
                     <label><strong>F137:</strong></label> <br>
                       <div style="margin-left: 50px">
                       <input type="hidden" value="<?php echo $studentadmission_details['email']; ?>" name="email">
                       <input type="hidden" value="<?php echo $studentadmission_details['admission_status']; ?>" name="admission_status">
-                      <input type="checkbox" value="No Dry Seal" name="no_dry_sealf137">
+                      <input type="checkbox" value="No Dry Seal (F137)" name="no_dry_sealf137">
                       <label for="no_dry_sealf137"> No Dry Seal</label><br>
-                      <input type="checkbox" value="Submit Original" name="submit_original_f137" >
+                      <input type="checkbox" value="Submit Original (F137)" name="submit_original_f137" >
                       <label for="submit_original_f137">Submit Original</label><br>
-                      
-                      
                     </div>
               </div>
             </div>
@@ -197,28 +194,24 @@
                     <div style="margin-left: 50px">
                       <input type="hidden" value="<?php echo $studentadmission_details['email']; ?>" name="email">
                       <input type="hidden" value="<?php echo $studentadmission_details['admission_status']; ?>" name="admission_status">
-                      <input type="checkbox" value="No Dry Seal" name="no_dry_sealgrade10">
+                      <input type="checkbox" value="No Dry Seal (Grade 10 CARD)" name="no_dry_sealgrade10">
                       <label for="no_dry_sealgrade10"> No Dry Seal</label><br>
-                      <input type="checkbox" value="Submit 1 Photocopy" name="s_one_photocopy_grade10" >
+                      <input type="checkbox" value="Submit 1 Photocopy (Grade 10 CARD)" name="s_one_photocopy_grade10" >
                       <label for="s_one_photocopy_grade10">Submit 1 Photocopy</label><br>
-                      <input type="checkbox" value="Submit Original" name="submit_original_grade10" >
+                      <input type="checkbox" value="Submit Original (Grade 10 CARD)" name="submit_original_grade10" >
                       <label for="submit_original_grade10"> Submit Original</label><br>
-                      
-                      
                       </div>
 
                     <label><strong>Grade 11 Card:</strong></label> <br>
                     <div style="margin-left: 50px">
                       <input type="hidden" value="<?php echo $studentadmission_details['email']; ?>" name="email">
                       <input type="hidden" value="<?php echo $studentadmission_details['admission_status']; ?>" name="admission_status">
-                      <input type="checkbox" value="No Dry Seal" name="no_dry_sealgrade11">
+                      <input type="checkbox" value="No Dry Seal (Grade 11 CARD)" name="no_dry_sealgrade11">
                       <label for="no_dry_sealgrade11"> No Dry Seal</label><br>
-                      <input type="checkbox" value="Submit 1 Photocopy" name="s_one_photocopy_grade11" >
+                      <input type="checkbox" value="Submit 1 Photocopy (Grade 11 CARD)" name="s_one_photocopy_grade11" >
                       <label for="s_one_photocopy_grade11"> Submit 1 Photocopy</label><br>
-                      <input type="checkbox" value="Submit Original" name="submit_original_grade11" > 
+                      <input type="checkbox" value="Submit Original (Grade 11 CARD)" name="submit_original_grade11" > 
                       <label for="submit_orignal_grade11"> Submit Original</label><br>
-                      
-                      
                     </div>
               </div>
             </div>
@@ -229,13 +222,12 @@
                       <input type="hidden" value="<?php echo $studentadmission_details['email']; ?>" name="email">
                       <input type="hidden" value="<?php echo $studentadmission_details['admission_status']; ?>" name="admission_status">
                       
-                      <input type="checkbox" value="No Dry Seal" name="no_dry_sealgrade12"> 
+                      <input type="checkbox" value="No Dry Seal (Grade 12 CARD)" name="no_dry_sealgrade12"> 
                       <label for="no_dry_sealgrade12">No Dry Seal</label><br>
-                      <input type="checkbox" value="Submit 1 Photocopy" name="s_one_photocopy_grade12" >
+                      <input type="checkbox" value="Submit 1 Photocopy (Grade 12 CARD)" name="s_one_photocopy_grade12" >
                       <label for="s_one_photocopy_grade12">Submit 1 Photocopy</label><br>
-                      <input type="checkbox" value="Submit Original" name="submit_original_grade12" >
+                      <input type="checkbox" value="Submit Original (Grade 12 CARD)" name="submit_original_grade12" >
                       <label for="submit_original_grade12">Submit Original</label><br>
-                      
                       
                     </div>
                     <label><strong>PSA/NSO:</strong></label> <br>
@@ -243,12 +235,10 @@
                       <input type="hidden" value="<?php echo $studentadmission_details['email']; ?>" name="email">
                       <input type="hidden" value="<?php echo $studentadmission_details['admission_status']; ?>" name="admission_status">
                       
-                      <input type="checkbox" value="Submit 1 Photocopy" name="s_one_photocopy_psa" >
+                      <input type="checkbox" value="Submit 1 Photocopy (PSA/NSO)" name="s_one_photocopy_psa" >
                       <label for="s_one_photocopy_psa">Submit 1 Photocopy</label><br>
-                      <input type="checkbox" value="Submit Original" name="submit_original_psa" >
+                      <input type="checkbox" value="Submit Original (PSA/NSO)" name="submit_original_psa" >
                       <label for="submit_original_psa"> Submit Original</label><br>
-                      
-                      
                     </div>
                </div>
             </div>
@@ -259,11 +249,11 @@
                     <div class="col" style="margin-left: 50px">
                       <input type="hidden" value="<?php echo $studentadmission_details['email']; ?>" name="email">
                       <input type="hidden" value="<?php echo $studentadmission_details['admission_status']; ?>" name="admission_status">
-                      <input type="checkbox" value="No Dry Seal" name="no_dry_sealgoodmoral">
+                      <input type="checkbox" value="No Dry Seal (GOOD MORAL)" name="no_dry_sealgoodmoral">
                       <label for="no_dry_sealgoodmoral">No Dry Seal</label><br>
-                      <input type="checkbox" value="Submit 1 Photocopy" name="s_one_photocopy_goodmoral" >
+                      <input type="checkbox" value="Submit 1 Photocopy (GOOD MORAL)" name="s_one_photocopy_goodmoral" >
                       <label for="no_dry_sealgoodmos_one_photocopy_goodmoralral">Submit 1 Photocopy</label><br>
-                      <input type="checkbox" value="Submit Original" name="submit_original_goodmoral" >
+                      <input type="checkbox" value="Submit Original (GOOD MORAL)" name="submit_original_goodmoral" >
                       <label for="submit_original_goodmoral">Submit Original</label><br>
                       
                       
@@ -272,10 +262,9 @@
                     <div class="col" style="margin-left: 50px">
                       <input type="hidden" value="<?php echo $studentadmission_details['email']; ?>" name="email">
                       <input type="hidden" value="<?php echo $studentadmission_details['admission_status']; ?>" name="admission_status">
-                      <input type="checkbox" value="Submit Original" name="submit_original_medcert" >
+                      <input type="checkbox" value="Submit Original (MEDICAL CERTIFICATE)" name="submit_original_medcert" >
                       <label for="submit_original_medcert"> Submit Original</label><br>
-                      
-                      
+                                       
                     </div>
                </div>
             </div>
@@ -284,22 +273,27 @@
               <div class="col">
               <label><strong>2x2 Picture:</strong></label> <br>
               <div class="col" style="margin-left: 50px">
-                    
-                    <input type="checkbox" value="Submit Original" name="submit_twobytwo" >
-                    <label for = "twobytwo"> 2x2 </label>
-                    
-                      <input type="hidden" value="<?php echo $studentadmission_details['email']; ?>" name="email">
-                      <input type="hidden" value="<?php echo $studentadmission_details['admission_status']; ?>" name="admission_status">
-                      
-                      
-                    </div>
+                <input type="checkbox" value="Submit Original (2x2 Picture)" name="submit_twobytwo" >
+                <label for = "twobytwo"> Submit Original </label>
+              </div>
             </div>
+            <div class="row">
+              <div class="col">
+              <label><strong>Certificate of Completion:</strong></label> <br>
+              <div class="col" style="margin-left: 50px">
+                <input type="checkbox" id="certificate_of_completion" value="Submit 1 Photocopy (Certificate of Completion)" name="certificate_of_completion" >
+                <label for="certificate_of_completion">Submit 1 Photocopy</label>
+              </div>
+            </div>
+
+            <input type="hidden" value="<?php echo $studentadmission_details['email']; ?>" name="email">
+            <input type="hidden" value="<?php echo $studentadmission_details['admission_status']; ?>" name="admission_status">
           </div>
 
           </div>  
       </div>  
               <hr><br>
-              <label>Remarks:</label>
+              <label>Other Remarks:</label>
                 <textarea name="remarks" class="form-control"></textarea>
               <br>
               <label>Send to: <?php echo $studentadmission_details['email']; ?></label>

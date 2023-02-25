@@ -1,7 +1,8 @@
 <br>
 <h1 style = "font-weight: bold;">REGISTRATION AND ADMISSION OFFICE</h1>
 <h2>Summary of Incomplete Submission of Admission Credentials </h2>
-<h4>Month Date - Month Date</h4>
+
+<strong>Date:</strong> <?php echo  date("m/d/Y") ?> <strong>Time:</strong> <?php echo date("h:i:sa")?>
 <section class="container-fluid">
 
 
@@ -39,7 +40,7 @@
                         <?php endif ?>
                       </td>
                       <td><?=esc($student['course'])?></td>
-                      <td><?=esc($student['year_graduated'])?></td>
+                      <td><?=esc($student['student_number'][0]).esc($student['student_number'][1]).esc($student['student_number'][2]).esc($student['student_number'][3])?></td>
                       
                       <td>
                         <?php if ($res != NUll): ?>

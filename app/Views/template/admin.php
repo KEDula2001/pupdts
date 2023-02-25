@@ -10,6 +10,9 @@
         <a class="btn completerqt btn-light btn-sm" href="<?=base_url('form-137/requests')?>">
           <i class="fas fa-file"></i> Form 137 Requests
         </a>
+        <a class="btn completerqt btn-light btn-sm" href="<?=base_url('admission')?>">
+          <i class="fas fa-file"></i>Admission Office
+        </a>
         
 
         <button class="btn logout btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -44,7 +47,7 @@
         </li>
        <li class="nav-item">
             <a class="nav-link sideLink" href="/paid">
-            <i class="fas fa-receipt" style="color: green;"></i> Payment Processed
+            <i class="fas fa-receipt" style="color: green;"></i> Paid Requests
             </a>
         </li>
         <li class="nav-item">
@@ -54,14 +57,14 @@
         </li>
         <li class="nav-item">
             <a class="nav-link sideLink " href="/printed-requests">
-              <i class="fas fa-print" style="color: blue;"></i> Processed Documents
+              <i class="fas fa-print" style="color: blue;"></i> Documents to Claim
             </a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a class="nav-link sideLink " href="/completed">
-            <i class="fas fa-walking" style="color: goldenrod;"></i> Documents to Claim
+            <i class="fas fa-walking" style="color: goldenrod;"></i>Documents to Claim
             </a>
-        </li>
+        </li> -->
         <li class="nav-item">
             <a class="nav-link sideLink " href="/claimed-requests">
             <i class="far fa-check-circle" style="color: green;"></i> Claimed Requests

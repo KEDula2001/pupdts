@@ -26,11 +26,58 @@ class Students extends BaseController
         return view('template/index', $this->data);
     }
 
+
+    public function edit($id)
+    {
+      $this->data['courses'] = $this->courseModel->get();
+      $this->data['academic_status'] = $this->academicStatusModel->get();
+      $this->data['edit'] = true;
+      $this->data['title'] = 'Edit';
+      $this->data['id'] = $id;
+      $this->data['view'] = 'Modules\StudentManagement\Views\students\form';
+      $this->data['values'] = $this->studentModel->getStudentDetails(['id' => $id])[0];
+
+      //die(print_r($this->data['values']));
+      
+        if($this->request->getMethod() == 'post'){
+        if($this->validate('editStudent'))
+        {
+          $student_data = [
+            'student_number' => $_POST['student_number'], 
+            'email' => $_POST['email'],
+            'birthdate' => $_POST['birthdate'],
+            'firstname' => $_POST['firstname'],
+            'middlename' => $_POST['middlename'],
+            'lastname' => $_POST['lastname']
+          ];
+          if($this->studentModel->editStudents($student_data, $id))
+          {
+            
+            $this->session->setFlashData('success', 'Successfully Updated Student');
+            return redirect()->to(base_url('students'));
+          }
+          else
+          {
+            $this->session->setFlashData('error', 'Something went wrong!');
+            return redirect()->to(base_url('students'));
+          }
+        }
+        else
+        {
+          $this->data['errors'] = $this->validation->getErrors();
+          $this->data['errors']['names'] = 'Full name and Birthdate are already on the database';
+          $this->data['value'] = $_POST;
+        }
+      }
+      return view('template/index', $this->data);
+    }
+
     public function add()
     {
       $this->data['courses'] = $this->courseModel->get();
       $this->data['academic_status'] = $this->academicStatusModel->get();
       $this->data['edit'] = false;
+      $this->data['title'] = 'Add';
       $this->data['view'] = 'Modules\StudentManagement\Views\students\form';
       if($this->request->getMethod() == 'post')
       {
@@ -56,17 +103,22 @@ class Students extends BaseController
       return view('template/index', $this->data);
     }
 
-    public function delete($id)
+
+
+
+    public function studentDelete($id)
     {
-      if($this->studentModel->softDeleteByUserId($id))
+      //die($id);
+      if($this->userModel->softDeleteUsers($id))
       {
-        if ($this->userModel->softDelete($id)) {
-          $this->session->setFlashData('success_message', 'Successfully deleted student');
+        
+        if ($this->studentModel->softDelete($id)) {
+          $this->session->setFlashData('success', 'Successfully deleted student');
         }
       }
       else
       {
-        die('Something went wrong');
+        $this->session->setFlashData('error', 'Something went wrong');
       }
       return redirect()->to(base_url('students'));
     }
@@ -208,6 +260,37 @@ class Students extends BaseController
       return false;
     }
 
+    public function sendRetrieveStudentDocuments(
+      $firstname = null, 
+      $middlename = null, 
+      $lastname= null, 
+      $email = null, 
+      $data = [],
+      $reason = null
+    ) {
+      $html = "<ul>";
+      // die(print_r($data));
+      foreach($data as $value){
+        if(!empty($value['label'])){
+          $html .= '<br><br><li>'.$value['label'].'</li>';
+        }
+      }
+      $html .= "</ul>";
+
+      $mail = \Config\Services::email();
+      $mail->setTo($email);
+      $mail->setSubject('Notice of Lacking Documents');
+      $mail->setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig OCT-DRS');
+      $mail->setMessage('Good Day, '.$firstname.' '.$middlename.' '.$lastname.'! <br>
+        This is to acknowledge that you have retrieved the following for the purpose of '. $reason.'
+        today from PUP - Taguig. <br>'.$html.'You are advised to return it immediately to the university
+        with complete and accurate corresponding requirements. <br> Thank you! <br><br><br><br> Regards, <br><br>PUPT OCT-DRS');
+      if ($mail->send()) {
+        return true;
+      }
+      return false;
+    }
+  
     public function sendLackingStudentDocuments(
         $firstname = null, 
         $middlename = null, 
@@ -223,7 +306,7 @@ class Students extends BaseController
         }
       }
       $html .= "</ul>";
-      $html .= "<br><br><br>Remarks:".$remarks;
+      $html .= "<br><br><br>Other Remarks:".$remarks;
 
       $mail = \Config\Services::email();
       $mail->setTo($email);
@@ -231,37 +314,66 @@ class Students extends BaseController
       $mail->setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig OCT-DRS');
       $mail->setMessage('Good Day!<br><br>Good day, '.$firstname.' '.$middlename.' '.$lastname.'! 
         Following up on your Admission Credentials, here are the documents you need to submit/resubmit with their corresponding remarks. 
-        Please comply immediately. <br> Thank you!'.$html); 
+        Please comply immediately. <br> Thank you!'.$html. '<br><br><br><br> Regards, <br><br><br>PUPT OCT-DRS'); 
       if ($mail->send()) {
         return true;
       }
       return false;
     }
 
-    public function sendSpecificStudentDocuments($data){
-      $mail = \Config\Services::email();
-      $mail->setTo($email);
-      $setFrom('norereply@rodras.puptaguigcs.net', 'PUP-Taguig OCT-DRS');
-      $mail->setMessage('Good Day! <br> <br> Good day! Sending here with the list of your lacking documents. Please comply'); 
-      $mail->setMessage('<ul>'); 
-      foreach($data as $value){
-        if($data[$value] > 1){
-        $mail->setMessage('<br><br><li>'.$data[$value].'</li>');
-        }
-      }
-      $mail->setMessage('</ul>');
-    }
-
-    public function sendNotifiedLackingDocuments($data){
-      $mail = \Config\Services::email(); 
-      $mail->setTo($email); 
-      $setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig OCT-DRS');
-      $mail->setMessage('Good Day! <br> <br> Good day! Sending here with the list of your lacking documents. Please comply');
-      $mail->setMessage('<ul>'); 
+    public function sendStudentAdmissionDocumentStatus(
+      $firstname = null, 
+      $middlename = null, 
+      $lastname= null, 
+      $email = null, 
+      $data = [], 
+      $remarks = null
+  ) {
+    $html = "<ul>";
+    foreach($data as $value){
+        $html .= '<br><br><li>'.$value[0].' - '.ucwords($value[1]).'</li>';
       
-      foreach($data as $value){
-        $this->setMessage("<li>".$value."</li>"); 
-      }
-      $mail->setMessage('<ul>');
     }
+    $html .= "</ul>";
+    //$html .= "<br><br><br>Other Remarks:".$remarks;
+
+    $mail = \Config\Services::email();
+    $mail->setTo($email);
+    $mail->setSubject('Notice of Lacking Documents');
+    $mail->setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig OCT-DRS');
+    $mail->setMessage('Good Day!<br><br>Good day, '.$firstname.' '.$middlename.' '.$lastname.'! 
+      Following up on your Admission Credentials, here are the documents status with their corresponding remarks. 
+      Please comply immediately. <br> Thank you!'.$html. '<br><br><br><br> Regards, <br><br><br>PUPT OCT-DRS'); 
+    if ($mail->send()) {
+      return true;
+    }
+    return false;
+  }
+
+    // public function sendSpecificStudentDocuments($data){
+    //   $mail = \Config\Services::email();
+    //   $mail->setTo($email);
+    //   $setFrom('norereply@rodras.puptaguigcs.net', 'PUP-Taguig OCT-DRS');
+    //   $mail->setMessage('Good Day! <br> <br> Good day! Sending here with the list of your lacking documents. Please comply'); 
+    //   $mail->setMessage('<ul>'); 
+    //   foreach($data as $value){
+    //     if($data[$value] > 1){
+    //     $mail->setMessage('<br><br><li>'.$data[$value].'</li>');
+    //     }
+    //   }
+    //   $mail->setMessage('</ul>');
+    // }
+
+    // public function sendNotifiedLackingDocuments($data){
+    //   $mail = \Config\Services::email(); 
+    //   $mail->setTo($email); 
+    //   $setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig OCT-DRS');
+    //   $mail->setMessage('Good Day! <br> <br> Good day! Sending here with the list of your lacking documents. Please comply');
+    //   $mail->setMessage('<ul>'); 
+      
+    //   foreach($data as $value){
+    //     $this->setMessage("<li>".$value."</li>"); 
+    //   }
+    //   $mail->setMessage('<ul>');
+    // }
 }

@@ -32,7 +32,16 @@ class RefremarksModel extends Model
 		'submit_original_psa', 
 		'submit_original_goodmoral', 
 		'submit_original_medcert', 
-		'submit_twobytwo',
+		'submit_twobytwo', 
+		'certificate_of_completion', 
+		// 'not_submitted_sarform',
+		// 'not_submitted_f137',
+		// 'not_submitted_grade10',
+		// 'not_submitted_grade11',
+		// 'not_submitted_grade12',
+		// 'not_submitted_psa',
+		// 'not_submitted_goodmoral',
+		// 'not_submitted_medcert',
 		'sc_pup_remarks',
 		'other_remarks',
 	];
@@ -43,34 +52,44 @@ class RefremarksModel extends Model
 		$data = [], 
 		$other_remarks = null
 	) {
-		$email_address = $email;
-		$insert_data = $data;
-		$remarks = $other_remarks;
+		$is_data_not_null = false;
+		foreach ($data as $value) {
+			if(!empty($value)){
+				$is_data_not_null = true;
+			}
+		}
+		if($is_data_not_null == true){
+			$email_address = $email;
+			$insert_data = $data;
+			$remarks = $other_remarks;
 
-		$this->transBegin();
+			$this->transBegin();
 
-		$student = new Students();
-		$studentModel = new StudentsModel();
-		$studentInfo = $studentModel->getStudentByUserId($userID)[0];
+			$student = new Students();
+			$studentModel = new StudentsModel();
+			$studentInfo = $studentModel->getStudentByUserId($userID)[0];
 
-	    if($student->sendLackingStudentDocuments(
-			$studentInfo['firstname'], 
-			$studentInfo['middlename'], 
-			$studentInfo['lastname'], 
-			$email_address, 
-			$insert_data,
-			$remarks
-		)) {
-	        $this->transCommit();
+			if($student->sendLackingStudentDocuments(
+				$studentInfo['firstname'], 
+				$studentInfo['middlename'], 
+				$studentInfo['lastname'], 
+				$email_address, 
+				$insert_data,
+				$remarks
+			)) {
+				$this->transCommit();
 
-			$this->set('user_id', $userID);	
-			$this->set('other_remarks', $remarks);	
-			return $this->insert($data);
+				$this->set('user_id', $userID);	
+				$this->set('other_remarks', $remarks);	
+				return $this->insert($data);
 
-	        return true;
-		} else {
-			$this->transRollback();
+				return true;
+			} else {
+				$this->transRollback();
 
+				return false;
+			}
+		}else{
 			return false;
 		}
 	}
@@ -81,38 +100,48 @@ class RefremarksModel extends Model
 		$data=[], 
 		$other_remarks = null
 	) {
-		$email_address = $email;
-		$insert_data = $data;
-		$remarks = $other_remarks;
-
-		$this->transBegin();
-
-		$student = new Students();
-		$studentModel = new StudentsModel();
-		$studentInfo = $studentModel->getStudentByUserId($userID)[0];
-
-		if($student->sendLackingStudentDocuments(
-			$studentInfo['firstname'], 
-			$studentInfo['middlename'], 
-			$studentInfo['lastname'], 
-			$email_address, 
-			$insert_data,
-			$remarks
-		)) {
-	        $this->transCommit();
-
-			$this->set($data);	
-			$this->set('other_remarks', $remarks);	
-			$this->where('user_id', $userID);
-			
-			$this->update();
-	        
-	        return true;
-	    } else {
-	        $this->transRollback();
-
-	        return false;
-	    }
+		$is_data_not_null = false;
+		foreach ($data as $value) {
+			if(!empty($value)){
+				$is_data_not_null = true;
+			}
+		}
+		if($is_data_not_null == true){
+			$email_address = $email;
+			$insert_data = $data;
+			$remarks = $other_remarks;
+	
+			$this->transBegin();
+	
+			$student = new Students();
+			$studentModel = new StudentsModel();
+			$studentInfo = $studentModel->getStudentByUserId($userID)[0];
+	
+			if($student->sendLackingStudentDocuments(
+				$studentInfo['firstname'], 
+				$studentInfo['middlename'], 
+				$studentInfo['lastname'], 
+				$email_address, 
+				$insert_data,
+				$remarks
+			)) {
+				$this->transCommit();
+	
+				$this->set($data);	
+				$this->set('other_remarks', $remarks);	
+				$this->where('user_id', $userID);
+				
+				$this->update();
+				
+				return true;
+			} else {
+				$this->transRollback();
+	
+				return false;
+			}
+		}else{
+			return false;
+		}
 	}
 	
 	public function __getadmissionremarks($id)

@@ -49,10 +49,12 @@
                             <td><?= esc($request['reason']) ?></td>
                             <td><?=date('F d, Y - h:i A', strtotime(esc($request['created_at'])))?></td>
                             <td><?=date('F d, Y - h:i A', strtotime(esc($request['completed_at'])))?></td>
+                         
                             <td>
                               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#history<?=esc($request['id'])?>">
                                 View
                               </button>
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                               <div class="modal fade" id="history<?=esc($request['id'])?>" tabindex="-1" aria-labelledby="history<?=esc($request['id'])?>Label" aria-hidden="true">
                                 <div class="modal-dialog modal-xl modal-dialog-centered">
                                   <div class="modal-content">
@@ -144,6 +146,8 @@
                                 </div>
                               </div>
                               </td>
+
+                              
                           </tr>
                         <?php endforeach; ?>
                         <?php else: ?>

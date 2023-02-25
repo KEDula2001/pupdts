@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-
+    <link rel="icon" type="image/png" href="/img/pupt-logo.png">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -34,23 +34,30 @@
             <div class="dropdown float-end">
           <div class="collapse navbar-collapse" id="main_nav">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="background-color: maroon;">
-                <li class="nav-item dropdown d-flex">
+              <li class="nav-item dropdown d-flex">
+                <?php if($_SESSION['role'] == "Admin"):?>
+                  <a class="btn dashboard" href="<?=base_url('dashboards')?>">Registrar's Dashboard</a>
+                <?php endif ?>
+                <?php if($_SESSION['role'] == "Superadmin" || $_SESSION['role'] == "Admin" || $_SESSION['role'] == "Admission"):?>
                   <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Home</a>
-                    <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
-                      <li><a class="dropdown-item" href="<?php echo base_url('admission'); ?>">Dashboard</a></li>
-                      <li><a class="dropdown-item" href="<?php echo base_url('admission/add-student-form'); ?>">Add Student</a></li>                      
-                      <li><a class="dropdown-item" href="<?=base_url('form-137/requests')?>"> Form 137 Request</a></li>
-                    </ul>
+                  <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="<?php echo base_url('admission'); ?>">Dashboard</a></li>
+                    <li><a class="dropdown-item" href="<?php echo base_url('admission/add-student-form'); ?>">Add Student</a></li>                      
+                    <li><a class="dropdown-item" href="<?=base_url('form-137/requests')?>"> Form 137 Request</a></li>
+                  </ul>
+                <?php endif ?>
 
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="background-color: maroon;">
-                <li class="nav-item dropdown d-flex">
-                  <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
-                    <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
-                      <li><a class="dropdown-item" href="/admission/complete">Complete Submission</a></li>
-                      <li><a class="dropdown-item" href="/admission/incomplete">Incomplete Submission</a></li>
-                      <li><a class="dropdown-item" href="/admission/retrieved-files">Retrieved Credentials</a></li>
-                      <li><a class="dropdown-item" href="/admission/request-rechecking">Rechecking Credentials</a></li>
-                    </ul>
+                <?php if($_SESSION['role'] == "Superadmin" || $_SESSION['role'] == "Admin" || $_SESSION['role'] == "Admission"):?>
+                  <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="background-color: maroon;">
+                    <li class="nav-item dropdown d-flex">
+                      <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+                        <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
+                          <li><a class="dropdown-item" href="/admission/complete">Complete Submission</a></li>
+                          <li><a class="dropdown-item" href="/admission/incomplete">Incomplete Submission</a></li>
+                          <li><a class="dropdown-item" href="/admission/retrieved-files">Retrieved Credentials</a></li>
+                          <li><a class="dropdown-item" href="/admission/request-rechecking">Rechecking Credentials</a></li>
+                        </ul>
+                <?php endif ?>
 
                     
 

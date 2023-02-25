@@ -1,8 +1,8 @@
   
   <?php if($_SESSION['role'] == 'Students'): ?>
-    <button style="background-color : #800000;color: white;padding: 10px 20px;border-radius: 4px;border-color: #800000;position: fixed;bottom: -4px;right: 10px;" type="submit" formtarget="_blank">
+    <!-- <button style="background-color : #800000;color: white;padding: 10px 20px;border-radius: 4px;border-color: #800000;position: fixed;bottom: -4px;right: 10px;" type="submit" formtarget="_blank">
         Feedback
-    </button>
+    </button> -->
     <footer class="footer p-3 bg-light bg-gradient">
       <div class="container-fluid text-center align-items-center">
         <small class="text-muted">

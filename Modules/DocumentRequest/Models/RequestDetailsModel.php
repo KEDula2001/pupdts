@@ -11,7 +11,24 @@ class RequestDetailsModel extends BaseModel
 
   protected $table = 'request_details';
 
-  protected $allowedFields = ['id', 'request_id','free', 'document_id', 'remark', 'status', 'quantity' , 'page','printed_at', 'received_at'];
+  protected $allowedFields = [
+    'id', 
+    'request_id',
+    'free', 
+    'document_id', 
+    'remark', 
+    'status', 
+    'quantity' , 
+    'page',
+    'library', 
+    'laboratory', 
+    'rotc', 
+    'accounting_office', 
+    'internal_audit', 
+    'legal_office', 
+    'printed_at', 
+    'received_at'
+  ];
 
   function __construct(){
     parent::__construct();
@@ -19,7 +36,11 @@ class RequestDetailsModel extends BaseModel
 
   public function getDetails($conditions = [], $id = null){
 
-    $this->select('request_details.*, requests.slug,documents.price,requests.created_at as requested_at, requests.confirmed_at,requests.reason, documents.document,documents.per_page_payment,documents.template, documents.price, students.firstname, students.lastname,students.suffix, students.student_number, students.gender ,courses.course, courses.abbreviation, users.email');
+    $this->select('request_details.*, requests.slug,documents.price,requests.created_at as requested_at, 
+      requests.confirmed_at,requests.reason, documents.document,documents.per_page_payment,documents.template, 
+      documents.price, students.firstname, students.lastname, CONCAT(students.firstname, students.lastname) as fullname, 
+      students.suffix, students.student_number, students.gender ,
+      courses.course, courses.abbreviation, users.email');
     $this->join('requests', 'request_id = requests.id');
     $this->join('documents', 'document_id = documents.id');
     $this->join('students', 'requests.student_id = students.id');
@@ -31,6 +52,17 @@ class RequestDetailsModel extends BaseModel
     if ($id != null)
       $this->where('id', $id);
     return $this->findAll();
+  }
+
+  public function getRequestDetailList($request_id = null){
+    $this->select('library, laboratory, rotc, accounting_office, internal_audit, legal_office');
+    $this->where('request_id' , $request_id);
+    return $this->findAll();
+  }
+
+  public function approveClearance($id, $data)
+  {
+    return $this->update($id, $data);
   }
 
   public function printRequest($id, $data)

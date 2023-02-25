@@ -58,6 +58,7 @@ $routes->group('approval', ['namespace' => 'Modules\DocumentRequest\Controllers'
     $routes->get('/', 'DocumentRequests::approval');
     $routes->post('approve', 'DocumentRequests::approveRequest');
     $routes->post('hold', 'DocumentRequests::holdRequest');
+    $routes->get('apply-approval/edit/(:num)/(:num)/(:num)', 'DocumentRequests::applyApproval/$1/$2/$3');
 });
 
 $routes->group('printed-requests', ['namespace' => 'Modules\DocumentRequest\Controllers'], function($routes)

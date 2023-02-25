@@ -183,17 +183,17 @@ class Validation
 	];
 
 	public $student = [
-		// 'student_number' => [
-		// 	'rules'=> 'required|exact_length[15]|alpha_dash|regex_match[/[0-9]{4}-[0-9]{5}-TG-0/]|is_unique[users.username]',
-		// 	'label' => 'Student Number',
-		// 	'errors' => [
-		// 		'required' => 'Please enter student number',
-		// 		'exact_length' => 'Please enter a valid length (15)',
-		// 		'alpha_dash' => 'Special characters are not allowed',
-		// 		'regex_match' => 'PLease enter a valid student number',
-		// 		'is_unique' => 'This student number is already registered'
-		// 	]
-		// ],
+		'student_number' => [
+			'rules'=> 'required|exact_length[15]|alpha_dash|regex_match[/[0-9]{4}-[0-9]{5}-TG-0/]|is_unique[users.username]',
+			'label' => 'Student Number',
+			'errors' => [
+				'required' => 'Please enter student number',
+				'exact_length' => 'Please enter a valid length (15)',
+				'alpha_dash' => 'Special characters are not allowed',
+				'regex_match' => 'PLease enter a valid student number',
+				'is_unique' => 'This student number is already registered'
+			]
+		],
 		'email' => [
 			'rules' => 'required|valid_email|is_unique[users.email]',
 			'label' => 'Email',
@@ -226,6 +226,52 @@ class Validation
 			'alpha_dash' => 'Enter valid characters',
 		]
 	],
+];
+
+
+	public $editStudent = [
+	'student_number' => [
+		'rules'=> 'required|exact_length[15]|alpha_dash|regex_match[/[0-9]{4}-[0-9]{5}-TG-0/]',
+		'label' => 'Student Number',
+		'errors' => [
+			'required' => 'Please enter student number',
+			'exact_length' => 'Please enter a valid length (15)',
+			'alpha_dash' => 'Special characters are not allowed',
+			'regex_match' => 'Please enter a valid student number',
+			
+		]
+	],
+	'email' => [
+		'rules' => 'required|valid_email',
+		'label' => 'Email',
+		'errors' => [
+			'required' => 'Please enter email',
+			'valid_email' => 'Please enter a valid email',
+		]
+	],
+	'firstname' => [
+		'rules' => 'alpha_space|required',
+		'label' => 'First Name',
+		'errors' => [
+			'alpha_dash' => 'Enter valid characters',
+			'required' => 'Please enter first name'
+		]
+	],
+	'lastname' => [
+		'rules' => 'alpha_space|required',
+		'label' => 'Last Name',
+		'errors' => [
+			'alpha_dash' => 'Enter valid characters',
+			'required' => 'Please enter first name'
+		]
+	],
+'birthdate' => [
+	'rules' => 'required',
+	'label' => 'Birthdate',
+	'errors' => [
+		'alpha_dash' => 'Enter valid characters',
+	]
+],
 ];
 
 	public $user = [

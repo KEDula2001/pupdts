@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-
+    <link rel="icon" type="image/png" href="/img/pupt-logo.png">
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
@@ -18,6 +18,8 @@
     <?php if($_SESSION['role'] == 'Superadmin'): ?>
       <link rel="stylesheet" href="/css/superadmin/style.css">
     <?php elseif($_SESSION['role'] == 'Admin'): ?>
+      <link rel="stylesheet" href="/css/admin/admin.css">
+    <?php elseif($_SESSION['role'] == 'Admission'): ?>
       <link rel="stylesheet" href="/css/admin/admin.css">
     <?php else: ?>
     <link rel="stylesheet" href="/css/student/student.css">
@@ -48,6 +50,8 @@
       <?= view('template/superadmin') ?>
       <?= view('template/sidebar') ?>
     <?php elseif($_SESSION['role'] == 'Admin'): ?>
+      <?= view('template/admin') ?>
+    <?php elseif($_SESSION['role'] == 'Admission'): ?>
       <?= view('template/admin') ?>
     <?php else: ?>
       <?= view('template/user')?>

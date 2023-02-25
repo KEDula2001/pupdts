@@ -135,7 +135,7 @@
                         <th width="2%">#</th>
                         <th width="20%">Document</th>
                         <th width="20%">Quantity</th>
-                        <th width="20%">Processing Time (Days)</th>
+                        <th width="20%">Processing Days</th>
                         <th width="20%">Price</th>
                       </tr>
                     </thead>
@@ -155,11 +155,14 @@
                                 <label class="form-check-label" for="free-form-<?=trim(str_replace(' ', '', $document['document']))?>">First Request</label>
                               <?php endif; ?>
                             </td>
-                            <td><?php
+                            <td>
+                              3 Days
+                              <!-- <?php
                               $dtF = new \DateTime('@0');
                               $dtT = new \DateTime('@'.$document['process_day']);
                               echo $dtF->diff($dtT)->format('%a days, %h hours and %i minutes');
-                             ?></td>
+                             ?> -->
+                             </td>
                             <td>P <?=esc($document['price'])?></td>
                           </tr>
                       <?php endforeach; ?>

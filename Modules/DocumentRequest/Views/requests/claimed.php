@@ -78,7 +78,7 @@
                       <th>Reason</th>
                       <th>Date Requested</th>
                       <th>Date Printed</th>
-                      <th>Proess Time</th>
+                      <th>Process Time</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -91,7 +91,8 @@
                         <td><?=date('M d, y - H:i A', strtotime(esc($request_detail['confirmed_at'])))?></td>
                         <td><?=date('M d, y - H:i A', strtotime(esc($request_detail['printed_at'])))?></td>
                         <td>
-                          <?php $date1 = strtotime(esc($request_detail['confirmed_at'])) ?>
+                          3 days
+                          <!-- <?php $date1 = strtotime(esc($request_detail['confirmed_at'])) ?>
                           <?php $date2 = strtotime(esc($request_detail['printed_at'])) ?>
                           <?php
                             $diff = abs($date2 - $date1);
@@ -102,7 +103,7 @@
                             $minutes = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24 - $days*60*60*24 - $hours*60*60)/ 60);
                             $seconds = floor(($diff - $years * 365*60*60*24  - $months*30*60*60*24 - $days*60*60*24 - $hours*60*60 - $minutes*60));
                           ?>
-                          <?php printf("%d days, %d hours, ". "%d minutes",$days, $hours, $minutes)?>
+                          <?php printf("%d days",$days)?> -->
                         </td>
                       </tr>
                     <?php endforeach; ?>

@@ -1,6 +1,5 @@
 <div class="container-admission" style="margin: 20px">
-<section class="container-fluid">
-  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+<div class="d-sm-flex align-items-center justify-content-between mb-4" style="margin: 50px">
         <nav style="--bs-breadcrumb-divider: '<'; font-weight: bold;" aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="<?php echo base_url('admission'); ?>"><i class="fas fa-home"></i></a></li>
@@ -8,7 +7,19 @@
         </ol>
       </nav>
   </div>
+<section class="container-fluid" style="padding-left: 30%">
+  
   <div class="row">
+            <div class="row">
+                <div class="col-md-5">
+                  <input type="file" id="file" name="students" class="form-control" required>
+                </div>
+                <div class="col-md-2">
+                  <button onClick='insertSpreadsheet()' class="btn btn-upload btn-primary">Upload file</button>
+                </div>
+                  <p style="font-style: italic;">*Upload an excel file that contains list of students</p>
+            </div>
+        </div>
     <div class="col-2"></div>
     <div class="col-8">
       <div class="card">

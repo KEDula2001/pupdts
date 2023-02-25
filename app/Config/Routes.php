@@ -104,19 +104,28 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function($rout
 });
 // admission
 	$routes->get('admission', 'AdmissionController::index');
+	$routes->get('admissionregistrar', 'AdmissionController::regAdminIndex');
 	$routes->post('admission/insert-student', 'AdmissionController::insertstudent');
 	$routes->get('admission/add-student-form', 'AdmissionController::showStudentForm');
 	$routes->get('admission/complete', 'AdmissionController::showStudentCompleteAdmission');
+	$routes->get('admissionregistrar/complete1', 'AdmissionController::showStudentCompleteAdmission1');
 	$routes->post('admission/insert-admission/(:num)', 'AdmissionController::insertStudentAdmissionForwarded/$1');
+	$routes->post('admissionregistrar/insert-admission1/(:num)', 'AdmissionController::insertStudentAdmissionForwarded1/$1');
 	$routes->get('admission/notify/(:num)', 'AdmissionController::showNotifier/$1');
+	$routes->get('admissionregistrar/notify1/(:num)', 'AdmissionController::showNotifier1/$1');
 	$routes->post('admission/sendmail-lacking-documents/(:num)', 'AdmissionController::sendLackingDocumentstoMail/$1');
 	//added new specific route for send mail 
 	$routes->post('admission/sendnotifystudents/(:num)', 'AdmissionController::sendLackingDocumentstoMail/$1');
+	$routes->post('admissionregistrar/sendnotifystudents1/(:num)', 'AdmissionController::sendLackingDocumentstoMail1/$1');
 	$routes->get('admission/incomplete', 'AdmissionController::showstudentIncompleteAdmission');
+	$routes->get('admissionregistrar/incomplete1', 'AdmissionController::showstudentIncompleteAdmission1');
 	$routes->get('admission/request-rechecking', 'AdmissionController::showstudentRecheckingAdmission');
+	$routes->get('admissionregistrar/request-rechecking1', 'AdmissionController::showstudentRecheckingAdmission1');
 	$routes->post('admission/retreived-admission-files/(:num)', 'AdmissionController::setForRetrievingFiles/$1');
 	$routes->get('admission/retrieved-files', 'AdmissionController::showstudentRetrievedFiles');
+	$routes->get('admissionregistrar/retrieved-files1', 'AdmissionController::showstudentRetrievedFiles1');
 	$routes->get('admission/student-admission-file/(:num)', 'AdmissionController::showStudentFilesImages/$1');
+	//set new method for student status
 	$routes->post('admission/student-status/(:num)', 'AdmissionController::StudentAdDocumentStatus/$1');
 	//set new method upload files
 	$routes->post('admission/student-upload-files-set/(:num)', 'AdmissionController::UploadStudentDocuments/$1');

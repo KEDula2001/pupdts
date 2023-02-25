@@ -1,7 +1,7 @@
 <br>
 <h1 style = "font-weight: bold;">REGISTRATION AND ADMISSION OFFICE</h1>
-<h2>Summary Report of Admission Credentials Submission Sttaus</h2>
-<h4>Month Date - Month Date</h4>
+<h2>Summary Report of Admission Credentials Submission Status</h2>
+<strong>Date:</strong> <?php echo  date("m/d/Y") ?> <strong>Time:</strong> <?php echo date("h:i:sa")?><br><br>
 
 
 
