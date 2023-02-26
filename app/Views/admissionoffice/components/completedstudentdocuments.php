@@ -140,6 +140,8 @@
                                      <label for="medical_certID">Medical Clearance</label><br>
                                      <input type="checkbox" value="7" name="picture_two_by_twoID" <?php if(!empty($res['picture_two_by_twoID'])){echo 'checked';} ?>>
                                      <label for="picture_two_by_twoID">2x2 Picture</label><br>
+                                     <input type="checkbox" value="25" name="certicate_of_completion" <?php if(!empty($res['certicate_of_completion'])){echo 'checked';} ?>>
+                                     <label for="certicate_of_completion">Certificate of Completion</label><br>
                                     <hr>
                                     <label>Other Documents:</label><br>
                                      <input type="checkbox" value="8" name="nc_non_enrollmentID" <?php if(!empty($res['nc_non_enrollmentID'])){echo 'checked';} ?>>

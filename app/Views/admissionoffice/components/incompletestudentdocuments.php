@@ -149,6 +149,8 @@
                                      <label for="coc_hs_shsID">COC (HS/SHS)</label><br> 
                                       <input type="checkbox" value="10" name="ac_pept_alsID" <?php if(!empty($res['ac_pept_alsID'])){echo 'checked';} ?>>
                                       <label for="ac_pept_alsID">Authenticated Copy PEPT/ALS<br></label><br> 
+                                      <input type="checkbox" value="25" name="certicate_of_completion" <?php if(!empty($res['certicate_of_completion'])){echo 'checked';} ?>>
+                                     <label for="certicate_of_completion">Certificate of Completion</label><br>
                                       <hr>
                                     <label>Graduation Requirements:</label><br>
                                       <input type="checkbox" value="13" name="app_grad" <?php if(!empty($res['app_grad'])){echo 'checked';} ?>>Application for Graduation<br>
@@ -193,4 +195,4 @@
       </div>
     </div>    
   </section>
-</div>
+</div>s

@@ -54,6 +54,11 @@
           <?php else: ?>
             <i class="fas fa-times" style="color:red;"></i> 2x2 Picture<br>
           <?php endif ?>
+          <?php if (!empty($studentadmission_details['certificate_of_completion'])): ?>
+            <input type="checkbox" value="1" name="certificate_of_completion" checked> Certificate of Completion<br>
+          <?php else: ?>
+            <i class="fas fa-times" style="color:red;"></i> Certificate of Completion<br>
+          <?php endif ?>
           <hr>
           <label>Other Documents:</label><br>
           <?php if (!empty($studentadmission_details['nc_non_enrollmentID'])): ?>
@@ -281,7 +286,7 @@
               <div class="col">
               <label><strong>Certificate of Completion:</strong></label> <br>
               <div class="col" style="margin-left: 50px">
-                <input type="checkbox" id="certificate_of_completion" value="Submit 1 Photocopy (Certificate of Completion)" name="certificate_of_completion" >
+                <input type="checkbox" id="certificate_of_completion" value="Submit 1 Photocopy (CEREETIFICATE OF COMPLETION)" name="certificate_of_completion" >
                 <label for="certificate_of_completion">Submit 1 Photocopy</label>
               </div>
             </div>
