@@ -18,6 +18,12 @@ class RequestsModel extends BaseModel
     parent::__construct();
   }
 
+
+  public function updateRequestStatus($id, $data){
+          
+    return $this->update($id, $data); 
+  }
+
   public function getDetails($condition = [], $id = null){
     $this->select('requests.id, requests.approved_at ,requests.receipt_img,requests.receipt_number,requests.uploaded_at,requests.slug, requests.disapproved_at,students.firstname,students.middlename, students.suffix,students.status as student_status,students.student_number, students.lastname,requests.completed_at, requests.reason, requests.created_at, courses.course, courses.abbreviation, requests.status');
     $this->join('students', 'students.id = student_id');
@@ -131,7 +137,13 @@ class RequestsModel extends BaseModel
           'remark' => null,
           'status' => empty($documentRequirements) ? 'f' : 'a',
           'quantity' => $details['quantity'],
-          'free' => $details['free']
+          'free' => $details['free'],
+          'library' => 0, 
+          'laboratory' => 0,
+          'rotc' => 0,
+          'accounting_office' => 0,
+          'internal_audit' => 0,
+          'legal_office' => 0
         ];
         $requestDetail->insert($requestDetailData);
         $detailID = $requestDetail->getInsertID();

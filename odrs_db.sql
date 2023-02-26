@@ -939,7 +939,6 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`id`, `student_number`, `firstname`, `lastname`, `middlename`, `suffix`, `gender`, `contact`, `birthdate`, `level`, `status`, `year_graduated`, `course_id`, `user_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(142, '2017-00234-TG-0', 'wqeqwew', 'qweqeqwe', 'ewwqeqweq', NULL, NULL, NULL, '2001-02-28', NULL, NULL, NULL, 2, 213, '2022-11-24 13:26:35', '2022-11-24 13:26:35', NULL),
 (145, '2019-00425-TG-0', 'Harvey', 'Buena', 'Almerino', NULL, NULL, NULL, '1999-02-04', NULL, NULL, 2019, 2, 218, '2022-12-15 15:08:12', '2022-12-15 15:08:12', NULL),
 (147, 'cute-ako', 'cute ako', 'cute ako', 'cute ako', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 222, '2023-02-11 22:46:38', '2023-02-11 22:46:38', NULL),
 (203, '2050-00439-TG-0', 'Angelica', 'Valenton', 'Fe', NULL, NULL, NULL, '2000-09-29', NULL, NULL, NULL, 2, 224, '2023-02-13 13:18:56', '2023-02-13 13:18:56', NULL),
