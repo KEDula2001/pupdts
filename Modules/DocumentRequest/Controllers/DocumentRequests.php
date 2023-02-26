@@ -165,20 +165,24 @@ class DocumentRequests extends BaseController
       }
       $total_count_requests = $countRequestDetails * $countPerRequestDetails;
       if($cnt == $total_count_requests){
+        $data_status = [
+          'status' => 'p'
+        ];
+        $this->requestModel->updateRequestStatus($request_id, $data_status);
         $data = [
           'status' => 'Success!',
-          'status_message' => 'Sucessfully Cleared!',
+          'status_message' => 'Sucessfully Updated Request!',
           'status_icon' => 'success',
         ];
         return $this->response->setJSON($data);
-      }else{
-        $data = [
-          'status' => 'Warning!',
-          'status_message' => 'Something went wrong!',
-          'status_icon' => 'warning',
-        ];
-        return $this->response->setJSON($data);
+        
       }
+      $data = [
+        'status' => 'Success!',
+        'status_message' => 'Sucessfully Cleared!',
+        'status_icon' => 'success',
+      ];
+      return $this->response->setJSON($data);
     }else{
       $data = [
         'status' => 'Error!',
