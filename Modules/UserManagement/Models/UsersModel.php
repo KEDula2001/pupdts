@@ -46,7 +46,7 @@ class UsersModel extends BaseModel
     $admin->insert($data);
 
     $this->transComplete();
-    return $this->transStatus();
+    return $this->transStatus(); 
   }
 
   public function editDetails($id, $data)

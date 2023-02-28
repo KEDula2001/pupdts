@@ -151,7 +151,6 @@ class Students extends BaseController
                 ];
                 array_push($data, $temp);
             }
-
             if($this->userModel->inputDetailBulk($data)){
               $response = [
                 'status' => 'success',
@@ -170,7 +169,7 @@ class Students extends BaseController
                 'inserted_count' => 0,
                 'insert_count' => count($array),
                 'exisiting_count' => $ctr,
-                'data' => null,
+                'data' => $data,
                 'message' => 'Please check the format of each data in spreadsheet',
               ];
               return json_encode($response);

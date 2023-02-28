@@ -48,7 +48,7 @@
                               <th width="10%">Request Code</th>
                               <th width="20%">Documents</th>
                               <th width="10%">Date Submitted</th>
-                          <th width="5%">Receipt Info</th>
+                          <!-- <th width="5%">Receipt Info</th> -->
                               <th width="20%">Status</th>
                               <th width="35%">Action</th>
                           </thead>
@@ -77,16 +77,12 @@
                                     </ul>
                                   </td>
                                   <td><?=date('F d, Y - h:i A', strtotime(esc($request['created_at'])))?></td>
-                                  <td>
-                                    <?php if ($request['receipt_number'] == null): ?>
-                                      N/A
-                                    <?php else: ?>
-                                      <a href="#" onClick="viewReceipt('< ?=esc($request['receipt_img'])?>', '<?=esc($request['receipt_number'])?>')">View</a> 
-                                    <?php endif; ?>
-                                  </td>    
+                                 
                                   <td>
                                     <?php if ($request['status'] == 'p'): ?>
                                         Waiting for admin approval
+                                    <?php elseif($request['status'] == 'f'): ?>
+                                        Your request/s is now on process in 6 offices.
                                     <?php elseif($request['status'] == 'y'): ?>
                                         Waiting for payment (Upload receipt details)
                                     <?php elseif($request['status'] == 'i'): ?>
@@ -97,6 +93,8 @@
                                   </td>
                                   <td>
                                     <?php if ($request['status'] == 'p'): ?>
+                                      <a href="#" onclick="deleteRequest(<?=esc($request['id'])?>)" class="btn btn-danger btn-sm">Cancel Request</a>
+                                      <?php elseif($request['status'] == 'f'): ?>
                                       <a href="#" onclick="deleteRequest(<?=esc($request['id'])?>)" class="btn btn-danger btn-sm">Cancel Request</a>
                                     <?php elseif($request['status'] == 'y'): ?>
                                       <a href="#" onclick="uploadReceipt(<?=esc($request['id'])?>)" class="btn btn-secondary btn-sm">Upload Receipt</a>

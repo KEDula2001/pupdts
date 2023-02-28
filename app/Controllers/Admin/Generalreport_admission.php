@@ -73,7 +73,7 @@ class Generalreport_admission extends BaseController
     // Fit text on cell by reducing font size
         $pdf->MultiCell(89, 40, 'Prepared By:
 
-   Liway Maliksi
+   Liwanag L. Maliksi
     Head of Admission Office', 0, 'C', 0, 0, '', '', true, 0, false, true, 40, 'M' ,true);
         $pdf->MultiCell(89, 40, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'M');
         $pdf->MultiCell(89, 40, 'Noted By:

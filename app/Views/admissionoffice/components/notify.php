@@ -286,7 +286,7 @@
               <div class="col">
               <label><strong>Certificate of Completion:</strong></label> <br>
               <div class="col" style="margin-left: 50px">
-                <input type="checkbox" id="certificate_of_completion" value="Submit 1 Photocopy (CEREETIFICATE OF COMPLETION)" name="certificate_of_completion" >
+                <input type="checkbox" id="certificate_of_completion" value="Submit 1 Photocopy (Certificate of Completion)" name="certificate_of_completion" >
                 <label for="certificate_of_completion">Submit 1 Photocopy</label>
               </div>
             </div>

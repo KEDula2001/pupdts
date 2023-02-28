@@ -18,12 +18,6 @@ class RequestsModel extends BaseModel
     parent::__construct();
   }
 
-
-  public function updateRequestStatus($id, $data){
-          
-    return $this->update($id, $data); 
-  }
-
   public function getDetails($condition = [], $id = null){
     $this->select('requests.id, requests.approved_at ,requests.receipt_img,requests.receipt_number,requests.uploaded_at,requests.slug, requests.disapproved_at,students.firstname,students.middlename, students.suffix,students.status as student_status,students.student_number, students.lastname,requests.completed_at, requests.reason, requests.created_at, courses.course, courses.abbreviation, requests.status');
     $this->join('students', 'students.id = student_id');
@@ -35,7 +29,10 @@ class RequestsModel extends BaseModel
       $this->where('requests.id', $id);
     return $this->findAll();
   }
-
+  public function updateRequestStatus($id, $data){
+          
+    return $this->update($id, $data); 
+  }
   public function getRequestDetails($condition = [], $id = null){
     $this->select('requests.*, CONCAT(students.firstname, students.lastname) as fullname');
     $this->join('students', 'students.id = requests.student_id');
@@ -59,7 +56,7 @@ class RequestsModel extends BaseModel
 
   public function acceptPaid($id)
   {
-    return $this->update($id, ['status' => 'c', 'confirmed_at' => date("Y-m-d H:i:s")]);
+    return $this->update($id, ['status' => 'o', 'confirmed_at' => date("Y-m-d H:i:s")]);
   }
 
   public function denyPaid($id)
@@ -135,10 +132,10 @@ class RequestsModel extends BaseModel
           'request_id' => $requestID,
           'document_id' => $details['document_id'],
           'remark' => null,
-          'status' => empty($documentRequirements) ? 'f' : 'a',
+          'status' => empty($documentRequirements) ? 'p' : 'a',
           'quantity' => $details['quantity'],
           'free' => $details['free'],
-          'library' => 0, 
+          'library' => 0,
           'laboratory' => 0,
           'rotc' => 0,
           'accounting_office' => 0,

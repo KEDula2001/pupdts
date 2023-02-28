@@ -240,7 +240,7 @@ class AdmissionController extends BaseController
 				// ];
 				if($model->__updateAdmissionDocument($id, $admissionStatusData)){
 
-					$this->session->setFlashData('success', 'Successfully updated the student document status');
+					$this->session->setFlashData('success', 'Email sent successfully!');
 					return redirect()->to(base_url('admission'));
 				}else{
 					$this->session->setFlashData('error', 'Something went wrong!');
@@ -333,7 +333,7 @@ class AdmissionController extends BaseController
 	 // Fit text on cell by reducing font size
 		 $pdf->MultiCell(89, 40, 'Prepared By:
  
-	Liway Maliksi
+	Liwanag L. Maliksi
 	 Head of Admission Office', 0, 'C', 0, 0, '', '', true, 0, false, true, 40, 'M' ,true);
 		 $pdf->MultiCell(89, 40, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'M');
 		 $pdf->MultiCell(89, 40, 'Noted By:
@@ -422,7 +422,7 @@ class AdmissionController extends BaseController
 	 // Fit text on cell by reducing font size
 		 $pdf->MultiCell(89, 40, 'Prepared By:
  
-	Liway Maliksi
+	Liwanag L. Maliksi
 	 Head of Admission Office', 0, 'C', 0, 0, '', '', true, 0, false, true, 40, 'M' ,true);
 		 $pdf->MultiCell(89, 40, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'M');
 		 $pdf->MultiCell(89, 40, 'Noted By:
@@ -512,7 +512,7 @@ class AdmissionController extends BaseController
 	 // Fit text on cell by reducing font size
 		 $pdf->MultiCell(89, 40, 'Prepared By:
  
-	Liway Maliksi
+	Liwanag L. Maliksi
 	 Head of Admission Office', 0, 'C', 0, 0, '', '', true, 0, false, true, 40, 'M' ,true);
 		 $pdf->MultiCell(89, 40, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'M');
 		 $pdf->MultiCell(89, 40, 'Noted By:
@@ -597,7 +597,7 @@ class AdmissionController extends BaseController
 	 // Fit text on cell by reducing font size
 		 $pdf->MultiCell(89, 40, 'Prepared By:
  
-	Liway Maliksi
+	Liwanag L. Maliksi
 	 Head of Admission Office', 0, 'C', 0, 0, '', '', true, 0, false, true, 40, 'M' ,true);
 		 $pdf->MultiCell(89, 40, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'M');
 		 $pdf->MultiCell(89, 40, 'Noted By:
@@ -687,7 +687,7 @@ class AdmissionController extends BaseController
 	 // Fit text on cell by reducing font size
 		 $pdf->MultiCell(89, 40, 'Prepared By:
  
-	Liway Maliksi
+	Liwanag L. Maliksi
 	 Head of Admission Office', 0, 'C', 0, 0, '', '', true, 0, false, true, 40, 'M' ,true);
 		 $pdf->MultiCell(89, 40, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'M');
 		 $pdf->MultiCell(89, 40, 'Noted By:
@@ -714,10 +714,12 @@ class AdmissionController extends BaseController
 		$getRetrievedRecord = new RefForRetrievedModel;
 
 		$this->data['retrieved_record'] = $getRetrievedRecord->__getRetrievedRecord();
-		$this->data['count_incomplete'] = $getstudentadmissionmodel->__getIncompleteDocs();
+		$this->data['count_incomplete'] = $getstudentadmissionmodel->__getIncompleteDocs(); 
 		$this->data['count_complete'] = $getstudentadmissionmodel->__getCompleteDocs();
 		$this->data['count_recheck'] = $getstudentadmissionmodel->__getRecheckDocs();
 		$this->data['students'] = $getstudent->__getStudentDetails();
+		$this->data['students_admission'] = $getstudentadmissionmodel->__getStudentAdmissionDetails();
+		// die(print_r($this->data['students_admission']));
 		$this->data['checklists'] = $getchecklist->__getChecklistDetails();
 		if ($this->isAjax()) {
 			return view('admissionoffice/admissiondashboard', $this->data);
@@ -787,14 +789,14 @@ class AdmissionController extends BaseController
 						'email' => $_POST['email'],
 						'course_id' => $_POST['course_id']
 					];
-
+// die(print_r($data));
 			$res = $this->studentModel->insertStudent($data);
 
 			if ($res) {
-				$this->session->setFlashData('success_message', 'Successfully Added Student');
+				$this->session->setFlashData('success', 'Successfully Added Student');
             	return redirect()->to(base_url('admission'));
 			}else{
-				$this->session->setFlashData('error_message', 'Error');
+				$this->session->setFlashData('error', 'Error');
             	return redirect()->to(base_url('admission/add-student-form'));
 			}
 	}

@@ -13,7 +13,7 @@
                   <th>Reason</th>
                   <th>Documents</th>
                   <th>Date Submitted</th>
-                  <th>Action</th>
+                  <!-- <th>Action</th> -->
                 </tr> 
               </thead>
               <tbody>
@@ -36,9 +36,9 @@
                         </ul>
                       </td>
                       <td><?= date('F d, Y - H:i A', strtotime(esc($request['created_at']))) ?></td>
-                      <td>
+                      <!-- <td>
                         <button onClick="denyRequest(<?=esc($request['id'])?>, '<?=esc($request['student_number'])?>')" class="btn btn-reject btn-danger"> Reject </button>
-                      </td>
+                      </td> -->
                     </tr>
                   <?php endforeach; ?>
                 <?php endif; ?>

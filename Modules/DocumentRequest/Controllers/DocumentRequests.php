@@ -175,7 +175,6 @@ class DocumentRequests extends BaseController
           'status_icon' => 'success',
         ];
         return $this->response->setJSON($data);
-        
       }
       $data = [
         'status' => 'Success!',
@@ -233,7 +232,7 @@ class DocumentRequests extends BaseController
   public function onProcess()
   {
     $this->data['documents'] = $this->documentModel->get();
-    $this->data['request_details'] = $this->requestDetailModel->getDetails(['request_details.status' => 'p', 'requests.status' => 'c']);
+    $this->data['request_details'] = $this->requestDetailModel->getDetails(['request_details.status' => 'p', 'requests.status' => 'o']);
     $this->data['view'] = 'Modules\DocumentRequest\Views\requests\process';
     return view('template/index', $this->data);
   }
@@ -254,7 +253,7 @@ class DocumentRequests extends BaseController
     $this->data['requests'] = $this->requestModel->getDetails(['student_id' => $_SESSION['student_id'], 'requests.completed_at !=' => null, 'requests.status !=' => 'd']);
     $this->data['office_approvals'] = $this->officeApprovalModel->getDetails(['requests.student_id' => $_SESSION['student_id'], 'requests.completed_at !=' => null, 'request_details.status !=' => 'd']);
     $this->data['documents'] = $this->documentModel->get();
-    $this->data['request_details_release'] = $this->requestDetailModel->getDetails(['request_details.status' => 'r', 'requests.status' => 'c']);
+    $this->data['request_details_release'] = $this->requestDetailModel->getDetails(['request_details.status' => 'r', 'requests.status' => 'o']);
     $this->data['view'] = 'Modules\DocumentRequest\Views\requests\printed';
     
     return view('template/index', $this->data);
@@ -526,16 +525,16 @@ class DocumentRequests extends BaseController
   public function claimed()
   {
     $this->data['documents'] = $this->documentModel->get();
-    $this->data['request_details'] = $this->requestDetailModel->getDetails(['request_details.status' => 'c', 'requests.status' => 'c']);
+    $this->data['request_details'] = $this->requestDetailModel->getDetails(['request_details.status' => 'c', 'requests.status' => 'o']);
     $this->data['view'] = 'Modules\DocumentRequest\Views\requests\claimed';
     return view('template/index', $this->data);
   }
 
   public function claimFilter(){
     if($_GET['document_id'] == 0){
-      $this->data['request_details'] = $this->requestDetailModel->getDetails(['request_details.status' => 'c', 'requests.status' => 'c']);
+      $this->data['request_details'] = $this->requestDetailModel->getDetails(['request_details.status' => 'c', 'requests.status' => 'o']);
     }else{
-      $this->data['request_details'] = $this->requestDetailModel->getDetails(['request_details.status' => 'c', 'requests.status' => 'c', 'document_id' => $_GET['document_id']]);
+      $this->data['request_details'] = $this->requestDetailModel->getDetails(['request_details.status' => 'c', 'requests.status' => 'o', 'document_id' => $_GET['document_id']]);
     }
     return view('Modules\DocumentRequest\Views\requests\tables\claimed', $this->data);
   }

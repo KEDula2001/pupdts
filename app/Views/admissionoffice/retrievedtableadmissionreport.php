@@ -1,6 +1,6 @@
 <br>
 <h1 style = "font-weight: bold;">REGISTRATION AND ADMISSION OFFICE</h1>
-<h2>Summary of Incomplete Submission of Admission Credentials </h2>
+<h2>Summary of Retrieved Submission of Admission Credentials </h2>
 <strong>Date:</strong> <?php echo  date("m/d/Y") ?> <strong>Time:</strong> <?php echo date("h:i:sa")?>
 <section class="container-fluid">
 

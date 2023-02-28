@@ -47,7 +47,7 @@
                     <select name="sar_pupcet_result_status" id="test" align = "center" class = "form-select-sm">
                     <option selected disabled> Select Status</option>
                     <option value = "approve"> Approve </option>
-                    <option value = "reject"> Reject </option>
+                    <option value = "reject"> Disapprove </option>
                     </select>
                     <br>
                     <?php if(isset($errors['sar_pupcet_result_status'])):?>
@@ -72,7 +72,7 @@
                     <select name="f137_status" id="test" align = "center" class = "form-select-sm">
                     <option selected disabled> Select Status</option>
                     <option value = "approve"> Approve </option>
-                    <option value = "reject"> Reject </option>
+                    <option value = "reject"> Disapprove </option>
                     </select>
                     <br>
                     <?php if(isset($errors['f137_status'])):?>
@@ -99,7 +99,7 @@
                     <select name="g10_status" id="test" align = "center" class = "form-select-sm">
                     <option selected disabled> Select Status</option>
                     <option value = "approve"> Approve </option>
-                    <option value = "reject"> Reject </option>
+                    <option value = "reject"> Disapprove </option>
                     </select>
                     <br>
                     <?php if(isset($errors['g10_status'])):?>
@@ -130,7 +130,7 @@
                     <select name="g11_status" id="test" align = "center" class = "form-select-sm">
                     <option selected disabled> Select Status</option>
                     <option value = "approve"> Approve </option>
-                    <option value = "reject"> Reject </option>
+                    <option value = "reject"> Disapprove </option>
                     </select>
                     <br>
                     <?php if(isset($errors['g11_status'])):?>
@@ -156,7 +156,7 @@
                     <select name="g12_status" id="test" align = "center" class = "form-select-sm">
                     <option selected disabled> Select Status</option>
                     <option value = "approve"> Approve </option>
-                    <option value = "reject"> Reject </option>
+                    <option value = "reject"> Disapprove </option>
                     </select>
                     <br>
                     <?php if(isset($errors['g12_status'])):?>
@@ -182,7 +182,7 @@
                     <select name="psa_nso_status" id="test" align = "center" class = "form-select-sm">
                     <option selected disabled> Select Status</option>
                     <option value = "approve"> Approve </option>
-                    <option value = "reject"> Reject </option>
+                    <option value = "reject"> Disapprove </option>
                     </select>
                     <br>
                     <?php if(isset($errors['psa_nso_status'])):?>
@@ -214,7 +214,7 @@
                     <select name="goodmoral_status" id="test" align = "center" class = "form-select-sm">
                     <option selected disabled> Select Status</option>
                     <option value = "approve"> Approve </option>
-                    <option value = "reject"> Reject </option>
+                    <option value = "reject"> Disapprove </option>
                     </select>
                     <br>
                     <?php if(isset($errors['goodmoral_status'])):?>
@@ -240,7 +240,7 @@
                     <select name="medical_cert_status" id="test" align = "center" class = "form-select-sm">
                     <option selected disabled> Select Status</option>
                     <option value = "approve"> Approve </option>
-                    <option value = "reject"> Reject </option>
+                    <option value = "reject"> Disapprove </option>
                     </select>
                     <br>
                     <?php if(isset($errors['medical_cert_status'])):?>
@@ -267,7 +267,7 @@
                     <select name="pictwobytwo_status" id="test" align = "center" class = "form-select-sm">
                     <option selected disabled> Select Status</option>
                     <option value = "approve"> Approve </option>
-                    <option value = "reject"> Reject </option>
+                    <option value = "reject"> Disapprove </option>
                     </select>
                     <br>
                     <?php if(isset($errors['pictwobytwo_status'])):?>

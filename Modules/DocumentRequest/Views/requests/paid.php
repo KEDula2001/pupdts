@@ -12,7 +12,7 @@
                   <th>Reason</th>
                   <th>Documents</th>
                   <th>Date Receipt Uploaded</th>
-                  <th>Receipt Info</th>
+                  <!-- <th>Receipt Info</th> -->
                   <th>Action</th>
                 </tr>
               </thead>
@@ -36,9 +36,7 @@
                         </ul>
                       </td>
                       <td><?= date('F d, Y - H:i A', strtotime(esc($request['uploaded_at']))) ?></td>
-                      <td>
-                        <a href="#" onClick="viewReceipt('<?=esc($request['receipt_img'])?>', '<?=esc($request['receipt_number'])?>')">View</a>
-                      </td>
+                     
                       <td>
                         <button onClick="acceptRequest(<?=esc($request['id'])?>, '<?=esc($request['student_number'])?>')" class="btn btn-reject btn-success btn-sm"> Accept </button>
                         <button onClick="reUploadRequest(<?=esc($request['id'])?>, '<?=esc($request['student_number'])?>')" class="btn btn-reject btn-danger btn-sm"> Reject </button>

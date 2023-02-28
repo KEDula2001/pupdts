@@ -7,9 +7,9 @@
         <a class="btn dashboard btn-light btn-sm" href="<?=base_url('dashboards')?>">
           <i class="fas fa-tachometer-alt"></i> Dashboard
         </a>
-        <a class="btn completerqt btn-light btn-sm" href="<?=base_url('form-137/requests')?>">
+        <!-- <a class="btn completerqt btn-light btn-sm" href="<?=base_url('form-137/requests')?>">
           <i class="fas fa-file"></i> Form 137 Requests
-        </a>
+        </a> -->
         <a class="btn completerqt btn-light btn-sm" href="<?=base_url('admission')?>">
           <i class="fas fa-file"></i>Admission Office
         </a>
@@ -37,7 +37,7 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
             <a class="nav-link sideLink" href="/document-requests">
-            <i class="far fa-file-alt" style="color: maroon;"></i> Pending Requests
+            <i class="far fa-file-alt" style="color: maroon;"></i> Approved Clearances
             </a>
         </li>
         <li class="nav-item">
@@ -45,10 +45,10 @@
             <i class="fas fa-money-bill-wave" style="color: blue"></i> Payment Processing
             </a>
         </li>
-       <li class="nav-item">
+       <!--<li class="nav-item">
             <a class="nav-link sideLink" href="/paid">
             <i class="fas fa-receipt" style="color: green;"></i> Paid Requests
-            </a>
+            </a>      -->
         </li>
         <li class="nav-item">
             <a class="nav-link sideLink " href="/on-process-document">

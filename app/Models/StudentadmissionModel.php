@@ -90,6 +90,11 @@ class StudentadmissionModel extends Model
                         ->get()
                         ->getRowArray();
 	}
+	public function __getStudentAdmissionDetails(){
+		return $this->db->table($this->table)
+                        ->get()
+                        ->getResultArray();
+	}
 	public function __getCompleteDocs(){
 		return $this->db->table($this->table)
 						->where('admission_status', 'complete')

@@ -6,7 +6,7 @@
           <div class="row">
             <div class="col-md-6">
               <h3>Hello, <?=esc($_SESSION['name'])?>!</h3>
-              <p style="font-style: italic; font-size: .9em;">Request for a copy of your academic related documents.</p>
+              <p style="font-style: italic; font-size: .9em;">Upload all your Admission Credentials here...</p>
             </div>
             <div class="col-md-6">
               <table class="table request">
@@ -19,7 +19,7 @@
                       <a href="<?php echo base_url('studentadmission/view-admission-history/'.$_SESSION['user_id']); ?>" class="btn" disabled> Admission History</a>
                     </td>
                     <td>
-                      <a href="/requests/new" class="btn" disabl><i class="fas fa-plus"></i> Request document here</a>
+                      <a href="/requests/new" class="btn"><i class="fas fa-plus"></i> Request document here</a>
                     </td>
                   </tr>
                 </tbody>

@@ -41,6 +41,14 @@ class StudentsModel extends BaseModel
 
     return $this->findAll();
   }
+  
+  public function getUserIdInsert($student_number, $email) {
+    $user = new UsersModel();
+    $user->select('id');
+    $user->where('username', $student_number);
+    $user->where('email', $email);
+    return $user->findAll();
+  }
 
   public function insertStudent($data)
   {

@@ -124,7 +124,7 @@ var adminPendingTable = $('#admin-pending-table').DataTable({
   "bAutoWidth": false,
   "dom": '<"row"<"col-6"<"select-pending mb-3">><"col-6"f>>t<"row"<"col-6"<"action-pending mt-3">><"col-6 float-end mt-3"p>>',
   fnInitComplete: function(){
-      $('div.select-pending').html('<span class="h2"> Pending Request </span><span class="p"><br><i>Here are the list of requestors to approve before their document is to be processed. </span>');
+      $('div.select-pending').html('<span class="h2"> Office Approved Clearances </span><span class="p"><br><i>Here are the list of requestors to approve before their document is to be processed. </span>');
       $('div.action-pending').html('<button onClick="confirmSelect()" class="btn btn-primary">Approve Selected</button>');
     }
 });
@@ -632,7 +632,7 @@ var processedTable = $('#processed-table').DataTable({
   "bAutoWidth": false,
   "dom": '<"row"<"col-6"<"select mb-3">><"col-6"f>>t<"row"<"col-6"<"action mt-3">><"col-6 float-end mt-3"p>>',
   fnInitComplete: function(){
-      $('div.select').html('<span class="h2"> Processed Documents </span> <span class="p"><br><i>Here are the list of requestors whose documents have been successfully processed and completed. </span>');
+      $('div.select').html('<span class="h2"> Documents To Claim </span> <span class="p"><br><i>Here are the list of requestors whose documents have been successfully processed and completed. </span>');
       // $('div.action').html('<button onClick="printRequest()" id="process-selected" class="btn btn-primary">Process Complete</button>');
     }
 });
@@ -1139,7 +1139,7 @@ function insertSpreadsheet(){
   if(files.length > 0 ){
      fd.append('students',files[0]);
      $.ajax({
-        url: 'students/insert-spreadsheet',
+        url: '/students/insert-spreadsheet',
         type: 'post',
         data: fd,
         dataType: 'json',

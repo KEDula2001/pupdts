@@ -2,7 +2,7 @@
       <div class="col-6 offset-3">
         <div class="form-floating">
           <input type="text" class="form-control mb-3"onEnter="scan()" name="slug" id="slug" class="floatingInput" placeholder="Student Number" required>
-          <label for="floatingInput">Enter Receipt Code Here</label>
+          <label for="floatingInput">Enter Bar Code Here</label>
         </div>
       </div>
       <div class="row">
@@ -52,7 +52,7 @@
                               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#history<?=esc($request_detail['id'])?>">
                                 View
                               </button>
-                              <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> 
                               <div class="modal fade" id="history<?=esc($request_detail['id'])?>" tabindex="-1" aria-labelledby="history<?=esc($request_detail['id'])?>Label" aria-hidden="true">
                                 <div class="modal-dialog modal-xl modal-dialog-centered">
                                   <div class="modal-content">
@@ -84,7 +84,7 @@
                                             <th width="14%">Document Requested</th>
                                             <th width="50%">General Clearance</th>
                                             <th width="15%">Date Printed</th>
-                                            <!-- <th width="15%">Date Claimed</th> -->
+                                            <th width="15%">Date Claimed</th>
                                             <th width="5%">Price</th>
                                           </tr>
                                           <?php $ctr = 1 ?>
