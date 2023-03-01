@@ -718,6 +718,7 @@ class AdmissionController extends BaseController
 		$this->data['count_complete'] = $getstudentadmissionmodel->__getCompleteDocs();
 		$this->data['count_recheck'] = $getstudentadmissionmodel->__getRecheckDocs();
 		$this->data['students'] = $getstudent->__getStudentDetails();
+		// die(print_r($this->data['students']));
 		$this->data['students_admission'] = $getstudentadmissionmodel->__getStudentAdmissionDetails();
 		// die(print_r($this->data['students_admission']));
 		$this->data['checklists'] = $getchecklist->__getChecklistDetails();
@@ -728,26 +729,7 @@ class AdmissionController extends BaseController
 		echo view('admissionoffice/admissiondashboard', $this->data);
 		return view('admissionoffice/footer', $this->data);
 	}
-	// public function regAdminIndex()
-	// {
-	// 	$getstudent = new StudentsModel;
-	// 	$getchecklist = new ChecklistModel;
-	// 	$getstudentadmissionmodel = new StudentadmissionModel;
-	// 	$getRetrievedRecord = new RefForRetrievedModel;
-
-	// 	$this->data['retrieved_record'] = $getRetrievedRecord->__getRetrievedRecord();
-	// 	$this->data['count_incomplete'] = $getstudentadmissionmodel->__getIncompleteDocs();
-	// 	$this->data['count_complete'] = $getstudentadmissionmodel->__getCompleteDocs();
-	// 	$this->data['count_recheck'] = $getstudentadmissionmodel->__getRecheckDocs();
-	// 	$this->data['students'] = $getstudent->__getStudentDetails();
-	// 	$this->data['checklists'] = $getchecklist->__getChecklistDetails();
-	// 	if ($this->isAjax()) {
-	// 			return view('admissionoffice/admissiondashboard', $this->data);
-	// 		}
-	// 	echo view('admissionoffice/header', $this->data);
-	// 	echo view('admissionoffice/admissiondashboard', $this->data);
-	// 	return view('admissionoffice/footer', $this->data);
-	// }
+	
 	public function showStudentForm()
 	{
 		$getcourses = new CourseModel;
@@ -763,9 +745,10 @@ class AdmissionController extends BaseController
 	public function insertstudent()
 	{
 		if (! $this->validate([
-            'student_number' => 'required|exact_length[15]|alpha_dash|regex_match[/[0-9]{4}-[0-9]{5}-TG-0/]',
+            'student_number' => 'required|exact_length[15]|alpha_dash|regex_match[/[0-9]{4}-[0-9]{5}-TG-0/]|is_unique[students.student_number,id]',
 			'firstname' => 'required',
 			'lastname' => 'required',
+			'birthdate' => 'required',
 			'middlename' => 'required',
 			'email' => 'required|valid_email|is_unique[users.email,id]',
 			'course_id' => 'required'
@@ -781,24 +764,24 @@ class AdmissionController extends BaseController
         	echo view('admissionoffice/footer');
         }
 	
-			$data = [
-						'student_number' => $_POST['student_number'],
-						'firstname'  => $_POST['firstname'],
-						'lastname'  => $_POST['lastname'],
-						'middlename'  => $_POST['middlename'],
-						'email' => $_POST['email'],
-						'course_id' => $_POST['course_id']
-					];
-// die(print_r($data));
-			$res = $this->studentModel->insertStudent($data);
+		$data = [
+			'student_number' => $_POST['student_number'],
+			'firstname'  => $_POST['firstname'],
+			'lastname'  => $_POST['lastname'],
+			'middlename'  => $_POST['middlename'],
+			'birthdate'  => $_POST['birthdate'],
+			'email' => $_POST['email'],
+			'course_id' => $_POST['course_id']
+		];
+		$res = $this->studentModel->insertStudent($data);
 
-			if ($res) {
-				$this->session->setFlashData('success', 'Successfully Added Student');
-            	return redirect()->to(base_url('admission'));
-			}else{
-				$this->session->setFlashData('error', 'Error');
-            	return redirect()->to(base_url('admission/add-student-form'));
-			}
+		if ($res) {
+			$this->session->setFlashData('success', 'Successfully Added Student');
+			return redirect()->to(base_url('admission'));
+		}else{
+			$this->session->setFlashData('error', 'Error');
+			return redirect()->to(base_url('admission/add-student-form'));
+		}
 	}
 	public function showStudentCompleteAdmission()
 	{

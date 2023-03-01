@@ -290,25 +290,34 @@
                                 </label>
                                 <hr>
                                 <form action="<?php echo base_url('admission/retreived-admission-files/'.$student['user_id']); ?>" method="post" autocomplete="off">   
-                                  <?php if($student['f137ID'] != 0):?>                         
-                                    <input type="checkbox" value="2" name="f137ID"> F137<br>
+                                     
+                                <?php if($res['f137ID'] != 0):?>                         
+                                    <input type="checkbox" value="2" name="f137ID" id="f137ID">
+                                    <label for="f137ID">F137</label> <br>
                                   <?php else:?>                       
-                                    <input type="checkbox" value="2" name="f137ID" disabled> F137<br>
+                                    <input type="checkbox" value="2" name="f137ID" disabled>
+                                    <label for="f137ID">F137</label> <br>
                                   <?php endif;?> 
-                                  <?php if($student['f138ID'] != 0):?>                         
-                                    <input type="checkbox" value="3" name="f138ID"> Grade 10 Card<br>
+                                  <?php if($res['f138ID'] != 0):?>                         
+                                    <input type="checkbox" value="3" name="f138ID">
+                                    <label for="f138ID">Grade 10 Card</label> <br>
                                   <?php else:?>                       
-                                    <input type="checkbox" value="3" name="f138ID" disabled> Grade 10 Card<br>
+                                    <input type="checkbox" value="3" name="f138ID" disabled>
+                                    <label for="f138ID">Grade 10 Card</label> <br>
                                   <?php endif;?>    
-                                  <?php if($student['cert_dry_sealID'] != 0):?>                         
-                                    <input type="checkbox" value="11" name="cert_dry_sealID"> Grade 11 Card<br>
+                                  <?php if($res['cert_dry_sealID'] != 0):?>                         
+                                    <input type="checkbox" value="11" name="cert_dry_sealID">
+                                    <label for="cert_dry_sealID">Grade 11 Card</label> <br>
                                   <?php else:?>                       
-                                    <input type="checkbox" value="11" name="cert_dry_sealID" disabled> Grade 11 Card<br>
+                                    <input type="checkbox" value="11" name="cert_dry_sealID" disabled>
+                                    <label for="cert_dry_sealID">Grade 11 Card</label> <br>
                                   <?php endif;?>     
-                                  <?php if($student['cert_dry_sealID_twelve'] != 0):?>                         
-                                    <input type="checkbox" value="12" name="cert_dry_sealID_twelve"> Grade 12 Card<br>
+                                  <?php if($res['cert_dry_sealID_twelve'] != 0):?>                         
+                                    <input type="checkbox" value="12" name="cert_dry_sealID_twelve">
+                                    <label for="cert_dry_sealID_twelve">Grade 12 Card</label> <br>
                                   <?php else:?>                       
-                                    <input type="checkbox" value="12" name="cert_dry_sealID_twelve" disabled> Grade 12 Card<br>
+                                    <input type="checkbox" value="12" name="cert_dry_sealID_twelve" disabled>
+                                    <label for="cert_dry_sealID_twelve">Grade 12 Card</label> <br>
                                   <?php endif;?>   
                                   <hr>
                                   <textarea class="form-control" placeholder="Reason:" name="reasons" required></textarea>

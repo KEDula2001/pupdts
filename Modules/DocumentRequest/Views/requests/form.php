@@ -17,71 +17,330 @@
               </div>
             </div>
           </div>
-          <form class="" action="new" method="post">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="row">
-                  <div class="col-md-12">
-                    <span class="h5">User Information</span>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-4">
-                    Name:
-                  </div>
-                  <div class="col-md-7">
-                    <span style="text-transform: uppercase;"><?=ucwords(esc($student['firstname']) . ' ' . esc($student['middlename']) . ' ' . esc($student['lastname']) . ' ' . esc($student['suffix']))?></span>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-4">
-                    Gender:
-                  </div>
-                  <div class="col-md-7">
-                    <?=$student['gender'] == 'm' ? 'Male': 'Female'?>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-4">
-                    Status:
-                  </div>
-                  <div class="col-md-7">
-                    <?=ucwords(esc($student['status']))?>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-4">
-                    Course and <?=$student['status'] == 'enrolled' ? 'Level':'Year Graduated'?>:
-                  </div>
-                  <div class="col-md-7">
-                    <?=strtoupper($student['abbreviation'] . ' ' . $student['level'])?>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-4">
-                    Birthdate:
-                  </div>
-                  <div class="col-md-7">
-                    <?=date('F d, Y',strtotime(esc($student['birthdate'])))?>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-4">
-                    Email:
-                  </div>
-                  <div class="col-md-7">
-                    <?=ucwords(esc($student['email']))?>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-4">
-                    Contact:
-                  </div>
-                  <div class="col-md-7">
-                    <?=ucwords(esc($student['contact']))?>
-                  </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-12">
+                  <span class="h5">User Information</span>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-md-4">
+                  Name:
+                </div>
+                <div class="col-md-7">
+                  <span style="text-transform: uppercase;"><?=ucwords(esc($student['firstname']) . ' ' . esc($student['middlename']) . ' ' . esc($student['lastname']) . ' ' . esc($student['suffix']))?></span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  Gender:
+                </div>
+                <div class="col-md-7">
+                  <?=$student['gender'] == 'm' ? 'Male': 'Female'?>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  Status:
+                </div>
+                <div class="col-md-7">
+                  <?=ucwords(esc($student['status']))?>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  Course and <?=$student['status'] == 'enrolled' ? 'Level':'Year Graduated'?>:
+                </div>
+                <div class="col-md-7">
+                  <?=strtoupper($student['abbreviation'] . ' ' . $student['level'])?>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  Birthdate:
+                </div>
+                <div class="col-md-7">
+                  <?=date('F d, Y',strtotime(esc($student['birthdate'])))?>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  Email:
+                </div>
+                <div class="col-md-7">
+                  <?=ucwords(esc($student['email']))?>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  Contact:
+                </div>
+                <div class="col-md-7">
+                  <?=ucwords(esc($student['contact']))?>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <form action="/requests/additional-info/<?=$_SESSION['student_id']?>" method="post">
+                <div class="row border-bottom">
+                  <div class="col-md-12">
+                    <span class="h5">Required Additional Information</span> <small class="text-danger">*</small>
+                  </div>
+                </div>
+                <div class="row border-bottom">
+                  <div class="col-md-4">
+                    Present/Permanent Mailing Address: <small class="text-danger">*</small>
+                  </div>
+                  <div class="col-md-7">
+                    <?php if ($student['address'] == null): ?>
+                      <input 
+                        type="text"
+                        class="form-control" 
+                        name="address" 
+                        id="address"
+                        placeholder="Present/Permanent mailing address . . ."
+                        value="<?= isset($value['address']) != null ? $value['address'] : ucwords(esc($student['address']))?>"
+                        <?= $student['address'] == null ? '' : 'disabled'?>
+                      >
+                    <?php else: ?>
+                      <?=ucwords(esc($student['address']))?>
+                    <?php endif; ?>
+                  </div>
+                  <?php if (isset($errors['address'])): ?>
+                    <div class="text-danger">
+                      <?=esc($errors['address'])?>
+                    </div>
+                  <?php endif; ?>
+                </div>
+                <div class="row border-bottom">
+                  <div class="col-md-4">
+                    Admitted in PUP S.Y.: <small class="text-danger">*</small>
+                  </div>
+                  <div class="col-md-7">
+                    <?php if ($student['admitted_year_sy'] == null): ?>
+                      <input 
+                        type="text"
+                        class="form-control" 
+                        name="admitted_year_sy" 
+                        id="admitted_year_sy"
+                        pattern="[0-9]{4}-[0-9]{4}"
+                        placeholder="ex. <?=date("Y")?>-<?=date("Y")?>"
+                        value="<?= isset($value['admitted_year_sy']) != null ? $value['admitted_year_sy'] : esc($student['admitted_year_sy'])?>"
+                        <?= $student['admitted_year_sy'] == null ? '' : 'disabled'?>
+                      >
+                    <?php else: ?>
+                      <?=ucwords(esc($student['admitted_year_sy']))?>
+                    <?php endif; ?>
+                  </div>
+                  <?php if (isset($errors['admitted_year_sy'])): ?>
+                    <div class="text-danger">
+                      <?=esc($errors['admitted_year_sy'])?>
+                    </div>
+                  <?php endif; ?>
+                </div>
+                <div class="row border-bottom">
+                  <div class="col-md-4">
+                    Semester: <small class="text-danger">*</small>
+                  </div>
+                  <div class="col-md-7">
+                    <?php if($student['semester'] == null):?>
+                      <select 
+                        class="form-select" 
+                        name="semester" 
+                      >
+                        <option selected disabled> -- select semester - </option>
+                        <option value="First Semester" <?= isset($value['semester']) == 'First Semester' ? '' : 'selected'?>> First Semester </option>
+                        <option value="Second Semester" <?= isset($value['semester']) == 'Second Semester' ? '' : 'selected'?>> Second Semester </option>
+                        <option value="Summer Semester" <?= isset($value['semester']) == 'Summer Semester' ? '' : 'selected'?>> Summer Semester </option>
+                      </select>
+                    <?php else: ?>
+                      <?=ucwords(esc($student['semester']))?>
+                    <?php endif; ?>
+                  </div>
+                  <?php if (isset($errors['semester'])): ?>
+                    <div class="text-danger">
+                      <?=esc($errors['semester'])?>
+                    </div>
+                  <?php endif; ?>
+                </div>
+                <div class="row border-bottom">
+                  <div class="col-md-4 mb-2">
+                    Elementary School Name: <small class="text-danger">*</small>
+                  </div>
+                  <div class="col-md-7 mb-2">
+                    <?php if($student['elem_school_address'] == null):?>
+                      <input 
+                        type="text"
+                        class="form-control" 
+                        name="elem_school_address" 
+                        id="elem_school_address"
+                        placeholder="Elementary school name . . ."
+                        value="<?= isset($value['elem_school_address']) != null ? $value['elem_school_address'] : ucwords(esc($student['elem_school_address']))?>"
+                        <?= $student['elem_school_address'] == null ? '' : 'disabled'?>
+                      >
+                    <?php else: ?>
+                      <?=ucwords(esc($student['elem_school_address']))?>
+                    <?php endif; ?>
+                  </div>
+                  <?php if (isset($errors['elem_school_address'])): ?>
+                    <div class="text-danger">
+                      <?=esc($errors['elem_school_address'])?>
+                    </div>
+                  <?php endif; ?>
+                  <div class="col-md-4">
+                    Year Graduated: <small class="text-danger">*</small>
+                  </div>
+                  <div class="col-md-7">
+                    <?php if($student['elem_year_graduated'] == null):?>
+                      <input 
+                        type="text"
+                        class="form-control" 
+                        name="elem_year_graduated" 
+                        id="elem_year_graduated"
+                        pattern="[0-9]{4}"
+                        placeholder="ex. <?=date("Y")?>"
+                        value="<?= isset($value['elem_year_graduated']) != null ? $value['elem_year_graduated'] : esc($student['elem_year_graduated'])?>"
+                        <?= $student['elem_year_graduated'] == null ? '' : 'disabled'?>
+                      >
+                    <?php else: ?>
+                      <?=ucwords(esc($student['elem_year_graduated']))?>
+                    <?php endif; ?>
+                  </div>
+                  <?php if (isset($errors['elem_year_graduated'])): ?>
+                    <div class="text-danger">
+                      <?=esc($errors['elem_year_graduated'])?>
+                    </div>
+                  <?php endif; ?>
+                </div>
+                <div class="row border-bottom">
+                  <div class="col-md-4 mb-2">
+                    High School Name: <small class="text-danger">*</small>
+                  </div>
+                  <div class="col-md-7 mb-2">
+                    <?php if($student['high_school_address'] == null):?>
+                      <input 
+                        type="text"
+                        class="form-control" 
+                        name="high_school_address" 
+                        id="high_school_address"
+                        placeholder="High school name . . ."
+                        value="<?= isset($value['high_school_address']) != null ? $value['high_school_address'] : ucwords(esc($student['high_school_address']))?>"
+                        <?= $student['high_school_address'] == null ? '' : 'disabled'?>
+                      >
+                    <?php else: ?>
+                      <?=ucwords(esc($student['high_school_address']))?>
+                    <?php endif; ?>
+                  </div>
+                  <?php if (isset($errors['high_school_address'])): ?>
+                    <div class="text-danger">
+                      <?=esc($errors['high_school_address'])?>
+                    </div>
+                  <?php endif; ?>
+                  <div class="col-md-4">
+                    Year Graduated: <small class="text-danger">*</small>
+                  </div>
+                  <div class="col-md-7">
+                    <?php if($student['high_year_graduated'] == null):?>
+                      <input 
+                        type="text"
+                        class="form-control" 
+                        name="high_year_graduated" 
+                        id="high_year_graduated"
+                        pattern="[0-9]{4}"
+                        placeholder="ex. <?=date("Y")?>"
+                        value="<?= isset($value['high_year_graduated']) != null ? $value['high_year_graduated'] : esc($student['high_year_graduated'])?>"
+                        <?= $student['high_year_graduated'] == null ? '' : 'disabled'?>
+                      >
+                    <?php else: ?>
+                      <?=ucwords(esc($student['high_year_graduated']))?>
+                    <?php endif; ?>
+                  </div>
+                  <?php if (isset($errors['high_year_graduated'])): ?>
+                    <div class="text-danger">
+                      <?=esc($errors['high_year_graduated'])?>
+                    </div>
+                  <?php endif; ?>
+                </div>
+                <div class="row border-bottom">
+                  <div class="col-md-4 mb-2">
+                    College School Name: <small class="text-danger">*</small>
+                  </div>
+                  <div class="col-md-7 mb-2">
+                    <?php if($student['college_school_address'] == null):?>
+                      <input 
+                        type="text"
+                        class="form-control" 
+                        name="college_school_address" 
+                        id="college_school_address"
+                        placeholder="College school name . . ."
+                        value="<?= isset($value['college_school_address']) != null ? $value['college_school_address'] : ucwords(esc($student['college_school_address']))?>"
+                        <?= $student['college_school_address'] == null ? '' : 'disabled'?>
+                      >
+                    <?php else: ?>
+                      <?=ucwords(esc($student['college_school_address']))?>
+                    <?php endif; ?>
+                  </div>
+                  <?php if (isset($errors['college_school_address'])): ?>
+                    <div class="text-danger">
+                      <?=esc($errors['college_school_address'])?>
+                    </div>
+                  <?php endif; ?>
+                  <div class="col-md-4">
+                    Year Graduated: <small class="text-danger">*</small>
+                  </div>
+                  <div class="col-md-7">
+                    <?php if($student['year_graduated'] == null):?>
+                      <?php if($student['status'] == 'alumni'):?>
+                        <input 
+                          type="text" 
+                          class="form-control" 
+                          name="year_graduated" 
+                          pattern="[0-9]{4}"
+                          id="college_year_graduated" 
+                          placeholder="ex. <?=date("Y")?>"
+                          value="<?= isset($value['year_graduated']) != null ? $value['year_graduated'] : esc($student['year_graduated'])?>"
+                          <?= $student['year_graduated'] == null ? '' : 'disabled'?>
+                        >
+                      <?php else: ?>
+                        -
+                        <input 
+                          type="hidden" 
+                          name="year_graduated" 
+                          value="<?=date("Y")?>"
+                        >
+                      <?php endif; ?>
+                    <?php else: ?>
+                      <?=ucwords(esc($student['year_graduated']))?>
+                    <?php endif; ?>
+                  </div>
+                  <?php if (isset($errors['year_graduated'])): ?>
+                    <div class="text-danger">
+                      <?=esc($errors['year_graduated'])?>
+                    </div>
+                  <?php endif; ?>
+                </div>
+                <div class="row">
+                  <div class="col-md-12"> 
+                    <?php if(
+                      $student['address'] == null || 
+                      $student['admitted_year_sy'] == null ||
+                      $student['semester'] == null ||
+                      $student['elem_school_address'] == null || 
+                      $student['elem_year_graduated'] == null || 
+                      $student['high_school_address'] == null || 
+                      $student['high_year_graduated'] == null ||  
+                      $student['college_school_address'] == null
+                    ):?>
+                      <button type="submit" id="submitbtn" class="btn float-start" name="button"><i class="fas fa-plus"></i> Add </button>
+                    <?php endif; ?>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <form class="" action="new" method="post">
+            <div class="row">
               <div class="col-md-6">
                 <div class="row">
                   <div class="col-md-12">

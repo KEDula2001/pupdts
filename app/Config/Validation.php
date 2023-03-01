@@ -51,7 +51,79 @@ class Validation
 		'receipt_number' => 'required'
 	];
 
+	public $addInfoOne = [
+		'address' => [
+			'rules' => 'required',
+			'label' => 'address'
+		],
+		'admitted_year_sy' => [
+			'rules' => 'required|regex_match[/[0-9]{4}-[0-9]{4}/]',
+			'label' => 'Admitted in PUP S.Y.'
+		],
+		'semester' => [
+			'rules' => 'required',
+			'label' => 'Semester'
+		],
+		'elem_school_address' => [
+			'rules' => 'required',
+			'label' => 'Elementary School Address'
+		],
+		'elem_year_graduated' => [
+			'rules' => 'required|regex_match[/[0-9]{4}/]',
+			'label' => 'Elementary School Year Graduated'
+		],
+		'high_school_address' => [
+			'rules' => 'required',
+			'label' => 'High School Address'
+		],
+		'high_year_graduated' => [
+			'rules' => 'required|regex_match[/[0-9]{4}/]',
+			'label' => 'High School Year Graduated'
+		],
+		'college_school_address' => [
+			'rules' => 'required',
+			'label' => 'High School Address'
+		],
+		'year_graduated' => [
+			'rules' => 'required|regex_match[/[0-9]{4}/]',
+			'label' => 'College School Year Graduated'
+		],
+	];
 
+	public $addInfoTwo = [
+		'address' => [
+			'rules' => 'required',
+			'label' => 'address'
+		],
+		'admitted_year_sy' => [
+			'rules' => 'required|regex_match[/[0-9]{4}-[0-9]{4}/]',
+			'label' => 'Admitted in PUP S.Y.'
+		],
+		'semester' => [
+			'rules' => 'required',
+			'label' => 'Semester'
+		],
+		'elem_school_address' => [
+			'rules' => 'required',
+			'label' => 'Elementary School Address'
+		],
+		'elem_year_graduated' => [
+			'rules' => 'required|regex_match[/[0-9]{4}/]',
+			'label' => 'Elementary School Year Graduated'
+		],
+		'high_school_address' => [
+			'rules' => 'required',
+			'label' => 'High School Address'
+		],
+		'high_year_graduated' => [
+			'rules' => 'required|regex_match[/[0-9]{4}/]',
+			'label' => 'High School Year Graduated'
+		],
+		'college_school_address' => [
+			'rules' => 'required',
+			'label' => 'High School Address'
+		],
+	];
 
 	public $admissionStatus = [
 		'sar_pupcet_result_status' => [

@@ -2,6 +2,7 @@
 namespace Modules\DocumentRequest\Controllers;
 
 use App\Libraries\Pdf;
+use App\Libraries\GenClearance;
 use App\Libraries\Fpdi;
 use App\Controllers\BaseController;
 
@@ -122,6 +123,411 @@ class DocumentRequests extends BaseController
     echo view('admissionoffice/header', $this->data);
 		echo view('Modules\DocumentRequest\Views\requests\approval', $this->data);
 		return view('admissionoffice/footer', $this->data);
+  }
+
+  
+  public function generateClearance($id) {
+    $pdf = new GenClearance(PDF_PAGE_ORIENTATION, PDF_UNIT, 'LETTER', true, 'UTF-8', false);
+    $data = $this->requestDetailModel->getDetailsReport(['request_details.id' => $id])[0];
+    // set document information
+    $pdf->SetCreator(PDF_CREATOR);
+    $pdf->SetAuthor('PUPT OCT-DRS');
+    $pdf->SetTitle('General Clearance');
+    $pdf->SetSubject('General Clearance');
+    // set default header data
+    $pdf->SetHeaderData('header2.png', '200', '', '');
+    // set header and footer fonts
+    
+    $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+    // $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+
+    // set default monospaced font
+    $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+    // set margins
+    $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP + 10, PDF_MARGIN_RIGHT);
+    $pdf->SetHeaderMargin(3);
+    $pdf->SetFooterMargin(PDF_MARGIN_FOOTER + 15);
+
+    // set auto page breaks
+    $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+    // set image scale factor
+    $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+    // set some language-dependent strings (optional)
+    if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
+        require_once(dirname(__FILE__).'/lang/eng.php');
+        $pdf->setLanguageArray($l);
+    }
+    // ---------------------------------------------------------
+
+    // IMPORTANT: disable font subsetting to allow users editing the document
+    $pdf->setFontSubsetting(false);
+
+    // set font
+    $pdf->SetFont('lucidafax', '', 10, '', false);
+
+    // add a page
+    $pdf->AddPage();
+
+    /*
+    It is possible to create text fields, combo boxes, check boxes and buttons.
+    Fields are created at the current position and are given a name.
+    This name allows to manipulate them via JavaScript in order to perform some validation for instance.
+    */
+
+    /*
+    02-25-23
+    maia's reference material: https://tcpdf.org/examples/example_014/
+    */
+
+    // set default form properties
+    $pdf->setFormDefaultProp(array('lineWidth'=>1, 'borderStyle'=>'solid', 'fillColor'=>array(255, 255, 200), 'strokeColor'=>array(255, 128, 128)));
+
+    
+    $pdf->SetFont('lucidafaxdemib', 'B', 15);
+    $pdf->Cell(0, 5, 'GENERAL CLEARANCE', 0, 1, 'C');
+    $pdf->Ln(4);
+
+    $html = <<<EOD
+      <h1>XHTML Form Example</h1>
+      <form method="post" action="http://localhost/printvars.php" enctype="multipart/form-data">
+    EOD;
+
+    $pdf->SetFont('lucidafax', '', 9);
+
+    // Student Number
+    $pdf->Cell(34, 5, 'Student Number: ');
+    $pdf->SetFont('lucidafaxdemib', 'B', 9);
+    $pdf->Cell(34, 5, $data['student_number'] );
+    // $pdf->TextField('student_number', 35, 5);
+
+    $pdf->SetFont('lucidafax', '', 9);
+    //request number
+    $pdf->Cell(31, 5, 'Request Code:');
+    $pdf->SetFont('lucidafaxdemib', 'B', 9);
+    $pdf->Cell(31, 5, $data['slug']);
+    // $pdf->TextField('request_no', 30, 5);
+
+    $pdf->SetFont('lucidafax', '', 9);
+    // Date of Request
+    $pdf->Cell(30, 5, 'Request Date:');
+    $pdf->SetFont('lucidafaxdemib', 'B', 9);
+    $pdf->Cell(30, 5, Date('M d, Y', strtotime($data['requested_at'])));
+    // $pdf->TextField('date', 27, 5, array(), array('v'=>date('Y-m-d'), 'dv'=>date('Y-m-d')));
+    $pdf->Ln(6);
+
+    $pdf->SetFont('lucidafax', '', 9);
+    //Full Name
+    $pdf->Cell(15, 5, 'Name:');
+    $pdf->SetFont('lucidafaxdemib', 'B', 9);
+    $pdf->Cell(40, 5, $data['lastname']);
+    // $pdf->TextField('Surname', 40, 5);
+    $pdf->SetFont('lucidafax', '', 9);
+    $pdf->Cell(2, 1, ',');
+    // $pdf->TextField('Firstname', 49, 5);
+    $pdf->SetFont('lucidafaxdemib', 'B', 9);
+    $pdf->Cell(49, 5, $data['firstname']);
+    $pdf->Cell(1, 1, ' ');
+    $pdf->SetFont('lucidafaxdemib', 'B', 9);
+    $pdf->Cell(35, 5, $data['middlename']);
+    // $pdf->TextField('Middlename', 35, 5);
+
+    $pdf->SetFont('lucidafax', '', 9);
+    // Course
+    $pdf->Cell(30, 5, 'Course:');
+    $pdf->SetFont('lucidafaxdemib', 'B', 9);
+    $pdf->Cell(30, 5, $data['abbreviation'].' '.$data['level']);
+    // $pdf->TextField('course', 26, 5);
+
+    $pdf->SetFont('lucidafax', '', 9);
+    // Name Label
+    $pdf->Ln(5);
+    $pdf->Cell(17, 5, '                     Surname                     First Name                  Middle Name');
+    
+    // address
+    $pdf->Ln(6);
+    $pdf->Cell(74, 5, 'Present/Permanent Mailing Address:');
+    $pdf->SetFont('lucidafaxdemib', 'B', 7);
+    $pdf->Cell(26, 5, $data['address']);
+    // $pdf->TextField('address', 112, 5);
+    
+    $pdf->SetFont('lucidafax', '', 9);
+    // Admitted School Year
+    $pdf->Ln(6);
+    $pdf->Cell(43, 5, 'Admitted in PUP S.Y.:');
+    $pdf->SetFont('lucidafaxdemib', 'B', 9);
+    $pdf->Cell(33, 5, $data['admitted_year_sy']);
+    // $pdf->TextField('admitted', 33, 5);
+
+    $pdf->SetFont('lucidafax', '', 9);
+    // Semester
+    $pdf->Cell(18, 5, 'Semester:');
+    $pdf->SetFont('lucidafaxdemib', 'B', 9);
+    $pdf->Cell(38, 5, $data['semester']);
+    // $pdf->ComboBox('semester', 38, 5, array(array('', '-'), array('1st', 'First Semester'), array('2nd', 'Second Semester'), array('3rd', 'Third Semester')));
+
+    $pdf->SetFont('lucidafax', '', 9);
+    // Date of Birth
+    $pdf->Cell(28, 5, 'Date of Birth:');
+    $pdf->SetFont('lucidafaxdemib', 'B', 9);
+    $pdf->Cell(26, 5,Date('M d, Y', strtotime($data['birthdate'])));
+    // $pdf->TextField('birthdate', 26, 5, array(), array('v'=>$data['birthdate'], 'dv'=>$data['birthdate']));
+
+    $pdf->SetFont('lucidafax', '', 9);
+    //  Elementary School
+    $pdf->Ln(6);
+    $pdf->Cell(39, 5, 'Elementary School:');
+    $pdf->SetFont('lucidafaxdemib', 'B', 9);
+    $pdf->Cell(95, 5, $data['elem_school_address']);
+    // $pdf->TextField('elementary_school', 95, 5);
+    $pdf->SetFont('lucidafax', '', 9);
+    $pdf->Cell(34, 5, 'Year Graduated:');
+    $pdf->SetFont('lucidafaxdemib', 'B', 9);
+    $pdf->Cell(18, 5, $data['elem_year_graduated']);
+    // $pdf->TextField('year', 18, 5);
+
+    $pdf->SetFont('lucidafax', '', 9);
+    // High School
+    $pdf->Ln(6);
+    $pdf->Cell(26, 5, 'High School:');
+    $pdf->SetFont('lucidafaxdemib', 'B', 9);
+    $pdf->Cell(108, 5, $data['high_school_address']);
+    $pdf->SetFont('lucidafax', '', 9);
+    // $pdf->TextField('highschool', 108, 5);
+    $pdf->Cell(34, 5, 'Year Graduated:');
+    $pdf->SetFont('lucidafaxdemib', 'B', 9);
+    $pdf->Cell(18, 5, $data['high_year_graduated']);
+    // $pdf->TextField('year', 18, 5);
+
+    $pdf->SetFont('lucidafax', '', 9);
+    //  College
+    $pdf->Ln(6);
+    $pdf->Cell(18, 5, 'College:');
+    $pdf->SetFont('lucidafaxdemib', 'B', 9);
+    $pdf->Cell(116, 5, $data['college_school_address']);
+    // $pdf->TextField('college', 116, 5);
+    $pdf->SetFont('lucidafax', '', 9);
+    $pdf->Cell(34, 5, 'Year Graduated:');
+    $pdf->SetFont('lucidafaxdemib', 'B', 9);
+    $pdf->Cell(18, 5, ($data['year_graduated']==null?' - ':$data['year_graduated']));
+    // $pdf->TextField('year', 18, 5);
+
+    $pdf->SetFont('lucidafax', '', 9);
+    //  Contact Number
+    $pdf->Ln(6);
+    $pdf->Cell(36, 5, 'Contact Number:');
+    $pdf->SetFont('lucidafaxdemib', 'B', 9);
+    $pdf->Cell(33, 5, $data['contact']);
+    // $pdf->TextField('contact_number', 33, 5);
+    
+    $pdf->SetFont('lucidafax', '', 9);
+    // E-mail
+    $pdf->Ln(6);
+    $pdf->Cell(16, 5, 'E-mail:');
+    $pdf->SetFont('lucidafaxdemib', 'B', 9);
+    $pdf->Cell(16, 5, $data['email']);
+    // $pdf->TextField('email', 90, 5);
+    
+    $pdf->SetFont('lucidafax', '', 9);
+    $pdf->Ln(7);
+    $pdf->Cell(16, 5, 'STUDENT CREDENTIALS/DOCUMENTS REQUESTED: (Please check item/s below)');
+    $pdf->Ln(7);
+    // Requested Documents
+    $pdf->CheckBox('newsletter', 5, false, array(), array(), 'OK');
+    $pdf->Cell(70, 5, 'Honorable Dismissal');
+    $pdf->CheckBox('newsletter1', 5, false, array(), array(), 'OK');
+    $pdf->Cell(70, 5, 'Certificate (Diploma Type)');
+    $pdf->Ln(5);
+    $pdf->CheckBox('newsletter2', 5, false, array(), array(), 'OK');
+    $pdf->Cell(70, 5, 'Transcript of Records');
+    $pdf->CheckBox('newsletter3', 5, false, array(), array(), 'OK');
+    $pdf->Cell(70, 5, 'Certificate (Pls. specify)');
+    
+    // if certificate, specify which
+    $pdf->Ln(6);
+    $pdf->Cell(80, 5, '');
+    $pdf->TextField('certificates', 90, 5);
+
+    $pdf->SetFont('lucidafax', '', 9);
+    $pdf->Ln(7);
+    $pdf->Cell(16, 5, '               THE ABOVE STUDENT IS CLEARED OF ALL MONEY AND PROPERTY RESPONSIBILITIES IN MY OFFICE');
+    $pdf->SetFont('lucidafaxdemib', '', 9);
+    $pdf->Ln(4);
+    $pdf->Cell(16, 5, '                            To be signed by the duty authorized representative of the Accounting Office');
+    $pdf->SetFont('lucidafax', '', 7);
+    $pdf->Ln(4);
+    $pdf->SetTextColor(194,8,8);
+    $pdf->Cell(16, 5, '                                                                                  Clearance subject to change for Verification!');
+    
+    $pdf->Ln(6);
+    $pdf->SetFont('lucidafax', '', 10);
+    $pdf->SetTextColor(0,0,0);
+    //  library
+    $pdf->Cell(80, 5, '1. Library:            '.($data['library']==0?'NOT CLEARED':'CLEARED'));
+    $pdf->Cell(70, 5, '4. Accounting Office:  '.($data['accounting_office']==0?'NOT CLEARED':'CLEARED'));
+    $pdf->Ln(4);
+    $pdf->Cell(80, 5, '2. Laboratory:         '.($data['laboratory']==0?'NOT CLEARED':'CLEARED'));
+    $pdf->Cell(70, 5, '5. Internal Audit:     '.($data['internal_audit']==0?'NOT CLEARED':'CLEARED'));
+    $pdf->Ln(4);
+    $pdf->Cell(80, 5, '3. C.M.T. (ROTC):      '.($data['rotc']==0?'NOT CLEARED':'CLEARED'));
+    $pdf->Cell(70, 5, '6. Legal Office:       '.($data['legal_office']==0?'NOT CLEARED':'CLEARED'));
+
+    $pdf->Ln(8);
+    $pdf->SetFont('lucidafax', '', 9);
+    $pdf->Cell(130, 5, '');
+    $pdf->Cell(16, 5, '_________________________________');
+    $pdf->Ln(5);
+    $pdf->Cell(135, 5, '');
+    $pdf->Cell(16, 5, 'Signature over Printed Name');
+
+    // Client Service Info Counter Clerk
+    $pdf->Ln(6);
+    $pdf->Cell(97, 5, '');
+    $pdf->Cell(56, 5, 'Client Service Info Counter Clerk:');
+    $pdf->TextField('service_info', 33, 5);
+
+    // Date for Clerk
+    $pdf->Ln(6);
+    $pdf->Cell(143, 5, '');
+    $pdf->Cell(10, 5, 'Date:');
+    $pdf->TextField('date', 33, 5, array(), array('v'=>date('Y-m-d'), 'dv'=>date('Y-m-d')));
+    $pdf->Ln(4);
+    $pdf->SetFont('lucidafax', '', 6);
+    $pdf->Cell(80, 5, '');
+    $pdf->Cell(30, 5, 'CUT HERE');
+    $pdf->Ln(1);
+    $pdf->SetFont('lucidafax', '', 16);
+    // $pdf->Cell(10, 5, '');
+    $pdf->Cell(100, 5, '----------------------------------------------------------------------------------------------');
+    $pdf->Ln(6);
+    $pdf->SetFont('lucidafaxdemib', 'B', 10);
+    $pdf->Cell(16, 5, 'STUDENT\'S COPY/ CLAIM STUB');
+    
+    //Full Name
+    $pdf->Ln(6);
+    $pdf->SetFont('lucidafax', '', 9);
+    $pdf->Cell(22, 5, '(Pls. Print)');
+    $pdf->SetFont('lucidafaxdemib', 'B', 9);
+    $pdf->Cell(40, 5, $data['lastname']);
+    $pdf->SetFont('lucidafax', '', 9);
+    // $pdf->TextField('Surname', 40, 5);
+    $pdf->Cell(2, 1, ',');
+    $pdf->SetFont('lucidafaxdemib', 'B', 9);
+    $pdf->Cell(50, 5, $data['firstname']);
+    $pdf->SetFont('lucidafax', '', 9);
+    // $pdf->TextField('Firstname', 50, 5);
+    $pdf->Cell(1, 1, ' ');
+    $pdf->SetFont('lucidafaxdemib', 'B', 9);
+    $pdf->Cell(40, 5, $data['middlename']);
+    // $pdf->TextField('Middlename', 40, 5);
+
+    $pdf->SetFont('lucidafax', '', 9);
+    // Name Label
+    $pdf->Ln(5);
+    $pdf->Cell(17, 5, '                     Surname                     First Name                    Middle Name');
+
+    // Course
+    $pdf->Ln(6);
+    $pdf->Cell(34, 5, 'College Course:');
+    $pdf->SetFont('lucidafaxdemib', 'B', 9);
+    $pdf->Cell(90, 5, $data['course']);
+    // $pdf->TextField('course', 90, 5);
+
+    $pdf->SetFont('lucidafax', '', 9);
+    // Cliam your request for
+    $pdf->Ln(6);
+    $pdf->Cell(60, 5, 'Please claim your request for');
+    $pdf->TextField('requested_documents', 120, 5);
+    $style = array(
+      'position' => '',
+      'align' => 'C',
+      'stretch' => false,
+      'fitwidth' => true,
+      'cellfitalign' => '',
+      'border' => false,
+      'hpadding' => 'auto',
+      'vpadding' => 'auto',
+      'fgcolor' => array(0, 0, 0),
+      'bgcolor' => false, //array(255,255,255),
+      'text' => true,
+      'font' => 'helvetica',
+      'fontsize' => 8,
+      'stretchtext' => 4
+  );
+  $pdf->SetFont('lucidafax', '', 9);
+    //request number
+    $pdf->Ln(6);
+    $pdf->Cell(36, 5, 'Request Number:');
+    $pdf->write1DBarcode($data['slug'], 'C39', '', '', '', 13, .4, $style, 'N');
+    // $pdf->TextField('request_no', 30, 5);
+    $pdf->Cell(120, 5, '');
+    $pdf->Cell(14, 5, '_________________________________');
+
+    $pdf->SetFont('lucidafax', '', 9);
+    // Student Number
+    $pdf->Ln(6);
+    $pdf->Cell(35, 5, 'Student Number:');
+    $pdf->SetFont('lucidafaxdemib', 'B', 9);
+    $pdf->Cell(35, 5, $data['student_number']);
+    // $pdf->TextField('student_number', 35, 5);
+    $pdf->Cell(56, 5, '');
+    $pdf->Cell(16, 5, 'Client Information Clerk');
+
+    $pdf->SetFont('lucidafax', '', 7);
+    $pdf->Ln(6);
+    $pdf->SetTextColor(194,8,8);
+    $pdf->Cell(16, 5, 'NOTE:    FOR REPRESENTATIVES: IMMEDIATE FAMILY - BRING AUTHORIZATION LETTER, STUDENT’S NSO BIRTH CERT, AND VALID ID, OTHER THAN');
+    $pdf->Ln(4);
+    $pdf->Cell(16, 5, ' IMMEDIATE FAMILY - BRING SPECIAL POWER OF ATTORNEY AND A PHOTOCOPY OF VALID I.D.');
+
+    $pdf->SetX(160);
+    $pdf->SetY(250);
+
+    // Button to validate and print
+    $pdf->Button('print', 30, 10, 'Print', 'Print()', array('lineWidth'=>2, 'borderStyle'=>'beveled', 'fillColor'=>array(194,8,8), 'strokeColor'=>array(64, 64, 64)));
+
+    // Reset Button
+    $pdf->Button('reset', 30, 10, 'Reset', array('S'=>'ResetForm'), array('lineWidth'=>2, 'borderStyle'=>'beveled', 'fillColor'=>array(128, 196, 255), 'strokeColor'=>array(64, 64, 64)));
+
+    // Submit Button
+    $pdf->Button('submit', 30, 10, 'Submit', array('S'=>'SubmitForm', 'F'=>'http://localhost/printvars.php', 'Flags'=>array('ExportFormat')), array('lineWidth'=>2, 'borderStyle'=>'beveled', 'fillColor'=>array(124,252,0), 'strokeColor'=>array(64, 64, 64)));
+
+    // Form validation functions
+    $js = <<<EOD
+    function CheckField(name,message) {
+        var f = getField(name);
+        if(f.value == '') {
+            app.alert(message);
+            f.setFocus();
+            return false;
+        }
+        return true;
+    }
+    function Print() {
+        print();
+    }
+    EOD;
+
+    // Add Javascript code
+    $pdf->IncludeJS($js);
+
+    // -----------------------------------------------------------------------------
+    // output the HTML content
+    // -----------------------------------------------------------------------------
+    /**$pdf->SetXY(12, 172);
+    $pdf->Image(APPPATH . 'libraries/tcpdf/examples/images/signature.png', '', '', 35, 20, '', '', 'T', false, 300, '', false, false, 1, false, false, false);
+
+    **/
+
+    //Close and output PDF document
+    $pdf->Output('example_014.pdf', 'I');
+
+    //============================================================+
+    // END OF FILE
+    //============================================================+
+    die('here');
   }
 
   public function applyApproval($id, $office_route_id, $request_id) {

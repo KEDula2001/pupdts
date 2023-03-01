@@ -21,7 +21,7 @@
                                         <th class="text-center">Name</th>
                                         <th class="text-center">Request Code</th>
                                         <th class="text-center">Date Requested</th>
-                                    <!--    <th class="text-center">Request Info</th>-->
+                                        <th class="text-center">Gen. Clearance</th>
                                         <th class="text-center">Library</th>
                                         <th class="text-center">Laboratory</th>
                                         <th class="text-center">ROTC</th>
@@ -36,9 +36,9 @@
                                             <td><?= $request['fullname'] ?></td>
                                             <th><?= $request['slug'] ?></th>
                                             <td><?= $request['created_at'] ?></td>
-                                            <!--<th class="text-center">
-                                                <a href="#"><u>View</u></a>
-                                            </th>           -->
+                                            <th class="text-center">
+                                                <a href="/approval/generate-clearance/<?= $request['id'] ?>" target="_blank"><u>View</u></a>
+                                            </th>          
                                             <td class="text-center">
                                                 <?php if(session()->get('office')=='Library'):?>
                                                     <button 

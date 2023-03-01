@@ -29,8 +29,68 @@ class Requests extends BaseController
     return view('template/index', $this->data);
   }
 
+  public function addInfo($id){
+    $this->data['documents'] = $this->documentModel->orderBy('document', 'ASC')->get();
+		$this->data['student'] = $this->studentModel->getDetail(['students.id' => $_SESSION['student_id']]);
+		$student = $this->studentModel->getDetail(['students.id' => $_SESSION['student_id']])[0];
+    if (!empty($this->data['student'])) {
+      $this->data['student'] = $this->data['student'][0];
+    }
+    $this->data['view'] = 'Modules\DocumentRequest\Views\requests\form';
+    if ($this->request->getMethod() == 'post') {
+      if($student['year_graduated'] == null){
+        if ($this->validate('addInfoOne')) {
+          $info = [
+            'address' => $_POST['address'],
+            'admitted_year_sy' => $_POST['admitted_year_sy'],
+            'semester' => $_POST['semester'],
+            'elem_school_address' => $_POST['elem_school_address'],
+            'elem_year_graduated' => $_POST['elem_year_graduated'],
+            'high_school_address' => $_POST['high_school_address'],
+            'high_year_graduated' => $_POST['high_year_graduated'],
+            'college_school_address' => $_POST['college_school_address'],
+            'year_graduated' => ($student['status'] == 'alumni' ? $_POST['college_school_address'] : null),
+          ];
+          if($this->studentModel->updateStudentData($id, $info)) {
+            $this->session->setFlashdata('success', 'You successfully added additional student information!');
+            return redirect()->to(base_url('requests/new'));
+          } else {
+            $this->session->setFlashdata('error', 'Something Went Wrong!');
+            return redirect()->to(base_url('requests/new'));
+          }
+        } else {
+          $this->data['errors'] = $this->validation->getErrors();
+          $this->data['value'] = $_POST;
+        }
+      } else {
+        if ($this->validate('addInfoTwo')) {
+          $info = [
+            'address' => $_POST['address'],
+            'admitted_year_sy' => $_POST['admitted_year_sy'],
+            'semester' => $_POST['semester'],
+            'elem_school_address' => $_POST['elem_school_address'],
+            'elem_year_graduated' => $_POST['elem_year_graduated'],
+            'high_school_address' => $_POST['high_school_address'],
+            'high_year_graduated' => $_POST['high_year_graduated'],
+            'college_school_address' => $_POST['college_school_address']
+          ];
+          if($this->studentModel->updateStudentData($id, $info)) {
+            $this->session->setFlashdata('success', 'You successfully added additional student information!');
+            return redirect()->to(base_url('requests/new'));
+          } else {
+            $this->session->setFlashdata('error', 'Something Went Wrong!');
+            return redirect()->to(base_url('requests/new'));
+          }
+        } else {
+          $this->data['errors'] = $this->validation->getErrors();
+          $this->data['value'] = $_POST;
+        }
+      }
+    }
+    return view('template/index', $this->data);
+  }
+
   public function add(){
-    // var_dump($_SESSION['student_id']); 
 
     $this->data['documents'] = $this->documentModel->orderBy('document', 'ASC')->get();
 		$this->data['student'] = $this->studentModel->getDetail(['students.id' => $_SESSION['student_id']]);
@@ -92,12 +152,12 @@ class Requests extends BaseController
 				}
 				if($this->requestModel->request($data))
 				{
-					$this->session->setFlashdata('success_message', 'You Have Succesfully Made a request');
+					$this->session->setFlashdata('success', 'You Have Succesfully Made a request');
 					return redirect()->to(base_url('requests'));
 				}
 				else
 				{
-					$this->session->setFlashdata('error_message', 'Something Went Wrong!');
+					$this->session->setFlashdata('error', 'Something Went Wrong!');
 					return redirect()->to(base_url('requests'));
 				}
 			}

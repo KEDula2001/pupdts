@@ -49,7 +49,7 @@
               <!-- student no. -->
                 <div class="col-6">
                   <div class="form-group mb-3">
-                    <label for="student_number" class="form-label">Student Number*</label>
+                    <label for="student_number" class="form-label">Student Number <small class="text-danger">*</small></label>
                     <input value="" type="text" name="student_number" class="form-control" id="student_number">
                     <?php if (isset($errors['student_number'])): ?>
                       <div class="text-danger">
@@ -62,7 +62,7 @@
                 <!-- firstname -->
                 <div class="col-6">
                   <div class="form-group mb-3">
-                    <label for="firstname" class="form-label">First Name*</label>
+                    <label for="firstname" class="form-label">First Name <small class="text-danger">*</small></label>
                     <input value="" type="text" name="firstname" class="form-control" id="firstname">
                     <?php if (isset($errors['firstname'])): ?>
                       <div class="text-danger">
@@ -77,7 +77,7 @@
               <div class="row justify-content-center">  
                 <div class="col-6">
                   <div class="form-group mb-3">
-                    <label for="lastname" class="form-label">Last Name*</label>
+                    <label for="lastname" class="form-label">Last Name <small class="text-danger">*</small></label>
                     <input value="" type="text" name="lastname" class="form-control" id="lastname">
                     <?php if (isset($errors['lastname'])): ?>
                       <div class="text-danger">
@@ -88,7 +88,7 @@
                 </div>
                 <div class="col-6">
                   <div class="form-group mb-3">
-                    <label for="middlename" class="form-label">Middle Name*</label>
+                    <label for="middlename" class="form-label">Middle Name <small class="text-danger">*</small></label>
                     <input value="" type="text" name="middlename" class="form-control" id="middlename">
                     <?php if (isset($errors['middlename'])): ?>
                       <div class="text-danger">
@@ -103,7 +103,7 @@
               <div class="row justify-content-left">
                 <div class="col-6">
                   <div class="form-group mb-3">
-                    <label for="email">Email*</label>
+                    <label for="email">Email <small class="text-danger">*</small></label>
                     <input type="text" class="form-control" value="" name="email" id="email">
                     <?php if (isset($errors['email'])): ?>
                       <div class="text-danger">
@@ -118,7 +118,20 @@
         
                 <div class="col-6">
                   <div class="form-group mb-3">
-                    <label for="course" hi>Course*</label>
+                    <label for="birthdate">Birthdate <small class="text-danger">*</small></label>
+                    <input type="date" class="form-control" name="birthdate" id="birthdate">
+                    <?php if (isset($errors['birthdate'])): ?>
+                      <div class="text-danger">
+                        <?=esc($errors['birthdate'])?>
+                      </div>
+                    <?php endif; ?>
+                  </div>
+                </div>
+              </div>
+              <div class="row justify-content-left">
+                <div class="col-12">
+                  <div class="form-group mb-3">
+                    <label for="course" hi>Course <small class="text-danger">*</small></label>
                       <select class="form-control" name="course_id">
                         <option class="active" hidden>Select Course</option>
                         <?php if (!empty($courses)): ?>
@@ -127,6 +140,11 @@
                           <?php endforeach; ?>
                         <?php endif; ?>     
                       </select>
+                    <?php if (isset($errors['course_id'])): ?>
+                      <div class="text-danger">
+                        <?=esc($errors['course_id'])?>
+                      </div>
+                    <?php endif; ?>
                   </div>
                 </div>
               </div>

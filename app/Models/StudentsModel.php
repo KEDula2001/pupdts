@@ -61,6 +61,20 @@ class StudentsModel extends BaseModel
     // return $this->findAll();
   }
   
+  public function __getStudentAdmissionDetails()
+  { 
+    return $this->db->table($this->table)
+                        ->join('courses', 'courses.id = students.course_id')  
+                        ->join('student_admission', 'student_admission.studID = students.user_id')
+                        ->get()
+                        ->getResultArray();
+    // $this->select('students.student_number, students.firstname, students.lastname, students.middlename, 
+    //   students.user_id, sa.admission_status, c.course');
+    // $this->join('courses as c', 'c.id = students.course_id');
+    // $this->join('student_admission as sa', 'sa.studID = students.user_id');
+    // return $this->findAll();
+  }
+  
   public function __getStudentWhereEqualToUserID($id)
   {
     return $this->db->table($this->table)

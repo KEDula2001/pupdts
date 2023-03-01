@@ -13,10 +13,42 @@ class StudentsModel extends BaseModel
 
   protected $table = 'students';
 
-  protected $allowedFields = ['id', 'student_number', 'firstname', 'lastname','suffix', 'middlename', 'gender', 'birthdate', 'contact', 'status','year_graduated', 'course_id', 'user_id', 'status', 'level'];
+  protected $allowedFields = [
+    'id', 
+    'student_number', 
+    'firstname', 
+    'lastname',
+    'suffix', 
+    'middlename', 
+    'gender', 
+    'birthdate', 
+    'contact', 
+    'status',
+    'address',
+    'admitted_year_sy',
+    'semester',
+    'elem_school_address',
+    'elem_year_graduated',
+    'high_school_address',
+    'high_year_graduated',
+    'college_school_address',
+    'year_graduated',
+    'year_graduated', 
+    'course_id', 
+    'user_id', 
+    'status', 
+    'level'
+  ];
 
   function __construct(){
     parent::__construct();
+  }
+
+  public function updateStudentData($id, $info)
+  {
+    $this->set($info);
+    $this->where('id', $id);
+    return $this->update();
   }
 
   public function getStudentID($id){ 
@@ -52,6 +84,7 @@ class StudentsModel extends BaseModel
 
   public function insertStudent($data)
   {
+    // die(print_r($data));
     $this->transBegin();
 
       $user = new UsersModel();
@@ -90,11 +123,11 @@ class StudentsModel extends BaseModel
     //$this->transBegin();
     //die($data['email']);
     $s_data = [
-            'student_number' => $data['student_number'], 
-            'birthdate' =>      $data['birthdate'],
-            'firstname' =>      $data['firstname'],
-            'middlename' =>     $data['middlename'],
-            'lastname' =>       $data['lastname']
+      'student_number' => $data['student_number'], 
+      'birthdate' => $data['birthdate'],
+      'firstname' => $data['firstname'],
+      'middlename' => $data['middlename'],
+      'lastname' => $data['lastname']
     ];
 
       $student = new Students();

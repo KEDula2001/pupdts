@@ -8,6 +8,7 @@ $routes->group('requests', ['namespace' => 'Modules\DocumentRequest\Controllers'
     $routes->get('history', 'Requests::history');
     $routes->post('upload-receipt', 'Requests::uploadReceipt');
     $routes->match(['get', 'post'], 'new', 'Requests::add');
+    $routes->match(['get', 'post'], 'additional-info/(:num)', 'Requests::addInfo/$1');
     
 });
 
@@ -56,6 +57,7 @@ $routes->group('on-process-document', ['namespace' => 'Modules\DocumentRequest\C
 $routes->group('approval', ['namespace' => 'Modules\DocumentRequest\Controllers'], function($routes)
 {
     $routes->get('/', 'DocumentRequests::approval');
+    $routes->get('generate-clearance/(:num)', 'DocumentRequests::generateClearance/$1');
     $routes->post('approve', 'DocumentRequests::approveRequest');
     $routes->post('hold', 'DocumentRequests::holdRequest');
     $routes->get('apply-approval/edit/(:num)/(:num)/(:num)', 'DocumentRequests::applyApproval/$1/$2/$3');
