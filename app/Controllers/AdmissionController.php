@@ -862,7 +862,7 @@ class AdmissionController extends BaseController
 				'schoolid'=> (!empty($_POST['schoolid']) ? $_POST['schoolid'] : 0),
 				'honor_dis'=> (!empty($_POST['honor_dis']) ? $_POST['honor_dis'] : 0),
 				'trans_rec'=> (!empty($_POST['trans_rec']) ? $_POST['trans_rec'] : 0),
-				'certicate_of_completion' => (!empty($_POST['certicate_of_completion']) ? $_POST['certicate_of_completion'] : null)
+				'certificate_of_completion' => (!empty($_POST['certificate_of_completion']) ? $_POST['certificate_of_completion'] : null)
 			];
 			
 			// die($_POST['admission_status']);
@@ -894,7 +894,7 @@ class AdmissionController extends BaseController
 				'schoolid'=> (!empty($_POST['schoolid']) ? $_POST['schoolid'] : 0),
 				'honor_dis'=> (!empty($_POST['honor_dis']) ? $_POST['honor_dis'] : 0),
 				'trans_rec'=> (!empty($_POST['trans_rec']) ? $_POST['trans_rec'] : 0),
-				'certicate_of_completion' => (!empty($_POST['certicate_of_completion']) ? $_POST['certicate_of_completion'] : null)
+				'certificate_of_completion' => (!empty($_POST['certificate_of_completion']) ? $_POST['certificate_of_completion'] : null)
 			];
 			
 			$res = $insertstudentadmission->insertAdmissionStudents($id, $data, (!empty($_POST['admission_status']) ? $_POST['admission_status'] : ""));

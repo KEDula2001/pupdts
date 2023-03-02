@@ -1,19 +1,23 @@
-<div style="padding: 20px">
-<section class="container-fluid">
-  <div class="d-sm-flex align-items-center justify-content-between mb-0 mt-5 ms-5">
-   <nav style="--bs-breadcrumb-divider: '<'; font-weight: bold;" aria-label="breadcrumb">
+<div class="container-fluid-admission">
+<section class="container-fluid" style="margin-top: 50px; padding: 20px">
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="<?php echo base_url('admission'); ?>"><i class="fas fa-home"></i></a></li>
           <li class="breadcrumb-item active" aria-current="page">Back to Dashboard</li>
         </ol>
-        <form  action="/admission/rechecking-report" method="get">  
-            <!-- di ko din alam kung paano nagana to kahit wala namang controller haha -->         
-            <button type="submit" class="float-end btn btn-primary" formtarget="_blank"> Generate Report</button>
-        </form>
-      </nav>
-      
+    
+        <div class="row">     
+            <!--Generate Report -->
+            <div class="col-auto">
+                  <a class="btn btn-primary btn-lg active" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" >Generate Report</a>
+                  <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="<?php echo base_url('admission/complete-report'); ?>">Complete Submission</a></li>
+                    <li><a class="dropdown-item" href="<?php echo base_url('admission/incomplete-report'); ?>">Incomplete Submission</a></li> 
+                    <li><a class="dropdown-item" href="<?php echo base_url('admission/retrieved-report'); ?>">Retrieved Credentials</a></li>                                        
+                  </ul>
+            </div>
+        </div>
   </div>
-
   <div class="row">
 
     <div class="col-4"></div>
@@ -67,7 +71,7 @@
                   <td><?=esc($student['student_number'])?></td>
                   <td>
                     <?php if (!empty($student['middlename'])): ?>
-                      <?=esc(ucwords($student['firstname'].' '.$student['middlename'][0].'. '.$student['lastname']))?>
+                      <?=esc(ucwords($student['firstname'].' '.$student['middlename'].' '.$student['lastname']))?>
                     <?php else: ?>
                      <?=esc(ucwords($student['firstname'].' '.$student['lastname']))?>
                     <?php endif ?>

@@ -278,16 +278,16 @@
               <div class="col">
               <label><strong>2x2 Picture:</strong></label> <br>
               <div class="col" style="margin-left: 50px">
-                <input type="checkbox" value="Submit Original (2x2 Picture)" name="submit_twobytwo" >
-                <label for = "twobytwo"> Submit Original </label>
+                <input type="checkbox" value="Submit 4 pcs. (2x2 Picture)" name="submit_twobytwo" >
+                <label for = "twobytwo"> Submit 4 pcs. </label>
               </div>
             </div>
             <div class="row">
               <div class="col">
               <label><strong>Certificate of Completion:</strong></label> <br>
               <div class="col" style="margin-left: 50px">
-                <input type="checkbox" id="certificate_of_completion" value="Submit 1 Photocopy (Certificate of Completion)" name="certificate_of_completion" >
-                <label for="certificate_of_completion">Submit 1 Photocopy</label>
+                <input type="checkbox" id="submit_photocopy_coc" value="Submit 1 Photocopy (Certificate of Completion)" name="submit_photocopy_coc" >
+                <label for="submit_photocopy_coc">Submit 1 Photocopy</label>
               </div>
             </div>
 
