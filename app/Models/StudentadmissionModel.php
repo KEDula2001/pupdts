@@ -19,7 +19,7 @@ class StudentadmissionModel extends Model
 		'good_moralID', 
 		'medical_certID', 
 		'picture_two_by_twoID', 
-		'certicate_of_completion',
+		'certificate_of_completion',
 		'nc_non_enrollmentID', 
 		'coc_hs_shsID', 
 		'ac_pept_alsID', 

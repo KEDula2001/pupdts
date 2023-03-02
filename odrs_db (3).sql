@@ -1026,7 +1026,7 @@ CREATE TABLE `student_admission` (
   `medical_cert_status` varchar(255) DEFAULT NULL,
   `picture_two_by_twoID` int(11) NOT NULL,
   `twobytwo_status` varchar(255) DEFAULT NULL,
-  `certicate_of_completion` int(20) DEFAULT NULL,
+  `certificate_of_completion` int(20) DEFAULT NULL,
   `nc_non_enrollmentID` int(11) NOT NULL,
   `coc_hs_shsID` int(11) NOT NULL,
   `ac_pept_alsID` int(11) NOT NULL,
