@@ -176,6 +176,7 @@ $(document).ready(function() {
                     'alumni': 'Alumni',
                     'enrolled': 'Currently Enrolled',
                     'returning': 'Returning',
+                    'irregular': 'Irregular',
                   },
                   title: `First Time Setup`,
                   html: `Please enter <strong>STATUS</strong>`,
@@ -186,6 +187,16 @@ $(document).ready(function() {
                         input: `text`,
                         title: `First Time Setup`,
                         html: `Please enter <strong>YEAR GRADUATED</strong>`,
+                        showCancelButton: ctr > 0,
+                        currentProgressStep: ctr,
+                      })
+                      steps.push(++ctr);
+                    }
+                    else if (value == 'irregular') {
+                      questions.push({
+                        input: `text`,
+                        title: `First Time Setup`,
+                        html: `Please enter your <strong> BATCH </strong>`,
                         showCancelButton: ctr > 0,
                         currentProgressStep: ctr,
                       })
@@ -248,6 +259,8 @@ $(document).ready(function() {
               }
             }
 
+            console.log(data);
+
            
             if (currentStep === steps.length) {
               $.ajax({
@@ -306,6 +319,13 @@ $(document).ready(function() {
       $("#level").prop('disabled', true)
       $("#level").prop('hidden', true)
       $("#yearLabel").hide();
+      
+    }
+    else if ($('input[name="status"]:checked').val() == 'irregular') {
+      $("#level").prop('disabled', true)
+      $("#level").prop('hidden', true)
+      $("#yearLabel").hide();
+      
     } else {
       $("#level").prop('disabled', true)
       $("#level").prop('hidden', true)

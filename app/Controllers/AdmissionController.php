@@ -1302,11 +1302,12 @@ class AdmissionController extends BaseController
 
 		$res = $updateToRecheckingStatus->__setUpdateToRechecking($id);
 		
-			die($res);
+			
 			if ($res == 'success') {
+				$this->session->setFlashData('success', 'Rechecking is now in progress!');
 	            return redirect()->to(base_url('studentadmission/view-admission-history/'.$id));
 			}else{
-				$this->session->setFlashData('error_message', 'Error!');
+				$this->session->setFlashData('error', 'Something went wrong!');
 	            return redirect()->to(base_url('studentadmission/view-admission-history/'.$id));
 			}
 	}
