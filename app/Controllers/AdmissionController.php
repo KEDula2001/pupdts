@@ -20,6 +20,37 @@ class AdmissionController extends BaseController
 {
 	 protected $helpers = ['form', 'url'];
 
+	 public function admissioncrud()
+	 {
+		 $getstudent = new StudentsModel;
+		 $getchecklist = new ChecklistModel;
+		 $getstudentadmissionmodel = new StudentadmissionModel;
+		 $getRetrievedRecord = new RefForRetrievedModel;
+ 
+		 $this->data['retrieved_record'] = $getRetrievedRecord->__getRetrievedRecord();
+		 $this->data['count_incomplete'] = $getstudentadmissionmodel->__getIncompleteDocs(); 
+		 $this->data['count_complete'] = $getstudentadmissionmodel->__getCompleteDocs();
+		 $this->data['count_recheck'] = $getstudentadmissionmodel->__getRecheckDocs();
+		 $this->data['students'] = $getstudent->__getStudentDetails();
+		 // die(print_r($this->data['students']));
+		//  $this->data['students_admission'] = $getstudentadmissionmodel->__getStudentAdmissionDetails();
+		//  // die(print_r($this->data['students_admission']));
+		//  $this->data['checklists'] = $getchecklist->__getChecklistDetails();
+		//  if ($this->isAjax()) {
+		// 	 return view('admissionoffice/admissiondashboard', $this->data);
+		//  }
+		//  echo view('admissionoffice/header', $this->data);
+		//  echo view('admissionoffice/admissiondashboard', $this->data);
+		//  return view('admissionoffice/footer', $this->data);
+
+		$this->data['users'] = $this->adminModel->getDetails();
+		$this->data['users_deleted'] = $this->adminModel->onlyDeleted()->getDetails();
+		$this->data['view'] = 'admissionoffice/admissioncrud';
+		return view('template/index', $this->data);
+	 }
+	 
+
+
 
 	public function UploadStudentDocuments($id){ 
 		$edit = false; 
@@ -206,14 +237,14 @@ class AdmissionController extends BaseController
 		$model = new AdmissionDocumentStatusModel(); 
 		$getStudentFileImages = new StudentadmissionfilesModel;
 		$getstudent = new StudentsModel;
-		
+		// die(print_r($_POST));
 
 		helper(['form']);
 		if ($this->request->getMethod() == 'post'){
 			if(!$this->validate('admissionStatus')){
 				$this->data['errors'] = $this->validation->getErrors();
                 $this->data['value'] = $_POST;
-				// die(print_r($_POST));
+				
 			} else {
 				$admissionStatusData = [
 					'sar_pupcet_result_status' => ['SAR Form/PUPCET/CAEPUP Result',$_POST['sar_pupcet_result_status']],
@@ -222,9 +253,9 @@ class AdmissionController extends BaseController
 					'g11_status' => ['Grade 11 Card',$_POST['g11_status']],
 					'g12_status' => ['Grade 12 Card',$_POST['g12_status']],
 					'psa_nso_status' => ['PSA/NSO Birth Certificate',$_POST['psa_nso_status']],
-					'goodmoral_status' => ['Certification of Good Moral',$_POST['goodmoral_status']],
+					'good_moral_status' => ['Certification of Good Moral',$_POST['goodmoral_status']],
 					'medical_cert_status' => ['Medical Clearance',$_POST['medical_cert_status']],
-					'pictwobytwo_status' => ['2x2 Picture',$_POST['pictwobytwo_status']],
+					'twobytwo_status' => ['2x2 Picture',$_POST['pictwobytwo_status']],
 				];
 				//die(print_r($admissionStatusData));
 				// $admissionStatusLabelsData = [

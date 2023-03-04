@@ -252,7 +252,7 @@ class Students extends BaseController
 			$mail->setTo($email);
 			$mail->setSubject('User Account Password');
 			$mail->setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig OCT-DRS');
-			$mail->setMessage('Your Account has been sucessfully made! <br> Username: ' .  $username . ' <br> Password: '  . $password);
+			$mail->setMessage('Your Account has been successfully made! <br> Username: ' .  $username . ' <br> Password: '  . $password);
       if ($mail->send()) {
         return true;
       }

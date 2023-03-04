@@ -17,13 +17,7 @@ class AdmissionDocumentStatusModel extends Model
 
 	
 	public function insertStatusData($data){
-		
-	
-
 	$this->db->table($this->table)->insert($data);
-
-		
-
 	}
 	
 	public function __updateAdmissionDocument($id, $data)
@@ -32,19 +26,20 @@ class AdmissionDocumentStatusModel extends Model
 		$this->transBegin();
 		$insert_data = $data;  
 		$student_data = [
-	    'sar_pupcet_result_status' => $data[1]['sar_pupcet_result_status'],
-		'f137_status' => $data[1]['f137_status'],
-		'g10_status' => $data[1]['g10_status'],
-		'g11_status' => $data[1]['g11_status'],
-		'g12_status' => $data[1]['g12_status'],
-		'psa_nso_status' => $data[1]['psa_nso_status'],
-		'goodmoral_status' => $data[1]['goodmoral_status'],
-		'medical_cert_status' => $data[1]['medical_cert_status'],
-		'pictwobytwo_status' => $data[1]['pictwobytwo_status']];
+	    'sar_pupcet_result_status' => $data['sar_pupcet_result_status'][1],
+		'f137_status' => $data['f137_status'][1],
+		'g10_status' => $data['g10_status'][1],
+		'g11_status' => $data['g11_status'][1],
+		'g12_status' => $data['g12_status'][1],
+		'psa_nso_status' => $data['psa_nso_status'][1],
+		'good_moral_status' => $data['good_moral_status'][1],
+		'medical_cert_status' => $data['medical_cert_status'][1],
+		'twobytwo_status' => $data['twobytwo_status'][1]
+		];
 
 		
 
-		//die(print_r($insert_data));
+		// die(print_r($insert_data));
 		$student = new Students();
 		$studentModel = new StudentsModel();
 		$user = $studentModel->getStudentDetailsByUserId($id)[0];

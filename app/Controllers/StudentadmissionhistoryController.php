@@ -35,6 +35,7 @@ class StudentadmissionhistoryController extends BaseController
 		$getstudentadmission_files_status = new AdmissionDocumentStatusModel();
 
 		$this->data['studentadmission_status'] = $getstudentadmission_files_status->__getStudentAdmissionStatus($id);
+		// die(print_r($this->data['studentadmission_status']));
 		$this->data['studentadmission_files'] = $getstudentadmission_files->__getStudentFiles($id);
 		$this->data['view'] = 'Modules\DocumentRequest\Views\requests\gallery\admission_gallery';
 	    return view('template/index', $this->data);

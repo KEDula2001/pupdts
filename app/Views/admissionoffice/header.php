@@ -38,7 +38,10 @@
                 <?php if($_SESSION['role'] == "Admin"):?>
                   <a class="btn dashboard" href="<?=base_url('dashboards')?>">Registrar's Dashboard</a>
                 <?php endif ?>
-                <?php if($_SESSION['role'] == "Superadmin" || $_SESSION['role'] == "Admin" || $_SESSION['role'] == "Admission"):?>
+                <?php if($_SESSION['role'] == "Superadmin"):?>
+                  <a class="btn dashboard" href="<?=base_url('users')?>">Superadmin Dashboard</a>
+                <?php endif ?>
+                <?php if($_SESSION['role'] == "Admin" || $_SESSION['role'] == "Admission"):?>
                   <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Home</a>
                   <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="<?php echo base_url('admission'); ?>">Dashboard</a></li>

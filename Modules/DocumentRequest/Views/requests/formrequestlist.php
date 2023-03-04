@@ -1,4 +1,4 @@
-<section class="content">
+<section class="content" style="margin: 80px">
   <div class="card">
     <div class="card-body">
       <div class="table-responsive">

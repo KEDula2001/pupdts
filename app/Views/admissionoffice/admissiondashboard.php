@@ -8,6 +8,7 @@
             <div class="col-auto">
                   <a class="btn btn-primary btn-lg active" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" >Generate Report</a>
                   <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="<?php echo base_url('admission/report'); ?>">Dashboard Report</a></li>
                     <li><a class="dropdown-item" href="<?php echo base_url('admission/complete-report'); ?>">Complete Submission</a></li>
                     <li><a class="dropdown-item" href="<?php echo base_url('admission/incomplete-report'); ?>">Incomplete Submission</a></li> 
                     <li><a class="dropdown-item" href="<?php echo base_url('admission/retrieved-report'); ?>">Retrieved Credentials</a></li>
