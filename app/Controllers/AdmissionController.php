@@ -20,6 +20,37 @@ class AdmissionController extends BaseController
 {
 	 protected $helpers = ['form', 'url'];
 
+	 public function admissioncrud()
+	 {
+		 $getstudent = new StudentsModel;
+		 $getchecklist = new ChecklistModel;
+		 $getstudentadmissionmodel = new StudentadmissionModel;
+		 $getRetrievedRecord = new RefForRetrievedModel;
+ 
+		 $this->data['retrieved_record'] = $getRetrievedRecord->__getRetrievedRecord();
+		 $this->data['count_incomplete'] = $getstudentadmissionmodel->__getIncompleteDocs(); 
+		 $this->data['count_complete'] = $getstudentadmissionmodel->__getCompleteDocs();
+		 $this->data['count_recheck'] = $getstudentadmissionmodel->__getRecheckDocs();
+		 $this->data['students'] = $getstudent->__getStudentDetails();
+		 // die(print_r($this->data['students']));
+		//  $this->data['students_admission'] = $getstudentadmissionmodel->__getStudentAdmissionDetails();
+		//  // die(print_r($this->data['students_admission']));
+		//  $this->data['checklists'] = $getchecklist->__getChecklistDetails();
+		//  if ($this->isAjax()) {
+		// 	 return view('admissionoffice/admissiondashboard', $this->data);
+		//  }
+		//  echo view('admissionoffice/header', $this->data);
+		//  echo view('admissionoffice/admissiondashboard', $this->data);
+		//  return view('admissionoffice/footer', $this->data);
+
+		$this->data['users'] = $this->adminModel->getDetails();
+		$this->data['users_deleted'] = $this->adminModel->onlyDeleted()->getDetails();
+		$this->data['view'] = 'admissionoffice/admissioncrud';
+		return view('template/index', $this->data);
+	 }
+	 
+
+
 
 	public function UploadStudentDocuments($id){ 
 		$edit = false; 

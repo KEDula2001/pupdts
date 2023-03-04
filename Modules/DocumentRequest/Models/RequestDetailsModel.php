@@ -70,7 +70,56 @@ class RequestDetailsModel extends BaseModel
     return $this->findAll();
   }
 
-  public function getDetailsReport($conditions = [], $id = null){
+ public function getDetailsReport($conditions = [], $id = null){
+
+    $this->select('
+      request_details.*, 
+      requests.slug,
+      documents.price,
+      requests.created_at as requested_at, 
+      requests.confirmed_at,
+      requests.reason, 
+      documents.document,
+      documents.per_page_payment,
+      documents.template, 
+      documents.price, 
+      students.firstname, 
+      students.lastname, 
+      students.middlename, 
+      CONCAT(students.firstname, students.lastname) as fullname, 
+      students.suffix, 
+      students.student_number, 
+      students.gender,
+      students.level,
+      students.birthdate, 
+      students.address, 
+      students.contact, 
+      students.admitted_year_sy, 
+      students.semester, 
+      students.elem_school_address, 
+      students.elem_year_graduated, 
+      students.high_school_address, 
+      students.high_year_graduated, 
+      students.college_school_address, 
+      students.year_graduated, 
+      courses.course, 
+      courses.abbreviation, 
+      users.email
+    ');
+    $this->join('requests', 'request_id = requests.id');
+    $this->join('documents', 'document_id = documents.id');
+    $this->join('students', 'requests.student_id = students.id');
+    $this->join('users', 'users.id = students.user_id');
+    $this->join('courses', 'students.course_id = courses.id');
+    foreach ($conditions as $condition => $value) {
+      $this->where($condition , $value);
+    }
+    if ($id != null)
+      $this->where('id', $id);
+    return $this->findAll();
+  }
+  
+  public function getDetailsReportForRegistrar($conditions = [], $id = null){
 
     $this->select('
       request_details.*, 

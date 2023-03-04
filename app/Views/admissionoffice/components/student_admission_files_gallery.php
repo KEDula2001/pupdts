@@ -85,9 +85,9 @@
                   
                 <!--G10 card status 3-->
                   <div class = "col">
-                  <a href="<?php if (!empty($image_file_record['f138_files'])){echo base_url('uploads/'.$image_file_record['f138_files']);} ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
-                      <?php if (!empty($image_file_record['f138_files'])): ?>  
-                        <img src="<?php echo base_url('uploads/'.$image_file_record['f138_files']); ?>" class="img-fluid card" style="text-decoration: none;">
+                  <a href="<?php if (!empty($image_file_record['g10_files'])){echo base_url('uploads/'.$image_file_record['g10_files']);} ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
+                      <?php if (!empty($image_file_record['g10_files'])): ?>  
+                        <img src="<?php echo base_url('uploads/'.$image_file_record['g10_files']); ?>" class="img-fluid card" style="text-decoration: none;">
                       <?php else: ?>
                         <h3 align="center">No files</h3>
                       <?php endif ?>
@@ -116,9 +116,9 @@
                   <!--G11 card status 4 NEW 1-->
                   <div class = "row"> 
                   <div class = "col">
-                  <a href="<?php if (!empty($image_file_record['f138_files'])){echo base_url('uploads/'.$image_file_record['f138_files']);} ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
-                      <?php if (!empty($image_file_record['f138_files'])): ?>  
-                        <img src="<?php echo base_url('uploads/'.$image_file_record['f138_files']); ?>" class="img-fluid card" style="text-decoration: none;">
+                  <a href="<?php if (!empty($image_file_record['g11_files'])){echo base_url('uploads/'.$image_file_record['g11_files']);} ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
+                      <?php if (!empty($image_file_record['g11_files'])): ?>  
+                        <img src="<?php echo base_url('uploads/'.$image_file_record['g11_files']); ?>" class="img-fluid card" style="text-decoration: none;">
                       <?php else: ?>
                         <h3 align="center">No files</h3>
                       <?php endif ?>
@@ -142,9 +142,9 @@
 
                   <!--G12 card status 2-->
                   <div class = "col">
-                  <a href="<?php if (!empty($image_file_record['cert_dry_sealID_twelve_files'])){echo base_url('uploads/'.$image_file_record['cert_dry_sealID_twelve_files']);} ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
-                      <?php if (!empty($image_file_record['cert_dry_sealID_twelve_files'])): ?>  
-                        <img src="<?php echo base_url('uploads/'.$image_file_record['cert_dry_sealID_twelve_files']); ?>" class="img-fluid card" style="text-decoration: none;">
+                  <a href="<?php if (!empty($image_file_record['g12_files'])){echo base_url('uploads/'.$image_file_record['g12_files']);} ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
+                      <?php if (!empty($image_file_record['g12_files'])): ?>  
+                        <img src="<?php echo base_url('uploads/'.$image_file_record['g12_files']); ?>" class="img-fluid card" style="text-decoration: none;">
                       <?php else: ?>
                         <h3 align="center">No files</h3>
                       <?php endif ?>

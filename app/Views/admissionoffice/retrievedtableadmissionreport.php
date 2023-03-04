@@ -15,7 +15,7 @@
             <th>Student Name</th>
             <th>Course</th>
             <th>File Retrieved</th>
-            <th>Status</th>
+            <th>Reason for retrieval</th>
             <th>Date Retrieved</th>
           </tr>
         </thead>
@@ -52,7 +52,7 @@
                   }
                 ?>
               </td>
-              <td>Retrieved</td>
+              <td><?=esc($record['reasons'])?></td>
               <td><?=esc($record['retrieved_at'])?></td>
             </tr>
           <?php endforeach ?>

@@ -119,21 +119,21 @@ class DocumentRequests extends BaseController
   public function approval() {
     $this->data['requests'] = $this->requestDetailModel->getDetails(['requests.status' => 'f']);
     // $this->data['view'] = 'Modules\DocumentRequest\Views\requests\approval';
-    // die(print_r($this->data['request_approvals']));
+    //die(print_r($this->data['requests']));
     echo view('admissionoffice/header', $this->data);
 		echo view('Modules\DocumentRequest\Views\requests\approval', $this->data);
 		return view('admissionoffice/footer', $this->data);
   }
 
   
-  public function generateClearance($id) {
+  public function generateClearance($id, $route_type=0) {
     $pdf = new GenClearance(PDF_PAGE_ORIENTATION, PDF_UNIT, 'LETTER', true, 'UTF-8', false);
-    $data = $this->requestDetailModel->getDetailsReport(['request_details.id' => $id])[0];
-    // set document information
-    $pdf->SetCreator(PDF_CREATOR);
-    $pdf->SetAuthor('PUPT OCT-DRS');
-    $pdf->SetTitle('General Clearance');
-    $pdf->SetSubject('General Clearance');
+
+    if($route_type == 0){
+      $data = $this->requestDetailModel->getDetailsReport(['request_details.id' => $id])[0];
+    }else{
+      $data = $this->requestDetailModel->getDetailsReportForRegistrar(['requests.id' => $id])[0];
+    }
     // set default header data
     $pdf->SetHeaderData('header2.png', '200', '', '');
     // set header and footer fonts
@@ -1893,11 +1893,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
         
         $pdf->SetXY(100,230);
     
-        // Button to validate and print
-        $pdf->Button('print', 30, 10, 'Print', 'Print()', array('lineWidth'=>2, 'borderStyle'=>'beveled', 'fillColor'=>array(194,8,8), 'strokeColor'=>array(64, 64, 64)));
-    
-        // Reset Button
-        $pdf->Button('reset', 30, 10, 'Reset', array('S'=>'ResetForm'), array('lineWidth'=>2, 'borderStyle'=>'beveled', 'fillColor'=>array(128, 196, 255), 'strokeColor'=>array(64, 64, 64)));
+       
     
         // Form validation functions
         $js = <<<EOD

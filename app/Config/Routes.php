@@ -104,6 +104,7 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function($rout
 });
 // admission
 	$routes->get('admission', 'AdmissionController::index');
+	$routes->get('admissioncrud', 'AdmissionController::admissioncrud');
 	$routes->get('admissionregistrar', 'AdmissionController::regAdminIndex');
 	$routes->post('admission/insert-student', 'AdmissionController::insertstudent');
 	$routes->get('admission/add-student-form', 'AdmissionController::showStudentForm');
