@@ -1,7 +1,8 @@
+
 <div class="container-fluid-admission">
 <section class="container-fluid" style="margin-top: 50px; padding-left: 20px; padding-right: 20px">
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
-  <h1 class="h3 mb-0">Admission Dashboard</h1>
+  <h1 class="fs-2 fw-bold mb-0">Admission Dashboard</h1>
   
   <div class="row">     
             <!--Generate Report -->
@@ -205,7 +206,7 @@
                         </td>
                         <td><?=esc($student['course'])?></td>
                         <td><?=esc($student['student_number'][0]).esc($student['student_number'][1]).esc($student['student_number'][2]).esc($student['student_number'][3])?></td>
-                        <td> 
+                        <td>       
                         <?php if ($res != NUll): ?>
                               <?php if ($res['upload_status'] == 'complete'): ?>
                                 <div class="badge bg-success text-wrap" style="width: 6rem;">
@@ -214,15 +215,20 @@
                               <?php elseif($res['upload_status'] == 'incomplete'): ?>
                                 <div class="badge bg-danger text-wrap" style="width: 6rem;">
                                   <?php echo $res['upload_status']; ?>
+                                </div>
+                                <?php elseif($res['upload_status'] == NULL): ?>
+                                <div class="badge bg-warning text-wrap" style="width: 6rem;color: black">
+                                  Not checked
+                                </div>
                               <?php endif ?>
                             <?php else: ?>
                               <div class="badge bg-warning text-wrap" style="width: 6rem;color:black;">
-                                Not check
+                                Not checked
                               </div>
                             <?php endif ?>
                         </td>
                         <td>
-                            <?php if ($res != NUll): ?>
+                           <?php if ($res != NUll): ?>
                               <?php if ($res['admission_status'] == 'complete'): ?>
                                 <div class="badge bg-success text-wrap" style="width: 6rem;">
                                   <?php echo $res['admission_status']; ?>
@@ -230,6 +236,7 @@
                               <?php elseif($res['admission_status'] == 'incomplete'): ?>
                                 <div class="badge bg-danger text-wrap" style="width: 6rem;">
                                   <?php echo $res['admission_status']; ?>
+                                </div>
                               <?php elseif($res['admission_status'] == 'rechecking'): ?>
                                 <div class="badge bg-warning text-wrap" style="width: 6rem;">
                                   <?php echo $res['admission_status']; ?>

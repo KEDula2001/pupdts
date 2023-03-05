@@ -324,8 +324,10 @@ class AdmissionController extends BaseController
 						'picture_two_by_two_files'=>$_POST['pictwobytwo_status']
 					];
 					
-				// die(print_r($admissionStatusData));
+				
 				}
+
+				// die(print_r($admissionRejectStatusData));
 
 				if($model->__updateAdmissionDocument($id, $admissionStatusData)){
 					if($getStudentFileImages->setUpdateAdmissionFilesReject($id, $admissionRejectStatusData)){
