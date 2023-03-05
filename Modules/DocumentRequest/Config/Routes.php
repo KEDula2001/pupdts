@@ -18,6 +18,14 @@ $routes->group('document-requests', ['namespace' => 'Modules\DocumentRequest\Con
     $routes->post('request-confirm', 'DocumentRequests::confirmRequest');
     $routes->post('deny-request', 'DocumentRequests::denyRequest');
     $routes->get('goodmoral/(:num)', 'DocumentRequests::goodmoral/$1');
+    $routes->get('nstpcwts/(:num)', 'DocumentRequests::nstpcwts/$1');
+    $routes->get('certgwa/(:num)', 'DocumentRequests::certgwa/$1');
+    $routes->get('clearance/(:num)', 'DocumentRequests::clearance/$1');
+    $routes->get('certsteno/(:num)', 'DocumentRequests::certsteno/$1');
+    $routes->get('ReadmissionCert/(:num)', 'DocumentRequests::ReadmissionCert/$1');
+
+    
+    $routes->get('requestforNameBirthdate/(:num)', 'DocumentRequests::requestforNameBirthdate/$1');
     $routes->get('certificateofgrades/(:num)', 'DocumentRequests::certificateofgrades/$1');
     $routes->get('certificateofladderize/(:num)', 'DocumentRequests::certificateofladderize/$1');
     $routes->get('certRegUnitsAdSub/(:num)', 'DocumentRequests::certRegUnitsAdSub/$1'); 

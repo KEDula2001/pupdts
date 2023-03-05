@@ -41,7 +41,8 @@
                       <div align="center">
                         <label style="color:#dc3545;">SAR Form/PUPCCT Results</label>
                         <br>
-                        <label class = "label label-sucess fw-bold"><?=esc($studentadmission_status['sar_pupcet_result_status'])?> STATUS </label>
+                        <label class = "label label-sucess fw-bold"><?=!empty($studentadmission_files['sar_pupcct_results_files']) ? ucwords(esc($studentadmission_status['sar_pupcet_result_status'])) : 'No Status'?></label>
+                        
                       </div>
                   </a>
                   <a href="<?php echo base_url('uploads/'.$studentadmission_files['f137_files']); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
@@ -53,7 +54,7 @@
                       <div align="center">
                         <label style="color:#dc3545;">Form 137</label>
                         <br>
-                        <label class = "label label-sucess fw-bold"><?=esc($studentadmission_status['f137_status'])?> STATUS</label>
+                        <label class = "label label-sucess fw-bold"><?=!empty($studentadmission_files['f137_files']) ? ucwords(esc($studentadmission_status['f137_status'])) : 'No Status'?></label>
                       </div>
                   </a>
                   <a href="<?php echo base_url('uploads/'.$studentadmission_files['g10_files']); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
@@ -65,7 +66,7 @@
                       <div align="center">
                         <label style="color:#dc3545;">Grade 10 Card</label>
                         <br>
-                        <label class = "label label-sucess fw-bold"><?=esc($studentadmission_status['g10_status'])?> STATUS</label>
+                        <label class = "label label-sucess fw-bold"><?=!empty($studentadmission_files['g10_files']) ? ucwords(esc($studentadmission_status['g10_status'])) : 'No Status'?></label>
                       </div>
                   </a>
                   <a href="<?php echo base_url('uploads/'.$studentadmission_files['g11_files']); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
@@ -77,7 +78,7 @@
                       <div align="center">
                         <label style="color:#dc3545;">Grade 11 Card</label>
                         <br>
-                        <label class = "label label-sucess fw-bold"><?=esc($studentadmission_status['g11_status'])?>STATUS</label>
+                        <label class = "label label-sucess fw-bold"><?=!empty($studentadmission_files['g11_files']) ? ucwords(esc($studentadmission_status['g11_status'])) : 'No Status'?></label>
                       </div>
                   </a>
                   <a href="<?php echo base_url('uploads/'.$studentadmission_files['g12_files']); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
@@ -89,7 +90,7 @@
                       <div align="center">
                         <label style="color:#dc3545;">Grade 12 Card</label>
                         <br>
-                        <label class = "label label-sucess fw-bold"><?=esc($studentadmission_status['g12_status'])?> STATUS</label>
+                        <label class = "label label-sucess fw-bold"><?=!empty($studentadmission_files['g12_files']) ? ucwords(esc($studentadmission_status['g12_status'])) : 'No Status'?></label>
                       </div>
                   </a>
                   <a href="<?php echo base_url('uploads/'.$studentadmission_files['psa_nso_files']); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
@@ -101,7 +102,7 @@
                       <div align="center">
                         <label style="color:#dc3545;">PSA/NSO</label>
                         <br>
-                        <label class = "label label-sucess fw-bold"><?=esc($studentadmission_status['psa_nso_status'])?>STATUS</label>
+                        <label class = "label label-sucess fw-bold"><?=!empty($studentadmission_files['psa_nso_files']) ? ucwords(esc($studentadmission_status['psa_nso_status'])) : 'No Status'?></label>
                       </div>
                   </a>
                   <a href="<?php echo base_url('uploads/'.$studentadmission_files['good_moral_files']); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
@@ -113,7 +114,7 @@
                       <div align="center">
                         <label style="color:#dc3545;">Certification of Good Moral</label>
                         <br>
-                        <label class = "label label-sucess fw-bold"><?=esc($studentadmission_status['good_moral_status'])?>STATUS</label>
+                        <label class = "label label-sucess fw-bold"><?=!empty($studentadmission_files['good_moral_files']) ? ucwords(esc($studentadmission_status['good_moral_status'])) : 'No Status'?></label>
                       </div>
                   </a>
                   <a href="<?php echo base_url('uploads/'.$studentadmission_files['medical_cert_files']); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
@@ -125,7 +126,7 @@
                       <div align="center">
                         <label style="color:#dc3545;">Medical Clearance</label>
                         <br>
-                        <label class = "label label-sucess fw-bold"><?=esc($studentadmission_status['medical_cert_status'])?>STATUS</label>
+                        <label class = "label label-sucess fw-bold"><?=!empty($studentadmission_files['medical_cert_files']) ? ucwords(esc($studentadmission_status['medical_cert_status'])) : 'No Status'?></label>
                       </div>
                   </a>
                   <a href="<?php echo base_url('uploads/'.$studentadmission_files['picture_two_by_two_files']); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
@@ -137,7 +138,7 @@
                       <div align="center">
                         <label style="color:#dc3545;">2x2 Picture</label>
                         <br>
-                        <label class = "label label-sucess fw-bold"><?=esc($studentadmission_status['twobytwo_status'])?>STATUS</label>
+                        <label class = "label label-sucess fw-bold"><?=!empty($studentadmission_files['picture_two_by_two_files']) ? ucwords(esc($studentadmission_status['twobytwo_status'])) : 'No Status'?></label>
                       </div>
                   </a>
               </div>
