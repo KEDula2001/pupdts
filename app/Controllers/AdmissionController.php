@@ -237,38 +237,54 @@ class AdmissionController extends BaseController
 		$model = new AdmissionDocumentStatusModel(); 
 		$getStudentFileImages = new StudentadmissionfilesModel;
 		$getstudent = new StudentsModel;
-		
+		// die(print_r($_POST));
 
 		helper(['form']);
 		if ($this->request->getMethod() == 'post'){
 			if(!$this->validate('admissionStatus')){
 				$this->data['errors'] = $this->validation->getErrors();
                 $this->data['value'] = $_POST;
-				// die(print_r($_POST));
+				
 			} else {
-				$admissionStatusData = [
-					'sar_pupcet_result_status' => ['SAR Form/PUPCET/CAEPUP Result',$_POST['sar_pupcet_result_status']],
-					'f137_status' => ['Form 137',$_POST['f137_status']],
-					'g10_status' => ['Grade 10 Card',$_POST['g10_status']],
-					'g11_status' => ['Grade 11 Card',$_POST['g11_status']],
-					'g12_status' => ['Grade 12 Card',$_POST['g12_status']],
-					'psa_nso_status' => ['PSA/NSO Birth Certificate',$_POST['psa_nso_status']],
-					'goodmoral_status' => ['Certification of Good Moral',$_POST['goodmoral_status']],
-					'medical_cert_status' => ['Medical Clearance',$_POST['medical_cert_status']],
-					'pictwobytwo_status' => ['2x2 Picture',$_POST['pictwobytwo_status']],
-				];
-				//die(print_r($admissionStatusData));
-				// $admissionStatusLabelsData = [
-				// 	'sar_pupcet_result_status' => 'SAR Form/PUPCET/CAEPUP Result',
-				// 	'f137_status' => 'Form 137',
-				// 	'g10_status' => 'Grade 10 Card',
-				// 	'g11_status' => 'Grade 11 Card',
-				// 	'g12_status' => 'Grade 12 Card',
-				// 	'psa_nso_status' => 'PSA/NSO Birth Certificate',
-				// 	'goodmoral_status' => 'Certification of Good Moral',
-				// 	'medical_cert_status' => 'Medical Clearance',
-				// 	'pictwobytwo_status' => '2x2 Picture',
-				// ];
+
+				if($_POST['sar_pupcet_result_status'] == 'approve' && $_POST['f137_status'] == 'approve' && $_POST['g10_status'] == 'approve' &&
+				$_POST['g11_status'] == 'approve' && $_POST['g12_status'] == 'approve' &&  $_POST['psa_nso_status'] == 'approve' &&
+				$_POST['goodmoral_status'] == 'approve' && $_POST['medical_cert_status'] == 'approve' && $_POST['pictwobytwo_status'] == 'approve'){
+
+					$admissionStatusData = [
+						'sar_pupcet_result_status' => ['SAR Form/PUPCET/CAEPUP Result',$_POST['sar_pupcet_result_status']],
+						'f137_status' => ['Form 137',$_POST['f137_status']],
+						'g10_status' => ['Grade 10 Card',$_POST['g10_status']],
+						'g11_status' => ['Grade 11 Card',$_POST['g11_status']],
+						'g12_status' => ['Grade 12 Card',$_POST['g12_status']],
+						'psa_nso_status' => ['PSA/NSO Birth Certificate',$_POST['psa_nso_status']],
+						'good_moral_status' => ['Certification of Good Moral',$_POST['goodmoral_status']],
+						'medical_cert_status' => ['Medical Clearance',$_POST['medical_cert_status']],
+						'twobytwo_status' => ['2x2 Picture',$_POST['pictwobytwo_status']],
+						'upload_status' => 'complete'
+					];
+
+				}
+
+				else{ 
+					$admissionStatusData = [
+						'sar_pupcet_result_status' => ['SAR Form/PUPCET/CAEPUP Result',$_POST['sar_pupcet_result_status']],
+						'f137_status' => ['Form 137',$_POST['f137_status']],
+						'g10_status' => ['Grade 10 Card',$_POST['g10_status']],
+						'g11_status' => ['Grade 11 Card',$_POST['g11_status']],
+						'g12_status' => ['Grade 12 Card',$_POST['g12_status']],
+						'psa_nso_status' => ['PSA/NSO Birth Certificate',$_POST['psa_nso_status']],
+						'good_moral_status' => ['Certification of Good Moral',$_POST['goodmoral_status']],
+						'medical_cert_status' => ['Medical Clearance',$_POST['medical_cert_status']],
+						'twobytwo_status' => ['2x2 Picture',$_POST['pictwobytwo_status']],
+						'upload_status' => 'incomplete'
+					];
+				}
+
+				
+				
+				// die(print_r($admissionStatusData));
+
 				if($model->__updateAdmissionDocument($id, $admissionStatusData)){
 
 					$this->session->setFlashData('success', 'Email sent successfully!');
@@ -748,6 +764,8 @@ class AdmissionController extends BaseController
 		$this->data['count_incomplete'] = $getstudentadmissionmodel->__getIncompleteDocs(); 
 		$this->data['count_complete'] = $getstudentadmissionmodel->__getCompleteDocs();
 		$this->data['count_recheck'] = $getstudentadmissionmodel->__getRecheckDocs();
+		$this->data['count_complete_uploads'] = $getstudentadmissionmodel->getcompleteuploads();
+		$this->data['count_incomplete_uploads'] = $getstudentadmissionmodel->getincompleteuploads();
 		$this->data['students'] = $getstudent->__getStudentDetails();
 		// die(print_r($this->data['students']));
 		$this->data['students_admission'] = $getstudentadmissionmodel->__getStudentAdmissionDetails();

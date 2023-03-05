@@ -28,7 +28,7 @@
           </div>
           <!--.$student['user_id'] -->
           <div class="row">
-            <form action = "<?php echo base_url('/admission/student-status/'.$student['user_id']);?>" method = "post"> 
+            <form action = "<?php echo base_url('/admission/student-status/'.$student['user_id']);?>" method = "post">  
             <div class="col-12"> 
               <div class="row">
                 <!--PUPCET/CAEPUP 1-->

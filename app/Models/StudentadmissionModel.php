@@ -37,6 +37,7 @@ class StudentadmissionModel extends Model
 		'schoolid', 
 		'honor_dis', 
 		'trans_rec',
+		'upload_status',
 		'admission_status', 
 		'created_at'
 	];
@@ -111,6 +112,22 @@ class StudentadmissionModel extends Model
 	{
 		return $this->db->table($this->table)
 						->where('admission_status', 'rechecking')
+                        ->get()
+                        ->getResultArray();
+	}
+
+	public function getcompleteuploads()
+	{
+		return $this->db->table($this->table)
+						->where('upload_status', 'complete')
+                        ->get()
+                        ->getResultArray();
+	}
+
+	public function getincompleteuploads()
+	{
+		return $this->db->table($this->table)
+						->where('upload_status', 'incomplete')
                         ->get()
                         ->getResultArray();
 	}

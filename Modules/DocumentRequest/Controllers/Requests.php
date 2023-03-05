@@ -18,12 +18,14 @@ class Requests extends BaseController
 
   public function index()
   {
-
+    
 		$this->data['office_approvals'] = $this->officeApprovalModel->getOwnRequest($_SESSION['student_id']);
-		$this->data['request_details_ready'] = $this->requestDetailModel->getDetails(['requests.student_id' => $_SESSION['student_id'], 'request_details.status' => 'r', 'requests.status' => 'c']);
-		$this->data['request_details_process'] = $this->requestDetailModel->getDetails(['requests.student_id' => $_SESSION['student_id'], 'request_details.status' => 'p', 'requests.status' => 'c']);
-		$this->data['requests'] = $this->requestModel->getDetails(['student_id' => $_SESSION['student_id'], 'requests.completed_at' => null, 'requests.status !=' => 'd']);
+		$this->data['request_details_ready'] = $this->requestDetailModel->getDetails(['requests.student_id' => $_SESSION['student_id'], 'request_details.status' => 'r', 'requests.status' => 'o']);
+		$this->data['request_details_process'] = $this->requestDetailModel->getDetails(['requests.student_id' => $_SESSION['student_id'], 'request_details.status' => 'p', 'requests.status' => 'o']);
+		$this->data['requests'] = $this->requestModel->getDetails(['requests.student_id' => $_SESSION['student_id']], null ,1);
 		$this->data['request_documents'] = $this->requestDetailModel->getDetails();
+
+    
 
     $this->data['view'] = 'Modules\DocumentRequest\Views\requests\index';
     return view('template/index', $this->data);

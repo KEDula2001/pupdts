@@ -24,7 +24,7 @@
   
   <div class="row">
         <!--Complete Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
+        <div class="col-xl-2 col-md-6 mb-4">
           <div class="card pending shadow h-100 py-2">
               <div class="card-body">
                   <a href="<?php echo base_url('/admission/complete'); ?>" style="text-decoration: none;">  
@@ -45,7 +45,7 @@
       </div>
 
       <!--Incomplete Card -->
-      <div class="col-xl-3 col-md-6 mb-4">
+      <div class="col-xl-2 col-md-6 mb-4">
         <a href="<?php echo base_url('/admission/incomplete'); ?>" style="text-decoration: none;">
           <div class="card process shadow h-100 py-2">
               <div class="card-body">
@@ -66,7 +66,7 @@
       </div>
 
       <!-- For Re-Checking -->
-      <div class="col-xl-3 col-md-6 mb-4">
+      <div class="col-xl-2 col-md-6 mb-4">
         <a href="<?php echo base_url('/admission/request-rechecking'); ?>" style="text-decoration: none;">  
           <div class="card printed shadow h-100 py-2">
               <div class="card-body">
@@ -87,7 +87,7 @@
       </div>
    
       <!-- Retreive Documents -->
-      <div class="col-xl-3 col-md-6 mb-4">
+      <div class="col-xl-2 col-md-6 mb-4">
         <a href="<?php echo base_url('admission/retrieved-files'); ?>" style="text-decoration: none;">
           <div class="card complete shadow h-100 py-2">
               <div class="card-body">
@@ -110,6 +110,57 @@
           </div>
         </a>
       </div>
+
+        <!-- Complete Upload-->
+        <div class="col-xl-2 col-md-6 mb-4">
+            <a href="<?php echo base_url('/'); ?>" style="text-decoration: none;">
+              <div class="card complete shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="fw-bold text-info text-uppercase mb-1">
+                        Complete Uploads
+                      </div>
+                    <div class="row no-gutters align-items-center">
+                  <div class="col-auto">
+                    <div class="h5 mb-0 mr-3 fw-bold"><?php echo count($count_complete_uploads); ?></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-auto">
+                <i style="color: #0dcaf0! important;" class="fas fa-file-download fa-2x"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+            </a>
+      </div>
+    
+    <!-- Incomplete Upload -->
+          <div class="col-xl-2 col-md-6 mb-4">
+            <a href="<?php echo base_url('/'); ?>" style="text-decoration: none;">
+              <div class="card complete shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="fw-bold text-info text-uppercase mb-1">
+                        Incomplete Uploads
+                      </div>
+                    <div class="row no-gutters align-items-center">
+                  <div class="col-auto">
+                    <div class="h5 mb-0 mr-3 fw-bold"><?php echo count($count_incomplete_uploads); ?></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-auto">
+                <i style="color: #FFA500! important;" class="fas fa-spinner fa-2x"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+            </a>
+      </div>
+    </div>
   </div>
 
       <?php if (isset($errors['error_message'])): ?>
@@ -128,7 +179,7 @@
                   <th>Student Name</th>
                   <th>Course</th>
                   <th>Batch</th>
-                  
+                  <th>Upload Status</th>
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
@@ -154,6 +205,22 @@
                         </td>
                         <td><?=esc($student['course'])?></td>
                         <td><?=esc($student['student_number'][0]).esc($student['student_number'][1]).esc($student['student_number'][2]).esc($student['student_number'][3])?></td>
+                        <td> 
+                        <?php if ($res != NUll): ?>
+                              <?php if ($res['upload_status'] == 'complete'): ?>
+                                <div class="badge bg-success text-wrap" style="width: 6rem;">
+                                  <?php echo $res['upload_status']; ?>
+                                </div>
+                              <?php elseif($res['upload_status'] == 'incomplete'): ?>
+                                <div class="badge bg-danger text-wrap" style="width: 6rem;">
+                                  <?php echo $res['upload_status']; ?>
+                              <?php endif ?>
+                            <?php else: ?>
+                              <div class="badge bg-warning text-wrap" style="width: 6rem;color:black;">
+                                Not check
+                              </div>
+                            <?php endif ?>
+                        </td>
                         <td>
                             <?php if ($res != NUll): ?>
                               <?php if ($res['admission_status'] == 'complete'): ?>
