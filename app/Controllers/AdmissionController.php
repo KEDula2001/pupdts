@@ -246,6 +246,7 @@ class AdmissionController extends BaseController
                 $this->data['value'] = $_POST;
 				
 			} else {
+<<<<<<< HEAD
 
 				if($_POST['sar_pupcet_result_status'] == 'approve' && $_POST['f137_status'] == 'approve' && $_POST['g10_status'] == 'approve' &&
 				$_POST['g11_status'] == 'approve' && $_POST['g12_status'] == 'approve' &&  $_POST['psa_nso_status'] == 'approve' &&
@@ -285,6 +286,31 @@ class AdmissionController extends BaseController
 				
 				// die(print_r($admissionStatusData));
 
+=======
+				$admissionStatusData = [
+					'sar_pupcet_result_status' => ['SAR Form/PUPCET/CAEPUP Result',$_POST['sar_pupcet_result_status']],
+					'f137_status' => ['Form 137',$_POST['f137_status']],
+					'g10_status' => ['Grade 10 Card',$_POST['g10_status']],
+					'g11_status' => ['Grade 11 Card',$_POST['g11_status']],
+					'g12_status' => ['Grade 12 Card',$_POST['g12_status']],
+					'psa_nso_status' => ['PSA/NSO Birth Certificate',$_POST['psa_nso_status']],
+					'good_moral_status' => ['Certification of Good Moral',$_POST['goodmoral_status']],
+					'medical_cert_status' => ['Medical Clearance',$_POST['medical_cert_status']],
+					'twobytwo_status' => ['2x2 Picture',$_POST['pictwobytwo_status']],
+				];
+				//die(print_r($admissionStatusData));
+				// $admissionStatusLabelsData = [
+				// 	'sar_pupcet_result_status' => 'SAR Form/PUPCET/CAEPUP Result',
+				// 	'f137_status' => 'Form 137',
+				// 	'g10_status' => 'Grade 10 Card',
+				// 	'g11_status' => 'Grade 11 Card',
+				// 	'g12_status' => 'Grade 12 Card',
+				// 	'psa_nso_status' => 'PSA/NSO Birth Certificate',
+				// 	'goodmoral_status' => 'Certification of Good Moral',
+				// 	'medical_cert_status' => 'Medical Clearance',
+				// 	'pictwobytwo_status' => '2x2 Picture',
+				// ];
+>>>>>>> 6f80e21c9f3480d46cbe623a7be05f547321a5b4
 				if($model->__updateAdmissionDocument($id, $admissionStatusData)){
 
 					$this->session->setFlashData('success', 'Email sent successfully!');

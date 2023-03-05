@@ -35,8 +35,12 @@ class AdmissionDocumentStatusModel extends Model
 		'psa_nso_status' => $data['psa_nso_status'][1],
 		'good_moral_status' => $data['good_moral_status'][1],
 		'medical_cert_status' => $data['medical_cert_status'][1],
+<<<<<<< HEAD
 		'twobytwo_status' => $data['twobytwo_status'][1],
 		'upload_status' => $data['upload_status'],
+=======
+		'twobytwo_status' => $data['twobytwo_status'][1]
+>>>>>>> 6f80e21c9f3480d46cbe623a7be05f547321a5b4
 		];
 
 		
