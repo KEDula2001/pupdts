@@ -367,9 +367,12 @@
             <div class="card">
               <div class="card-header">
                 <h4><b>Requirements Needed!</b></h4>
-                <p style="font-size: 12px;color: red;"><i>* Note: Please submit the scanned documents required below before submitting the hard copy of the requirements to the School admission office.</i></p>
-                <p style="font-size: 12px;color: red;"><i>* Note: Make sure you have no pending sanctions from the university or else all your document request will be rejected.</i></p>
-                <p style="font-size: 12px;color: red;"><i>* Note: You are required to upload all softcopies of your admission credentials.</i></p>
+                <p style="font-size: 12px;color: red;"><i>
+                  Note:
+                  <li style="font-size: 12px;color: red;">Please submit the scanned documents required below before submitting the hard copy of the requirements to the School admission office.</li>
+                  <li style="font-size: 12px;color: red;">Make sure you have no pending sanctions from the university or else all your document request will be rejected.</li>
+                  <li style="font-size: 12px;color: red;">You are required to upload all softcopies of your admission credentials.</li>
+                  </i></p>
               </div>
               <form action="<?php echo base_url('admission/student-upload-files-set/'.$_SESSION['user_id']); ?>" method="post" enctype="multipart/form-data">
                 <div class="card-body">
@@ -482,23 +485,6 @@
           
         </div>
       </div>
-      <div class="card-footer">
-          <div class="row">
-            <div class="col-md-12">
-              <span class="text-muted">
-                <strong>REMINDER:</strong>
-                <p>
-                  <ul class="fst-italic">
-                    <li>Requesting of documents should be made during office hours. (Weekdays from 8:00 AM - 5:00 PM only)</li>
-                    <li>Make sure that your information and requests are correct before submitting.</li>
-                    <li>You may still cancel your requested document if your application is not been approved by the Registrar.</li>
-                    <li>Once a request has been submitted, you will be unable to request another document until your requested document is complete.</li>
-                  </ul>
-                </p>
-              </span>
-            </div>
-          </div>
-        </div>
     </div>
   </div>
 </div>
