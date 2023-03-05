@@ -118,7 +118,7 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="fw-bold text-info text-uppercase mb-1">
+                      <div class="fw-bold text-success text-uppercase mb-1">
                         Complete Uploads
                       </div>
                     <div class="row no-gutters align-items-center">
@@ -143,7 +143,7 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="fw-bold text-info text-uppercase mb-1">
+                      <div class="fw-bold text-danger text-uppercase mb-1">
                         Incomplete Uploads
                       </div>
                     <div class="row no-gutters align-items-center">
