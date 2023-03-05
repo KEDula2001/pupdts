@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 05, 2023 at 06:30 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 7.4.33
+-- Generation Time: Mar 05, 2023 at 11:07 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,7 +33,7 @@ CREATE TABLE `academic_status` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `academic_status`
@@ -58,7 +58,7 @@ CREATE TABLE `admins` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `admins`
@@ -97,7 +97,7 @@ CREATE TABLE `checklists` (
   `checklistID` int(11) NOT NULL,
   `checklistName` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `checklists`
@@ -132,7 +132,7 @@ CREATE TABLE `courses` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `courses`
@@ -163,7 +163,7 @@ CREATE TABLE `course_types` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `course_types`
@@ -191,7 +191,7 @@ CREATE TABLE `documents` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `documents`
@@ -224,7 +224,7 @@ CREATE TABLE `document_notes` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `document_notes`
@@ -288,7 +288,7 @@ CREATE TABLE `document_requirements` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -307,7 +307,7 @@ CREATE TABLE `form_requests` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `form_requests`
@@ -334,7 +334,7 @@ CREATE TABLE `modules` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `modules`
@@ -364,7 +364,7 @@ CREATE TABLE `notes` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `notes`
@@ -394,7 +394,7 @@ CREATE TABLE `offices` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `offices`
@@ -429,7 +429,7 @@ CREATE TABLE `permissions` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `permissions`
@@ -509,7 +509,7 @@ CREATE TABLE `permission_types` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `permission_types`
@@ -556,7 +556,7 @@ CREATE TABLE `ref_for_remarks` (
   `submit_photocopy_coc` varchar(255) DEFAULT NULL,
   `other_remarks` text DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `ref_for_remarks`
@@ -586,7 +586,7 @@ CREATE TABLE `ref_for_retrieved` (
   `requirementsID` int(11) NOT NULL,
   `reasons` text NOT NULL,
   `retrieved_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `ref_for_retrieved`
@@ -641,7 +641,7 @@ CREATE TABLE `requests` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `requests`
@@ -722,7 +722,7 @@ CREATE TABLE `request_approvals` (
   `deleted_at` datetime DEFAULT NULL,
   `hold_at` datetime DEFAULT NULL,
   `approved_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -750,7 +750,7 @@ CREATE TABLE `request_details` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `request_details`
@@ -889,7 +889,7 @@ CREATE TABLE `roles` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `roles`
@@ -915,7 +915,7 @@ CREATE TABLE `role_permissions` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `role_permissions`
@@ -1015,7 +1015,7 @@ CREATE TABLE `students` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `students`
@@ -1076,7 +1076,7 @@ CREATE TABLE `student_admission` (
   `upload_status` varchar(11) DEFAULT NULL,
   `admission_status` varchar(50) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `student_admission`
@@ -1089,7 +1089,7 @@ INSERT INTO `student_admission` (`stud_admissionID`, `studID`, `sar_pupcct_resul
 (52, 234, 1, NULL, 0, NULL, 0, NULL, NULL, NULL, 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0, NULL, 0, NULL, 0, NULL, NULL, 0, 0, 0, NULL, 'incomplete', '2023-02-20 14:11:06'),
 (54, 261, 1, 'approve', 2, 'reject', 3, 'approve', 'reject', 'approve', 11, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 'reject', 5, 'approve', 6, 'reject', 7, 'approve', 25, 0, 0, 0, 'incomplete', 'complete', '2023-03-05 04:52:43'),
 (55, 307, 1, NULL, 2, NULL, 3, NULL, NULL, NULL, 11, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, NULL, 5, NULL, 0, NULL, 7, NULL, 25, 0, 0, 0, NULL, 'incomplete', '2023-03-03 11:01:50'),
-(57, 311, 1, 'approve', 2, 'approve', 3, 'approve', 'approve', 'approve', 11, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 'approve', 5, 'approve', 6, 'approve', 7, 'approve', 25, 0, 0, 0, 'complete', 'complete', '2023-03-05 05:15:49');
+(57, 311, 1, 'reject', 2, 'approve', 3, 'approve', 'approve', 'approve', 11, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 'approve', 5, 'approve', 6, 'approve', 7, 'reject', 25, 0, 0, 0, 'incomplete', 'complete', '2023-03-05 08:14:09');
 
 -- --------------------------------------------------------
 
@@ -1100,17 +1100,17 @@ INSERT INTO `student_admission` (`stud_admissionID`, `studID`, `sar_pupcct_resul
 CREATE TABLE `student_admission_files` (
   `id` int(11) NOT NULL,
   `studID` int(11) NOT NULL,
-  `sar_pupcct_results_files` varchar(255) NOT NULL,
-  `f137_files` varchar(255) NOT NULL,
-  `g10_files` varchar(255) NOT NULL,
-  `g11_files` varchar(255) NOT NULL,
-  `g12_files` varchar(255) NOT NULL,
-  `psa_nso_files` varchar(255) NOT NULL,
-  `good_moral_files` varchar(255) NOT NULL,
-  `medical_cert_files` varchar(255) NOT NULL,
-  `picture_two_by_two_files` varchar(255) NOT NULL,
+  `sar_pupcct_results_files` varchar(255) DEFAULT NULL,
+  `f137_files` varchar(255) DEFAULT NULL,
+  `g10_files` varchar(255) DEFAULT NULL,
+  `g11_files` varchar(255) DEFAULT NULL,
+  `g12_files` varchar(255) DEFAULT NULL,
+  `psa_nso_files` varchar(255) DEFAULT NULL,
+  `good_moral_files` varchar(255) DEFAULT NULL,
+  `medical_cert_files` varchar(255) DEFAULT NULL,
+  `picture_two_by_two_files` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `student_admission_files`
@@ -1122,7 +1122,8 @@ INSERT INTO `student_admission_files` (`id`, `studID`, `sar_pupcct_results_files
 (14, 234, 'FB_IMG_1676709433707.jpg', 'FB_IMG_1676709519342.jpg', 'FB_IMG_1676709689762.jpg', 'FB_IMG_1676709680684.jpg', 'FB_IMG_1676709693887.jpg', 'b2ac88_color_shades.jpg', 'd4b895_color_shades.jpg', 'depositphotos_2832103-stock-photo-calesa-horse-drawn-carriage-vigan.jpg', 'depositphotos_2832103-stock-photo-calesa-horse-drawn-carriage-vigan.jpg', '2023-02-20 12:48:23'),
 (15, 237, '20221229_12221207.png', 'acts-bg14.png', 'bg-login.jpg', 'bldg-a.jpg', 'login-img.jpg', 'logo.png', 'odrs-logo.png', 'pupt-logo.png', 'sample.png', '2023-02-26 13:36:02'),
 (16, 307, '20221229_12221214.png', '322247445_874755793846050_6948133612164922827_n.jpg', '328338241_943186097062972_3589379765183706646_n.jpg', 'jepnuW7chrErrve5Csrq.jpg', 'pupt-logo.png', 'b2ac88_color_shades.jpg', '20221229_12221214.png', 'bg-login.jpg', 'sample_1.png', '2023-03-03 02:14:18'),
-(17, 311, '334142307_991489345148866_757451361632009997_n.jpg', '275704302_449860000265704_6432336552940529254_n.png', '278209063_5011176082307746_6542835449935197284_n.jpg', '334178739_1152549512114330_2374420318508355951_n.jpg', '334207217_596096942058836_2639337994668153886_n.png', '257357641_597395108140727_2960273602043890818_n.jpg', '281371580_1089221285002031_4427611296865036185_n.jpg', '281371580_1089221285002031_4427611296865036185_n.jpg', '251511241_302304661531768_7611484280368381695_n.jpg', '2023-03-03 14:51:10');
+(17, 311, NULL, 'spain.jpg', 'italy.jpg', 'russia.jpg', 'us.jpg', 'spain.jpg', 'russia.jpg', 'italy.jpg', NULL, '2023-03-05 08:14:09'),
+(20, 304, 'french.jpg', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-03-05 07:01:51');
 
 -- --------------------------------------------------------
 
@@ -1134,7 +1135,7 @@ CREATE TABLE `submission_status` (
   `id` int(10) NOT NULL,
   `legend` varchar(256) NOT NULL,
   `submission_status` varchar(256) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `submission_status`
@@ -1164,7 +1165,7 @@ CREATE TABLE `users` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
@@ -1581,7 +1582,7 @@ ALTER TABLE `student_admission`
 -- AUTO_INCREMENT for table `student_admission_files`
 --
 ALTER TABLE `student_admission_files`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `users`
