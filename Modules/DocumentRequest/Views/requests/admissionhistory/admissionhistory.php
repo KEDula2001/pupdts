@@ -7,6 +7,13 @@
             <div class="col-md-6">
               <h3>Hello, <?=esc($_SESSION['name'])?>!</h3>
               <p style="font-style: italic; font-size: .9em;">Upload all your Admission Credentials here...</p>
+              <strong>REMINDER:</strong>
+                <p>
+                  <ul class="fst-italic" style = "font-size: 1.1em;">
+                    <li>Make sure you have no pending sanctions from the university or else all your document request will be rejected.</li>
+                    <li>You are required to upload all softcopies of your admission credentials.</li>
+                  </ul>
+                </p>
             </div>
             <div class="col-md-6">
               <table class="table request">
