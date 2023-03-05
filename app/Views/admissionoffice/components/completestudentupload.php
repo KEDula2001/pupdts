@@ -26,7 +26,7 @@
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
               <div class="fw-bold text-warning text-uppercase mb-1">
-                Completed  
+                Complete Uploads
               </div>
               <div class="h5 mb-0 fw-bold"><?php echo count($count_complete_uploads); ?></div>
             </div>
