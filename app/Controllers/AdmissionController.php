@@ -20,6 +20,45 @@ class AdmissionController extends BaseController
 {
 	 protected $helpers = ['form', 'url'];
 
+
+	public function showStudentCompleteUpload(){ 
+		{
+			$getstudent = new StudentsModel;
+			$getstudentadmissionmodel = new StudentadmissionModel;
+	
+			$this->data['count_complete_uploads'] = $getstudentadmissionmodel->getcompleteuploads();
+			
+			$this->data['students'] = $getstudent->__getStudentDetails();
+	
+			if ($this->isAjax()) {
+					return view('admissionoffice/components/completestudentupload', $this->data);
+				}
+			echo view('admissionoffice/header', $this->data);
+			echo view('admissionoffice/components/completestudentupload', $this->data);
+			return view('admissionoffice/footer', $this->data);
+		}
+	}
+
+	public function showStudentIncompleteUpload(){ 
+		{
+			$getstudent = new StudentsModel;
+			$getstudentadmissionmodel = new StudentadmissionModel;
+	
+			
+			$this->data['count_incomplete_uploads'] = $getstudentadmissionmodel->getincompleteuploads();
+			$this->data['students'] = $getstudent->__getStudentDetails();
+	
+			if ($this->isAjax()) {
+					return view('admissionoffice/components/incompletestudentupload', $this->data);
+				}
+			echo view('admissionoffice/header', $this->data);
+			echo view('admissionoffice/components/incompletestudentupload', $this->data);
+			return view('admissionoffice/footer', $this->data);
+		}
+	}
+
+
+
 	 public function admissioncrud()
 	 {
 		 $getstudent = new StudentsModel;

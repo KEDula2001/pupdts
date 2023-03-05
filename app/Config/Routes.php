@@ -118,7 +118,11 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function($rout
 	//added new specific route for send mail 
 	$routes->post('admission/sendnotifystudents/(:num)', 'AdmissionController::sendLackingDocumentstoMail/$1');
 	$routes->post('admissionregistrar/sendnotifystudents1/(:num)', 'AdmissionController::sendLackingDocumentstoMail1/$1');
-	$routes->get('admission/incomplete', 'AdmissionController::showstudentIncompleteAdmission');
+	$routes->get('admission/incomplete', 'AdmissionController::showstudentIncompleteAdmission');	
+	//routes for incomplete/complete card
+	$routes->get('admission/completestudentupload', 'AdmissionController::showStudentCompleteUpload');
+	$routes->get('admission/incompletestudentupload', 'AdmissionController::showStudentIncompleteUpload');
+	//routes for incomplete/complete card - 
 	$routes->get('admissionregistrar/incomplete1', 'AdmissionController::showstudentIncompleteAdmission1');
 	$routes->get('admission/request-rechecking', 'AdmissionController::showstudentRecheckingAdmission');
 	$routes->get('admissionregistrar/request-rechecking1', 'AdmissionController::showstudentRecheckingAdmission1');
