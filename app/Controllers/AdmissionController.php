@@ -105,7 +105,7 @@ class AdmissionController extends BaseController
 		
 		$this->data['studentadmission_files'] = $getStudentAdFileModel->__getIfStudentHasSubmittedFiles($id);
 		$this->data['view'] = 'Modules\DocumentRequest\Views\requests\admissionhistory\admissionhistory';
-
+		// die(print_r($this->data['studentadmission_files']));
 		if($this->request->getMethod() == 'post'){
 
 			if(empty($this->data['studentadmission_files']['sar_pupcct_results_files'])){
@@ -224,10 +224,6 @@ class AdmissionController extends BaseController
 			}else{
 				$filepath_twobytwo_name = $this->data['studentadmission_files']['picture_two_by_two_files'];
 			}
-
-			
-			//die($sar_pupcct_results_files);
-			
 											
 			$data = [
 				'studID' => $id,
@@ -241,8 +237,8 @@ class AdmissionController extends BaseController
 				'medical_cert_files' => !empty($filepath_medicalcert_name) ? $filepath_medicalcert_name: NULL, 
 				'picture_two_by_two_files' => !empty($filepath_twobytwo_name) ? $filepath_twobytwo_name: NULL
 			];
-
 			
+			// die(print_r($data));
 
 			if($edit == true){ 
 				if ($getStudentAdFileModel->setUpdateAdmissionFiles($this->data['studentadmission_files']['id'],$data)){
@@ -287,8 +283,8 @@ class AdmissionController extends BaseController
 			} else {
 
 				if($_POST['sar_pupcet_result_status'] == 'approve' && $_POST['f137_status'] == 'approve' && $_POST['g10_status'] == 'approve' &&
-				$_POST['g11_status'] == 'approve' && $_POST['g12_status'] == 'approve' &&  $_POST['psa_nso_status'] == 'approve' &&
-				$_POST['goodmoral_status'] == 'approve' && $_POST['medical_cert_status'] == 'approve' && $_POST['pictwobytwo_status'] == 'approve'){
+					$_POST['g11_status'] == 'approve' && $_POST['g12_status'] == 'approve' &&  $_POST['psa_nso_status'] == 'approve' &&
+					$_POST['goodmoral_status'] == 'approve' && $_POST['medical_cert_status'] == 'approve' && $_POST['pictwobytwo_status'] == 'approve'){
 
 					$admissionStatusData = [
 						'sar_pupcet_result_status' => ['SAR Form/PUPCET/CAEPUP Result',$_POST['sar_pupcet_result_status']],
@@ -303,9 +299,7 @@ class AdmissionController extends BaseController
 						'upload_status' => 'complete'
 					];
 
-				}
-
-				else{ 
+				} else { 
 					$admissionStatusData = [
 						'sar_pupcet_result_status' => ['SAR Form/PUPCET/CAEPUP Result',$_POST['sar_pupcet_result_status']],
 						'f137_status' => ['Form 137',$_POST['f137_status']],
@@ -318,16 +312,30 @@ class AdmissionController extends BaseController
 						'twobytwo_status' => ['2x2 Picture',$_POST['pictwobytwo_status']],
 						'upload_status' => 'incomplete'
 					];
+					$admissionRejectStatusData = [
+						'sar_pupcct_results_files'=>$_POST['sar_pupcet_result_status'], 
+						'f137_files'=>$_POST['f137_status'], 
+						'g10_files'=>$_POST['g10_status'], 
+						'g11_files'=>$_POST['g11_status'], 
+						'g12_files'=>$_POST['g12_status'], 
+						'psa_nso_files'=>$_POST['psa_nso_status'], 
+						'good_moral_files'=>$_POST['goodmoral_status'], 
+						'medical_cert_files'=>$_POST['medical_cert_status'], 
+						'picture_two_by_two_files'=>$_POST['pictwobytwo_status']
+					];
+					
+				// die(print_r($admissionStatusData));
 				}
 
-				
-				
-				// die(print_r($admissionStatusData));
-
 				if($model->__updateAdmissionDocument($id, $admissionStatusData)){
+					if($getStudentFileImages->setUpdateAdmissionFilesReject($id, $admissionRejectStatusData)){
 
-					$this->session->setFlashData('success', 'Email sent successfully!');
-					return redirect()->to(base_url('admission'));
+						$this->session->setFlashData('success', 'Email sent successfully!');
+						return redirect()->to(base_url('admission'));
+					}else{
+						$this->session->setFlashData('error', 'Failed to reject items!');
+						return redirect()->to(base_url('admission'));
+					}
 				}else{
 					$this->session->setFlashData('error', 'Something went wrong!');
 					return redirect()->to(base_url('admission'));

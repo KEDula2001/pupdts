@@ -25,8 +25,6 @@ class Requests extends BaseController
 		$this->data['requests'] = $this->requestModel->getDetails(['requests.student_id' => $_SESSION['student_id']], null ,1);
 		$this->data['request_documents'] = $this->requestDetailModel->getDetails();
 
-    
-
     $this->data['view'] = 'Modules\DocumentRequest\Views\requests\index';
     return view('template/index', $this->data);
   }

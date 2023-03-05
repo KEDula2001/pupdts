@@ -34,7 +34,23 @@ class StudentadmissionfilesModel extends Model
 	}
 	public function setUpdateAdmissionFiles($id,$data)
 	{
-	   return $this->update($id,$data);
+		return $this->update($id,$data);
+	}
+	
+	public function setUpdateAdmissionFilesReject($id,$data)
+	{
+		// die(print_r($data));
+		($data['sar_pupcct_results_files'] == 'reject' ? $this->set('sar_pupcct_results_files', null): '');
+		($data['f137_files'] == 'reject' ? $this->set('f137_files', null): '');
+		($data['g10_files'] == 'reject' ? $this->set('g10_files', null): '');
+		($data['g11_files'] == 'reject' ? $this->set('g11_files', null): '');
+		($data['g12_files'] == 'reject' ? $this->set('g12_files', null): '');
+		($data['psa_nso_files'] == 'reject' ? $this->set('psa_nso_files', null): '');
+		($data['good_moral_files'] == 'reject' ? $this->set('good_moral_files', null): '');
+		($data['medical_cert_files'] == 'reject' ? $this->set('medical_cert_files', null): '');
+		($data['picture_two_by_two_files'] == 'reject' ? $this->set('picture_two_by_two_files', null): '');
+		$this->where('studID', $id);
+		return $this->update();
 	}
 	
 	public function __getStudentFiles($id)
