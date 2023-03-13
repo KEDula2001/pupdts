@@ -1,6 +1,6 @@
 
 <div class="container" id="content">
-  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+  <div class="d-sm-flex align-items-center justify-content-between mb-4 mt-4">
       <nav style="--bs-breadcrumb-divider: '<'; font-weight: bold;" aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="<?php echo base_url('admission'); ?>"><i class="fas fa-home"></i></a></li>
@@ -44,14 +44,22 @@
                     </div>
                     </a>
                     <div align = "center">
+                    <?php if($documentstatus['sar_pupcet_result_status'] != "approve") :?>
                     <select name="sar_pupcet_result_status" id="test" align = "center" class = "form-select-sm" <?= !empty($image_file_record['sar_pupcct_results_files']) ? '': 'disabled'?>>
                     <option selected disabled> Select Status</option>
-                    <option value = "approve"> Approve </option>
+                    <option value = "approve " <?= empty($documentstatus['sar_pupcet_result_status']) ? '': 'selected'?> > Approve </option>
                     <option value = "reject" <?= !empty($image_file_record['sar_pupcct_results_files']) ? '': 'selected'?>> Disapprove </option>
                     </select>
                     <?php if(empty($image_file_record['sar_pupcct_results_files'])):?>
                       <input type = "hidden" value = "reject" name = "sar_pupcet_result_status"/> 
                     <?php endif;?>
+                    <?php else:?>
+                        <?php if(!empty($documentstatus['sar_pupcet_result_status'])):?>
+                        <input type = "hidden" value = "approve" name = "sar_pupcet_result_status"/>
+                        <input type = "text" class = "text-center" value = "Approved" disabled/>  
+                        <?php endif;?>
+                    <?php endif;?>
+                    
                     <br>
                     <?php if(isset($errors['sar_pupcet_result_status'])):?>
                                     <small class="text-danger"><?=esc($errors['sar_pupcet_result_status'])?></small>
@@ -72,13 +80,20 @@
                       </div>
                   </a>
                   <div align = "center">
-                    <select name="f137_status" id="test" align = "center" class = "form-select-sm"<?= !empty($image_file_record['f137_files']) ? '': 'disabled'?>>
-                    <option selected disabled> Select Status</option>
-                    <option value = "approve"> Approve </option>
-                    <option value = "reject" <?= !empty($image_file_record['f137_files']) ? '': 'selected'?>> Disapprove </option>
-                    </select>
-                    <?php if(empty($image_file_record['f137_files'])):?>
-                      <input type = "hidden" value = "reject" name = "f137_status"/> 
+                    <?php if($documentstatus['f137_status'] != "approve") :?>
+                          <select name="f137_status" id="test" align = "center" class = "form-select-sm"<?= !empty($image_file_record['f137_files']) ? '': 'disabled'?>>
+                              <option selected disabled> Select Status</option>
+                              <option value = "approve"> Approve </option>
+                              <option value = "reject" <?= !empty($image_file_record['f137_files']) ? '': 'selected'?>> Disapprove </option>
+                          </select>
+                      <?php if(empty($image_file_record['f137_files'])):?>
+                         <input type = "hidden" value = "reject" name = "f137_status"/> 
+                      <?php endif;?>
+                      <?php else:?>
+                        <?php if(!empty($documentstatus['f137_status'])):?>
+                        <input type = "hidden" value = "approve" name = "f137_status"/>
+                        <input type = "text" class = "text-center" value = "Approved" disabled/>  
+                        <?php endif;?>
                     <?php endif;?>
                     <br>
                     <?php if(isset($errors['f137_status'])):?>
@@ -102,13 +117,20 @@
                       </div>
                   </a>
                   <div align = "center">
+                  <?php if($documentstatus['g10_status'] != "approve") :?>
                     <select name="g10_status" id="test" align = "center" class = "form-select-sm"<?= !empty($image_file_record['g10_files']) ? '': 'disabled'?>>
                     <option selected disabled> Select Status</option>
                     <option value = "approve"> Approve </option>
                     <option value = "reject" <?= !empty($image_file_record['g10_files']) ? '': 'selected'?>> Disapprove </option>
                     </select>
-                    <?php if(empty($image_file_record['g10_status'])):?>
+                    <?php if(empty($image_file_record['g10_files'])):?>
                       <input type = "hidden" value = "reject" name = "g10_status"/> 
+                    <?php endif;?>
+                    <?php else:?>
+                        <?php if(!empty($documentstatus['g10_status'])):?>
+                        <input type = "hidden" value = "approve" name = "g10_status"/>
+                        <input type = "text" class = "text-center" value = "Approved" disabled/>  
+                        <?php endif;?>
                     <?php endif;?>
                     <br>
                     <?php if(isset($errors['g10_status'])):?>
@@ -136,13 +158,20 @@
                       </div>
                   </a>
                   <div align = "center">
+                    <?php if($documentstatus['g11_status'] != "approve") :?>
                     <select name="g11_status" id="test" align = "center" class = "form-select-sm" <?= !empty($image_file_record['g11_files']) ? '': 'disabled'?>>
                     <option selected disabled> Select Status</option>
                     <option value = "approve"> Approve </option>
                     <option value = "reject" <?= !empty($image_file_record['g11_files']) ? '': 'selected'?>> Disapprove </option>
                     </select>
-                    <?php if(empty($image_file_record['g11_status'])):?>
+                    <?php if(empty($image_file_record['g11_files'])):?>
                       <input type = "hidden" value = "reject" name = "g11_status"/> 
+                    <?php endif;?>
+                    <?php else:?>
+                        <?php if(!empty($documentstatus['g11_status'])):?>
+                        <input type = "hidden" value = "approve" name = "g11_status"/>
+                        <input type = "text" class = "text-center" value = "Approved" disabled/>  
+                        <?php endif;?>
                     <?php endif;?>
                     <br>
                     <?php if(isset($errors['g11_status'])):?>
@@ -165,13 +194,20 @@
                       </div>
                   </a>
                   <div align = "center">
+                  <?php if($documentstatus['g12_status'] != "approve") :?>
                     <select name="g12_status" id="test" align = "center" class = "form-select-sm"<?= !empty($image_file_record['g12_files']) ? '': 'disabled'?>>
                     <option selected disabled> Select Status</option>
                     <option value = "approve"> Approve </option>
                     <option value = "reject" <?= !empty($image_file_record['g12_files']) ? '': 'selected'?>> Disapprove </option>
                     </select>
-                    <?php if(empty($image_file_record['g12_status'])):?>
+                    <?php if(empty($image_file_record['g12_files'])):?>
                       <input type = "hidden" value = "reject" name = "g12_status"/> 
+                    <?php endif;?>
+                    <?php else:?>
+                        <?php if(!empty($documentstatus['g12_status'])):?>
+                        <input type = "hidden" value = "approve" name = "g12_status"/>
+                        <input type = "text" class = "text-center" value = "Approved" disabled/>  
+                        <?php endif;?>
                     <?php endif;?>
                     <br>
                     <?php if(isset($errors['g12_status'])):?>
@@ -194,13 +230,20 @@
                       </div>
                   </a>
                   <div align = "center">
+                  <?php if($documentstatus['psa_nso_status'] != "approve") :?>
                     <select name="psa_nso_status" id="test" align = "center" class = "form-select-sm" <?= !empty($image_file_record['psa_nso_files']) ? '': 'disabled'?>>
                     <option selected disabled> Select Status</option>
                     <option value = "approve"> Approve </option>
                     <option value = "reject" <?= !empty($image_file_record['psa_nso_files']) ? '': 'selected'?>> Disapprove </option>
                     </select>
-                    <?php if(empty($image_file_record['psa_nso_status'])):?>
+                    <?php if(empty($image_file_record['psa_nso_files'])):?>
                       <input type = "hidden" value = "reject" name = "psa_nso_status"/> 
+                    <?php endif;?>
+                    <?php else:?>
+                        <?php if(!empty($documentstatus['psa_nso_status'])):?>
+                        <input type = "hidden" value = "approve" name = "psa_nso_status"/>
+                        <input type = "text" class = "text-center" value = "Approved" disabled/>  
+                        <?php endif;?>
                     <?php endif;?>
                     <br>
                     <?php if(isset($errors['psa_nso_status'])):?>
@@ -229,13 +272,20 @@
                       </div>
                   </a>
                   <div align = "center">
+                  <?php if($documentstatus['good_moral_status'] != "approve") :?>
                     <select name="goodmoral_status" id="test" align = "center" class = "form-select-sm" <?= !empty($image_file_record['good_moral_files']) ? '': 'disabled'?>>
                     <option selected disabled> Select Status</option>
                     <option value = "approve"> Approve </option>
                     <option value = "reject"<?= !empty($image_file_record['good_moral_files']) ? '': 'selected'?>> Disapprove </option>
                     </select>
-                    <?php if(empty($image_file_record['goodmoral_status'])):?>
+                    <?php if(empty($image_file_record['good_moral_files'])):?>
                       <input type = "hidden" value = "reject" name = "goodmoral_status"/> 
+                    <?php endif;?>
+                    <?php else:?>
+                        <?php if(!empty($documentstatus['good_moral_status'])):?>
+                        <input type = "hidden" value = "approve" name = "goodmoral_status"/>
+                        <input type = "text" class = "text-center" value = "Approved" disabled/>  
+                        <?php endif;?>
                     <?php endif;?>
                     <br>
                     <?php if(isset($errors['goodmoral_status'])):?>
@@ -258,13 +308,20 @@
                       </div>
                   </a>
                   <div align = "center">
+                  <?php if($documentstatus['medical_cert_status'] != "approve") :?>
                     <select name="medical_cert_status" id="test" align = "center" class = "form-select-sm" <?= !empty($image_file_record['medical_cert_files']) ? '': 'disabled'?>>
                     <option selected disabled> Select Status</option>
                     <option value = "approve"> Approve </option>
                     <option value = "reject"<?= !empty($image_file_record['medical_cert_files']) ? '': 'selected'?>> Disapprove </option>
                     </select>
-                    <?php if(empty($image_file_record['medical_cert_status'])):?>
+                    <?php if(empty($image_file_record['medical_cert_files'])):?>
                       <input type = "hidden" value = "reject" name = "medical_cert_status"/> 
+                    <?php endif;?>
+                    <?php else:?>
+                        <?php if(!empty($documentstatus['medical_cert_status'])):?>
+                        <input type = "hidden" value = "approve" name = "medical_cert_status"/>
+                        <input type = "text" class = "text-center" value = "Approved" disabled/>  
+                        <?php endif;?>
                     <?php endif;?>
                     <br>
                     <?php if(isset($errors['medical_cert_status'])):?>
@@ -288,13 +345,20 @@
                       </div>
                   </a>
                   <div align = "center">
+                  <?php if($documentstatus['twobytwo_status'] != "approve") :?>
                     <select name="pictwobytwo_status" id="test" align = "center" class = "form-select-sm" <?= !empty($image_file_record['picture_two_by_two_files']) ? '': 'disabled'?>>
                     <option selected disabled> Select Status</option>
                     <option value = "approve"> Approve </option>
                     <option value = "reject"<?= !empty($image_file_record['picture_two_by_two_files']) ? '': 'selected'?>> Disapprove </option>
                     </select>
-                    <?php if(empty($image_file_record['pictwobytwo_status'])):?>
+                    <?php if(empty($image_file_record['picture_two_by_two_files'])):?>
                       <input type = "hidden" value = "reject" name = "pictwobytwo_status"/> 
+                    <?php endif;?>
+                    <?php else:?>
+                        <?php if(!empty($documentstatus['twobytwo_status'])):?>
+                        <input type = "hidden" value = "approve" name = "pictwobytwo_status"/>
+                        <input type = "text" class = "text-center" value = "Approved" disabled/>  
+                        <?php endif;?>
                     <?php endif;?>
                     <br>
                     <?php if(isset($errors['pictwobytwo_status'])):?>

@@ -321,23 +321,30 @@ class AdmissionController extends BaseController
 						'psa_nso_files'=>$_POST['psa_nso_status'], 
 						'good_moral_files'=>$_POST['goodmoral_status'], 
 						'medical_cert_files'=>$_POST['medical_cert_status'], 
-						'picture_two_by_two_files'=>$_POST['pictwobytwo_status']
+						'picture_two_by_two_files'=>$_POST['pictwobytwo_status'],
+						
 					];
 					
 				
 				}
 
-				// die(print_r($admissionRejectStatusData));
+				// die(print_r($admissionStatusData));
 
 				if($model->__updateAdmissionDocument($id, $admissionStatusData)){
-					if($getStudentFileImages->setUpdateAdmissionFilesReject($id, $admissionRejectStatusData)){
-
+					if($admissionStatusData['upload_status'] == 'complete'){
 						$this->session->setFlashData('success', 'Email sent successfully!');
 						return redirect()->to(base_url('admission'));
 					}else{
-						$this->session->setFlashData('error', 'Failed to reject items!');
-						return redirect()->to(base_url('admission'));
+						if($getStudentFileImages->setUpdateAdmissionFilesReject($id, $admissionRejectStatusData)){
+
+							$this->session->setFlashData('success', 'Email sent successfully!');
+							return redirect()->to(base_url('admission'));
+						}else{
+							$this->session->setFlashData('error', 'Failed to reject items!');
+							return redirect()->to(base_url('admission'));
+						}
 					}
+					
 				}else{
 					$this->session->setFlashData('error', 'Something went wrong!');
 					return redirect()->to(base_url('admission'));
@@ -1669,7 +1676,11 @@ class AdmissionController extends BaseController
 	{
 		$getStudentFileImages = new StudentadmissionfilesModel;
 		$getstudent = new StudentsModel;
+		$model = new AdmissionDocumentStatusModel(); 
+		$getstudent = new StudentsModel;
 
+
+		$this->data['documentstatus'] =   $model->__getStudentAdmissionStatus($id);
 		$this->data['image_file_record'] = $getStudentFileImages->__getStudentImageFiles($id);
 		$this->data['student'] = $getstudent->__getStudentWhereEqualToUserID($id);
 		if ($this->isAjax()) {

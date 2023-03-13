@@ -41,7 +41,7 @@
                       <div align="center">
                         <label style="color:#dc3545;">SAR Form/PUPCCT Results</label>
                         <br>
-                        <label class = "label label-sucess fw-bold"><?=!empty($studentadmission_files['sar_pupcct_results_files']) ? ucwords(esc($studentadmission_status['sar_pupcet_result_status'])) : 'No Status'?></label>
+                        <label class = "label label-sucess fw-bold"><?=$studentadmission_files['sar_pupcct_results_files'] != null ? ucwords(esc($studentadmission_status['sar_pupcet_result_status'])) : 'No Status'?></label>
                         
                       </div>
                   </a>
