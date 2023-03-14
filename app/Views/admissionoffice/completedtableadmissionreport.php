@@ -8,15 +8,14 @@
 
   <div class="card">
     <div class="card-body">
-      <table class="table table-responsive table-striped table-bordered mt-3 dataTable" style="width:100%" cellspacing="1" cellpadding="5" border="1" style = "align: center">
+      <table class="table table-responsive table-striped table-bordered mt-3 dataTable" style="width:100%" cellspacing="1" cellpadding="5" border="1" style = "text-align: center">
         <thead class="table-dark">
           <tr style="text-align: center;">
             <th>Student No.</th>
             <th>Student Name</th>
             <th>Course</th>
             <th>Batch</th>
-            <th>Status</th>
-        
+            <th>Status</th>        
           </tr>
         </thead>
         <tbody>
@@ -34,7 +33,7 @@
                       <td><?=esc($student['student_number'])?></td>
                       <td>
                         <?php if (!empty($student['middlename'])): ?>
-                          <?=esc(ucwords($student['firstname'].' '.$student['middlename'][0].'. '.$student['lastname']))?>
+                          <?=strtoupper(ucwords($student['lastname'].', ')) ?><?=esc($student['firstname'].' '.$student['middlename'])?>
                         <?php else: ?>
                          <?=esc(ucwords($student['firstname'].' '.$student['lastname']))?>
                         <?php endif ?>

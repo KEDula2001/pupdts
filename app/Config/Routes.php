@@ -142,7 +142,10 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function($rout
 	$routes->get('admission/complete-report', 'AdmissionController::admissioncompletedreport');
 	$routes->get('admission/incomplete-report', 'AdmissionController::admissionincompletedreport');
 	$routes->get('admission/rechecking-report', 'AdmissionController::admissionrecheckedreport');
-	$routes->get('admission/retrieved-report', 'AdmissionController::admissionretrievedreport');	
+	$routes->get('admission/retrieved-report', 'AdmissionController::admissionretrievedreport');
+	$routes->get('admission/completeupload-report', 'AdmissionController::admissioncompleteuploadreport');	
+	$routes->get('admission/incompleteupload-report', 'AdmissionController::admissionincompleteuploadreport');
+		
 //admission report
 
 // student admission routes

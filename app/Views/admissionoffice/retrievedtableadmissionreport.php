@@ -8,7 +8,7 @@
 <br>
   <div class="card">
     <div class="card-body" style="min-height: 100vh; display: flex; flex-direction: column">
-      <table class="table table-responsive table-striped table-bordered mt-3 dataTable" style="width:100%" cellspacing="1" cellpadding="5" border="1" style = "align: center">
+      <table class="table table-responsive table-striped table-bordered mt-3 dataTable" style="width:100%" cellspacing="1" cellpadding="5" border="1" style = "text-align: center">
         <thead class="table-dark">
           <tr >
             <th>Student No.</th>
@@ -25,7 +25,7 @@
               <td><?=esc($record['student_number']) ?></td>
               <td>
                 <?php if (!empty($record['middlename'])): ?>
-                  <?=esc(ucwords($record['firstname'].' '.$record['middlename'].' '.$record['lastname']))?>
+                  <?=strtoupper(ucwords($record['lastname'].', ')) ?><?=esc($record['firstname'].' '.$record['middlename'])?>
                 <?php else: ?>
                   <?=esc(ucwords($record['firstname'].' '.$record['lastname']))?>
                 <?php endif ?>
@@ -41,6 +41,8 @@
                     echo 'Grade 10 Card';
                   }elseif ($record['requirementsID'] == 11) {
                     echo 'Grade 11 Card';
+                  }elseif ($record['requirementsID'] == 12) {
+                    echo 'Grade 12 Card';
                   }elseif ($record['requirementsID'] == 4) {
                     echo 'PSA/NSO';
                   }elseif ($record['requirementsID'] == 5) {

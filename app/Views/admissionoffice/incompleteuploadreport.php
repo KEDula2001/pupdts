@@ -1,6 +1,7 @@
 <br>
 <h1 style = "font-weight: bold;">REGISTRATION AND ADMISSION OFFICE</h1>
-<h2>Summary of Incomplete Submission of Admission Credentials </h2>
+<h2>Summary of Incomplete Upload of Admission Credentials </h2>
+
 <strong>Date:</strong> <?php echo  date("m/d/Y") ?> <strong>Time:</strong> <?php echo date("h:i:sa")?>
 <section class="container-fluid">
 
@@ -28,14 +29,14 @@
                   $res = $getstudentadmission->__getSAMDetails($id);
                 ?>
                 <?php if (!empty($res)): ?>
-                  <?php if ($res['admission_status'] == 'incomplete'): ?>
+                  <?php if ($res['upload_status'] == 'incomplete'): ?>
                     <tr >
                       <td><?=esc($student['student_number'])?></td>
                       <td>
                         <?php if (!empty($student['middlename'])): ?>
                           <?=strtoupper(ucwords($student['lastname'].', ')) ?><?=esc($student['firstname'].' '.$student['middlename'])?>
                         <?php else: ?>
-                         <?=esc(ucwords($student['lastname'].', '.$student['firstname']))?>
+                         <?=esc(ucwords($student['firstname'].' '.$student['lastname']))?>
                         <?php endif ?>
                       </td>
                       <td><?=esc($student['course'])?></td>
@@ -43,13 +44,13 @@
                       
                       <td>
                         <?php if ($res != NUll): ?>
-                          <?php if ($res['admission_status'] == 'complete'): ?>
+                          <?php if ($res['upload_status'] == 'complete'): ?>
                             <div class="badge bg-success text-wrap" style="width: 6rem;">
-                              <?php echo $res['admission_status']; ?>
+                              <?php echo $res['upload_status']; ?>
                             </div>
-                          <?php elseif($res['admission_status'] == 'incomplete'): ?>
+                          <?php elseif($res['upload_status'] == 'incomplete'): ?>
                             <div class="badge bg-danger text-wrap" style="width: 6rem;">
-                              <?php echo $res['admission_status']; ?>
+                              <?php echo $res['upload_status']; ?>
                             </div>
                           <?php endif ?>
                         <?php else: ?>

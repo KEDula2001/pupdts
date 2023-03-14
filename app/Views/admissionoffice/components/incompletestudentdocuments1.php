@@ -1,18 +1,27 @@
-<div style="padding-left: 50px; padding-right: 50px">
-<section class="container-fluid">
-  <div class="d-sm-flex align-items-center justify-content-between mb-0 mt-5 ms-5">
-    <nav style="--bs-breadcrumb-divider: '<'; font-weight: bold;" aria-label="breadcrumb">
+<div class="container-fluid-admission">
+<section class="container-fluid" style="margin-top: 50px; padding: 20px">
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="<?php echo base_url('admissionregistrar'); ?>"><i class="fas fa-home"></i></a></li>
+          <li class="breadcrumb-item"><a href="<?php echo base_url('admission'); ?>"><i class="fas fa-home"></i></a></li>
           <li class="breadcrumb-item active" aria-current="page">Back to Dashboard</li>
         </ol>
-        <form  action="/admission/incomplete-report" method="get">  
-          <button type="submit" class="float-end btn btn-primary" formtarget="_blank"> Generate Report</button>
-        </form>
-      </nav>
-      <hr>
+    
+        <div class="row">     
+            <!--Generate Report -->
+            <div class="col-auto">
+                  <a class="btn btn-primary btn-lg active" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" >Generate Report</a>
+                  <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="<?php echo base_url('admission/report'); ?>">Dashboard Report</a></li>
+                    <li><a class="dropdown-item" href="<?php echo base_url('admission/complete-report'); ?>">Complete Submission</a></li>
+                    <li><a class="dropdown-item" href="<?php echo base_url('admission/incomplete-report'); ?>">Incomplete Submission</a></li> 
+                    <li><a class="dropdown-item" href="<?php echo base_url('admission/rechecking-report'); ?>">Rechecked Credentials</a></li>
+                    <li><a class="dropdown-item" href="<?php echo base_url('admission/retrieved-report'); ?>">Retrieved Credentials</a></li>
+                    <li><a class="dropdown-item" href="<?php echo base_url('admission/completeupload-report'); ?>">Complete Uploads</a></li>                                        
+                    <li><a class="dropdown-item" href="<?php echo base_url('admission/incompleteupload-report'); ?>">Incomplete Uploads</a></li>
+                  </ul>
+            </div>
+        </div>
   </div>
-
     <div class="row">
     <div class="col-4"></div>
     <div class="col-xl-3 col-md-6 mb-4">
