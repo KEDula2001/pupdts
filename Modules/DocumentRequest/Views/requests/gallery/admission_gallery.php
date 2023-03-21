@@ -16,7 +16,7 @@
                       <a href="<?php echo base_url('studentadmission/admission-gallery/'.$_SESSION['user_id']); ?>" class="btn <?=empty($requests) ? '': 'disabled'?>" disabled>Credentials Gallery</a>
                     </td>
                     <td>
-                      <a href="<?php echo base_url('studentadmission/view-admission-history/'.$_SESSION['user_id']); ?>" class="btn <?=empty($requests) ? '': 'disabled'?>" disabled> Admission History</a>
+                      <a href="<?php echo base_url('studentadmission/view-admission-history/'.$_SESSION['user_id']); ?>" class="btn <?=empty($requests) ? '': 'disabled'?>" disabled> Credentials Record</a>
                     </td>
                     <td>
                       <a href="/requests/new" class="btn" disabl><i class="fas fa-plus"></i> Request document here</a>
@@ -155,10 +155,9 @@
                 <strong>REMINDER:</strong>
                 <p>
                   <ul class="fst-italic">
-                    <li>Requesting of documents should be made during office hours. (Weekdays from 8:00 AM - 5:00 PM only)</li>
-                    <li>Make sure that your information and requests are correct before submitting.</li>
-                    <li>You may still cancel your requested document if your application is not been approved by the Registrar.</li>
-                    <li>Once a request has been submitted, you will be unable to request another document until your requested document is complete.</li>
+                  <li>You are required to upload all softcopies of your admission credentials.</li>                     
+                  <li>Make sure that all your uploads have been approved.</li>                     
+                  <li>If your admission credentials is in the university, you may go there to scan them during office hours. (Weekdays from 8:00 AM - 5:00 PM only)</li>
                   </ul>
                 </p>
               </span>

@@ -19,7 +19,7 @@
                       <div class="col mr-2">
                           <div class="fw-bold text-danger text-uppercase mb-1">
                               Pending Requests</div>
-                          <div class="h5 mb-0 fw-bold"><?=esc($request_count)?></div>
+                          <div class="h5 mb-0 fw-bold"><?=($request_count)?></div>
                       </div>
                       <div class="col-auto">
                           <i class="fas fa-file-alt fa-2x"></i>

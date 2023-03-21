@@ -60,9 +60,9 @@ class Generalreport extends BaseController
 
         // -----------------------------------------------------------------------------
         $data['request_count'] = count($this->requestModel->getDetails(['requests.status' => 'p']));
-        $data['detail_count'] = count($this->requestDetailModel->getDetails(['request_details.status' => 'p', 'requests.status' => 'c']));
-        $data['claim_count'] = count($this->requestDetailModel->getDetails(['request_details.status' => 'r', 'requests.status' => 'c']));
-        $data['completed_count'] = count($this->requestDetailModel->getDetails(['request_details.status' => 'c', 'requests.status' => 'c']));
+        $data['detail_count'] = count($this->requestDetailModel->getDetails(['request_details.status' => 'p', 'requests.status' => 'o']));
+        $data['claim_count'] = count($this->requestDetailModel->getDetails(['request_details.status' => 'r', 'requests.status' => 'o']));
+        $data['completed_count'] = count($this->requestDetailModel->getDetails(['request_details.status' => 'c', 'requests.status' => 'o']));
         $reportTable = view('Modules\DocumentRequest\Views\requests\dashboardreport',$data);
 
         $pdf->writeHTML($reportTable, true, false, false, false, '');

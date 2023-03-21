@@ -16,7 +16,7 @@
                       <a href="<?php echo base_url('studentadmission/admission-gallery/'.$_SESSION['user_id']); ?>" class="btn " disabled>Credentials Gallery</a>
                     </td>
                     <td>
-                      <a href="<?php echo base_url('studentadmission/view-admission-history/'.$_SESSION['user_id']); ?>" class="btn" disabled> Admission Credentials</a>
+                      <a href="<?php echo base_url('studentadmission/view-admission-history/'.$_SESSION['user_id']); ?>" class="btn" disabled> Credentials Record</a>
                     </td>
                     <td>
                       <a href="requests/new" class="btn"><i class="fas fa-plus"></i> Request document here</a>
@@ -82,7 +82,7 @@
                                     <?php if ($request['status'] == 'p'): ?>
                                         Waiting for admin approval
                                     <?php elseif($request['status'] == 'f'): ?>
-                                        Your request/s is now on process in 6 offices.
+                                        Your request is under clearance. Please check your mail.
                                     <?php elseif($request['status'] == 'y'): ?>
                                         Waiting for payment
                                     <?php elseif($request['status'] == 'i'): ?>
@@ -161,7 +161,7 @@
                             <thead>
                                 <th>Document</th>
                                 <th>Date Requested</th>
-                                <th>Remark</th>
+                                
                             </thead>
                             <tbody>
                             <?php if (empty($request_details_process)): ?>
@@ -172,7 +172,6 @@
                               <?php foreach ($request_details_process as $request_detail): ?>
                                 <tr>
                                   <td><?= esc($request_detail['document']) ?></td>
-                                  <td><?= date('F d, Y - h:i A', strtotime(esc($request_detail['created_at'])))?></td>
                                   <td><?= esc(empty($request_detail['remark']) ? 'N/A': esc($request_detail['remark'])) ?></td>
                                 </tr>
                               <?php endforeach; ?>
@@ -228,8 +227,8 @@
                   <ul class="fst-italic">
                     <li>Requesting of documents should be made during office hours. (Weekdays from 8:00 AM - 5:00 PM only)</li>
                     <li>Make sure that your information and requests are correct before submitting.</li>
-                    <li>You may still cancel your requested document if your application is not been approved by the Registrar.</li>
-                    <li>Once a request has been submitted, you will be unable to request another document until your requested document is complete.</li>
+                    <li>You may still cancel your requested document if your application has not been approved by the Registrar.</li>
+                    <li>Make sure you have no pending sanctions from the university or else all your document request will be rejected.</li>
                   </ul>
                 </p>
               </span>

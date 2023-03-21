@@ -118,7 +118,7 @@
                                                       <?php endforeach; ?>
                                                       </table>
                                                       <?php if ($approval_ctr++ == 0): ?>
-                                                        This document don't require a clearance
+                                                        This request has been cleared by the offices
                                                       <?php endif; ?>
                                                     </td>
                                                     <td><?=date('M d, Y', strtotime(esc($request_document['printed_at'])))?></td>

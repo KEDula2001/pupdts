@@ -12,14 +12,15 @@ class RequestsModel extends BaseModel
 
   protected $table = 'requests';
 
-  protected $allowedFields = ['id', 'slug', 'student_id', 'remark','reason','receipt_number','receipt_img','uploaded_at','confirmed_at','disapproved_at','approved_at', 'status', 'completed_at'];
+  protected $allowedFields = ['id', 'slug', 'request_code', 'student_id', 'remark','reason','receipt_number','receipt_img','uploaded_at','confirmed_at','disapproved_at','approved_at', 'status', 'completed_at'];
 
   function __construct(){
     parent::__construct();
   }
 
   public function getDetails($condition = [], $id = null, $status_array = 0){
-    $this->select('requests.id, requests.approved_at ,requests.receipt_img,requests.receipt_number,requests.uploaded_at,requests.slug, requests.disapproved_at,students.firstname,students.middlename, students.suffix,students.status as student_status,students.student_number, students.lastname,requests.completed_at, requests.reason, requests.created_at, courses.course, courses.abbreviation, requests.status');
+    $this->select('requests.id, requests.approved_at ,requests.receipt_img,requests.receipt_number,requests.uploaded_at,requests.slug, requests.disapproved_at,students.firstname,students.middlename, students.suffix,students.status as student_status,students.student_number, students.lastname,requests.completed_at, requests.reason, requests.created_at, courses.course, 
+    courses.abbreviation, requests.status, requests.request_code');
     $this->join('students', 'students.id = student_id');
     $this->join('courses', 'courses.id = students.course_id');
     foreach ($condition as $condition => $value) {
@@ -48,7 +49,7 @@ class RequestsModel extends BaseModel
     }
     return $this->findAll();
   }
-
+  
   public function confirmRequest($data)
   {
     $this->transStart();
@@ -69,6 +70,20 @@ class RequestsModel extends BaseModel
   public function denyPaid($id)
   {
     return $this->update($id, ['status' => 'y']);
+  }
+
+
+  public function insertReceiptCode($id, $request_code){ 
+  
+
+    return $this->update($id, ['request_code' => $request_code]);
+  }
+
+  public function findReceiptCode($id){ 
+    $this->select('requests.*');
+    $this->where('id', $id);
+
+    return $this->findAll();
   }
 
   public function denyRequest($data)

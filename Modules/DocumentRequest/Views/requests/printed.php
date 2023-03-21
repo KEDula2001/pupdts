@@ -2,7 +2,7 @@
       <div class="col-6 offset-3">
         <div class="form-floating">
           <input type="text" class="form-control mb-3"onEnter="scan()" name="slug" id="slug" class="floatingInput" placeholder="Student Number" required>
-          <label for="floatingInput">Enter Bar Code Here</label>
+          <label for="floatingInput">Enter Request Code Here</label>
         </div>
       </div>
       <div class="row">
@@ -30,7 +30,7 @@
                 <table class="table table-data mt-3" id="processed-table" style="width:100%">
                   <thead>
                     <tr>
-                      <th>Bar Code</th>
+                      <th>Request Code</th>
                       <th>Name</th>
                       <th>Course</th>
                       <th>Document</th>
@@ -118,7 +118,7 @@
                                                   <?php endforeach; ?>
                                                   </table>
                                                   <?php if ($approval_ctr++ == 0): ?>
-                                                    This document doesn't require a clearance
+                                                    This request has been cleared by the offices
                                                   <?php endif; ?>
                                                 </td>
                                                 <td><?=date('M d, Y', strtotime(esc($document['printed_at'])))?></td>

@@ -125,12 +125,16 @@ $(document).ready(function() {
                   questions.push({
                     input: `text`,
                     title: `First Time Setup`,
-                    html: `Please enter <strong>CONTACT NUMBER </strong>`,
+                    html: `Please enter <strong>CONTACT NUMBER </strong><br><h7 style = "font-size: 12px;">PS: The contact number that would be submitted would be used to contact you.</h7>`,
+                    
                     showCancelButton: ctr > 0,
                     currentProgressStep: ctr,
                     preConfirm: (value) => {
                       if (value == '') {
                         Swal.showValidationMessage('First input missing')
+                      }
+                      else if (value.length != 11) {
+                        Swal.showValidationMessage('The input of the number must be at the lenght of 11 numbers')
                       }
                     }
                   })

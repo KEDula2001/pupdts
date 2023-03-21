@@ -9,6 +9,7 @@ $routes->group('requests', ['namespace' => 'Modules\DocumentRequest\Controllers'
     $routes->post('upload-receipt', 'Requests::uploadReceipt');
     $routes->match(['get', 'post'], 'new', 'Requests::add');
     $routes->match(['get', 'post'], 'additional-info/(:num)', 'Requests::addInfo/$1');
+    $routes->match(['get', 'post'], 'findslug', 'Requests::findslug');
     
 });
 
@@ -31,11 +32,6 @@ $routes->group('document-requests', ['namespace' => 'Modules\DocumentRequest\Con
     $routes->get('certRegUnitsAdSub/(:num)', 'DocumentRequests::certRegUnitsAdSub/$1'); 
     $routes->get('certRegUnitsAdSubBrid/(:num)', 'DocumentRequests::certRegUnitsAdSubBrid/$1');
     
-});
-
-$routes->group('payment', ['namespace' => 'Modules\DocumentRequest\Controllers'], function($routes)
-{
-    $routes->get('/', 'DocumentRequests::payment');
 });
 
 $routes->group('payment', ['namespace' => 'Modules\DocumentRequest\Controllers'], function($routes)

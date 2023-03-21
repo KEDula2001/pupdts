@@ -1,7 +1,7 @@
 <table class="table table-data mt-3" id="processed-table" style="width:100%">
   <thead>
     <tr>
-      <th>Bar Code</th>
+      <th>Request Code</th>
       <th>Name</th>
       <th>Course</th>
       <th>Document</th>

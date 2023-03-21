@@ -7,6 +7,8 @@
                 <tr>
                   <th>id</th>
                   <th>Student Number</th>
+                  
+                  <th>Student Number</th>
                   <th>Name</th>
                   <th>General Clearance</th>
                   <th>Status</th>
@@ -23,7 +25,9 @@
                     <tr class="active-row">
                       <td><?=esc($request['id'])?></td>
                       <td><?= esc($request['student_number']) ?></td>
-                      <td style="text-transform: uppercase;"><?= ucwords(esc($request['firstname']) . ' ' . esc($request['lastname']) . ' ' . esc($request['suffix'])) ?></td>
+                      
+                      <td><?= esc($request['student_number']) ?></td>
+                      <td style="text-transform: uppercase;"><?= ucwords(esc($request['firstname']) . ' ' . esc($request['middlename']) . ' '. esc($request['lastname']) . ' ' . esc($request['suffix'])) ?></td>
                       <td><a href="/approval/generate-clearance/<?= $request['id'] ?>/1" target="_blank"><u>View</u></a></td>
                       <td><?= ucwords(esc($request['student_status'])) ?></td>
                       <td><?=esc($request['abbreviation'])?></td>

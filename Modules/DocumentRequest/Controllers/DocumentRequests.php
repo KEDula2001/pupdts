@@ -32,6 +32,7 @@ class DocumentRequests extends BaseController
   public function index() 
   {
     $this->data['requests'] = $this->requestModel->getDetails(['requests.status' => 'p']);
+    $this->data['filter_goodmoral'] = $this->requestDetailModel->getDetails(['requests_details.document_id' => '6', 'requests_details.document_id' => '26']);
     $this->data['request_documents'] = $this->requestDetailModel->getDetails(['request_details.received_at' => null]);
     $this->data['view'] = 'Modules\DocumentRequest\Views\requests\pending';
     return view('template/index', $this->data);
@@ -76,6 +77,11 @@ class DocumentRequests extends BaseController
   {
     // return print_r($this->requestModel->denyRequest($_POST));
     $student = $this->userModel->get(['username' => $_POST['student_number']]);
+
+    $this->data['insReceiptCode'] = $this->requestModel->insertReceiptCode($_POST['id'], $_POST['receipt_code']);
+
+    // $this->data['studentReceiptCode'] = $this->requestModel->findslug($_POST['id'], $_POST['receipt_code']); 
+    
 
     $this->email->setTo($student[0]['email']);
     $this->email->setSubject('Document Request Update');
@@ -853,13 +859,13 @@ class DocumentRequests extends BaseController
     $pdf->MultiCell(60, 10, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
     $pdf->MultiCell(20, 10, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
     $pdf->MultiCell(90, 10, 'Very truly yours,', 0, 'C', 0, 0, '', '', true, 0, false, true, 40, 'T');
-
+    
     $pdf->Ln(20);
 
     $pdf->SetFont('lucidafaxdemib', '', 12);
     $pdf->MultiCell(60, 1, '', 0, 'C', 0, 0, '', '', true, 0, false, true, 40, 'T');
     $pdf->MultiCell(20, 1, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
-    $pdf->MultiCell(90, 1, 'MR. MHEL P. GARCIA', 0, 'C', 0, 0, '', '', true, 0, false, true, 40, 'T');
+    $pdf->MultiCell(90, 1, 'LIWANAG L. MALIKSI', 0, 'C', 0, 0, '', '', true, 0, false, true, 40, 'T');
 
     $pdf->Ln(4);
 
@@ -869,7 +875,7 @@ class DocumentRequests extends BaseController
 
     $pdf->MultiCell(60, 10, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
     $pdf->MultiCell(20, 10, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
-    $pdf->MultiCell(90, 10, 'Head, Admission and Registration Office', 0, 'L', 0, 0, '', '', true, 300, false, true, 40, 'T');
+    $pdf->MultiCell(90, 10, 'Head, Admission and Guidance Office', 0, 'L', 0, 0, '', '', true, 300, false, true, 40, 'T');
 
     $pdf->Ln(8);
 
@@ -893,7 +899,7 @@ class DocumentRequests extends BaseController
     // output the HTML content
     // -----------------------------------------------------------------------------
     $pdf->SetXY(122, 172);
-    $pdf->Image(APPPATH . 'libraries/tcpdf/examples/images/signature.png', '', '', 35, 20, '', '', 'T', false, 300, '', false, false, 1, false, false, false);
+   // $pdf->Image(APPPATH . 'libraries/tcpdf/examples/images/signature.png', '', '', 35, 20, '', '', 'T', false, 300, '', false, false, 1, false, false, false);
 
 
     //Close and output PDF document
@@ -1219,14 +1225,14 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
         $pdf->SetFont('lucidafax', '', 11);
         $pdf->Cell(34, 5, 'OR#');
         $pdf->SetTextColor(238, 75, 43);
-        $pdf->TextField('or_number', 35, 5);
+        $pdf->writeHTML("".$data['request_code'], 35, 5);
         $pdf->SetTextColor(0,0,0);
     
         // Amount Paid
         $pdf->Ln(6);
         $pdf->SetFont('lucidafax', '', 11);
         $pdf->Cell(34, 5, 'AMOUNT PAID:');
-        $pdf->TextField('or_number', 35, 5);
+        $pdf->writeHTML("".$data['request_code'], 35, 5);
     
         $pdf->Ln(8);
         $pdf->Cell(100, 5, ' ');
@@ -1352,6 +1358,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
   public function certsteno($id){
         $pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, 'LETTER', true, 'UTF-8', false);
         $data = $this->requestDetailModel->getDetails(['request_details.id' => $id])[0];
+        
         // set document information
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor('PUPT OCT-DRS');
@@ -1412,7 +1419,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
         $pdf->SetTextColor(0,0,0);
         $pdf->SetFont('lucidafax', '', 12);
         $pdf->MultiCell(90, 10, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
-        $pdf->MultiCell(90, 10, date('F d, Y'), 0, 'L', 0, 0, '', '', true, 0, false, true, 40, 'T');
+        $pdf->MultiCell(90, 10, date('F d, Y'), 0, 'L', 0, 0, '', '', true, 40, false, true, 40, 'T');
         $pdf->Ln(6);
     
        
@@ -1484,7 +1491,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
         //  subjects
         $pdf->Ln(6);
         $pdf->Cell(12, 5, ' ');
-        $pdf->SetFont('lucidafax', '', 11);
+        $pdf->SetFont('lucidafax', '', 7);
         $pdf->TextField('subjectcode1', 27, 5);
         $pdf->Cell(4, 5, ' ');
         $pdf->TextField('subject1', 114, 5);
@@ -1597,7 +1604,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
         $pdf->SetFont('lucidafax', '', 11);
         $pdf->Cell(34, 5, 'OR Number:');
         $pdf->SetTextColor(238, 75, 43);
-        $pdf->TextField('or_number', 35, 5);
+        $pdf->writeHTML("".$data['request_code'], 35, 5);
         $pdf->SetTextColor(0,0,0);
     
         // Date
@@ -2391,7 +2398,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
         $pdf->SetFont('lucidafax', '', 11);
         $pdf->Cell(34, 5, 'OR Number:');
         $pdf->SetTextColor(238, 75, 43);
-        $pdf->TextField('or_number', 35, 5);
+        $pdf->writeHTML("".$data['request_code'], 35, 5);
         $pdf->SetTextColor(0,0,0);
     
         // Date
@@ -2598,7 +2605,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
         $pdf->SetFont('lucidafax', '', 11);
         $pdf->Cell(34, 5, 'OR Number:');
         $pdf->SetTextColor(238, 75, 43);
-        $pdf->TextField('or_number', 35, 5);
+        $pdf->writeHTML("".$data['request_code'], 35, 5);
         $pdf->SetTextColor(0,0,0);
     
         // Date
@@ -3178,6 +3185,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
   public function certRegUnitsAdSubBrid($request_id){
     $pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, 'LETTER', true, 'UTF-8', false);
         $data = $this->formRequestModel->getDetails(['form_requests.id' => $id])[0];
+        
         // set document information
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor('PUPT OCT-DRS');
@@ -3410,7 +3418,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
         $pdf->SetFont('lucidafax', '', 11);
         $pdf->Cell(34, 5, 'OR Number:');
         $pdf->SetTextColor(238, 75, 43);
-        $pdf->TextField('or_number', 35, 5);
+        $pdf->writeHTML("".$data['request_code'], 35, 5);
         $pdf->SetTextColor(0,0,0);
     
         // Date
@@ -3481,6 +3489,9 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
    
     $pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, 'LETTER', true, 'UTF-8', false);
     $data = $this->formRequestModel->getDetails(['form_requests.id' => $id])[0];
+    $receipt_code = $this->requestModel->findReceiptCode($id);
+
+    
     // set document information
     $pdf->SetCreator(PDF_CREATOR);
     $pdf->SetAuthor('PUPT OCT-DRS');
@@ -3713,7 +3724,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
     $pdf->SetFont('lucidafax', '', 11);
     $pdf->Cell(34, 5, 'OR Number:');
     $pdf->SetTextColor(238, 75, 43);
-    $pdf->TextField('or_number', 35, 5);
+    $pdf->writeHTML("".$data['request_code'], 35, 5);
     $pdf->SetTextColor(0,0,0);
 
     // Date

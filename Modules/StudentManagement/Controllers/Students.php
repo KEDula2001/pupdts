@@ -10,10 +10,10 @@ class Students extends BaseController
   function __construct(){
     $this->session = \Config\Services::session();
     $this->session->start();
-    if(!isset($_SESSION['user_id'])){
-      header('Location: '.base_url());
-      exit();
-    }
+    // if(!isset($_SESSION['user_id'])){
+    //   header('Location: '.base_url());
+    //   exit();
+    // }
   }
 
     public function index()

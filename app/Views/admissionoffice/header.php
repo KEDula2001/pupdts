@@ -50,7 +50,7 @@
                   </ul>
                 <?php endif ?>
 
-                <?php if($_SESSION['role'] == "Superadmin" || $_SESSION['role'] == "Admin" || $_SESSION['role'] == "Admission"):?>
+                <?php if($_SESSION['role'] == "Superadmin" || $_SESSION['role'] == "Admin"):?>
                   <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="background-color: maroon;">
                     <li class="nav-item dropdown d-flex">
                       <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
@@ -59,6 +59,19 @@
                           <li><a class="dropdown-item" href="/admission/incomplete">Incomplete Submission</a></li>
                           <li><a class="dropdown-item" href="/admission/retrieved-files">Retrieved Credentials</a></li>
                           <li><a class="dropdown-item" href="/admission/request-rechecking">Rechecking Credentials</a></li>
+                          
+                        </ul>
+                <?php endif ?>
+                <?php if($_SESSION['role'] == "Admission"):?>
+                  <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="background-color: maroon;">
+                    <li class="nav-item dropdown d-flex">
+                      <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+                        <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
+                          <li><a class="dropdown-item" href="/admission/complete">Complete Submission</a></li>
+                          <li><a class="dropdown-item" href="/admission/incomplete">Incomplete Submission</a></li>
+                          <li><a class="dropdown-item" href="/admission/retrieved-files">Retrieved Credentials</a></li>
+                          <li><a class="dropdown-item" href="/admission/request-rechecking">Rechecking Credentials</a></li>
+                          <li><a class="dropdown-item" href="/document-requests">Good Moral Requests</a></li>
                         </ul>
                 <?php endif ?>
 

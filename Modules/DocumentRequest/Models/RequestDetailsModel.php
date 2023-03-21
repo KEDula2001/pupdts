@@ -55,7 +55,8 @@ class RequestDetailsModel extends BaseModel
       students.gender,
       courses.course, 
       courses.abbreviation, 
-      users.email
+      users.email,
+      requests.request_code
     ');
     $this->join('requests', 'request_id = requests.id');
     $this->join('documents', 'document_id = documents.id');

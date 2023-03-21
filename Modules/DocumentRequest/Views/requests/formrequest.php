@@ -90,8 +90,25 @@
                           <tr>
                             <td><?= esc(esc($request['created_at'])) ?></td>
                             <td><?= esc(esc($request['school'])) ?></td>
-                            <td><?=esc($request['status'])?></td>
-                            <td><?= esc($request['remarks']) ?></td>
+                            <?php if (esc($request['status']) == 'w'): ?>                               
+                              Waiting for Approval                             
+                              <?php elseif(esc($request['status']) == 'o'): ?>
+                                On Process                             
+                                <?php else: ?>                               
+                                  Completed                             
+                                  <?php endif; ?>                           
+                                </td>
+                                <td>
+                            <?php if (esc($request['remarks']) == '1'): ?>                       
+                              1st Request                     
+                              <?php elseif(esc($request['remarks']) == '2'): ?>                      
+                                 2nd Request                     
+                                 <?php elseif(esc($request['remarks']) == '3'): ?>                       
+                                  3rd Request                     
+                                  <?php elseif(esc($request['remarks']) == '4'): ?>                       
+                                    4th Request                     
+                                    <?php endif; ?>                   
+                            </td>
                             <td>
                               <?php if ($request['status'] == 'o'): ?>
                                 <a href="form-137/<?=esc($request['id'])?>" target="_blank"> Download Here </a>

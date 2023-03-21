@@ -1,137 +1,166 @@
 <?= view('home/header') ?>
 
-	<div class="fluid register">
-  	<div class="row">
-      <div class="col-md-3 register-left">
-
-      </div>
-      <div class="col-md-9 register-right">
-				<div class="row">
-					<img src="/pup.png" alt=""/>
-          <h3 class="text-center">Online Document Requests </h3>
+	<div class="container-fluid register">
+		<div class="row">
+			<div class="col-md-12 register-right">
+				<div class="container-fluid text-center">
+					<img src="/pup.png" height = "70" alt=""/>
+					<h3 class="text-center fw-bolder">Admission Credentials Tracking and Document Request System </h3>
 				</div>
-        <h3 class="register-heading">Student Registration</h3>
-				<form class="" action="register" method="post">
-        	<div class="row register-form">
-						<div class="col-md-6">
-								<div class="form-group mb-3">
-									<label for="username" class="form-label">Student Number* </label>
-									<input type="text" name="username" id="username" class="form-control" placeholder="Student Number" value="" />
-									<?php if (isset($errors['username'])): ?>
-										<div class="text-danger">
-											<?=esc($errors['username'])?>
-										</div>
-									<?php endif; ?>
-								</div>
-								<div class="form-group mb-3">
-									<label for="email" class="form-label">Email *</label>
-									<input type="text" name="email" id="email" class="form-control" placeholder="Email" value="" />
-									<?php if (isset($errors['email'])): ?>
-										<div class="text-danger">
-											<?=esc($errors['email'])?>
-										</div>
-									<?php endif; ?>
-								</div>
-								<div class="form-group mb-3">
-									<label for="password" class="form-label">Password *</label>
-									<input type="password" id="password" name="password" class="form-control" placeholder="Password" />
-									<?php if (isset($errors['password'])): ?>
-										<div class="text-danger">
-											<?=esc($errors['password'])?>
-										</div>
-									<?php endif; ?>
-								</div>
-								<div class="form-group mb-3">
-									<label for="repeat_password" class="form-label">Confirm Password *</label>
-									<input type="password" name="repeat_password" id="repeat_password" class="form-control"  placeholder="Confirm Password" value="" />
-									<?php if (isset($errors['repeat_password'])): ?>
-										<div class="text-danger">
-											<?=esc($errors['repeat_password'])?>
-										</div>
-									<?php endif; ?>
-								</div>
-								<div class="form-group mb-3">
-									<label for="contact" class="form-label">Contact *</label>
-									<input type="text" name="contact" class="form-control" value="">
-									<?php if (isset($errors['contact'])): ?>
-										<div class="text-danger">
-											<?=esc($errors['contact'])?>
-										</div>
-									<?php endif; ?>
-								</div>
-								<div class="form-group mb-3">
-									<div class="maxl">
-										<label class="radio inline">
-												<input type="radio" name="gender" value="m" checked>
-												<span> Male </span>
-										</label>
-										<label class="radio inline">
-												<input type="radio" name="gender" value="f">
-												<span>Female </span>
-										</label>
-									</div>
-								</div>
-						</div>
-						<div class="col-md-6">
-								<div class="form-group mb-3">
-									<label for="firstname" class="form-label">First Name *</label>
-									<input type="text" name="firstname" class="form-control" value="">
-									<?php if (isset($errors['firstname'])): ?>
-										<div class="text-danger">
-											<?=esc($errors['firstname'])?>
-										</div>
-									<?php endif; ?>
-								</div>
-								<div class="form-group mb-3">
-									<label for="lastname" class="form-label">Last Name *</label>
-									<input type="text" class="form-control" name="lastname" value="">
-									<?php if (isset($errors['lastname'])): ?>
-										<div class="text-danger">
-											<?=esc($errors['lastname'])?>
-										</div>
-									<?php endif; ?>
-								</div>
-								<div class="form-group mb-3">
-									<label for="middlename" class="form-label">Middle Name</label>
-									<input type="text" class="form-control" name="middlename" value="">
-									<?php if (isset($errors['middlename'])): ?>
-										<div class="text-danger">
-											<?=esc($errors['middlename'])?>
-										</div>
-									<?php endif; ?>
-								</div>
-								<div class="form-group mb-3">
-									<label for="course_id" class="form-label">Course *</label>
-										<select class="form-select" name="course_id">
-											<?php if (isset($courses)): ?>
-												<?php foreach ($courses as $course): ?>
-													<option value="<?=esc($course['id'])?>"><?=esc($course['course'])?></option>
-												<?php endforeach; ?>
-											<?php else: ?>
-													<option value="" disabled selected>-- No Available Course --</option>
-											<?php endif; ?>
-										</select>
-										<?php if (isset($errors['course_id'])): ?>
-											<div class="text-danger">
-												<?=esc($errors['course_id'])?>
+				<h3 class="text-center fw-bolder">Student Registration</h3>
+				
+				
+				<div class="container-admission" style="margin: 20px">
+
+					<section class="container-fluid" >
+  
+
+						
+						<div class="col-12">
+							<div class="card" >
+									<div class="card-body p-4">
+										<nav style="--bs-breadcrumb-divider: '<'; font-weight: bold;" aria-label="breadcrumb">
+											<ol class="breadcrumb">
+											<li class="breadcrumb-item active" aria-current="page"><i class="fas fa-users"></i> Student Personal Information</li>
+											</ol>
+										</nav>
+										<hr>
+										<div class="row">
+											<?php if (isset($errors['success_message'])): ?>
+											<div class="alert alert-success alert-dismissible fade show" role="alert">
+												<?=$errors['success_message']?>
+												<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 											</div>
-										<?php endif; ?>
-								</div>
-								<div class="form-group mb-3">
-									<label for="birthdate" class="form-label">Birthdate</label>
-									<input type="date" name="birthdate" class="form-control" value="">
-									<?php if (isset($errors['birthdate'])): ?>
-										<div class="text-danger">
-											<?=esc($errors['birthdate'])?>
+											<?php endif; ?>
+											<?php if (isset($errors['error_message'])): ?>
+											<div class="alert alert-success alert-dismissible fade show" role="alert">
+												<?=$errors['success_message']?>
+												<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+											</div>
+											<?php endif; ?>
+											<form class="form-floating" action="<?php echo base_url('/register'); ?>" method="post" autocomplete="off">
+											<!-- first row -->
+											<div class="row justify-content-center">
+											<!-- student no. -->
+												<div class="col-6">
+												<div class="form-group mb-3">
+													<label for="student_number" class="form-label">Student Number <small class="text-danger">*</small></label>
+													<input value="" type="text" name="student_number" class="form-control" id="student_number">
+													<?php if (isset($errors['student_number'])): ?>
+													<div class="text-danger">
+														<?=esc($errors['student_number'])?>
+													</div>
+													<?php endif; ?>
+												</div>
+												</div>
+												<!-- student no. -->
+												<!-- firstname -->
+												<div class="col-6">
+												<div class="form-group mb-3">
+													<label for="firstname" class="form-label">First Name <small class="text-danger">*</small></label>
+													<input value="" type="text" name="firstname" class="form-control" id="firstname">
+													<?php if (isset($errors['firstname'])): ?>
+													<div class="text-danger">
+														<?=esc($errors['firstname'])?>
+													</div>
+													<?php endif; ?>
+												</div>
+												</div>
+											</div>
+											<!-- first row -->
+											<!-- second row -->
+											<div class="row justify-content-center">  
+												<div class="col-6">
+												<div class="form-group mb-3">
+													<label for="lastname" class="form-label">Last Name <small class="text-danger">*</small></label>
+													<input value="" type="text" name="lastname" class="form-control" id="lastname">
+													<?php if (isset($errors['lastname'])): ?>
+													<div class="text-danger">
+														<?=esc($errors['lastname'])?>
+													</div>
+													<?php endif; ?>
+												</div>
+												</div>
+												<div class="col-6">
+												<div class="form-group mb-3">
+													<label for="middlename" class="form-label">Middle Name <small class="text-danger">*</small></label>
+													<input value="" type="text" name="middlename" class="form-control" id="middlename">
+													<?php if (isset($errors['middlename'])): ?>
+													<div class="text-danger">
+														<?=esc($errors['middlename'])?>
+													</div>
+													<?php endif; ?>
+												</div>
+												</div>
+											</div>
+											<!-- second row -->                        
+											<!-- third row -->
+											<div class="row justify-content-left">
+												<div class="col-6">
+												<div class="form-group mb-3">
+													<label for="email">Email <small class="text-danger">*</small></label>
+													<input type="text" class="form-control" value="" name="email" id="email">
+													<?php if (isset($errors['email'])): ?>
+													<div class="text-danger">
+														<?=esc($errors['email'])?>
+													</div>
+													<?php endif; ?>
+												</div>
+												</div>
+											
+											<!-- third row -->
+											<!-- third row -->
+										
+												<div class="col-6">
+												<div class="form-group mb-3">
+													<label for="birthdate">Birthdate <small class="text-danger">*</small></label>
+													<input type="date" class="form-control" name="birthdate" id="birthdate">
+													<?php if (isset($errors['birthdate'])): ?>
+													<div class="text-danger">
+														<?=esc($errors['birthdate'])?>
+													</div>
+													<?php endif; ?>
+												</div>
+												</div>
+											</div>
+											<div class="row justify-content-left mb-3">
+												<div class="col-12">
+												<div class="form-group mb-3">
+													<label for="course" hi>Course <small class="text-danger">*</small></label>
+													<select class="form-control" name="course_id">
+														<option class="active" hidden>Select Course</option>
+														<?php if (!empty($courses)): ?>
+														<?php foreach ($courses as $course): ?>
+															<option value="<?=esc($course['id'])?>"><?=esc($course['course'])?></option>
+														<?php endforeach; ?>
+														<?php endif; ?>     
+													</select>
+													<?php if (isset($errors['course_id'])): ?>
+													<div class="text-danger">
+														<?=esc($errors['course_id'])?>
+													</div>
+													<?php endif; ?>
+												</div>
+											</div>
+										
+										<!-- third row -->
+										<div class="row">
+											<div class="col-12">
+											<button type="submit" class="float-end btn btn-primary">Submit</button>
+											</div>
 										</div>
-									<?php endif; ?>
+										
+										</form>
+									
 								</div>
-								<input type="submit" class="btnRegister"  value="Register"/>
+							</div>
 						</div>
-        	</div>
-				</form>
+						
+					</div>
+				</section>
     	</div>
   	</div>
+	</div>
 	</div>
 
 <?= view('home/footer') ?>

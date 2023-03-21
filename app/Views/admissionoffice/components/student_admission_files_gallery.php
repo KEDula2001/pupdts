@@ -8,6 +8,11 @@
         </ol>
       </nav>
   </div>
+
+  <style>
+
+
+  </style>
   <div class="row">
     <div class="col-md-12">
       <div class="card">
@@ -44,10 +49,10 @@
                     </div>
                     </a>
                     <div align = "center">
-                    <?php if($documentstatus['sar_pupcet_result_status'] != "approve") :?>
+                    <?php if($documentstatus['sar_pupcet_result_status'] != 'approve') :?>
                     <select name="sar_pupcet_result_status" id="test" align = "center" class = "form-select-sm" <?= !empty($image_file_record['sar_pupcct_results_files']) ? '': 'disabled'?>>
                     <option selected disabled> Select Status</option>
-                    <option value = "approve " <?= empty($documentstatus['sar_pupcet_result_status']) ? '': 'selected'?> > Approve </option>
+                    <option value = "approve" <?= empty($documentstatus['sar_pupcet_result_status']) ? '': 'selected'?> > Approve </option>
                     <option value = "reject" <?= !empty($image_file_record['sar_pupcct_results_files']) ? '': 'selected'?>> Disapprove </option>
                     </select>
                     <?php if(empty($image_file_record['sar_pupcct_results_files'])):?>

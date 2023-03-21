@@ -1,4 +1,4 @@
-    <section class="content">
+<section class="content">
       <div class="card">
         <div class="card-body">
           <div class="row">
@@ -17,7 +17,7 @@
                   <form  action="claimed-requests/report" method="get">
                     <div class="row mb-3">
                       <div class="col-4">
-                        <label for="document" class="form-label">Document</label>
+                        <label for="document" class="form-label fw-bold">Document</label>
                         <select id="document" class="form-select" name="d">
                           <?php if (!empty($documents)): ?>
                             <?php foreach ($documents as $document): ?>
@@ -27,7 +27,7 @@
                         </select>
                       </div>
                       <div class="col-4">
-                        <label  for="type" class="form-label">Type</label>
+                        <label  for="type" class="form-label fw-bold">Type</label>
                         <select id="type" class="form-select" name="t">
                           <option value="yearly">Yearly</option>
                           <option value="monthly">Monthy</option>
@@ -35,7 +35,7 @@
                         </select>
                       </div>
                       <div class="col-4">
-                        <label for="argument" class="form-label"> # </label>
+                        <label for="argument" class="form-label fw-bold"> Date </label>
                         <input type="year" id="argument" class="form-control" name="a" required>
                       </div>
                     </div>
@@ -72,6 +72,7 @@
                 <table class="table table-striped table-bordered mt-3 dataTable" style="width:100%">
                   <thead>
                     <tr>
+                      <th>Student Number</th>
                       <th>Name</th>
                       <th>Course</th>
                       <th>Document</th>
@@ -84,26 +85,22 @@
                   <tbody>
                     <?php foreach ($request_details as $request_detail): ?>
                       <tr>
-                        <td style="text-transform: uppercase;"><?=ucwords(esc($request_detail['firstname']) . ' ' . esc($request_detail['lastname']) . ' ' . esc($request_detail['suffix']))?></td>
+                      <td><?= esc($request_detail['student_number']) ?></td>
+                      <td style="text-transform: uppercase;"><?= ucwords(esc($request_detail['firstname']) . ' ' . esc($request_detail['middlename']) . ' '. esc($request_detail['lastname']) . ' ' . esc($request['suffix'])) ?></td>
                         <td><?=ucwords(esc($request_detail['abbreviation']))?></td>
                         <td style="text-transform: uppercase;"><?=ucwords(esc($request_detail['document']))?></td>
                         <td style="text-transform: uppercase;"><?=ucwords(esc($request_detail['reason']))?></td>
                         <td><?=date('M d, y - H:i A', strtotime(esc($request_detail['confirmed_at'])))?></td>
                         <td><?=date('M d, y - H:i A', strtotime(esc($request_detail['printed_at'])))?></td>
                         <td>
-                          3 days
-                          <!-- <?php $date1 = strtotime(esc($request_detail['confirmed_at'])) ?>
-                          <?php $date2 = strtotime(esc($request_detail['printed_at'])) ?>
-                          <?php
-                            $diff = abs($date2 - $date1);
-                            $years = floor($diff / (365*60*60*24));
-                            $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
-                            $days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
-                            $hours = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24 - $days*60*60*24) / (60*60));
-                            $minutes = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24 - $days*60*60*24 - $hours*60*60)/ 60);
-                            $seconds = floor(($diff - $years * 365*60*60*24  - $months*30*60*60*24 - $days*60*60*24 - $hours*60*60 - $minutes*60));
+                        <?php $date1 = strtotime(esc($request_detail['confirmed_at'])) ?>                           
+                        <?php $date2 = strtotime(esc($request_detail['printed_at'])) ?>                           
+                        <?php $diff = abs($date2 - $date1);                             
+                              $years = floor($diff / (365*60*60*24));                            
+                              $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));                            
+                              $days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60));
                           ?>
-                          <?php printf("%d days",$days)?> -->
+                          <?php printf("%d days, %d hours, ". "%d minutes",$days, $hours, $minutes)?>
                         </td>
                       </tr>
                     <?php endforeach; ?>
@@ -117,3 +114,4 @@
     </section>
   </div>
 </div>
+s

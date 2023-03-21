@@ -5,7 +5,7 @@
             <table id="admin-payment-table" class="table table-striped table-bordered dataTables" style="width:100%">
               <thead>
                 <tr>
-                  <th>id</th>
+                  <th>Request code</th>
                   <th>Name</th>
                   <th>Status</th>
                   <th>Course</th>
@@ -19,8 +19,8 @@
                 <?php if (!empty($requests)): ?>
                   <?php foreach ($requests as $request): ?>
                     <tr class="active-row">
-                      <td><?=esc($request['id'])?></td>
-                      <!-- <td><input  id="row" type="checkbox"></td> -->
+                      <td><?=esc($request['slug'])?></td>
+                      
                       <td style="text-transform: uppercase;"><?= ucwords(esc($request['firstname']) . ' ' . esc($request['lastname']) . ' ' . esc($request['suffix'])) ?></td>
                       <td><?= ucwords(esc($request['student_status'])) ?></td>
                       <td><?=esc($request['abbreviation'])?></td>
@@ -36,7 +36,7 @@
                       </td>
                       <td><?= date('F d, Y - H:i A', strtotime(esc($request['approved_at']))) ?></td>
                       <td>
-                        <button onClick="acceptRequest(<?=esc($request['id'])?>, '<?=esc($request['student_number'])?>')" class="btn btn-reject btn-success btn-sm"> Start Processing </button>
+                        <button onClick="acceptRequest(<?=esc($request['id'])?>, '<?=esc($request['student_number'])?>', '<?=esc($request['slug'])?>')" class="btn btn-success btn-sm"> Start Processing </button>
                       </td>
                     </tr>
                   <?php endforeach; ?>

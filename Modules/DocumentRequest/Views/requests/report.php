@@ -3,7 +3,7 @@
 <strong>Date:</strong> <?php echo  date("m/d/Y") ?> <strong>Time:</strong> <?php echo date("h:i:sa")?><br><br>
 <h3>Total: <?=esc(count($documents))?></h3>
 <br>
-<h3><?=esc($document)?> -  (<?=esc(ucwords($types['t']))?> | <?=date('F', mktime(0, 0, 0, (int)esc($types['a']), 10));?>)</h3>
+<h3><?=esc($document)?> -  (<?=esc(ucwords($types['t']))?> | <?=esc(ucwords($types['a']))?> )</h3>
 <table cellspacing="0" cellpadding="5" border="1">
   <tr style="text-align: center;">
     <td width="5%"> <b>#</b> </td>
@@ -24,10 +24,16 @@
     <?php foreach ($documents as $document): ?>
       <tr style="text-align: center;">
         <td> <?=$ctr?> </td>
-        <td style="text-transform: uppercase;"> <?=ucwords(esc($document['firstname']). ' ' . esc($document['lastname']) . ' ' . esc($document['suffix']))?> </td>
+        <td>
+            <?php if (!empty($document['middlename'])): ?>                 
+              <?=strtoupper(ucwords($document['lastname'].', ')) ?><?=esc($document['firstname'].' ')?><?=esc($document['middlename'])?>                 
+              <?php else: ?>                 
+                <?=strtoupper(ucwords($document['lastname'].', '))?><?=esc($document['firstname'].' ')?>               
+                <?php endif ?>         
+        </td>
         <td> <?=ucwords($document['student_status'])?> </td>
         <td> <?=$document['year_graduated'] != null ? $document['year_graduated'] : 'N/A'?> </td>
-        <td> <?=$document['abbreviation'] . ' ' . $document['level']?> </td>
+        <td> <?=$document['abbreviation']?> </td>
         <td> <?=date('M d, Y', strtotime(esc($document['confirmed_at'])))?> </td>
         <td> <?=date('M d, Y', strtotime(esc($document['printed_at'])))?> </td>
         <td>

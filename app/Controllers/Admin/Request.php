@@ -70,7 +70,7 @@ class Request extends BaseController
 			$this->email->setTo($student[0]['email']);
 			$this->email->setSubject('Document Request Update');
 			$this->email->setFrom('ODRS', 'PUP');
-			$this->email->setMessage('Your ' . $index[5] . ' is ready to claim!');
+			$this->email->setMessage('Good day! <br> Your ' . $index[5] . ' is ready to be claim! Claim within 90 working days or it will be fofeited. <br>Thank you! <br><br><br><br> Regards, <br>PUPT OCT-DRS');
 			$this->email->send();
     }
 		return $this->process();

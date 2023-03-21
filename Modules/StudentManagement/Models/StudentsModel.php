@@ -84,7 +84,7 @@ class StudentsModel extends BaseModel
 
   public function insertStudent($data)
   {
-    // die(print_r($data));
+    
     $this->transBegin();
 
       $user = new UsersModel();
@@ -96,6 +96,7 @@ class StudentsModel extends BaseModel
         'email' => $data['email'],
         'role_id' => 4
       ];
+      // die(print_r($userData));
       // insert to user table
       $user->insert($userData);
       $id = $user->getInsertID();
@@ -104,7 +105,11 @@ class StudentsModel extends BaseModel
       // insert to student table
       $this->insert($data);
 
+      // die(print_r($data));
+      
+
       $student = new Students();
+      // die("here");
       if($student->sendPassword($data['student_number'], $password, $data['email']))
       {
         $this->transCommit();

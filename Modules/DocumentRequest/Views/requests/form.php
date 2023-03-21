@@ -443,7 +443,7 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="alert alert-primary" role="alert">
-                  <i class="fas fa-exclamation-circle"></i> After submitting your request, please wait for an email to be sent to you for the confirmation of your request before proceeding to the PUP Taguig Accounting Office.
+                  <i class="fas fa-exclamation-circle"></i> After submitting your request, please wait for an email to be sent to you for the confirmation of your General Clearance before proceeding to the PUP Taguig Accounting Office.
                 </div>
               </div>
             </div>

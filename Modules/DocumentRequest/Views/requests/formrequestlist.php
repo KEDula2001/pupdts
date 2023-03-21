@@ -25,7 +25,16 @@
                   <td><?=esc($request['abbreviation'])?></td>
                   <td><?=esc($request['school'])?></td>
                   <td><?=esc($request['address'])?></td>
-                  <td><?=esc($request['remarks'])?></td>
+                  <td>
+                    <?php if (esc($request['remarks']) == '1'): ?>                               
+                      1st Request                             
+                      <?php elseif(esc($request['remarks']) == '2'): ?>                               
+                        2nd Request                             
+                        <?php elseif(esc($request['remarks']) == '3'): ?>                              
+                           3rd Request                             
+                           <?php elseif(esc($request['remarks']) == '4'): ?>                               
+                            4th Request
+                            <?php endif; ?>
                   <td>
                     <?php if (esc($request['status']) == 'w'): ?>
                       Waiting for Approval

@@ -16,7 +16,7 @@
                       <a href="<?php echo base_url('studentadmission/admission-gallery/'.$_SESSION['user_id']); ?>" class="btn" disabled>Credentials Gallery</a>
                     </td>
                     <td>
-                      <a href="<?php echo base_url('studentadmission/view-admission-history/'.$_SESSION['user_id']); ?>" class="btn" disabled> Admission History</a>
+                      <a href="<?php echo base_url('studentadmission/view-admission-history/'.$_SESSION['user_id']); ?>" class="btn" disabled> Credentials Record</a>
                     </td>
                     <td>
                       <a href="/requests/new" class="btn"><i class="fas fa-plus"></i> Request document here</a>
@@ -50,7 +50,7 @@
             <?php if ($studentadmission_details['admission_status'] == 'rechecking'): ?>
               <div class="card alert alert-warning d-flex align-items-center" role="alert">
                 <div>
-                  Your Documents is being process for rechecking.... 
+                  Your Documents is being processed for rechecking.... 
                 </div>
               </div>
             <?php endif ?>

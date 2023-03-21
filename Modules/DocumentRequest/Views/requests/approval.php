@@ -14,7 +14,9 @@
             <div class="card m-2">
                 <div class="card-body">
                     <div class="row">
+                    <?php if(session()->get('office') != 'HAP' && session()->get('office') != 'Student Services'):?>
                         <div class="table-responsive">
+                            
                             <table class="table table-striped table-bordered mt-3 dataTable">
                                 <thead>
                                     <tr>
@@ -33,7 +35,7 @@
                                 <tbody>
                                     <?php foreach($requests as $request):?>
                                         <tr>
-                                            <td><?= $request['fullname'] ?></td>
+                                            <td><td><?=esc(ucwords($request['firstname'].'  ')) ?><?=esc($request['lastname'])?></td>
                                             <th><?= $request['slug'] ?></th>
                                             <td><?= $request['created_at'] ?></td>
                                             <th class="text-center">
@@ -177,7 +179,14 @@
                             </table>
                         </div>
                     </div>
+                    <?php endif;?>
                 </div>
+                <?php if(session()->get('office') == 'HAP' || session()->get('office') == 'Student Services'): ?>
+                    <h4>Current Function</h4>   
+                    <a href="<?php echo base_url('document-requests'); ?>" class="btn btn-primary">Good Moral Requests</a>
+
+                                
+                        <?php endif;?>
             </div>
         </div>
     </div>

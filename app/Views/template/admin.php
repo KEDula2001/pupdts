@@ -1,4 +1,5 @@
 <div id="header" class="container-fluid">
+  
   <div class="row">
     <div class="col">
       <img src="<?=base_url()?>/img/pupt-logo.png" alt="">
@@ -11,7 +12,7 @@
           <i class="fas fa-file"></i> Form 137 Requests
         </a> -->
         <a class="btn completerqt btn-light btn-sm" href="<?=base_url('admission')?>">
-          <i class="fas fa-file"></i>Admission Office
+          <i class="fas fa-file"></i> Admission Office
         </a>
         
 

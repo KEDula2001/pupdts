@@ -281,11 +281,13 @@ class AdmissionController extends BaseController
                 $this->data['value'] = $_POST;
 				
 			} else {
-
+			    
+				// die(print_r($_POST));
 				if($_POST['sar_pupcet_result_status'] == 'approve' && $_POST['f137_status'] == 'approve' && $_POST['g10_status'] == 'approve' &&
 					$_POST['g11_status'] == 'approve' && $_POST['g12_status'] == 'approve' &&  $_POST['psa_nso_status'] == 'approve' &&
 					$_POST['goodmoral_status'] == 'approve' && $_POST['medical_cert_status'] == 'approve' && $_POST['pictwobytwo_status'] == 'approve'){
 
+					
 					$admissionStatusData = [
 						'sar_pupcet_result_status' => ['SAR Form/PUPCET/CAEPUP Result',$_POST['sar_pupcet_result_status']],
 						'f137_status' => ['Form 137',$_POST['f137_status']],
@@ -328,9 +330,11 @@ class AdmissionController extends BaseController
 				
 				}
 
+				// die(print_r($_POST));
 				// die(print_r($admissionStatusData));
-
+				
 				if($model->__updateAdmissionDocument($id, $admissionStatusData)){
+					// die($admissionStatusData['upload_status']);
 					if($admissionStatusData['upload_status'] == 'complete'){
 						$this->session->setFlashData('success', 'Email sent successfully!');
 						return redirect()->to(base_url('admission'));
@@ -1363,6 +1367,7 @@ class AdmissionController extends BaseController
 				'submit_original_goodmoral' => (!empty($_POST['submit_original_goodmoral']) ? $_POST['submit_original_goodmoral'] : null),
 				'submit_original_medcert' => (!empty($_POST['submit_original_medcert']) ? $_POST['submit_original_medcert'] : null),
 				'submit_twobytwo' => (!empty($_POST['submit_twobytwo']) ? $_POST['submit_twobytwo'] : null),
+				'submit_photocopy_coc' => (!empty($_POST['submit_photocopy_coc']) ? $_POST['submit_photocopy_coc'] : null),
 				// 'not_submitted_sarform' => (!empty($_POST['not_submitted_sarform']) ? $_POST['not_submitted_sarform'] : null),
 				// 'not_submitted_f137' => (!empty($_POST['not_submitted_f137']) ? $_POST['not_submitted_f137'] : null),
 				// 'not_submitted_grade10' => (!empty($_POST['not_submitted_grade10']) ? $_POST['not_submitted_grade10'] : null),
@@ -1371,7 +1376,7 @@ class AdmissionController extends BaseController
 				// 'not_submitted_psa' => (!empty($_POST['not_submitted_psa']) ? $_POST['not_submitted_psa'] : null),
 				// 'not_submitted_goodmoral' => (!empty($_POST['not_submitted_goodmoral']) ? $_POST['not_submitted_goodmoral'] : null),
 				// 'not_submitted_medcert' => (!empty($_POST['not_submitted_medcert']) ? $_POST['not_submitted_medcert'] : null),
-				'certificate_of_completion' => (!empty($_POST['certificate_of_completion']) ? $_POST['certificate_of_completion'] : null),
+				
 			];
 			// die(print_r($data));
 			$res = $getrefmodel->updateSendLackingDocuments(
@@ -1412,7 +1417,7 @@ class AdmissionController extends BaseController
 				// 'not_submitted_psa' => (!empty($_POST['not_submitted_psa']) ? $_POST['not_submitted_psa'] : null),
 				// 'not_submitted_goodmoral' => (!empty($_POST['not_submitted_goodmoral']) ? $_POST['not_submitted_goodmoral'] : null),
 				// 'not_submitted_medcert' => (!empty($_POST['not_submitted_medcert']) ? $_POST['not_submitted_medcert'] : null),
-				'certificate_of_completion' => (!empty($_POST['certificate_of_completion']) ? $_POST['certificate_of_completion'] : null),
+				'submit_photocopy_coc' => (!empty($_POST['submit_photocopy_coc']) ? $_POST['submit_photocopy_coc'] : null),
 			];
 			$res = $getrefmodel->insertSendLackingDocuments(
 				$id, 

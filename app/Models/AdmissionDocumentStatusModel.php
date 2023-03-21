@@ -39,7 +39,8 @@ class AdmissionDocumentStatusModel extends Model
 			'upload_status' => $data['upload_status'],
 		];
 		
-		// die(print_r($insert_data));
+		
+		// die(print_r($student_data));
 		$student = new Students();
 		$studentModel = new StudentsModel();
 		$user = $studentModel->getStudentDetailsByUserId($id)[0];
@@ -53,6 +54,7 @@ class AdmissionDocumentStatusModel extends Model
 			$user['email'], 
 			$insert_data
 )) {
+
 	        $this->transCommit();
 			$this->set($student_data);
 			$this->where('studID', $id);

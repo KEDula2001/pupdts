@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers;
+use App\Models\CourseModel;
 
 class Home extends BaseController
 {
@@ -85,27 +86,54 @@ class Home extends BaseController
 	}
 
 	public function signUp(){
-		$data['courses'] = $this->course->get();
+		$data['courses'] = $this->courseModel->get();
 		$data['errors'] = $this->validation->getErrors();
 		return view('home/register', $data);
 	}
 
 	public function register(){
-		if (!$this->validate('register')) {
-			$data['courses'] = $this->course->get();
-			$data['errors'] = $this->validation->getErrors();
-			return view('home/register', $data);
-		} else {
-			$_POST['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
-			$_POST['student_number'] = $_POST['username'];
-			$_POST['token'] = md5(date("Y-m-d h:i:sa") . $_POST['student_number']);
-			$_POST['user_id'] = $this->user->input($_POST, 'id');
+		helper(["form"]);
+		// die(print_r($_POST));
+		if (!$this->validate([
+            'student_number' => 'required|exact_length[15]|alpha_dash|regex_match[/[0-9]{4}-[0-9]{5}-TG-0/]|is_unique[students.student_number,id]',
+			'firstname' => 'required',
+			'lastname' => 'required',
+			'birthdate' => 'required',
+			'middlename' => 'required',
+			'email' => 'required|valid_email|is_unique[users.email,id]',
+			'course_id' => 'required'
+        ])) {
 
-			if ($this->student->input($_POST)) {
-				return redirect()->to(base_url());
-			} else {
-				die('Error in Creating Account');
-			}
+			$getcourses = new CourseModel;
+
+           
+            return view('home/register', [
+                'errors' => $this->validator->getErrors(),
+                'courses' => $getcourses->__getStudentCourse()
+            ]);
+        	
+	
+        }
+	
+		$data = [
+			'student_number' => $_POST['student_number'],
+			'firstname'  => $_POST['firstname'],
+			'lastname'  => $_POST['lastname'],
+			'middlename'  => $_POST['middlename'],
+			'birthdate'  => $_POST['birthdate'],
+			'email' => $_POST['email'],
+			'course_id' => $_POST['course_id']
+		];
+		$res = $this->studentModel->insertStudent($data);
+
+		if ($res) {
+			$this->session->setFlashData('success', 'Successfully Registered');
+			return redirect()->to('/');
+			// die("true");
+		}else{
+			$this->session->setFlashData('error', 'Something went wrong');
+			return redirect()->to('/signup');
+			// die("false");
 		}
 	}
 

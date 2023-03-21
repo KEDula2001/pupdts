@@ -371,11 +371,24 @@ function receiveForm(id, student_number)
   });
 }
 
-function acceptRequest(id, student_number)
+function acceptRequest(id, student_number, $receipt_code)
 {
   Swal.fire({
     title: 'Are you sure?',
     text: "The request will now be marked to be processed!",
+    input: 'text',
+    inputValidator: (value) => {
+      if (!value) {
+        return 'Please enter the Receipt Code';
+      }
+      // Regular expression to match only numbers with a length of 10 or fewer digits
+      const regex = /^\d{0,10}$/;
+      if (!regex.test(value)) {
+        return 'Please enter a valid Receipt Code';
+      }
+      return null;
+    },
+    html: `The request will now be marked to be processed! <br> Please enter the <strong>`+`Receipt Code:</strong>`,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonText: 'Yes'
@@ -386,9 +399,11 @@ function acceptRequest(id, student_number)
         url: 'paid/accept-request',
         data: {
           'id' : id,
-          'student_number' : student_number
+          'student_number' : student_number,
+          'receipt_code' : result.value // Use the result.value property to get the data entered by the user
         },
         beforeSend: function(){
+          console.log();
           showLoading();
         },
         success: function(response){
@@ -414,6 +429,9 @@ function acceptRequest(id, student_number)
     }
   });
 }
+
+
+
 
 function denyRequest(id, student_number)
 {
@@ -637,14 +655,19 @@ var processedTable = $('#processed-table').DataTable({
     }
 });
 
+
+
+
 async function printRequest(id, per_page, template, email)
 {
+
   if(template == null && per_page == 0){
     Swal.fire({
       icon: 'warning',
       title: 'This request will mark as printed.',
       showCancelButton: true,
-      html: `<label for='printed_at' class='form-label'>Date Printed</label><input type='datetime-local' id='printed_at' class='form-control'><br>You will not be able to undo the action`,
+      html: `<label for='printed_at' class='form-label'>Date Printed</label><input type='datetime-local' id='printed_at' class='form-control'>
+      <br>You will not be able to undo the action`,
       confirmButtonText: `Confirm`,
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
@@ -683,7 +706,52 @@ async function printRequest(id, per_page, template, email)
       }
     })
   } else {
-    if (template != null && per_page == 0) {
+    if (template != null || template == 'steno' && per_page == 0 ) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'This request will now be marked as printed.',
+        showCancelButton: true,
+        html: `<label for='printed_at' class='form-label'>Date Printed</label><input type='datetime-local' id='printed_at' class='form-control'><br> You will not be able to undo the action <br><small>(This document has a template)</small> <br><a href='`+server+`/document-requests/`+template+`/`+id+`' target="_blank">CLICK HERE TO DOWNLOAD</a>`,
+        confirmButtonText: `Confirm`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          $.ajax({
+            type: "POST",
+            data: {
+              'id': id,
+              'email': email,
+              'printed_at': $('#printed_at').val()
+            },
+            url: "on-process-document/print-requests",
+            beforeSend: function(){
+              Swal.close()
+              showLoading();
+            },
+            success: function(html){
+              console.log(html)
+              Swal.close();
+              Swal.fire({
+                'icon': 'success',
+                'title' : 'Successfully marked as printed',
+              }).then(function(){
+                location.reload()
+              })
+            },
+            error: function (request, error) {
+              swal.close()
+              Swal.fire({
+                icon: 'error',
+                title: 'Something went wrong!'
+              }).then(function(){
+                location.reload()
+              })
+            },
+          });
+        }
+      })
+    }
+    else if (template != null && per_page == 0 ) {
       Swal.fire({
         icon: 'warning',
         title: 'This request will now be marked as printed.',
