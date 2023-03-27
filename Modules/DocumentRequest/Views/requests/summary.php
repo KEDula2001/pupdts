@@ -1,7 +1,7 @@
 <br>
 <h1>Summary Report</h1>
 <br>
-<h2><?=esc($document)?> -  (<?=esc(ucwords($types['t']))?> | <?=date('F', mktime(0, 0, 0, (int)esc($types['a']), 10));?>)</h2>
+<h3><?=esc($document)?> -  (<?=esc(ucwords($types['t']))?> | <?=esc(ucwords($types['a']))?> )</h3>
 <table cellspacing="0" cellpadding="5" border="1">
   <tr style="text-align: center;">
     <td width="20%"> <b># of Students</b> </td>

@@ -1,0 +1,296 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap");
+body {
+  background: #eeeeee !important;
+  margin: 0;
+  font-family: "Raleway", sans-serif;
+  color: #2e2e2e;
+  padding-left: 240px;
+  /* Track */
+  /* Handle */
+  /* Handle on hover */
+}
+
+body footer {
+  color: #2e2e2e;
+}
+
+body footer img {
+  width: 3%;
+}
+
+body nav.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 99999;
+}
+
+body .navbar {
+  padding: 12px;
+  background: #800000 !important;
+  color: white !important;
+  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+body .navbar i {
+  padding-right: 10px;
+}
+
+body .navbar a {
+  text-align: right;
+ 
+}
+
+body .navbar .logout {
+  font-size: 1em;
+}
+
+body .navbar .logout li i {
+  padding-left: 50px;
+}
+
+body .navbar .logout li a {
+  color: #fff;
+}
+
+body .navbar .logout li a.dropdown-item:active {
+  background: #a80b0b;
+  color: white;
+}
+
+body .navbar .logout li ul {
+  border-radius: 3px;
+}
+
+body .navbar .logout li ul a {
+  color: #2e2e2e;
+}
+
+body main {
+  position: relative;
+  height: 100vh;
+}
+
+body .menu {
+  background: #f0f0f0;
+  -webkit-box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  height: 100vh;
+  width: 240px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  outline: none;
+  overflow: auto;
+}
+
+body .menu .sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 99999;
+}
+
+body .menu .avatar {
+  background-color: #800000;
+  border-bottom: #DAA520 3px solid;
+  padding: 20px;
+  color: #fff;
+  text-align: center;
+}
+
+body .menu .avatar img {
+  width: 30%;
+  padding-bottom: 10px;
+}
+
+body .menu ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+body .menu ul .header-menu {
+  padding-top: 1.5em;
+  color: #2e2e2e;
+  font-weight: bolder;
+  border-bottom: 0.05px solid #dddddd;
+}
+
+body .menu ul .header-menu:hover {
+  text-decoration: none;
+  background-color: #f0f0f0;
+  cursor: default;
+}
+
+body .menu ul li {
+  padding: 0.5em 1em;
+  font-size: 0.95em;
+  font-weight: regular;
+  background-repeat: no-repeat;
+  background-position: left 15px center;
+  background-size: auto 20px;
+  -webkit-transition: all 0.15s linear;
+  transition: all 0.15s linear;
+  cursor: pointer;
+}
+
+body .menu ul li:focus {
+  outline: none;
+}
+
+body .menu ul li a {
+  text-decoration: none;
+  color: #800000;
+}
+
+body .menu ul li a i {
+  margin-right: 10px;
+  font-size: normal;
+  width: 30px;
+  height: 30px;
+  background-color: #c9c9c9;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 4px;
+}
+
+body .menu ul .active, body .menu ul li:hover {
+  background-color: #c9c9c9;
+}
+
+body .menu ul .active a, body .menu ul li:hover a {
+  color: #2e2e2e;
+}
+
+body .menu ul .active i, body .menu ul li:hover i {
+  background-color: #800000;
+  color: #e7e7e7;
+}
+
+body ::-webkit-scrollbar {
+  width: .01em;
+}
+
+body ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+body ::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+body ::-webkit-scrollbar-thumb:hover {
+  background: transparent;
+}
+
+body section .header-top {
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+body section .header-top .btn-upload {
+  color: white !important;
+  background-color: maroon !important;
+}
+
+body section .header-top button {
+  color: #800000;
+}
+
+body section .header-top button:hover {
+  color: #a07407;
+}
+
+body section .header-top button.active {
+  background-color: #800000 !important;
+}
+
+body section .header-top .card {
+  max-width: 98%;
+  margin: auto;
+}
+
+body section .header-top .card .breadcrumb i {
+  color: maroon;
+}
+
+body section .header-top .card .btn-add {
+  background-color: #a51a1a;
+  border-radius: 2px;
+  color: #fff;
+  padding-left: 2em;
+  padding-right: 2em;
+}
+
+body section .header-top .card .btn-edit {
+  background: #002147;
+  border-radius: 2px;
+}
+
+body section .header-top .card .btn-delete {
+  background: #d80101;
+  border-radius: 2px;
+}
+
+body section .header-top .card .btn-restore {
+  background: #3b6e00;
+  border-radius: 2px;
+}
+
+body section .header-top .card .table {
+  font-size: 0.9em;
+  font-family: sans-serif;
+  -webkit-box-shadow: 0 0 20px #00000026;
+          box-shadow: 0 0 20px #00000026;
+}
+
+body section .header-top .card .table thead tr {
+  background-color: #a51a1a;
+  color: #ffffff;
+  text-align: left;
+}
+
+body section .header-top .card .table th, body section .header-top .card .table td {
+  padding: 12px 15px;
+}
+
+body section .header-top .card .table tbody {
+  font-size: .9em;
+}
+
+body section .header-top .card .table tbody tr {
+  border-bottom: 1px solid #dddddd;
+  color: black !important;
+}
+
+body #dashboard .card.activity-log {
+  border-top: 0.35em solid #484892;
+}
+
+body #dashboard .card.chart {
+  border-top: 0.35em solid #803300;
+}
+
+body #dashboard .card.setup {
+  border-left: 0.35em solid #da0000 !important;
+}
+
+body #dashboard .card.registered {
+  border-left: 0.35em solid green !important;
+}
+
+body #dashboard .chart-bar {
+  position: relative;
+  height: 10rem;
+  width: 100%;
+  color: #965252;
+}
+
+@media (min-width: 768px) {
+  body #dashboard .chart-bar {
+    height: 20rem;
+  }
+}
+/*# sourceMappingURL=style.css.map */

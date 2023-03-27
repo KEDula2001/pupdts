@@ -90,15 +90,16 @@
                           <tr>
                             <td><?= esc(esc($request['created_at'])) ?></td>
                             <td><?= esc(esc($request['school'])) ?></td>
-                            <?php if (esc($request['status']) == 'w'): ?>                               
-                              Waiting for Approval                             
-                              <?php elseif(esc($request['status']) == 'o'): ?>
-                                On Process                             
-                                <?php else: ?>                               
-                                  Completed                             
-                                  <?php endif; ?>                           
-                                </td>
-                                <td>
+                            <td>
+                                <?php if (esc($request['status']) == 'w'): ?>                               
+                                  Waiting for Approval                             
+                                  <?php elseif(esc($request['status']) == 'o'): ?>
+                                    On Process                             
+                                    <?php else: ?>                               
+                                      Completed                             
+                                      <?php endif; ?>                           
+                            </td>
+                            <td>
                             <?php if (esc($request['remarks']) == '1'): ?>                       
                               1st Request                     
                               <?php elseif(esc($request['remarks']) == '2'): ?>                      
@@ -117,7 +118,7 @@
                           </tr>
                         <?php endforeach; ?>
                         <?php else: ?>
-                          <td colspan="5" class="text-center">You don't have active request</td>
+                          <td colspan="5" class="text-center">You don't have any active request/s</td>
                       <?php endif; ?>
                     </tbody>
                   </table>

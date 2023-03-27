@@ -1,0 +1,60 @@
+[23-Nov-2021 07:18:05 UTC] PHP Fatal error:  Uncaught TypeError: Argument 1 passed to CodeIgniter\HTTP\URI::setScheme() must be of the type string, null given, called in /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/IncomingRequest.php on line 617 and defined in /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/URI.php:682
+Stack trace:
+#0 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/IncomingRequest.php(617): CodeIgniter\HTTP\URI->setScheme(NULL)
+#1 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/IncomingRequest.php(160): CodeIgniter\HTTP\IncomingRequest->detectURI('REQUEST_URI', 'rodras.puptagui...')
+#2 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/Config/Services.php(567): CodeIgniter\HTTP\IncomingRequest->__construct(Object(Config\App), Object(CodeIgniter\HTTP\URI), '', Object(CodeIgniter\HTTP\UserAgent))
+#3 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/Config/BaseService.php(100): CodeIgniter\Config\Services::re in /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/URI.php on line 682
+[23-Nov-2021 07:18:40 UTC] PHP Fatal error:  Uncaught TypeError: Argument 1 passed to CodeIgniter\HTTP\URI::setScheme() must be of the type string, null given, called in /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/IncomingRequest.php on line 617 and defined in /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/URI.php:682
+Stack trace:
+#0 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/IncomingRequest.php(617): CodeIgniter\HTTP\URI->setScheme(NULL)
+#1 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/IncomingRequest.php(160): CodeIgniter\HTTP\IncomingRequest->detectURI('REQUEST_URI', 'rodras.puptagui...')
+#2 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/Config/Services.php(567): CodeIgniter\HTTP\IncomingRequest->__construct(Object(Config\App), Object(CodeIgniter\HTTP\URI), '', Object(CodeIgniter\HTTP\UserAgent))
+#3 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/Config/BaseService.php(100): CodeIgniter\Config\Services::re in /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/URI.php on line 682
+[23-Nov-2021 07:18:42 UTC] PHP Fatal error:  Uncaught TypeError: Argument 1 passed to CodeIgniter\HTTP\URI::setScheme() must be of the type string, null given, called in /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/IncomingRequest.php on line 617 and defined in /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/URI.php:682
+Stack trace:
+#0 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/IncomingRequest.php(617): CodeIgniter\HTTP\URI->setScheme(NULL)
+#1 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/IncomingRequest.php(160): CodeIgniter\HTTP\IncomingRequest->detectURI('REQUEST_URI', 'rodras.puptagui...')
+#2 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/Config/Services.php(567): CodeIgniter\HTTP\IncomingRequest->__construct(Object(Config\App), Object(CodeIgniter\HTTP\URI), '', Object(CodeIgniter\HTTP\UserAgent))
+#3 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/Config/BaseService.php(100): CodeIgniter\Config\Services::re in /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/URI.php on line 682
+[23-Nov-2021 07:26:31 UTC] PHP Fatal error:  Uncaught TypeError: Argument 1 passed to CodeIgniter\HTTP\URI::setScheme() must be of the type string, null given, called in /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/IncomingRequest.php on line 617 and defined in /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/URI.php:682
+Stack trace:
+#0 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/IncomingRequest.php(617): CodeIgniter\HTTP\URI->setScheme(NULL)
+#1 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/IncomingRequest.php(160): CodeIgniter\HTTP\IncomingRequest->detectURI('REQUEST_URI', 'rodras.puptagui...')
+#2 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/Config/Services.php(567): CodeIgniter\HTTP\IncomingRequest->__construct(Object(Config\App), Object(CodeIgniter\HTTP\URI), '', Object(CodeIgniter\HTTP\UserAgent))
+#3 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/Config/BaseService.php(100): CodeIgniter\Config\Services::re in /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/URI.php on line 682
+[23-Nov-2021 07:27:40 UTC] PHP Fatal error:  Uncaught TypeError: Argument 1 passed to CodeIgniter\HTTP\URI::setScheme() must be of the type string, null given, called in /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/IncomingRequest.php on line 617 and defined in /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/URI.php:682
+Stack trace:
+#0 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/IncomingRequest.php(617): CodeIgniter\HTTP\URI->setScheme(NULL)
+#1 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/IncomingRequest.php(160): CodeIgniter\HTTP\IncomingRequest->detectURI('REQUEST_URI', 'rodras.puptagui...')
+#2 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/Config/Services.php(567): CodeIgniter\HTTP\IncomingRequest->__construct(Object(Config\App), Object(CodeIgniter\HTTP\URI), '', Object(CodeIgniter\HTTP\UserAgent))
+#3 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/Config/BaseService.php(100): CodeIgniter\Config\Services::re in /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/URI.php on line 682
+[23-Nov-2021 07:27:46 UTC] PHP Fatal error:  Uncaught TypeError: Argument 1 passed to CodeIgniter\HTTP\URI::setScheme() must be of the type string, null given, called in /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/IncomingRequest.php on line 617 and defined in /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/URI.php:682
+Stack trace:
+#0 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/IncomingRequest.php(617): CodeIgniter\HTTP\URI->setScheme(NULL)
+#1 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/IncomingRequest.php(160): CodeIgniter\HTTP\IncomingRequest->detectURI('REQUEST_URI', 'rodras.puptagui...')
+#2 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/Config/Services.php(567): CodeIgniter\HTTP\IncomingRequest->__construct(Object(Config\App), Object(CodeIgniter\HTTP\URI), '', Object(CodeIgniter\HTTP\UserAgent))
+#3 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/Config/BaseService.php(100): CodeIgniter\Config\Services::re in /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/URI.php on line 682
+[23-Nov-2021 07:27:53 UTC] PHP Fatal error:  Uncaught TypeError: Argument 1 passed to CodeIgniter\HTTP\URI::setScheme() must be of the type string, null given, called in /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/IncomingRequest.php on line 617 and defined in /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/URI.php:682
+Stack trace:
+#0 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/IncomingRequest.php(617): CodeIgniter\HTTP\URI->setScheme(NULL)
+#1 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/IncomingRequest.php(160): CodeIgniter\HTTP\IncomingRequest->detectURI('REQUEST_URI', 'rodras.puptagui...')
+#2 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/Config/Services.php(567): CodeIgniter\HTTP\IncomingRequest->__construct(Object(Config\App), Object(CodeIgniter\HTTP\URI), '', Object(CodeIgniter\HTTP\UserAgent))
+#3 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/Config/BaseService.php(100): CodeIgniter\Config\Services::re in /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/URI.php on line 682
+[23-Nov-2021 07:31:33 UTC] PHP Fatal error:  Uncaught TypeError: Argument 1 passed to CodeIgniter\HTTP\URI::setScheme() must be of the type string, null given, called in /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/IncomingRequest.php on line 617 and defined in /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/URI.php:682
+Stack trace:
+#0 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/IncomingRequest.php(617): CodeIgniter\HTTP\URI->setScheme(NULL)
+#1 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/IncomingRequest.php(160): CodeIgniter\HTTP\IncomingRequest->detectURI('REQUEST_URI', 'rodras.puptagui...')
+#2 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/Config/Services.php(567): CodeIgniter\HTTP\IncomingRequest->__construct(Object(Config\App), Object(CodeIgniter\HTTP\URI), '', Object(CodeIgniter\HTTP\UserAgent))
+#3 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/Config/BaseService.php(100): CodeIgniter\Config\Services::re in /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/URI.php on line 682
+[23-Nov-2021 07:39:00 UTC] PHP Fatal error:  Uncaught TypeError: Argument 1 passed to CodeIgniter\HTTP\URI::setScheme() must be of the type string, null given, called in /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/IncomingRequest.php on line 617 and defined in /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/URI.php:682
+Stack trace:
+#0 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/IncomingRequest.php(617): CodeIgniter\HTTP\URI->setScheme(NULL)
+#1 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/IncomingRequest.php(160): CodeIgniter\HTTP\IncomingRequest->detectURI('REQUEST_URI', 'rodras.puptagui...')
+#2 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/Config/Services.php(567): CodeIgniter\HTTP\IncomingRequest->__construct(Object(Config\App), Object(CodeIgniter\HTTP\URI), '', Object(CodeIgniter\HTTP\UserAgent))
+#3 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/Config/BaseService.php(100): CodeIgniter\Config\Services::re in /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/URI.php on line 682
+[23-Nov-2021 07:51:20 UTC] PHP Fatal error:  Uncaught TypeError: Argument 1 passed to CodeIgniter\HTTP\URI::setScheme() must be of the type string, null given, called in /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/IncomingRequest.php on line 617 and defined in /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/URI.php:682
+Stack trace:
+#0 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/IncomingRequest.php(617): CodeIgniter\HTTP\URI->setScheme(NULL)
+#1 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/IncomingRequest.php(160): CodeIgniter\HTTP\IncomingRequest->detectURI('REQUEST_URI', 'rodras.puptagui...')
+#2 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/Config/Services.php(567): CodeIgniter\HTTP\IncomingRequest->__construct(Object(Config\App), Object(CodeIgniter\HTTP\URI), '', Object(CodeIgniter\HTTP\UserAgent))
+#3 /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/Config/BaseService.php(100): CodeIgniter\Config\Services::re in /home/u877275727/domains/puptaguigcs.net/public_html/rodras/system/HTTP/URI.php on line 682

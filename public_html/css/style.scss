@@ -1,0 +1,54 @@
+@import "./variables";
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+body {
+    font-family: "Open Sans", sans-serif;
+    background-color: $bgColor;
+    font-size: 16px;
+    background-image: url("https://www.transparenttextures.com/patterns/asfalt-light.png");
+}
+
+.card {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    font-size: .95em;
+
+    &-body{
+        padding-top: 30px;
+        padding-bottom: 0!important;
+    }
+
+    form{
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .form-control {
+        border: 1px solid #d5dae2;
+        font-size: .9em;
+
+        &::placeholder {
+            color: #919aa3;
+        }
+    }
+
+    #footer-login{
+        font-size: .85em!important;
+    }
+
+    #login-button {
+        background-color: $maroonColor;
+        border-radius: 2px;
+        font-size: 17px;
+        color: #fff;
+        padding-left: 3em;
+        padding-right: 3em;
+        text-align: center;
+
+        &:hover {
+            border: 1px solid $maroonColor;
+            background-color: transparent;
+            color: $maroonColor;
+        }
+    }
+}

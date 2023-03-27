@@ -12,14 +12,14 @@
                     <li><a class="dropdown-item" href="<?php echo base_url('admission/report'); ?>">Dashboard Report</a></li>
                     <li><a class="dropdown-item" href="<?php echo base_url('admission/complete-report'); ?>">Complete Submission</a></li>
                     <li><a class="dropdown-item" href="<?php echo base_url('admission/incomplete-report'); ?>">Incomplete Submission</a></li> 
-                    <li><a class="dropdown-item" href="<?php echo base_url('admission/rechecking-report'); ?>">Rechecked Credentials</a></li>
+                    <li><a class="dropdown-item" href="<?php echo base_url('admission/rechecking-report'); ?>">Rechecking Credentials</a></li>
                     <li><a class="dropdown-item" href="<?php echo base_url('admission/retrieved-report'); ?>">Retrieved Credentials</a></li>
                     <li><a class="dropdown-item" href="<?php echo base_url('admission/completeupload-report'); ?>">Complete Uploads</a></li>                                        
                     <li><a class="dropdown-item" href="<?php echo base_url('admission/incompleteupload-report'); ?>">Incomplete Uploads</a></li>
                   </ul>                 
             </div>
             <div class="col-auto">
-            <a href="<?php echo base_url('admission/add-student-form'); ?>" class="btn btn-primary btn-lg active">Add Student</a>
+            <a href="<?php echo base_url('admission/add-student-form'); ?>" class="btn btn-primary btn-lcg active">Add Student</a>
             </div>
         </div>
   </div>
@@ -34,7 +34,7 @@
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
                           <div class="fw-bold text-success text-uppercase mb-1">
-                            Complete
+                            Complete Submission
                           </div>
                           <div class="h5 mb-0 fw-bold"><?php echo count($count_complete); ?></div>
                       </div>
@@ -55,7 +55,7 @@
                   <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
                           <div class="fw-bold text-danger text-uppercase mb-1">
-                            Incomplete
+                            Incomplete Submission
                           </div>
                           <div class="h5 mb-0 fw-bold text-gray-800"><?php echo count($count_incomplete); ?></div>
                       </div>
@@ -68,7 +68,7 @@
         </a>
       </div>
 
-      <!-- For Re-Checking -->
+      <!-- For Rechecking -->
       <div class="col-xl-2 col-md-6 mb-4">
         <a href="<?php echo base_url('/admission/request-rechecking'); ?>" style="text-decoration: none;">  
           <div class="card printed shadow h-100 py-2">
@@ -76,7 +76,7 @@
                   <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
                           <div class="fw-bold text-warning text-uppercase mb-1">
-                            For Re-checking  
+                            For Rechecking  
                           </div>
                           <div class="h5 mb-0 fw-bold"><?php echo count($count_recheck); ?></div>
                       </div>
@@ -106,7 +106,7 @@
                           </div>
                       </div>
                       <div class="col-auto">
-                          <i style="color: #0dcaf0! important;" class="fas fa-file-download fa-2x"></i>
+                          <i style="color: #AAFF00! important;" class="fas fa-hand-holding fa-2x"></i>
                       </div>
                   </div>
               </div>
@@ -183,7 +183,7 @@
                   <th>Course</th>
                   <th>Batch</th>
                   <th>Upload Status</th>
-                  <th>Status</th>
+                  <th>Submission Status</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -253,10 +253,10 @@
                         <td class="text-center">
                           <a href="" class="btn btn-edit text-dark btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop<?php echo $student['student_number']; ?>" data-toggle="tooltip" title="Edit Checklist"><i class="bi bi-pencil"></i></a>
                           <?php if ($res != NUll): ?>
-                            <a href="" class="btn text-dark btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop2<?php echo $student['student_number']; ?>" data-toggle="tooltip" title="Retrieve"><i class="fas fa-download"></i></a>
+                            <a href="" class="btn text-dark btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop2<?php echo $student['student_number']; ?>" data-toggle="tooltip" title="Record Retrieval"><i class="fas fa-download"></i></a>
                           
-                          <?php endif ?> 
-                          <a href="<?php echo base_url('admission/student-admission-file/'.$student['user_id']); ?>" class="btn btn-edit text-dark btn-sm" data-toggle="tooltip" title="View"><i class="fas fa-file-image"></i></a>                                
+                            <a href="<?php echo base_url('admission/student-admission-file/'.$student['user_id']); ?>" class="btn btn-edit text-dark btn-sm" data-toggle="tooltip" title="View Uploads"><i class="fas fa-file-image"></i></a>         
+                          <?php endif ?>                        
                         </td>
                       </tr>
 
@@ -293,7 +293,7 @@
                                           <input type="checkbox" value="1" id="sar_pupcct_resultID" name="sar_pupcct_resultID" <?php if(!empty($res['sar_pupcct_resultID'])){echo 'checked';} ?>>
                                           <label for="sar_pupcct_resultID">SAR Form/PUPCET/CAEPUP Result</label><br>
                                           <input type="checkbox" value="2" name="f137ID" <?php if(!empty($res['f137ID'])){echo 'checked';} ?>>
-                                          <label for="f137ID">F137</label><br>
+                                          <label for="f137ID">Form 137</label><br>
                                           <input type="checkbox" value="3" name="f138ID" <?php if(!empty($res['f138ID'])){echo 'checked';} ?>>
                                           <label for="f138ID">Grade 10 Card</label><br>
                                           <input type="checkbox" value="11" name="cert_dry_sealID" <?php if(!empty($res['cert_dry_sealID'])){echo 'checked';} ?>>
@@ -313,9 +313,9 @@
                                           <hr>
                                           <label>Other Documents:</label><br>
                                           <input type="checkbox" value="8" name="nc_non_enrollmentID" <?php if(!empty($res['nc_non_enrollmentID'])){echo 'checked';} ?>>
-                                          <label for="nc_non_enrollmentID">Notarized Cert of Non-enrollment</label><br> 
+                                          <label for="nc_non_enrollmentID">Notarized Certoficate of Non-enrollment</label><br> 
                                           <input type="checkbox" value="9" name="coc_hs_shsID" <?php if(!empty($res['coc_hs_shsID'])){echo 'checked';} ?>>
-                                          <label for="coc_hs_shsID">COC (HS/SHS)</label><br> 
+                                          <label for="coc_hs_shsID">Certificate of Completion (HS/SHS)</label><br> 
                                           <input type="checkbox" value="10" name="ac_pept_alsID" <?php if(!empty($res['ac_pept_alsID'])){echo 'checked';} ?>>
                                           <label for="ac_pept_alsID">Authenticated Copy PEPT/ALS<br></label><br> 
                                           <hr>
@@ -339,9 +339,9 @@
                                         <br>
                                        
                                       <select class="form-select" name="admission_status" required>
-                                          <option value="complete" <?php if ($res['admission_status'] == 'complete'){echo 'selected';} ?>>Complete</option>
-                                          <option value="incomplete" <?php if ($res['admission_status'] == 'incomplete'){echo 'selected';} ?>>Incomplete</option>
-                                          <option value="rechecking" <?php if ($res['admission_status'] == 'rechecking'){echo 'selected';} ?>>Rechecking</option>
+                                          <option value="complete" <?php if (isset($res['admission_status']) == 'complete'){echo 'selected';} ?>>Complete</option>
+                                          <option value="incomplete" <?php if (isset($res['admission_status']) == 'incomplete'){echo 'selected';} ?>>Incomplete</option>
+                                          <option value="rechecking" <?php if (isset($res['admission_status']) == 'rechecking'){echo 'selected';} ?>>Rechecking</option>
                                       </select>
                                      
                                       <br>
@@ -382,28 +382,28 @@
                                 <hr>
                                 <form action="<?php echo base_url('admission/retreived-admission-files/'.$student['user_id']); ?>" method="post" autocomplete="off">   
                                      
-                                <?php if($res['f137ID'] != 0):?>                         
+                                <?php if(isset($res['f137ID']) != 0):?>                         
                                     <input type="checkbox" value="2" name="f137ID" id="f137ID">
-                                    <label for="f137ID">F137</label> <br>
+                                    <label for="f137ID">Form 137</label> <br>
                                   <?php else:?>                       
                                     <input type="checkbox" value="2" name="f137ID" disabled>
-                                    <label for="f137ID">F137</label> <br>
+                                    <label for="f137ID">Form 137</label> <br>
                                   <?php endif;?> 
-                                  <?php if($res['f138ID'] != 0):?>                         
+                                  <?php if(isset($res['f138ID']) != 0):?>                         
                                     <input type="checkbox" value="3" name="f138ID">
                                     <label for="f138ID">Grade 10 Card</label> <br>
                                   <?php else:?>                       
                                     <input type="checkbox" value="3" name="f138ID" disabled>
                                     <label for="f138ID">Grade 10 Card</label> <br>
                                   <?php endif;?>    
-                                  <?php if($res['cert_dry_sealID'] != 0):?>                         
+                                  <?php if(isset($res['cert_dry_sealID']) != 0):?>                         
                                     <input type="checkbox" value="11" name="cert_dry_sealID">
                                     <label for="cert_dry_sealID">Grade 11 Card</label> <br>
                                   <?php else:?>                       
                                     <input type="checkbox" value="11" name="cert_dry_sealID" disabled>
                                     <label for="cert_dry_sealID">Grade 11 Card</label> <br>
                                   <?php endif;?>     
-                                  <?php if($res['cert_dry_sealID_twelve'] != 0):?>                         
+                                  <?php if(isset($res['cert_dry_sealID_twelve']) != 0):?>                         
                                     <input type="checkbox" value="12" name="cert_dry_sealID_twelve">
                                     <label for="cert_dry_sealID_twelve">Grade 12 Card</label> <br>
                                   <?php else:?>                       

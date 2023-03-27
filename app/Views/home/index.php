@@ -8,7 +8,7 @@
       
             <div class="card-body">
               <div class="text-center">
-                <h4 class="auth-title"><b>Log-In</b></h4>
+                <h4 class="auth-title"><b>Welcome</b></h4>
                 <p class="auth-subtitle mb-5" style="color: #800000">Log-in with the data sent to you via email.</p>
               </div>
               
@@ -49,7 +49,7 @@
                 </div>
               
                 <div class="text-center"><hr>
-                  <button type="submit" name="button" id="login-button" class="btn login-btn mb-4">Log-in</button>
+                  <button type="submit" name="button" id="login-button" class="btn login-btn mb-4">Login</button>
                   <?php if (isset($_SESSION['error_login'])): ?>
                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
                       <?=esc($_SESSION['error_login'])?>
@@ -60,7 +60,8 @@
                 
                 <!-- FORGOT PASSWORD -->
                 <small>
-                  Forgot your password? Click <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">here</a>.
+                  Forgot your password? Click <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">here</a>.<br>
+                  Register Account? Click <a href="signup">here</a>.
                     <!-- Button trigger modal -->
 
                   <!-- Modal -->

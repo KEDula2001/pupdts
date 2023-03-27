@@ -91,7 +91,7 @@
                   }elseif ($student['requirementsID'] == 12) {
                     echo 'Grade 12 Card';
                   }elseif ($student['requirementsID'] == 4) {
-                    echo 'PSA/NSO';
+                    echo 'PSA/NSO Birth Certificate';
                   }elseif ($student['requirementsID'] == 5) {
                     echo 'Certification of Good Moral';
                   }elseif ($student['requirementsID'] == 6) {

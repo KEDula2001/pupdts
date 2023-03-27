@@ -14,7 +14,7 @@
                   <li><a class="dropdown-item" href="<?php echo base_url('admission/report'); ?>">Dashboard Report</a></li>
                     <li><a class="dropdown-item" href="<?php echo base_url('admission/complete-report'); ?>">Complete Submission</a></li>
                     <li><a class="dropdown-item" href="<?php echo base_url('admission/incomplete-report'); ?>">Incomplete Submission</a></li> 
-                    <li><a class="dropdown-item" href="<?php echo base_url('admission/rechecking-report'); ?>">Rechecked Credentials</a></li>
+                    <li><a class="dropdown-item" href="<?php echo base_url('admission/rechecking-report'); ?>">Rechecking Credentials</a></li>
                     <li><a class="dropdown-item" href="<?php echo base_url('admission/retrieved-report'); ?>">Retrieved Credentials</a></li>
                     <li><a class="dropdown-item" href="<?php echo base_url('admission/completeupload-report'); ?>">Complete Uploads</a></li>                                        
                     <li><a class="dropdown-item" href="<?php echo base_url('admission/incompleteupload-report'); ?>">Incomplete Uploads</a></li>
@@ -143,7 +143,7 @@
                                           <input type="checkbox" value="12" name="cert_dry_sealID_twelve" <?php if(!empty($res['cert_dry_sealID_twelve'])){echo 'checked';} ?>>
                                           <label for="cert_dry_sealID_twelve">Grade 12 Card</label><br>
                                           <input type="checkbox" value="4" name="psa_nsoID" <?php if(!empty($res['psa_nsoID'])){echo 'checked';} ?>>
-                                          <label for="psa_nsoID">PSA/NSO</label><br>
+                                          <label for="psa_nsoID">PSA/NSO Birth Certificate</label><br>
                                           <input type="checkbox" value="5" name="good_moralID" <?php if(!empty($res['good_moralID'])){echo 'checked';} ?>>
                                           <label for="good_moralID">Certification of Good Moral</label><br>
                                           <input type="checkbox" value="6" name="medical_certID" <?php if(!empty($res['medical_certID'])){echo 'checked';} ?>>

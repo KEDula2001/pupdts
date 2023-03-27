@@ -23,7 +23,7 @@
                 <?php if (!empty($requests)): ?>
                   <?php foreach ($requests as $request): ?>
                     <tr class="active-row">
-                      <td><?=esc($request['id'])?></td>
+                      <td><?=esc($request['request_id'])?></td>
                       <td><?= esc($request['student_number']) ?></td>
                       
                       <td><?= esc($request['student_number']) ?></td>
@@ -35,7 +35,7 @@
                       <td>
                         <ul>
                           <?php foreach ($request_documents as $request_document): ?>
-                            <?php if (esc($request_document['request_id']) == esc($request['id'])): ?>
+                            <?php if (esc($request_document['request_id']) == esc($request['request_id'])): ?>
                               <li><?=' ( '  . esc($request_document['quantity']) . ' ) ' .esc($request_document['document']) ?></li>
                             <?php endif; ?>
                           <?php endforeach; ?>

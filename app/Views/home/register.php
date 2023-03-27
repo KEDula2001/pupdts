@@ -3,9 +3,9 @@
 	<div class="container-fluid register">
 		<div class="row">
 			<div class="col-md-12 register-right">
-				<div class="container-fluid text-center">
+				<div class="container-fluid text-center md-5 mt-5">
 					<img src="/pup.png" height = "70" alt=""/>
-					<h3 class="text-center fw-bolder">Admission Credentials Tracking and Document Request System </h3>
+					<h3 class="text-center fw-bolder">Online Credentials Tracking and Document Request System </h3>
 				</div>
 				<h3 class="text-center fw-bolder">Student Registration</h3>
 				
@@ -124,30 +124,34 @@
 												</div>
 											</div>
 											<div class="row justify-content-left mb-3">
-												<div class="col-12">
-												<div class="form-group mb-3">
-													<label for="course" hi>Course <small class="text-danger">*</small></label>
-													<select class="form-control" name="course_id">
-														<option class="active" hidden>Select Course</option>
-														<?php if (!empty($courses)): ?>
-														<?php foreach ($courses as $course): ?>
-															<option value="<?=esc($course['id'])?>"><?=esc($course['course'])?></option>
-														<?php endforeach; ?>
-														<?php endif; ?>     
-													</select>
-													<?php if (isset($errors['course_id'])): ?>
-													<div class="text-danger">
-														<?=esc($errors['course_id'])?>
-													</div>
-													<?php endif; ?>
-												</div>
-											</div>
+                                                <div class="col-12">
+                                                    <div class="form-group mb-3">
+                                                        <label for="course">Course <small class="text-danger">*</small></label>
+                                                        <select class="form-control" name="course_id" required>
+                                                            <option class="active" hidden>Select Course</option>
+                                                            <?php if (!empty($courses)): ?>
+                                                            <?php foreach ($courses as $course): ?>
+                                                                <option value="<?=esc($course['id'])?>"><?=esc($course['course'])?></option>
+                                                            <?php endforeach; ?>
+                                                            <?php endif; ?>     
+                                                        </select>
+                                                        <?php if (isset($errors['course_id'])): ?>
+                                                        <div class="text-danger">
+                                                            <?=esc($errors['course_id'])?>
+                                                        </div>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                </div>
+                                            </div>
 										
 										<!-- third row -->
 										<div class="row">
 											<div class="col-12">
+											 <a href="/" class="float-end btn btn-secondary">Go back</a>
 											<button type="submit" class="float-end btn btn-primary">Submit</button>
+											
 											</div>
+											
 										</div>
 										
 										</form>

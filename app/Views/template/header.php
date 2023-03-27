@@ -21,6 +21,8 @@
       <link rel="stylesheet" href="/css/admin/admin.css">
     <?php elseif($_SESSION['role'] == 'Admission'): ?>
       <link rel="stylesheet" href="/css/admin/admin.css">
+    <?php elseif($_SESSION['role'] == 'HapAndSSO'): ?>
+      <link rel="stylesheet" href="/css/admin/admin.css">
     <?php else: ?>
     <link rel="stylesheet" href="/css/student/student.css">
     <style type="text/css">
@@ -52,6 +54,8 @@
     <?php elseif($_SESSION['role'] == 'Admin'): ?>
       <?= view('template/admin') ?>
     <?php elseif($_SESSION['role'] == 'Admission'): ?>
+      <?= view('template/admin') ?>
+      <?php elseif($_SESSION['role'] == 'HapAndSSO'): ?>
       <?= view('template/admin') ?>
     <?php else: ?>
       <?= view('template/user')?>

@@ -1,0 +1,222 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+body{
+    font-size: 16px;
+    background: rgb(240, 240, 240);
+    footer{
+        img{width: 2%;}
+    }
+    // overflow-y: scroll!important;
+}
+
+#header{
+    font-family: 'Merriweather', serif;
+    background-color: maroon;
+    border-bottom: 5px solid goldenrod!important;
+    padding: .9em;
+    text-decoration: none;
+    color: white;
+    span{font-size: 1em;}
+    img{
+        width: 2em;
+        padding-right: .5em;
+    }
+    button{
+        padding-right: 1.5em;
+        padding-left: 1.5em;
+        &:hover{
+            background-color: rgb(218, 166, 166);
+            color: rgb(51, 51, 51);
+            i{color: rgb(22, 14, 1)!important;}
+        }
+    }
+    .report{
+        margin-right: 6em!important;
+        margin-left: .6em;
+    }
+}
+
+#menu{
+    background-color: rgb(255, 255, 255)!important;
+    box-shadow: 0 2px 9px 0 rgba(110, 110, 110, 0.5); 
+    font-family: 'Open Sans', sans-serif;
+    color: rgb(168, 90, 90);
+    padding: 0;
+    li{
+        a{
+            padding-right: 2em;
+            padding-left: 2em;
+            border-radius: 0;
+            i{color: rgb(43, 43, 43);}
+            &:hover{
+                background-color: rgb(82, 11, 11);
+                color: white;
+                i{color: blanchedalmond!important;}
+            }
+        }
+        .active {
+            background-color: maroon;
+            a{color: white!important;}
+            i{color: blanchedalmond!important;}
+        }
+    }
+}
+
+
+.dashboard{
+    font-family: 'Open Sans', sans-serif;
+    
+    .card {
+
+        &.pending{
+            border-left: .35em solid red!important;
+            i{color: rgb(153, 153, 153);}
+        }
+        &.process{
+            border-left: .35em solid goldenrod!important;
+            i{color: rgb(153, 153, 153);}
+        }
+        &.printed{
+            border-left: .35em solid rgb(0, 195, 255)!important;
+            i{color: rgb(153, 153, 153);}
+        }
+        &.complete{
+            border-left: .35em solid green!important;
+            i{color: rgb(153, 153, 153);}
+        }
+    }
+    
+    // Bar Chart
+    .chart-bar {
+        position: relative;
+        height: 10rem;
+        width: 100%;
+        @media (min-width: 768px) {
+            height: 20rem;
+        }
+        color: #965252;
+    }
+    
+    // Pie Chart
+    .activity-log {
+        position: relative;
+        width: 100%;
+
+        table{
+            font-size: .9em;
+        }
+        
+    }
+    
+    
+}
+
+
+.content-wrapper{
+    font-family: 'Open Sans', sans-serif;
+    padding-top: 1em;
+    font-size: .9em;
+
+    .content{
+        .table{
+            border-collapse: collapse;
+            margin-left: auto;
+            margin-right: auto;
+            // font-size: 0.9em;
+            width: 100%;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    
+            th, td{
+                padding: 12px 15px;
+            }
+    
+            thead{
+                border-radius: 10px 10px 0 0;
+                tr{
+                    background-color: #6b2b2b;
+                    color: white;
+                    text-align: left;
+                }
+            }
+    
+            tbody{
+                border-bottom: 1px solid #dddddd;
+            }
+        }
+    }
+}
+
+#form{
+    font-family: 'Poppins', sans-serif;
+    padding-top: 1em;
+    nav{
+        font-size: .9em;
+        a{
+            color: maroon;
+        }
+    }
+    form{
+        padding: 0 2em 0 2em;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    #header{
+        .dashboard{
+            margin-top: 10px;
+        }
+
+        .completerqt{
+            margin-top: 10px;
+        }
+
+        .logout{
+            margin-top: -130px;
+            margin-left: 220px;
+        }
+        padding-bottom: 0;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    #header{
+        .dashboard{
+            margin-top: 10px;
+            margin-left: 135px;
+        }
+
+        .completerqt{            
+            // margin-top: -58px;
+            margin-left: 135px;
+            width: 180px;
+        }
+
+        .logout{
+            margin-top: -215px;
+            margin-left: 300px;
+        }
+        padding-bottom: 0;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    #header{
+        .dashboard{
+            margin-top: 10px;
+            margin-left: 190px;
+        }
+
+        .completerqt{            
+            // margin-top: -58px;
+            margin-left: 190px;
+            // width: 180px;
+        }
+
+        .logout{
+            margin-top: -140px;
+            margin-left: 310px;
+        }
+        padding-bottom: 0;
+    }
+}

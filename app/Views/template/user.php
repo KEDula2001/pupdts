@@ -37,7 +37,7 @@
                     <ul class="dropdown-menu " aria-labelledby="navbarDropdown" style="background-color: #800000;">
        
         <li class="nav-item">
-            <a class="nav-link sideLink active" href="<?php echo base_url ('studentadmission/view-admission-history/'.$_SESSION['user_id']); ?>">Credentials Tracker</a>
+            <a class="nav-link sideLink active" href="<?php echo base_url ('studentadmission/view-admission-history/'.$_SESSION['user_id']); ?>">Credentials Record</a>
         </li>
 
           <li class="nav-item">

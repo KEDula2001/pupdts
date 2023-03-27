@@ -1,23 +1,27 @@
     <section class="content">
       <div class="card">
         <div class="card-body">
-          <div class="row mt-3 mb-3">
-            <div class="col-12">
-              <div class="input-group mb-3">
-                <label class="input-group-text" for="document">Filter by Documents: </label>
-                <select class="form-select" id="document" onchange="filterProcessDocument()">
-                  <?php if (empty($documents)): ?>
-                    <option value="" disabled selected>--No Documents Found--</option>
-                  <?php else: ?>
-                    <option value="0" selected>All</option>
-                    <?php foreach($documents as $document): ?>
-                      <option value="<?=esc($document['id'])?>"><?=esc(ucwords($document['document']))?></option>
-                    <?php endforeach; ?>
-                  <?php endif; ?>
-                </select>
+            <?php if ($hide_filter == false): ?>
+              <div class="row mt-3 mb-3">
+                <div class="col-12">
+                  <div class="input-group mb-3">
+                    <label class="input-group-text" for="document">Filter by Documents: </label>
+                    <select class="form-select" id="document" onchange="filterProcessDocument()">
+                      <?php if (empty($documents)): ?>
+                        <option value="" disabled selected>--No Documents Found--</option>
+                      <?php else: ?>
+                        <option value="0" selected>All</option>
+                        <?php foreach($documents as $document): ?>
+                            <?php if($document['id'] != 6): ?>
+                               <option value="<?=esc($document['id'])?>"><?=esc(ucwords($document['document']))?></option>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                      <?php endif; ?>
+                    </select>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
+            <?php endif; ?>
           <div class="table-responsive" id="processTable">
             <table id="process-table" class="table table-striped table-bordered mt-3" style="width:100%">
               <thead>

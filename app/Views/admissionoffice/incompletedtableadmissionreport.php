@@ -14,7 +14,7 @@
             <th>Student Name</th>
             <th>Course</th>
             <th>Batch</th>
-            <th>Status</th>
+            <!--<th>Status</th>-->
         
           </tr>
         </thead>
@@ -41,23 +41,7 @@
                       <td><?=esc($student['course'])?></td>
                       <td><?=esc($student['student_number'][0]).esc($student['student_number'][1]).esc($student['student_number'][2]).esc($student['student_number'][3])?></td>
                       
-                      <td>
-                        <?php if ($res != NUll): ?>
-                          <?php if ($res['admission_status'] == 'complete'): ?>
-                            <div class="badge bg-success text-wrap" style="width: 6rem;">
-                              <?php echo $res['admission_status']; ?>
-                            </div>
-                          <?php elseif($res['admission_status'] == 'incomplete'): ?>
-                            <div class="badge bg-danger text-wrap" style="width: 6rem;">
-                              <?php echo $res['admission_status']; ?>
-                            </div>
-                          <?php endif ?>
-                        <?php else: ?>
-                          <div class="badge bg-default text-wrap" style="width: 6rem;color:black;">
-                            No Files
-                          </div>
-                        <?php endif ?>
-                      </td>
+                     
                      
                     </tr>
                   <?php endif ?>

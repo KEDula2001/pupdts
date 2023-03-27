@@ -98,7 +98,7 @@ class StudentadmissionModel extends Model
 	}
 	public function __getCompleteDocs(){
 		return $this->db->table($this->table)
-						->where('admission_status', 'complete')
+						->where(['admission_status'=>'complete'])
                         ->get()
                         ->getResultArray();
 	}

@@ -394,7 +394,7 @@
                         <th width="2%">#</th>
                         <th width="20%">Document</th>
                         <th width="20%">Quantity</th>
-                        <th width="20%">Processing Days</th>
+                        <th width="20%">Processing Time</th>
                         <th width="20%">Price</th>
                       </tr>
                     </thead>
@@ -415,13 +415,13 @@
                               <?php endif; ?>
                             </td>
                             <td>
-                              3 Days
-                              <!-- <?php
-                              $dtF = new \DateTime('@0');
-                              $dtT = new \DateTime('@'.$document['process_day']);
-                              echo $dtF->diff($dtT)->format('%a days, %h hours and %i minutes');
-                             ?> -->
-                             </td>
+                                <?php if ($document['id'] == '10'): ?>
+                                    <?php echo '12 working days'; ?>
+                                    <?php else: ?>
+                                      <?php echo '3 working days'; ?>
+                                <?php endif; ?>
+                            </td>
+
                             <td>P <?=esc($document['price'])?></td>
                           </tr>
                       <?php endforeach; ?>

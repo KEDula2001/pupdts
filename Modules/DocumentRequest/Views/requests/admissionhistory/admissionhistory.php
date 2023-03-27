@@ -236,7 +236,7 @@
                   <h6>Remarks</h6>
                     <div class="card-body">
                       <?php foreach ($studentadmission_remarks as $key => $value): ?>
-                        <?php if ($value['admission_status'] != 'complete'): ?>
+                        <?php if ($studentadmission_details['admission_status'] != 'complete'): ?>
                           <?php if(!empty($value['submit_original_sarform'])): ?>
                              <?php echo $value['submit_original_sarform']; ?> <br>
                           <?php endif ?>

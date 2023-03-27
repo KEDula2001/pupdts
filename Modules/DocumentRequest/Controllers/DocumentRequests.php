@@ -31,12 +31,19 @@ class DocumentRequests extends BaseController
 
   public function index() 
   {
-    $this->data['requests'] = $this->requestModel->getDetails(['requests.status' => 'p']);
-    $this->data['filter_goodmoral'] = $this->requestDetailModel->getDetails(['requests_details.document_id' => '6', 'requests_details.document_id' => '26']);
-    $this->data['request_documents'] = $this->requestDetailModel->getDetails(['request_details.received_at' => null]);
+    if($_SESSION['role'] == "HapAndSSO"){
+        $this->data['requests'] = $this->requestDetailModel->getDetails(['requests.status' => 'p', 'request_details.document_id' => 6]);
+        $this->data['request_documents'] = $this->requestDetailModel->getDetails(['request_details.received_at' => null, 'request_details.document_id' => 6]);
+    }else{
+        $this->data['requests'] = $this->requestDetailModel->getDetails(['requests.status' => 'p'], 1);
+        $this->data['request_documents'] = $this->requestDetailModel->getDetails(['request_details.received_at' => null], 1);
+    }
+    
     $this->data['view'] = 'Modules\DocumentRequest\Views\requests\pending';
     return view('template/index', $this->data);
   }
+  
+  
 
   // public function getRequestDetails()
   // {
@@ -109,8 +116,13 @@ class DocumentRequests extends BaseController
   }
 
   public function payment(){
-    $this->data['requests'] = $this->requestModel->getDetails(['requests.status' => 'y']);
-    $this->data['request_documents'] = $this->requestDetailModel->getDetails(['request_details.received_at' => null]);
+    if($_SESSION['role'] == "HapAndSSO"){
+        $this->data['requests'] = $this->requestDetailModel->getDetails(['requests.status' => 'y', 'request_details.document_id' => 6]);
+        $this->data['request_documents'] = $this->requestDetailModel->getDetails(['request_details.received_at' => null, 'request_details.document_id' => 6]);
+    }else{
+        $this->data['requests'] = $this->requestDetailModel->getDetails(['requests.status' => 'y'], 1);
+        $this->data['request_documents'] = $this->requestDetailModel->getDetails(['request_details.received_at' => null], 1);
+    }
     $this->data['view'] = 'Modules\DocumentRequest\Views\requests\payment';
     return view('template/index', $this->data);
   }
@@ -378,7 +390,7 @@ class DocumentRequests extends BaseController
     $pdf->Cell(70, 5, '5. Internal Audit:     '.($data['internal_audit']==0?'NOT CLEARED':'CLEARED'));
     $pdf->Ln(4);
     $pdf->Cell(80, 5, '3. C.M.T. (ROTC):      '.($data['rotc']==0?'NOT CLEARED':'CLEARED'));
-    $pdf->Cell(70, 5, '6. Legal Office:       '.($data['legal_office']==0?'NOT CLEARED':'CLEARED'));
+    $pdf->Cell(70, 5, '6. Legal Office:       '.($data['internal_audit']==0?'NOT CLEARED':'CLEARED'));
 
     $pdf->Ln(8);
     $pdf->SetFont('lucidafax', '', 9);
@@ -643,8 +655,15 @@ class DocumentRequests extends BaseController
 
   public function onProcess()
   {
-    $this->data['documents'] = $this->documentModel->get();
-    $this->data['request_details'] = $this->requestDetailModel->getDetails(['request_details.status' => 'p', 'requests.status' => 'o']);
+    if($_SESSION['role'] == "HapAndSSO"){
+        $this->data['hide_filter'] = true;
+        $this->data['documents'] = $this->documentModel->get();
+        $this->data['request_details'] = $this->requestDetailModel->getDetails(['request_details.status' => 'p', 'requests.status' => 'o', 'request_details.document_id' => 6]);
+    }else{
+        $this->data['hide_filter'] = false;
+        $this->data['documents'] = $this->documentModel->get();
+        $this->data['request_details'] = $this->requestDetailModel->getDetails(['request_details.status' => 'p', 'requests.status' => 'o'], 1);
+    }
     $this->data['view'] = 'Modules\DocumentRequest\Views\requests\process';
     return view('template/index', $this->data);
   }
@@ -652,9 +671,9 @@ class DocumentRequests extends BaseController
   public function filterOnProcess()
   {
     if($_GET['document_id'] == 0){
-      $this->data['request_details'] = $this->requestDetailModel->getDetails(['request_details.status' => 'p', 'requests.status' => 'c']);
+      $this->data['request_details'] = $this->requestDetailModel->getDetails(['request_details.status' => 'p', 'requests.status' => 'o']);
     } else {
-      $this->data['request_details'] = $this->requestDetailModel->getDetails(['request_details.status' => 'p', 'requests.status' => 'c', 'documents.id' => $_GET['document_id']]);
+      $this->data['request_details'] = $this->requestDetailModel->getDetails(['request_details.status' => 'p', 'requests.status' => 'o', 'documents.id' => $_GET['document_id']]);
     }
     return view('Modules\DocumentRequest\Views\requests\tables\process', $this->data);
   }
@@ -662,10 +681,20 @@ class DocumentRequests extends BaseController
   public function printed()
   {
     $this->data['request_documents'] = $this->requestDetailModel->getDetails();
-    $this->data['requests'] = $this->requestModel->getDetails(['student_id' => $_SESSION['student_id'], 'requests.completed_at !=' => null, 'requests.status !=' => 'd']);
-    $this->data['office_approvals'] = $this->officeApprovalModel->getDetails(['requests.student_id' => $_SESSION['student_id'], 'requests.completed_at !=' => null, 'request_details.status !=' => 'd']);
-    $this->data['documents'] = $this->documentModel->get();
-    $this->data['request_details_release'] = $this->requestDetailModel->getDetails(['request_details.status' => 'r', 'requests.status' => 'o']);
+    
+    if($_SESSION['role'] == "HapAndSSO"){
+        $this->data['hide_filter'] = true;
+        $this->data['requests'] = $this->requestDetailModel->getDetails(['requests.completed_at !=' => null, 'requests.status !=' => 'd', 'request_details.document_id' => 6]);
+        $this->data['office_approvals'] = $this->officeApprovalModel->getDetails(['requests.completed_at !=' => null, 'request_details.status !=' => 'd']);
+        $this->data['documents'] = $this->documentModel->get();
+        $this->data['request_details_release'] = $this->requestDetailModel->getDetails(['request_details.status' => 'r', 'requests.status' => 'o', 'request_details.document_id' => 6]);
+    } else {
+        $this->data['hide_filter'] = false;
+        $this->data['requests'] = $this->requestDetailModel->getDetails(['requests.completed_at !=' => null, 'requests.status !=' => 'd'], 1);
+        $this->data['office_approvals'] = $this->officeApprovalModel->getDetails(['requests.completed_at !=' => null, 'request_details.status !=' => 'd']);
+        $this->data['documents'] = $this->documentModel->get();
+        $this->data['request_details_release'] = $this->requestDetailModel->getDetails(['request_details.status' => 'r', 'requests.status' => 'o'], 1);
+    }
     $this->data['view'] = 'Modules\DocumentRequest\Views\requests\printed';
     
     return view('template/index', $this->data);
@@ -675,7 +704,7 @@ class DocumentRequests extends BaseController
     if($_GET['document_id'] == 0){
       $this->data['request_details_release'] = $this->requestDetailModel->getDetails(['request_details.status' => 'r', 'requests.status' => 'c']);
     } else {
-      $this->data['request_details_release'] = $this->requestDetailModel->getDetails(['request_details.status' => 'r', 'requests.status' => 'c', 'documents.id' => $_GET['document_id']]);
+      $this->data['request_details_release'] = $this->requestDetailModel->getDetails(['request_details.status' => 'r', 'requests.status' => 'o', 'documents.id' => $_GET['document_id']]);
     }
     return view('Modules\DocumentRequest\Views\requests\tables\printed', $this->data);
   }
@@ -929,15 +958,27 @@ class DocumentRequests extends BaseController
       return JSON_encode(['404' => 'Not Found']);
     } else {
       $id = $this->requestModel->getBySlugs($_GET['slug'])[0]['id'];
-      $request_details = $this->requestDetailModel->getDetails(['request_id' => $id, 'request_details.status' => 'r']);
+      
+        if($_SESSION['role'] == "HapAndSSO"){
+            $request_details = $this->requestDetailModel->getDetails(['request_id' => $id, 'request_details.status' => 'r', 'request_details.document_id' => 6]);
+        }else{
+            $request_details = $this->requestDetailModel->getDetails(['request_id' => $id, 'request_details.status' => 'r'], 1);
+        }
     }
     return JSON_encode($request_details);
   }
 
   public function claimed()
   {
-    $this->data['documents'] = $this->documentModel->get();
-    $this->data['request_details'] = $this->requestDetailModel->getDetails(['request_details.status' => 'c', 'requests.status' => 'o']);
+    if($_SESSION['role'] == "HapAndSSO"){
+        $this->data['hide_filter'] = true;
+        $this->data['documents'] = $this->documentModel->get();
+        $this->data['request_details'] = $this->requestDetailModel->getDetails(['request_details.status' => 'c', 'requests.status' => 'o', 'request_details.document_id' => 6]);
+    }else{
+        $this->data['hide_filter'] = false;
+        $this->data['documents'] = $this->documentModel->get();
+        $this->data['request_details'] = $this->requestDetailModel->getDetails(['request_details.status' => 'c', 'requests.status' => 'o'], 1);
+    }
     $this->data['view'] = 'Modules\DocumentRequest\Views\requests\claimed';
     return view('template/index', $this->data);
   }
@@ -1442,7 +1483,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
         $pdf->writeHTML('<p style="text-indent: 50px">This is to certify that ', 0, 0, true, 1);
         
         // name
-        $prefix = $details['gender'] == 'm' ? 'Mr': 'Ms';
+        $prefix = $data['gender'] == 'm' ? 'Mr': 'Ms';
         $name =  $prefix .'. '.$data['firstname'] . ' ' . $data['middlename'] . ' ' . $data['lastname'];
         $pdf->SetFont('lucidafaxdemib', '', 11);
         $pdf->writeHTML($name, 0, 0, true, 1);
@@ -1463,7 +1504,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
     
         // name
         $pdf->Ln(10);
-        $prefix = $details['gender'] == 'm' ? 'Mr': 'Ms';
+        $prefix = $data['gender'] == 'm' ? 'Mr': 'Ms';
         $name =  $prefix .'. '. $data['lastname'];
         $pdf->SetFont('lucidafaxdemib', '', 11);
         $pdf->writeHTML('<p style="text-indent: 50px">' . $name, 0, 0, true, 1);
@@ -1568,7 +1609,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
         $pdf->SetFont('lucidafax', '', 11);
         $pdf->writeHTML('<br><br><p style="text-indent: 50px"; text-align="">This certification is issued this ', 0, 0, true, 1);
         $pdf->MultiCell(110, 10, date('jS').' of ' .date('F Y') . ' upon the request of ', 0, 'L', 0, 0, '', '', true, 0, false, true, 40, 'T');
-        $pronoun['objective'] = $details['gender'] == 'm' ? 'him': 'her';
+        $pronoun['objective'] = $data['gender'] == 'm' ? 'him': 'her';
         $pdf->SetFont('lucidafaxdemib', '', 11);
         $pdf->writeHTML($prefix . '. ' . $data['lastname'], 0, 0, true, 1); 
         $pdf->SetFont('lucidafax', '', 11);
@@ -2138,7 +2179,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
         $pdf->Ln(5);
         $pdf->Cell(129, 5, ' ');
         $pdf->Cell(5, 5, 'Very truly yours,');
-        $pdf->Ln(7);
+        $pdf->Ln(9);
         $pdf->Cell(117, 5, ' ');
         $pdf->Cell(5, 5, '____________________________');
         $pdf->Ln(4);
@@ -2178,7 +2219,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
         $pdf->Ln(5);
         $pdf->Cell(119, 5, ' ');
         $pdf->Cell(5, 5, 'Very truly yours,');
-        $pdf->Ln(7);
+        $pdf->Ln(15);
         $pdf->Cell(117, 5, ' ');
         $pdf->SetFont('lucidafaxdemib', '', 10);
         $pdf->Cell(5, 5, 'MHEL P. GARCIA');
@@ -2187,13 +2228,13 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
         $pdf->SetFont('arial', '', 10);
         $pdf->Cell(1, 5, 'Branch Registrar/Head of Registration Office');
     
-        $pdf->Ln(1);
+        $pdf->Ln(4);
         $pdf->writeHTML('________________________________________________________________________________________', 0, 0, true, 1);
     
         $pdf->Ln(4);
         $pdf->SetFont('lucidafaxdemib', '', 10);
         $pdf->writeHTML('<p style="text-align:center">TO BE FILLED OUT BY PUP ICTO');
-        $pdf->Ln(1);
+        $pdf->Ln(4);
         $pdf->SetFont('arial', '', 10);
         $pdf->Cell(100, 5, 'Acknowledged by/date:___________________________________________________________________');
         $pdf->Ln(4);
@@ -2241,12 +2282,15 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
         // output the HTML content
         // -----------------------------------------------------------------------------
         /**$pdf->SetXY(12, 172);
+        
         $pdf->Image(APPPATH . 'libraries/tcpdf/examples/images/signature.png', '', '', 35, 20, '', '', 'T', false, 300, '', false, false, 1, false, false, false);
     
         **/
     
         //Close and output PDF document
+        $pdf->setPrintFooter(false);
         $pdf->Output('example_014.pdf', 'I');
+        
     
         //============================================================+
         // END OF FILE
@@ -2257,7 +2301,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
 
   public function certgwa($id){
     $pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, 'LETTER', true, 'UTF-8', false);
-        $data = $this->requestDetailModel->getDetails(['request_details.id' => $id])[0];
+        $details = $this->requestDetailModel->getDetails(['request_details.id' => $id])[0];
         // set document information
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor('PUPT OCT-DRS');
@@ -2330,7 +2374,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
     
         $pdf->Ln(9);
         $pdf->SetFont('lucidafaxdemib', 'B', 18);
-        $pdf->Cell(0, 5, 'C E R I F I C A T I O N', 0, 1, 'C');
+        $pdf->Cell(0, 5, 'C E R T I F I C A T I O N', 0, 1, 'C');
         $pdf->SetFont('lucidafax', '', 11);
         $pdf->Ln(10);
     
@@ -2342,13 +2386,13 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
         
         // name
         $prefix = $details['gender'] == 'm' ? 'Mr': 'Ms';
-        $name =  $prefix .'. '.$data['firstname'] . ' ' . $data['lastname'];
+        $name =  $prefix .'. '.$details['firstname'] . ' ' . $details['lastname'];
         $pdf->SetFont('lucidafaxdemib', '', 11);
         $pdf->writeHTML($name, 0, 0, true, 1);
         
     
         $pdf->SetFont('lucidafax', '', 12);
-        $pdf->writeHTML(' is a graduate of this University with the degree of ' . $data['course'] . ' and obtained a General Weighted Average of', 0, 0, true, 1);
+        $pdf->writeHTML(' is a graduate of this University with the degree of ' . $details['course'] . ' and obtained a General Weighted Average of', 0, 0, true, 1);
         $pdf->writeHTML('  ', 0, 0, true, 1);
         $pdf->TextField('gwa', 20, 5);
         $pdf->writeHTML('.', 0, 0, true, 1);
@@ -2356,7 +2400,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
         $pdf->Ln(9);
         $prefix = $details['gender'] == 'm' ? 'Mr': 'Ms';
         $pdf->SetFont('lucidafaxdemib', '', 11);
-        $name =  $prefix .'. '.$data['firstname'];
+        $name =  $prefix .'. '.$details['firstname'];
         $pdf->setX(95);
         $pdf->setY(110);    
         $pdf->SetFont('lucidafax', '', 11);
@@ -2366,7 +2410,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
         $pdf->writeHTML('<p style="text-indent: 50px"; text-align="">This certification is issued this ', 0, 0, true, 1);
     
         $pdf->MultiCell(110, 10, date('jS').' of ' .date('F Y') . ' upon the request of ' . $name , 0, 'L', 0, 0, '', '', true, 0, false, true, 40, 'T');
-        $pdf->writeHTML($data['lastname'] . ' for whatever purpose it may serve ' . $pronoun['objective'] . '.', 0, 0, true, 1);
+        $pdf->writeHTML($details['lastname'] . ' for whatever purpose it may serve ' . $pronoun['objective'] . '.', 0, 0, true, 1);
     
         $tbl = <<<EOD
            <br><br><br>
@@ -2398,7 +2442,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
         $pdf->SetFont('lucidafax', '', 11);
         $pdf->Cell(34, 5, 'OR Number:');
         $pdf->SetTextColor(238, 75, 43);
-        $pdf->writeHTML("".$data['request_code'], 35, 5);
+        $pdf->writeHTML("".$details['request_code'], 35, 5);
         $pdf->SetTextColor(0,0,0);
     
         // Date
@@ -2539,7 +2583,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
         $pdf->writeHTML('<p style="text-indent: 50px">This is to certify that ', 0, 0, true, 1);
         
         // name
-        $prefix = $details['gender'] == 'm' ? 'Mr': 'Ms';
+        $prefix = $data['gender'] == 'm' ? 'Mr': 'Ms';
         $name =  $prefix .'. '.$data['firstname'] . ' ' . $data['lastname'];
         $pdf->SetFont('lucidafaxdemib', '', 11);
         $pdf->writeHTML($name, 0, 0, true, 1);
@@ -2555,9 +2599,9 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
         $pdf->writeHTML('  ', 0, 0, true, 1);
         $pdf->TextField('semester', 15, 5);
         $pdf->writeHTML(' Semester ,', 0, 0, true, 1);
-        $pronoun['subjective'] = $details['gender'] == 'm' ? 'he': 'she';
-        $pronoun['possesive'] = $details['gender'] == 'm' ? 'his': 'hers';
-        $pronoun['objective'] = $details['gender'] == 'm' ? 'him': 'her';
+        $pronoun['subjective'] = $data['gender'] == 'm' ? 'he': 'she';
+        $pronoun['possesive'] = $data['gender'] == 'm' ? 'his': 'hers';
+        $pronoun['objective'] = $data['gender'] == 'm' ? 'him': 'her';
         $pdf->writeHTML(' S.Y. ' . SCHOOL_YEAR, 0, 0, true, 1);
         $pdf->SetFont('lucidafax', '', 11);
         $pdf->writeHTML('in this University with Serial Number ', 0, 0, true, 1);
@@ -2711,7 +2755,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
 
     // -----------------------------------------------------------------------------
     $txt = <<<EOD
-                  Office of the Branch Registrar
+               
     EOD;
     // print a block of text using Write()
     $pdf->Write(0, $txt, '', 0, 'L', true, 0, false, false, 0);
@@ -2881,7 +2925,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
 
     // -----------------------------------------------------------------------------
     $txt = <<<EOD
-                  Office of the Branch Registrar
+                 
     EOD;
     // print a block of text using Write()
     $pdf->Write(0, $txt, '', 0, 'L', true, 0, false, false, 0);
@@ -3054,7 +3098,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
 
     // -----------------------------------------------------------------------------
     $txt = <<<EOD
-                  Office of the Branch Registrar
+                  
     EOD;
     // print a block of text using Write()
     $pdf->Write(0, $txt, '', 0, 'L', true, 0, false, false, 0);

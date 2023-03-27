@@ -35,9 +35,9 @@ class Database extends Config
 	public $default = [
 		'DSN'      => '',
 		'hostname' => 'localhost',
-		'username' => 'root',
-		'password' => '',
-		'database' => 'odrs_db',
+		'username' => 'u395184583_octdrsroot',
+		'password' => '+N4883aBE4Re',
+		'database' => 'u395184583_octdrsmainDB',
 		'DBDriver' => 'MySQLi',
 		'DBPrefix' => '',
 		'pConnect' => false,

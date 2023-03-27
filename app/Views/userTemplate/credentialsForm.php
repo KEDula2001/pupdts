@@ -14,7 +14,7 @@
                 <input type="checkbox" name="gender" value="F137">F137</input><br>
                 <input type="checkbox" name="gender" value="F138">Grade 10 Card</input><br>
                 <input type="checkbox" name="gender" value="SAR">Grade 11 Card</input><br>
-                <input type="checkbox" name="gender" value="BirthCert">PSA/NSO</input><br>
+                <input type="checkbox" name="gender" value="BirthCert">PSA/NSO Birth Certificate</input><br>
                 <input type="checkbox" name="gender" value="GoodMoral">Certificate of Good Moral</input><br>
                 <input type="checkbox" name="gender" value="MedClearance">Medical Clearance</input><br>
                 <input type="checkbox" name="gender" value="Picture">2x2 Picture</input><br><br>

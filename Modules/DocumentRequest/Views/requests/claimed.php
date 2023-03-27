@@ -19,11 +19,25 @@
                       <div class="col-4">
                         <label for="document" class="form-label fw-bold">Document</label>
                         <select id="document" class="form-select" name="d">
-                          <?php if (!empty($documents)): ?>
-                            <?php foreach ($documents as $document): ?>
-                              <option value="<?=esc($document['id'])?>"><?=ucwords(esc($document['document']))?></option>
-                            <?php endforeach; ?>
-                          <?php endif; ?>
+                            <?php if ($hide_filter == true): ?>
+                                <option value="0" selected>All</option>
+                                <?php foreach($documents as $document): ?>
+                                    <?php if($document['id'] == 6): ?>
+                                       <option value="<?=esc($document['id'])?>"><?=esc(ucwords($document['document']))?></option>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <?php if (empty($documents)): ?>
+                                    <option value="" disabled selected>--No Documents Found--</option>
+                                <?php else: ?>
+                                    <option value="" selected>All</option>
+                                    <?php foreach($documents as $document): ?>
+                                        <?php if($document['id'] != 6): ?>
+                                           <option value="<?=esc($document['id'])?>"><?=esc(ucwords($document['document']))?></option>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            <?php endif; ?>
                         </select>
                       </div>
                       <div class="col-4">
@@ -49,23 +63,27 @@
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-12">
-              <div class="input-group mb-3">
-                <label class="input-group-text" for="document">Filter by Documents: </label>
-                <select class="form-select" id="documents" onchange="filterClaimeds()">
-                  <?php if (empty($documents)): ?>
-                    <option value="" disabled selected>--No Documents Found--</option>
-                  <?php else: ?>
-                    <option value="0" selected>All</option>
-                    <?php foreach($documents as $document): ?>
-                      <option value="<?=esc($document['id'])?>"><?=esc(ucwords($document['document']))?></option>
-                    <?php endforeach; ?>
-                  <?php endif; ?>
-                </select>
+            <?php if ($hide_filter == false): ?>
+              <div class="row">
+                <div class="col-12">
+                  <div class="input-group mb-3">
+                    <label class="input-group-text" for="document">Filter by Documents: </label>
+                    <select class="form-select" id="documents" onchange="filterClaimeds()">
+                      <?php if (empty($documents)): ?>
+                        <option value="" disabled selected>--No Documents Found--</option>
+                      <?php else: ?>
+                        <option value="0" selected>All</option>
+                        <?php foreach($documents as $document): ?>
+                            <?php if($document['id'] != 6): ?>
+                               <option value="<?=esc($document['id'])?>"><?=esc(ucwords($document['document']))?></option>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                      <?php endif; ?>
+                    </select>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
+            <?php endif; ?>
           <div class="row">
             <div class="col-12">
               <div class="table-responsive" id="claimedRequest">
@@ -86,21 +104,23 @@
                     <?php foreach ($request_details as $request_detail): ?>
                       <tr>
                       <td><?= esc($request_detail['student_number']) ?></td>
-                      <td style="text-transform: uppercase;"><?= ucwords(esc($request_detail['firstname']) . ' ' . esc($request_detail['middlename']) . ' '. esc($request_detail['lastname']) . ' ' . esc($request['suffix'])) ?></td>
+                      <td style="text-transform: uppercase;"><?= ucwords(esc($request_detail['firstname']) . ' ' . esc($request_detail['middlename']) . ' '. esc($request_detail['lastname']) . ' ' . esc($request_detail['suffix'])) ?></td>
                         <td><?=ucwords(esc($request_detail['abbreviation']))?></td>
                         <td style="text-transform: uppercase;"><?=ucwords(esc($request_detail['document']))?></td>
                         <td style="text-transform: uppercase;"><?=ucwords(esc($request_detail['reason']))?></td>
                         <td><?=date('M d, y - H:i A', strtotime(esc($request_detail['confirmed_at'])))?></td>
                         <td><?=date('M d, y - H:i A', strtotime(esc($request_detail['printed_at'])))?></td>
                         <td>
-                        <?php $date1 = strtotime(esc($request_detail['confirmed_at'])) ?>                           
-                        <?php $date2 = strtotime(esc($request_detail['printed_at'])) ?>                           
-                        <?php $diff = abs($date2 - $date1);                             
-                              $years = floor($diff / (365*60*60*24));                            
-                              $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));                            
-                              $days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60));
-                          ?>
-                          <?php printf("%d days, %d hours, ". "%d minutes",$days, $hours, $minutes)?>
+                            <?php $startTimeStamp = strtotime(esc($request_detail['confirmed_at'])) ?>
+                            <?php $endTimeStamp = strtotime(esc($request_detail['printed_at'])) ?>
+                            
+                            <?php $timeDiff = abs($endTimeStamp - $startTimeStamp) ?>
+                            
+                            <?php $numberDays = $timeDiff/86400; ?>
+                           
+                            <?php $numberDays = intval($numberDays) ?>
+                            
+                            <?= $numberDays. " days" ?>
                         </td>
                       </tr>
                     <?php endforeach; ?>

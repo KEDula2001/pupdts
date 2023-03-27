@@ -1853,8 +1853,8 @@ class AdmissionController extends BaseController
 		$model = new AdmissionDocumentStatusModel(); 
 		$getstudent = new StudentsModel;
 
-
 		$this->data['documentstatus'] =   $model->__getStudentAdmissionStatus($id);
+// 		die(print_r($this->data['documentstatus']));
 		$this->data['image_file_record'] = $getStudentFileImages->__getStudentImageFiles($id);
 		$this->data['student'] = $getstudent->__getStudentWhereEqualToUserID($id);
 		if ($this->isAjax()) {

@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+body {
+  font-family: "Open Sans", sans-serif;
+  background-color: #c9c9c9;
+  font-size: 16px;
+  background-image: url("https://www.transparenttextures.com/patterns/asfalt-light.png");
+}
+
+.card {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  font-size: .95em;
+}
+
+
+.card-body {
+  padding-top: 30px;
+  padding-bottom: 0 !important;
+}
+
+.card form {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.card .form-control {
+  border: 1px solid #d5dae2;
+  font-size: .9em;
+}
+
+.card .form-control::-webkit-input-placeholder {
+  color: #919aa3;
+}
+
+.card .form-control:-ms-input-placeholder {
+  color: #919aa3;
+}
+
+.card .form-control::-ms-input-placeholder {
+  color: #919aa3;
+}
+
+.card .form-control::placeholder {
+  color: #919aa3;
+}
+
+.card #footer-login {
+  font-size: 0.85em !important;
+}
+
+.card #login-button {
+  background-color: #800000;
+  border-radius: 2px;
+  font-size: 17px;
+  color: #fff;
+  padding-left: 3em;
+  padding-right: 3em;
+  text-align: center;
+}
+
+.card #login-button:hover {
+  border: 1px solid #800000;
+  background-color: transparent;
+  color: #800000;
+}
+/*# sourceMappingURL=style.css.map */

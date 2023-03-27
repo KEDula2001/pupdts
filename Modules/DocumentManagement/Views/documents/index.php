@@ -45,22 +45,24 @@
                         <table class="table table-striped table-bordered mt-3 dataTable" style="width:100%">
                           <thead class="table-dark">
                             <tr>
-                              <th>#</th>
-                              <th>Document</th>
-                              <th>Price</th>
-                              <th>Template</th>
-                              <th>Per Page Payment</th>
-                              <th>Free on first Request</th>
-                              <th>Notes</th>
-                              <th>Office Requirements</th>
-                              <th>Actions</th>
+                              <th width="5%">#</th>
+                              <th width="20%">Document</th>
+                              <th width="5%">Price</th>
+                              <th width="5%">Template</th>
+                              <th width="5%">Per Page Payment</th>
+                              <th width="5%">Free on first Request</th>
+                              <th width="20%">Notes</th>
+                              <th width="15%">Office Requirements</th>
+                              <th width="20%">Actions</th>
                             </tr>
                           </thead>
                           <tbody>
+                              
                             <?php if (!empty($documents)): ?>
+                                <?php $counter = 1; ?>
                               <?php foreach ($documents as $document): ?>
                                 <tr>
-                                  <td>#</td>
+                                  <td><?php echo $counter; ?></td>
                                   <td><?=ucwords(esc($document['document']))?></td>
                                   <td><?=ucfirst('P '.esc($document['price']))?></td>
                                   <td><?=esc($document['template'] == null ? 'N/A': $document['template'])?></td>
@@ -76,6 +78,7 @@
                                     <?=esc(buttons($allPermissions, ['edit-document', 'delete-document'], 'documents', $document['id']))?>
                                   </td>
                                 </tr>
+                                <?php $counter++; ?>
                               <?php endforeach; ?>
                             <?php endif; ?>
                           </tbody>

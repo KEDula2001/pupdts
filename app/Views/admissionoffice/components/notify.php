@@ -15,9 +15,9 @@
             <i class="fas fa-times" style="color:red;"></i> SAR Form/PUPCET/CAEPUP Result<br>
           <?php endif ?>
           <?php if (!empty($studentadmission_details['f137ID'])): ?>
-            <input type="checkbox" value="1" name="f137ID" checked> F137<br>
+            <input type="checkbox" value="1" name="f137ID" checked> Form 137<br>
           <?php else: ?>
-            <i class="fas fa-times" style="color:red;"></i> F137<br>
+            <i class="fas fa-times" style="color:red;"></i> Form 137<br>
           <?php endif ?>
           <?php if (!empty($studentadmission_details['f138ID'])): ?>
             <input type="checkbox" value="1" name="f138ID" checked> Grade 10 Card<br>
@@ -35,9 +35,9 @@
             <i class="fas fa-times" style="color:red;"></i> Grade 12 Card<br>
           <?php endif ?>
           <?php if (!empty($studentadmission_details['psa_nsoID'])): ?>
-            <input type="checkbox" value="1" name="psa_nsoID" checked> PSA/NSO<br>
+            <input type="checkbox" value="1" name="psa_nsoID" checked> PSA/NSO Birth Certificate<br>
           <?php else: ?>
-            <i class="fas fa-times" style="color:red;"></i> PSA/NSO<br>
+            <i class="fas fa-times" style="color:red;"></i> PSA/NSO Birth Certificate<br>
           <?php endif ?>
           <?php if (!empty($studentadmission_details['good_moralID'])): ?>
             <input type="checkbox" value="1" name="good_moralID" checked> Certification of Good Moral<br>
@@ -50,9 +50,9 @@
             <i class="fas fa-times" style="color:red;"></i> Medical Clearance<br>
           <?php endif ?>
           <?php if (!empty($studentadmission_details['picture_two_by_twoID'])): ?>
-            <input type="checkbox" value="1" name="picture_two_by_twoID" checked> 2x2 Picture<br>
+            <input type="checkbox" value="1" name="picture_two_by_twoID" checked> 2x2 Picture with Nametag Below<br>
           <?php else: ?>
-            <i class="fas fa-times" style="color:red;"></i> 2x2 Picture<br>
+            <i class="fas fa-times" style="color:red;"></i> 2x2 Picture with Nametag Below<br>
           <?php endif ?>
           <?php if (!empty($studentadmission_details['certificate_of_completion'])): ?>
             <input type="checkbox" value="1" name="certificate_of_completion" checked> Certificate of Completion<br>
@@ -182,7 +182,7 @@
                       <label for="submit_original_sarform"> Submit Original <small style="display: none">SAR FORM</small></label><br>
                     </div>
 
-                    <label><strong>F137:</strong></label> <br>
+                    <label><strong>Form 137:</strong></label> <br>
                       <div style="margin-left: 50px">
                       <input type="hidden" value="<?php echo $studentadmission_details['email']; ?>" name="email">
                       <input type="hidden" value="<?php echo $studentadmission_details['admission_status']; ?>" name="admission_status">
@@ -235,7 +235,7 @@
                       <label for="submit_original_grade12">Submit Original</label><br>
                       
                     </div>
-                    <label><strong>PSA/NSO:</strong></label> <br>
+                    <label><strong>PSA/NSO Birth Certificate:</strong></label> <br>
                     <div class="col" style="margin-left: 50px">
                       <input type="hidden" value="<?php echo $studentadmission_details['email']; ?>" name="email">
                       <input type="hidden" value="<?php echo $studentadmission_details['admission_status']; ?>" name="admission_status">
@@ -276,7 +276,7 @@
 
             <div class="row">
               <div class="col">
-              <label><strong>2x2 Picture:</strong></label> <br>
+              <label><strong>2x2 Picture with Nametag Below:</strong></label> <br>
               <div class="col" style="margin-left: 50px">
                 <input type="checkbox" value="Submit 4 pcs. (2x2 Picture)" name="submit_twobytwo" >
                 <label for = "twobytwo"> Submit 4 pcs. </label>

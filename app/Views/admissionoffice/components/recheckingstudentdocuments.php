@@ -31,7 +31,7 @@
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
               <div class="fw-bold text-warning text-uppercase mb-1">
-                For Re-checking  
+                For Rechecking  
               </div>
               <div class="h5 mb-0 fw-bold"><?php echo count($count_rechecking); ?></div>
             </div>
@@ -45,9 +45,10 @@
     <div class="col-4"></div>
   </div>
 
-  <div class="container-admission" style="background: white">
-  <table class="table table-responsive table-striped table-bordered mt-3 dataTable" style="width:100%">
-    <thead class="table-dark">
+  <div class="card">
+    <div class="card-body">
+      <table class="table table-responsive table-striped table-bordered mt-3 dataTable" style="width:100%" cellspacing="1" cellpadding="5" border="1" style = "text-align: center">
+        <thead class="table-dark">
       <tr>
         <th>Student No.</th>
         <th>Student Name</th>
@@ -82,7 +83,7 @@
                   </td>
                   <td><?=esc($student['course'])?></td>
                   
-                  <td><?=esc($student['year_graduated'])?></td>
+                 <td><?=esc($student['student_number'][0]).esc($student['student_number'][1]).esc($student['student_number'][2]).esc($student['student_number'][3])?></td>
                   <td align="center">
                     <?php if ($res != NUll): ?>
                       <?php if ($res['admission_status'] == 'rechecking'): ?>
@@ -142,7 +143,7 @@
                                           <input type="checkbox" value="12" name="cert_dry_sealID_twelve" <?php if(!empty($res['cert_dry_sealID_twelve'])){echo 'checked';} ?>>
                                           <label for="cert_dry_sealID_twelve">Grade 12 Card</label><br>
                                           <input type="checkbox" value="4" name="psa_nsoID" <?php if(!empty($res['psa_nsoID'])){echo 'checked';} ?>>
-                                          <label for="psa_nsoID">PSA/NSO</label><br>
+                                          <label for="psa_nsoID">PSA/NSO Birth Certificate</label><br>
                                           <input type="checkbox" value="5" name="good_moralID" <?php if(!empty($res['good_moralID'])){echo 'checked';} ?>>
                                           <label for="good_moralID">Certification of Good Moral</label><br>
                                           <input type="checkbox" value="6" name="medical_certID" <?php if(!empty($res['medical_certID'])){echo 'checked';} ?>>

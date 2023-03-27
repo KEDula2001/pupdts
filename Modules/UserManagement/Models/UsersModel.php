@@ -78,6 +78,7 @@ class UsersModel extends BaseModel
   public function inputDetailBulk($data){
 
     $student = new Students();
+    $StudentsModel = new StudentsModel();
     $this->transBegin();
     foreach($data as $key => $value)
     {
@@ -92,7 +93,6 @@ class UsersModel extends BaseModel
         $this->insert($userData);
         $data[$key]['user_id'] = $this->getInsertID();
 
-        $StudentsModel = new StudentsModel();
         $StudentsModel->insert($data[$key]);
 
         if(!$student->sendPassword($data[$key]['student_number'] ,$password, $data[$key]['email']))

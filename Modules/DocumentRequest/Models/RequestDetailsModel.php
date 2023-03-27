@@ -34,7 +34,7 @@ class RequestDetailsModel extends BaseModel
     parent::__construct();
   }
 
-  public function getDetails($conditions = [], $id = null){
+  public function getDetails($conditions = [], $role_status = null, $id = null){
 
     $this->select('
       request_details.*, 
@@ -49,6 +49,7 @@ class RequestDetailsModel extends BaseModel
       documents.price, 
       students.firstname, 
       students.lastname, 
+      students.middlename, 
       CONCAT(students.firstname, students.lastname) as fullname, 
       students.suffix, 
       students.student_number, 
@@ -56,7 +57,9 @@ class RequestDetailsModel extends BaseModel
       courses.course, 
       courses.abbreviation, 
       users.email,
-      requests.request_code
+      requests.request_code,
+      students.status as student_status,
+      requests.approved_at
     ');
     $this->join('requests', 'request_id = requests.id');
     $this->join('documents', 'document_id = documents.id');
@@ -65,6 +68,10 @@ class RequestDetailsModel extends BaseModel
     $this->join('courses', 'students.course_id = courses.id');
     foreach ($conditions as $condition => $value) {
       $this->where($condition , $value);
+    }
+    
+    if ($role_status != null){
+      $this->whereNotIn('request_details.document_id', [6]);
     }
     if ($id != null)
       $this->where('id', $id);
@@ -170,7 +177,7 @@ class RequestDetailsModel extends BaseModel
   }
 
   public function getRequestDetailList($request_id = null){
-    $this->select('library, laboratory, rotc, accounting_office, internal_audit, legal_office');
+    $this->select('library, laboratory, rotc, accounting_office, internal_audit');
     $this->where('request_id' , $request_id);
     return $this->findAll();
   }

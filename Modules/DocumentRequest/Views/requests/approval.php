@@ -28,14 +28,14 @@
                                         <th class="text-center">Laboratory</th>
                                         <th class="text-center">ROTC</th>
                                         <th class="text-center">Accounting Office</th>
-                                        <th class="text-center">Internal Audit</th>
-                                        <th class="text-center">Legal Office</th>
+                                        <th class="text-center">Internal Audit and Legal Office</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach($requests as $request):?>
                                         <tr>
-                                            <td><td><?=esc(ucwords($request['firstname'].'  ')) ?><?=esc($request['lastname'])?></td>
+                                            
+                                            <td><?=esc(ucwords($request['firstname'].'  ')) ?><?=esc($request['lastname'])?></td>
                                             <th><?= $request['slug'] ?></th>
                                             <td><?= $request['created_at'] ?></td>
                                             <th class="text-center">
@@ -145,28 +145,6 @@
                                                     </button>
                                                 <?php else: ?>
                                                     <?php if($request['internal_audit'] == 0):?>
-                                                        <span class="badge rounded-pill bg-warning">Pending</span>
-                                                    <?php else:?>
-                                                        <span class="badge rounded-pill bg-success">Cleared</span>
-                                                    <?php endif;?>
-                                                <?php endif; ?>
-                                            </td>
-                                            <td class="text-center">
-                                                <?php if(session()->get('office')=='Legal Office'):?>
-                                                    <button 
-                                                        <?php if($request['legal_office'] == 0):?>
-                                                            onclick="approvePerOffices('/approval/apply-approval/edit/', 6, <?=$request['request_id']?>, <?=$request['id']?>, '<?=$request['slug']?>', '/approval');" 
-                                                        <?php endif;?>
-                                                        class="btn <?=$request['legal_office']==0?'btn-warning':'btn-success'?> btn-sm rounded-pill" 
-                                                    >
-                                                        <?php if($request['legal_office'] == 0):?>
-                                                            Pending
-                                                        <?php else:?>
-                                                            Cleared
-                                                        <?php endif;?>
-                                                    </button>
-                                                <?php else: ?>
-                                                    <?php if($request['legal_office'] == 0):?>
                                                         <span class="badge rounded-pill bg-warning">Pending</span>
                                                     <?php else:?>
                                                         <span class="badge rounded-pill bg-success">Cleared</span>

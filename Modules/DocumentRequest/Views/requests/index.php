@@ -46,11 +46,11 @@
                         <table class="table table-striped">
                           <thead>
                               <th width="10%">Request Code</th>
-                              <th width="20%">Documents</th>
-                              <th width="10%">Date Requested</th>
+                              <th width="35%">Documents</th>
+                              <th width="15%">Date Requested</th>
                           <!-- <th width="5%">Receipt Info</th> -->
                               <th width="20%">Status</th>
-                              <th width="35%">Action</th>
+                              <th width="15%">Action</th>
                           </thead>
                           <tbody>
                             <?php if (!empty($requests)): ?>
