@@ -49,7 +49,8 @@ class RequestDetailsModel extends BaseModel
       documents.price, 
       students.firstname, 
       students.lastname, 
-      students.middlename, 
+      students.middlename,
+      students.address,
       CONCAT(students.firstname, students.lastname) as fullname, 
       students.suffix, 
       students.student_number, 
@@ -71,10 +72,13 @@ class RequestDetailsModel extends BaseModel
     }
     
     if ($role_status != null){
-      $this->whereNotIn('request_details.document_id', [6]);
+      $this->whereNotIn('request_details.document_id', [6, 26, 27]);
     }
-    if ($id != null)
+    
+    if ($id != null) {
       $this->where('id', $id);
+    }
+    
     return $this->findAll();
   }
 

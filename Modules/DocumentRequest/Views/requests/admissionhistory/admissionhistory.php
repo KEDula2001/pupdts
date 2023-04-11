@@ -47,13 +47,21 @@
             <?php endif ?>
 
             <?php if (!empty($studentadmission_files)): ?>
-            <?php if ($studentadmission_details['admission_status'] == 'rechecking'): ?>
-              <div class="card alert alert-warning d-flex align-items-center" role="alert">
-                <div>
-                  Your Documents is being processed for rechecking.... 
-                </div>
-              </div>
-            <?php endif ?>
+                <?php if (!empty($studentadmission_details['admission_status'])): ?>
+                    <?php if ($studentadmission_details['admission_status'] == 'rechecking'): ?>
+                      <div class="card alert alert-warning d-flex align-items-center" role="alert">
+                        <div>
+                          Your Documents is being processed for rechecking.... 
+                        </div>
+                      </div>
+                    <?php endif ?>
+                <?php else: ?>
+                  <div class="card alert alert-warning d-flex align-items-center" role="alert">
+                    <div>
+                      Your Documents is being processed for rechecking.... 
+                    </div>
+                  </div>
+                <?php endif ?>
             <div class="col-md-8">
                 <p>
                   <ul class="fst-normal">
@@ -68,6 +76,7 @@
                     <h6>Submitted</h6>
                   </div>
                   <div class="card-body">
+                    <?php if (!empty($studentadmission_details['admission_status'])): ?>
                       <?php if ($studentadmission_details['sar_pupcct_resultID'] != 0): ?>
                         <input type="checkbox" value="1"  checked> SAR Form/PUPCCT Results<br>
                       <?php endif ?>
@@ -144,6 +153,13 @@
                       <?php if ($studentadmission_details['trans_rec'] != 0): ?>
                         <input type="checkbox" value="1" name="trans_rec" checked> PUP Taguig Trancript of Record<br>
                       <?php endif ?>
+                    <?php else: ?>
+                      <div class="card alert alert-warning d-flex align-items-center" role="alert">
+                        <div>
+                          Please insert files first in admission office . . .
+                        </div>
+                      </div>
+                    <?php endif ?>
                   </div>
                 </div>
               </div>
@@ -153,7 +169,8 @@
                     <h6>Not Submitted</h6>
                   </div>
                   <div class="card-body">
-                  <?php if ($studentadmission_details['sar_pupcct_resultID'] == 0): ?>
+                    <?php if (!empty($studentadmission_details['admission_status'])): ?>
+                      <?php if ($studentadmission_details['sar_pupcct_resultID'] == 0): ?>
                         <i class="fas fa-times" style="color:red;"></i> SAR Form/PUPCCT Results<br>
                       <?php endif ?>
                       <?php if ($studentadmission_details['f137ID'] == 0): ?>
@@ -226,6 +243,13 @@
                       <?php if ($studentadmission_details['trans_rec'] == 0): ?>
                         <i class="fas fa-times" style="color:red;"></i> PUP Taguig Trancript of Record<br>
                       <?php endif ?>
+                    <?php else: ?>
+                      <div class="card alert alert-warning d-flex align-items-center" role="alert">
+                        <div>
+                          Please insert files first in admission office . . .
+                        </div>
+                      </div>
+                    <?php endif ?>
                       
                   </div>
                 </div>
@@ -354,8 +378,12 @@
           
           <form action="<?php echo base_url('studentadmission/rechecking-mydocuments/'.$_SESSION['user_id']); ?>" method="post">
                 <div align="center">
-                  <?php if ($studentadmission_details['admission_status'] != 'complete'): ?>
-                    <button type="submit" name="btnrechecking" class="btn btn-danger" <?php if ($studentadmission_details['admission_status'] == 'rechecking'){echo 'disabled';} ?>>Re-check My Documents</button>
+                    <?php if (!empty($studentadmission_details['admission_status'])): ?>
+                      <?php if ($studentadmission_details['admission_status'] != 'complete'): ?>
+                        <button type="submit" name="btnrechecking" class="btn btn-danger" <?php if ($studentadmission_details['admission_status'] == 'rechecking'){echo 'disabled';} ?>>Re-check My Documents</button>
+                      <?php endif ?>
+                  <?php else: ?>
+                    <button type="submit" disabled name="btnrechecking" class="btn btn-danger">Re-check My Documents</button>
                   <?php endif ?>
                 </div>
             </form>
@@ -466,7 +494,7 @@
                   </div>
                   <!-- Medical Clearance -->
                   <!-- 2x2 Picture -->
-                  <div class="mb-3">
+                  <div class="mb-4">
                     <label for="formFile7" class="form-label">2x2 Picture:</label>
                     <?php if(empty($studentadmission_files['picture_two_by_two_files'])) : ?> 
                     <input class="form-control" type="file" name="picture_two_by_two_files" id="formFile7">
@@ -476,11 +504,24 @@
                     <?php endif; ?>
                   </div>
                   <!-- 2x2 Picture -->
+                
+                <?php if(!empty($studentadmission_status['upload_status'])) :?>
+                    <?php if($studentadmission_status['upload_status'] == 'complete') :?>
+                        <div class="">
+                          <button style="background-color:maroon;color: white; opacity: 0.5;" type="submit" name="btnsavefiles" class="form-control" disabled>Completed</button>
+                        </div>
+                    <?php else:?>
+                        <div class="">
+                          <button style="background-color:maroon;color: white;" type="submit" name="btnsavefiles" class="form-control">Save Files</button>
+                        </div> 
+                    <?php endif;?>
+                <?php else:?>
+                    <div class="">
+                      <button style="background-color:maroon;color: white;" type="submit" name="btnsavefiles" class="form-control">Save Files</button>
+                    </div> 
+                <?php endif;?>
                 </div>
-                <div class="card-footer">
-                  <button style="background-color:maroon;color: white;" type="submit" name="btnsavefiles" class="form-control">Save Files</button>
-                </div>
-              </form> 
+              </form>
             </div>
           
         </div>

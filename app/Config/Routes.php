@@ -134,6 +134,7 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function($rout
 	$routes->post('admission/student-status/(:num)', 'AdmissionController::StudentAdDocumentStatus/$1');
 	//set new method upload files
 	$routes->post('admission/student-upload-files-set/(:num)', 'AdmissionController::UploadStudentDocuments/$1');
+	$routes->post('admission/student-upload-files-set-documents/(:num)', 'AdmissionController::UploadStudentAdmissionDocuments/$1');
 
 // admission
 

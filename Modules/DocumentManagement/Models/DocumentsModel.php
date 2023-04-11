@@ -16,7 +16,16 @@ class DocumentsModel extends BaseModel
   function __construct(){
     parent::__construct();
   }
+    
+  public function getDetails($conditions = []){
 
+    $this->select('documents.*');
+    foreach ($conditions as $condition => $value) {
+      $this->where($condition , $value);
+    }
+    return $this->findAll();
+  }
+  
   public function insertDocument($data)
   {
     $this->transStart();

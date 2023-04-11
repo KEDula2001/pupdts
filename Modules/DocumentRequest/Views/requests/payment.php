@@ -28,15 +28,15 @@
                       <td>
                         <ul>
                           <?php foreach ($request_documents as $request_document): ?>
-                            <?php if (esc($request_document['request_id']) == esc($request['request_id'])): ?>
-                              <li><?=' ( '  . esc($request_document['quantity']) . ' ) ' .esc($request_document['document']) ?></li>
+                            <?php if (esc($request_document['request_id']) == esc($request['id'])): ?>
+                                <li><?=' ( '  . esc($request_document['quantity']) . ' ) ' .esc($request_document['document']) ?></li>
                             <?php endif; ?>
                           <?php endforeach; ?>
                         </ul>
                       </td>
                       <td><?= date('F d, Y - H:i A', strtotime(esc($request['approved_at']))) ?></td>
                       <td>
-                        <button onClick="acceptRequest(<?=esc($request['request_id'])?>, '<?=esc($request['student_number'])?>', '<?=esc($request['slug'])?>')" class="btn btn-success btn-sm"> Start Processing </button>
+                        <button onClick="acceptRequest(<?=esc($request['id'])?>, '<?=esc($request['student_number'])?>', '<?=esc($request['slug'])?>')" class="btn btn-success btn-sm"> Start Processing </button>
                       </td>
                     </tr>
                   <?php endforeach; ?>

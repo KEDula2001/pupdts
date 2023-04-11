@@ -127,8 +127,8 @@
                                                 <div class="col-12">
                                                     <div class="form-group mb-3">
                                                         <label for="course">Course <small class="text-danger">*</small></label>
-                                                        <select class="form-control" name="course_id" required>
-                                                            <option class="active" hidden>Select Course</option>
+                                                        <select class="form-select" name="course_id" required>
+                                                            <option selected disabled>Select Course</option>
                                                             <?php if (!empty($courses)): ?>
                                                             <?php foreach ($courses as $course): ?>
                                                                 <option value="<?=esc($course['id'])?>"><?=esc($course['course'])?></option>

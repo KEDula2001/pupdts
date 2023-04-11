@@ -87,9 +87,6 @@ class AdmissionController extends BaseController
 		$this->data['view'] = 'admissionoffice/admissioncrud';
 		return view('template/index', $this->data);
 	 }
-	 
-
-
 
 	public function UploadStudentDocuments($id){ 
 		$edit = false; 
@@ -239,6 +236,28 @@ class AdmissionController extends BaseController
 			];
 			
 			// die(print_r($data));
+			
+			if($edit == true){
+				if ($getStudentAdFileModel->setUpdateAdmissionFiles($this->data['studentadmission_files']['id'],$data)){
+					$this->session->setFlashData('success', 'Successfully Updated!');
+					return redirect()->to(base_url('studentadmission/view-admission-history/'.$id));
+				}else{
+					
+					$this->session->setFlashData('error', 'Please Contact School IT Support!');
+					return redirect()->to(base_url('studentadmission/view-admission-history/'.$id));
+				}
+			}
+			else{
+				if ($getStudentAdFileModel->setInsertAdmissionFiles($data)){
+					$this->session->setFlashData('success', 'Successfully Inserted!');
+					return redirect()->to(base_url('studentadmission/view-admission-history/'.$id));
+				}else{
+					
+					$this->session->setFlashData('error', 'Please Contact School IT Support!');
+					return redirect()->to(base_url('studentadmission/view-admission-history/'.$id));
+				}
+			}
+	
 
 			if($edit == true){ 
 				if ($getStudentAdFileModel->setUpdateAdmissionFiles($this->data['studentadmission_files']['id'],$data)){
@@ -259,6 +278,7 @@ class AdmissionController extends BaseController
 					return redirect()->to(base_url('studentadmission/view-admission-history/'.$id));
 				}
 			}
+
 			
 			
 			
@@ -267,6 +287,178 @@ class AdmissionController extends BaseController
 	    return view('template/index', $this->data);
 	}
 
+	public function UploadStudentAdmissionDocuments($id){ 
+		$edit = false; 
+		
+		$getStudentAdFileModel = new StudentadmissionfilesModel();
+		$is_check_if_true = $getStudentAdFileModel->__getIfStudentHasSubmittedFiles($id);
+
+		
+		if(!empty($is_check_if_true)){
+			$this->data['studentadmission_files'] = $getStudentAdFileModel->__getIfStudentHasSubmittedFiles($id);
+			$edit = true;
+		}
+		
+		$this->data['studentadmission_files'] = $getStudentAdFileModel->__getIfStudentHasSubmittedFiles($id);
+		$this->data['view'] = 'Modules\DocumentRequest\Views\requests\admissionhistory\admissionhistory';
+		// die(print_r($this->data['studentadmission_files']));
+		if($this->request->getMethod() == 'post'){
+
+			if(empty($this->data['studentadmission_files']['sar_pupcct_results_files'])){
+				$sar_pupcct_results_files = $this->request->getFile('sar_pupcct_results_files');
+				
+				if($sar_pupcct_results_files->isValid()){
+					
+					$filepath_sar_pupcct_results_name = $sar_pupcct_results_files->getName();
+					$sar_pupcct_results_files->move(ROOTPATH.'public/uploads/', $filepath_sar_pupcct_results_name);
+					
+				}
+			}else{
+				$filepath_sar_pupcct_results_name = $this->data['studentadmission_files']['sar_pupcct_results_files'];
+			}
+
+			if(empty($this->data['studentadmission_files']['f137_files'])){
+				$f137_files = $this->request->getFile('f137_files');
+				
+				if($f137_files->isValid()){
+					
+					$filepath_f137_name = $f137_files->getName();
+					$f137_files->move(ROOTPATH.'public/uploads/', $filepath_f137_name);
+					
+				}
+			}else{
+				$filepath_f137_name = $this->data['studentadmission_files']['f137_files'];
+			}
+
+			if(empty($this->data['studentadmission_files']['g10_files'])){
+				$g10_files = $this->request->getFile('g10_files');
+				
+				if($g10_files->isValid()){
+					
+					$filepath_g10_name = $g10_files->getName();
+					$g10_files->move(ROOTPATH.'public/uploads/', $filepath_g10_name);
+					
+				}
+			}else{
+				$filepath_g10_name = $this->data['studentadmission_files']['g10_files'];
+			}
+
+			if(empty($this->data['studentadmission_files']['g11_files'])){
+				$g11_files = $this->request->getFile('g11_files');
+				
+				if($g11_files->isValid()){
+					
+					$filepath_g11_name = $g11_files->getName();
+					$g11_files->move(ROOTPATH.'public/uploads/', $filepath_g11_name);
+					
+				}
+			}else{
+				$filepath_g11_name = $this->data['studentadmission_files']['g11_files'];
+			}
+
+			if(empty($this->data['studentadmission_files']['g12_files'])){
+				$g12_files = $this->request->getFile('g12_files');
+				
+				if($g12_files->isValid()){
+					
+					$filepath_g12_name = $g12_files->getName();
+					$g12_files->move(ROOTPATH.'public/uploads/', $filepath_g12_name);
+					
+				}
+			}else{
+				$filepath_g12_name = $this->data['studentadmission_files']['g12_files'];
+			}
+
+			if(empty($this->data['studentadmission_files']['psa_nso_files'])){
+				$psa_nso_files = $this->request->getFile('psa_nso_files');
+				
+				if($psa_nso_files->isValid()){
+					
+					$filepath_psa_nso_name = $psa_nso_files->getName();
+					$psa_nso_files->move(ROOTPATH.'public/uploads/', $filepath_psa_nso_name);
+					
+				}
+			}else{
+				$filepath_psa_nso_name = $this->data['studentadmission_files']['psa_nso_files'];
+			}
+
+			if(empty($this->data['studentadmission_files']['good_moral_files'])){
+				$good_moral_files = $this->request->getFile('good_moral_files');
+				
+				if($good_moral_files->isValid()){
+					
+					$filepath_good_moral_name = $good_moral_files->getName();
+					$good_moral_files->move(ROOTPATH.'public/uploads/', $filepath_good_moral_name);
+					
+				}
+			}else{
+				$filepath_good_moral_name = $this->data['studentadmission_files']['good_moral_files'];
+			}
+
+			if(empty($this->data['studentadmission_files']['medical_cert_files'])){
+				$medical_cert_files = $this->request->getFile('medical_cert_files');
+				
+				if($medical_cert_files->isValid()){
+					
+					$filepath_medicalcert_name = $medical_cert_files->getName();
+					$medical_cert_files->move(ROOTPATH.'public/uploads/', $filepath_medicalcert_name);
+					
+				}
+			}else{
+				$filepath_medicalcert_name = $this->data['studentadmission_files']['medical_cert_files'];
+			}
+
+			if(empty($this->data['studentadmission_files']['picture_two_by_two_files'])){
+				$picture_two_by_two_files = $this->request->getFile('picture_two_by_two_files');
+				
+				if($picture_two_by_two_files->isValid()){
+					
+					$filepath_twobytwo_name = $picture_two_by_two_files->getName();
+					$picture_two_by_two_files->move(ROOTPATH.'public/uploads/', $filepath_twobytwo_name);
+					
+				}
+			}else{
+				$filepath_twobytwo_name = $this->data['studentadmission_files']['picture_two_by_two_files'];
+			}
+											
+			$data = [
+				'studID' => $id,
+				'sar_pupcct_results_files' => !empty($filepath_sar_pupcct_results_name) ? $filepath_sar_pupcct_results_name: NULL ,
+				'f137_files' => !empty($filepath_f137_name) ? $filepath_f137_name: NULL, 
+				'g10_files' => !empty($filepath_g10_name) ? $filepath_g10_name: NULL, 
+				'g11_files' => !empty($filepath_g11_name) ? $filepath_g11_name: NULL, 
+				'g12_files' => !empty($filepath_g12_name) ? $filepath_g12_name: NULL, 
+				'psa_nso_files' => !empty($filepath_psa_nso_name) ? $filepath_psa_nso_name: NULL, 
+				'good_moral_files' => !empty($filepath_good_moral_name) ? $filepath_good_moral_name: NULL, 
+				'medical_cert_files' => !empty($filepath_medicalcert_name) ? $filepath_medicalcert_name: NULL, 
+				'picture_two_by_two_files' => !empty($filepath_twobytwo_name) ? $filepath_twobytwo_name: NULL
+			];
+			
+			if($edit == true){
+				if ($getStudentAdFileModel->setUpdateAdmissionFiles($this->data['studentadmission_files']['id'],$data)){
+					$this->session->setFlashData('success', 'Successfully Updated!');
+					return redirect()->to(base_url('admission/student-admission-file/'.$id));
+				}else{
+					
+					$this->session->setFlashData('error', 'Please Contact School IT Support!');
+					return redirect()->to(base_url('admission/student-admission-file/'.$id));
+				}
+			}
+			else{
+				if ($getStudentAdFileModel->setInsertAdmissionFiles($data)){
+					$this->session->setFlashData('success', 'Successfully Inserted!');
+					return redirect()->to(base_url('studentadmission/student-admission-file/'.$id));
+				}else{
+					
+					$this->session->setFlashData('error', 'Please Contact School IT Support!');
+					return redirect()->to(base_url('studentadmission/student-admission-file/'.$id));
+				}
+			}
+		}
+		
+	    return view('template/index', $this->data);
+	}
+	
 	 public function StudentAdDocumentStatus($id){
 		
 		$model = new AdmissionDocumentStatusModel(); 
@@ -517,7 +709,7 @@ class AdmissionController extends BaseController
 		 $getstudentadmission = new StudentadmissionModel; 
 		 $data['count_rechecking'] = $getstudentadmissionmodel->__getRecheckDocs();
 		 $data['students'] = $getstudent->__getStudentDetails();
-		 $data['res'] = $getstudentadmission->__getSAMDetails($id);
+		 $data['res'] = $getstudentadmission->__getSAMDetails($id = NULL);
 		 
 		 $reportTable = view('Views/admissionoffice/recheckedtableadmissionreport',$data);
  
@@ -782,6 +974,8 @@ class AdmissionController extends BaseController
 			$data['count_incomplete'] = $getstudentadmissionmodel->__getIncompleteDocs();
 			$data['count_complete'] = $getstudentadmissionmodel->__getCompleteDocs();
 			$data['count_recheck'] = $getstudentadmissionmodel->__getRecheckDocs();
+			$data['count_complete_uploads'] = $getstudentadmissionmodel->getcompleteuploads();
+		    $data['count_incomplete_uploads'] = $getstudentadmissionmodel->getincompleteuploads();
 			$data['students'] = $getstudent->__getStudentDetails();
 			$data['checklists'] = $getchecklist->__getChecklistDetails();
 		 $reportTable = view('Views/admissionoffice/admissiondashboardreport',$data);
@@ -1022,16 +1216,18 @@ class AdmissionController extends BaseController
 	}
 	public function insertstudent()
 	{
-		if (! $this->validate([
+		if (!$this->validate([
             'student_number' => 'required|exact_length[15]|alpha_dash|regex_match[/[0-9]{4}-[0-9]{5}-TG-0/]|is_unique[students.student_number,id]',
 			'firstname' => 'required',
 			'lastname' => 'required',
 			'birthdate' => 'required',
 			'middlename' => 'required',
 			'email' => 'required|valid_email|is_unique[users.email,id]',
-			'course_id' => 'required'
+			'course_id' => [
+			    'label' => 'Course',
+			    'rules' => 'required'
+			  ]
         ])) {
-
 			$getcourses = new CourseModel;
 
         	echo view('admissionoffice/header');
@@ -1202,113 +1398,6 @@ class AdmissionController extends BaseController
 		return view('admissionoffice/footer', $this->data);
 	}
 
-// 	public function insertStudentAdmissionForwarded1($id)
-// 	{
-// 		$getstudent = new StudentsModel;
-// 		$getchecklist = new ChecklistModel;
-// 		$getstudentadmissionmodel = new StudentadmissionModel;
-// 		$getRetrievedRecord = new RefForRetrievedModel;
-
-// 		$this->data['retrieved_record'] = $getRetrievedRecord->__getRetrievedRecord();
-// 		$this->data['count_incomplete'] = $getstudentadmissionmodel->__getIncompleteDocs();
-// 		$this->data['count_complete'] = $getstudentadmissionmodel->__getCompleteDocs();
-// 		$this->data['count_recheck'] = $getstudentadmissionmodel->__getRecheckDocs();
-// 		$this->data['students'] = $getstudent->__getStudentDetails();
-// 		$this->data['checklists'] = $getchecklist->__getChecklistDetails();
-
-// 		$insertstudentadmission = new StudentadmissionModel;
-// 		$is_result = $insertstudentadmission->__getSAMDetails($id);
-// 		//die(print_r($_POST));
-// 		if($_POST['admission_status']=='select_status'){
-// 			$this->session->setFlashData('error', 'Please select admission status!');
-// 		}
-
-// 		if (!empty($is_result)) {	
-// 			$data = [
-// 				'studID'=> $id,	
-// 				'sar_pupcct_resultID'=> (!empty($_POST['sar_pupcct_resultID']) ? $_POST['sar_pupcct_resultID'] : 0),
-// 				'f137ID'=> (!empty($_POST['f137ID']) ? $_POST['f137ID'] : 0),
-// 				'f138ID'=> (!empty($_POST['f138ID']) ? $_POST['f138ID'] : 0),
-// 				'psa_nsoID'=> (!empty($_POST['psa_nsoID']) ? $_POST['psa_nsoID'] : 0),
-// 				'good_moralID'=> (!empty($_POST['good_moralID']) ? $_POST['good_moralID'] : 0),
-// 				'medical_certID'=> (!empty($_POST['medical_certID']) ? $_POST['medical_certID'] : 0),
-// 				'picture_two_by_twoID'=> (!empty($_POST['picture_two_by_twoID']) ? $_POST['picture_two_by_twoID'] : 0),
-// 				'nc_non_enrollmentID'=> (!empty($_POST['nc_non_enrollmentID']) ? $_POST['nc_non_enrollmentID'] : 0),
-// 				'coc_hs_shsID'=> (!empty($_POST['coc_hs_shsID']) ? $_POST['coc_hs_shsID'] : 0),
-// 				'ac_pept_alsID'=> (!empty($_POST['ac_pept_alsID']) ? $_POST['ac_pept_alsID'] : 0),
-// 				'cert_dry_sealID'=> (!empty($_POST['cert_dry_sealID']) ? $_POST['cert_dry_sealID'] : 0),
-// 				'cert_dry_sealID_twelve'=> (!empty($_POST['cert_dry_sealID_twelve']) ? $_POST['cert_dry_sealID_twelve'] : 0),
-// 				'admission_status'=> (!empty($_POST['admission_status']) ? $_POST['admission_status'] : ""),
-// 				'app_grad'=> (!empty($_POST['app_grad']) ? $_POST['app_grad'] : 0),
-// 				'or_app_grad'=> (!empty($_POST['or_app_grad']) ? $_POST['or_app_grad'] : 0),
-// 				'latest_regi'=> (!empty($_POST['latest_regi']) ? $_POST['latest_regi'] : 0),
-// 				'eval_res'=> (!empty($_POST['eval_res']) ? $_POST['eval_res'] : 0),
-// 				'course_curri'=> (!empty($_POST['course_curri']) ? $_POST['course_curri'] : 0),
-// 				'cert_candi'=> (!empty($_POST['cert_candi']) ? $_POST['cert_candi'] : 0),
-// 				'gen_clear'=> (!empty($_POST['gen_clear']) ? $_POST['gen_clear'] : 0),
-// 				'or_grad_fee'=> (!empty($_POST['or_grad_fee']) ? $_POST['or_grad_fee'] : 0),
-// 				'cert_confer'=> (!empty($_POST['cert_confer']) ? $_POST['cert_confer'] : 0),
-// 				'schoolid'=> (!empty($_POST['schoolid']) ? $_POST['schoolid'] : 0),
-// 				'honor_dis'=> (!empty($_POST['honor_dis']) ? $_POST['honor_dis'] : 0),
-// 				'trans_rec'=> (!empty($_POST['trans_rec']) ? $_POST['trans_rec'] : 0)
-// 			];
-			
-// 			$res = $insertstudentadmission->updateAdmissionStudents($id, $data, (!empty($_POST['admission_status']) ? $_POST['admission_status'] : ""));
-// 		}else{	
-// 			$data = [
-// 				'studID'=> $id,	
-// 				'sar_pupcct_resultID'=> (!empty($_POST['sar_pupcct_resultID']) ? $_POST['sar_pupcct_resultID'] : 0),
-// 				'f137ID'=> (!empty($_POST['f137ID']) ? $_POST['f137ID'] : 0),
-// 				'f138ID'=> (!empty($_POST['f138ID']) ? $_POST['f138ID'] : 0),
-// 				'psa_nsoID'=> (!empty($_POST['psa_nsoID']) ? $_POST['psa_nsoID'] : 0),
-// 				'good_moralID'=> (!empty($_POST['good_moralID']) ? $_POST['good_moralID'] : 0),
-// 				'medical_certID'=> (!empty($_POST['medical_certID']) ? $_POST['medical_certID'] : 0),
-// 				'picture_two_by_twoID'=> (!empty($_POST['picture_two_by_twoID']) ? $_POST['picture_two_by_twoID'] : 0),
-// 				'nc_non_enrollmentID'=> (!empty($_POST['nc_non_enrollmentID']) ? $_POST['nc_non_enrollmentID'] : 0),
-// 				'coc_hs_shsID'=> (!empty($_POST['coc_hs_shsID']) ? $_POST['coc_hs_shsID'] : 0),
-// 				'ac_pept_alsID'=> (!empty($_POST['ac_pept_alsID']) ? $_POST['ac_pept_alsID'] : 0),
-// 				'cert_dry_sealID'=> (!empty($_POST['cert_dry_sealID']) ? $_POST['cert_dry_sealID'] : 0),
-// 				'cert_dry_sealID_twelve'=> (!empty($_POST['cert_dry_sealID_twelve']) ? $_POST['cert_dry_sealID_twelve'] : 0),
-// 				'admission_status'=> (!empty($_POST['admission_status']) ? $_POST['admission_status'] : ""),
-// 				'app_grad'=> (!empty($_POST['app_grad']) ? $_POST['app_grad'] : 0),
-// 				'or_app_grad'=> (!empty($_POST['or_app_grad']) ? $_POST['or_app_grad'] : 0),
-// 				'latest_regi'=> (!empty($_POST['latest_regi']) ? $_POST['latest_regi'] : 0),
-// 				'course_curri'=> (!empty($_POST['course_curri']) ? $_POST['course_curri'] : 0),
-// 				'cert_candi'=> (!empty($_POST['cert_candi']) ? $_POST['cert_candi'] : 0),
-// 				'gen_clear'=> (!empty($_POST['gen_clear']) ? $_POST['gen_clear'] : 0),
-// 				'or_grad_fee'=> (!empty($_POST['or_grad_fee']) ? $_POST['or_grad_fee'] : 0),
-// 				'cert_confer'=> (!empty($_POST['cert_confer']) ? $_POST['cert_confer'] : 0),
-// 				'schoolid'=> (!empty($_POST['schoolid']) ? $_POST['schoolid'] : 0),
-// 				'honor_dis'=> (!empty($_POST['honor_dis']) ? $_POST['honor_dis'] : 0),
-// 				'trans_rec'=> (!empty($_POST['trans_rec']) ? $_POST['trans_rec'] : 0)
-// 			];
-			
-// 			$res = $insertstudentadmission->insertAdmissionStudents($id, $data, (!empty($_POST['admission_status']) ? $_POST['admission_status'] : ""));
-// 		}
-		
-
-		
-// //CHECKLIST ALERT
-// 		if ($res) {
-			
-// 			if ($res['admission_status'] == 'complete') {
-// 				return redirect()->to(base_url('admissionregistrar/complete1'));
-// 			}elseif ($res['admission_status'] == 'incomplete') {
-// 				return redirect()->to(base_url('admissionregistrar/notify1/'.$res['userID']));
-// 			}elseif ($res['admission_status'] == 'rechecking') {
-// 				return redirect()->to(base_url('admissionregistrar/request-rechecking1/'));
-// 			} else {
-// 				$this->session->setFlashData('error', 'Error encountered!');
-// 				return redirect()->to(base_url('admissionregistrar'));
-// 			}}
-		
-// 		if ($this->isAjax()) {
-// 			return view('admissionoffice/admissiondashboard1', $this->data);
-// 		}
-// 		echo view('admissionoffice/regheader', $this->data);
-// 		echo view('admissionoffice/admissiondashboard1', $this->data);
-// 		return view('admissionoffice/footer', $this->data);
-// 	}
 
 	public function showNotifier($id){
 		
@@ -1444,107 +1533,6 @@ class AdmissionController extends BaseController
 	        return redirect()->to(base_url('admission'));
 		}	
 	}
-	// public function sendLackingDocumentstoMail1($id)
-	// {
-	// 	$getrefmodel = new RefremarksModel;
-	// 	$is_result = $getrefmodel->__getadmissionremarks($id);
-	// 	if(!empty($is_result)){
-	// 		$data = [
-	// 			'sc_pup_remarks' => (!empty($_POST['sc_pup_remarks']) ? $_POST['sc_pup_remarks'] : null),
-	// 			's_one_photocopy_sarform' => (!empty($_POST['s_one_photocopy_sarform']) ? $_POST['s_one_photocopy_sarform'] : null),
-	// 			'submit_original_sarform' => (!empty($_POST['submit_original_sarform']) ? $_POST['submit_original_sarform'] : null),
-	// 			'no_dry_sealf137' => (!empty($_POST['no_dry_sealf137']) ? $_POST['no_dry_sealf137'] : null),
-	// 			'submit_original_f137' => (!empty($_POST['submit_original_f137']) ? $_POST['submit_original_f137'] : null),			
-	// 			'no_dry_sealgrade10' => (!empty($_POST['no_dry_sealgrade10']) ? $_POST['no_dry_sealgrade10'] : null),
-	// 			's_one_photocopy_grade10' => (!empty($_POST['s_one_photocopy_grade10']) ? $_POST['s_one_photocopy_grade10'] : null),
-	// 			'submit_original_grade10' => (!empty($_POST['submit_original_grade10']) ? $_POST['submit_original_grade10'] : null),		
-	// 			'no_dry_sealgrade11' => (!empty($_POST['no_dry_sealgrade11']) ? $_POST['no_dry_sealgrade11'] : null),
-	// 			's_one_photocopy_grade11' => (!empty($_POST['s_one_photocopy_grade11']) ? $_POST['s_one_photocopy_grade11'] : null),
-	// 			'submit_original_grade11' => (!empty($_POST['submit_original_grade11']) ? $_POST['submit_original_grade11'] : null),		
-	// 			'no_dry_sealgrade12' => (!empty($_POST['no_dry_sealgrade12']) ? $_POST['no_dry_sealgrade12'] : null),
-	// 			's_one_photocopy_grade12' => (!empty($_POST['s_one_photocopy_grade12']) ? $_POST['s_one_photocopy_grade12'] : null),
-	// 			'submit_original_grade12' => (!empty($_POST['submit_original_grade12']) ? $_POST['submit_original_grade12'] : null),
-	// 			's_one_photocopy_psa' => (!empty($_POST['s_one_photocopy_psa']) ? $_POST['s_one_photocopy_psa'] : null),
-	// 			'submit_original_psa' => (!empty($_POST['submit_original_psa']) ? $_POST['submit_original_psa'] : null),
-	// 			'no_dry_sealgoodmoral' => (!empty($_POST['no_dry_sealgoodmoral']) ? $_POST['no_dry_sealgoodmoral'] : null),
-	// 			's_one_photocopy_goodmoral' => (!empty($_POST['s_one_photocopy_goodmoral']) ? $_POST['s_one_photocopy_goodmoral'] : null),
-	// 			'submit_original_goodmoral' => (!empty($_POST['submit_original_goodmoral']) ? $_POST['submit_original_goodmoral'] : null),
-	// 			'submit_original_medcert' => (!empty($_POST['submit_original_medcert']) ? $_POST['submit_original_medcert'] : null),
-	// 			'submit_twobytwo' => (!empty($_POST['submit_twobytwo']) ? $_POST['submit_twobytwo'] : null),
-	// 			// 'not_submitted_sarform' => (!empty($_POST['not_submitted_sarform']) ? $_POST['not_submitted_sarform'] : null),
-	// 			// 'not_submitted_f137' => (!empty($_POST['not_submitted_f137']) ? $_POST['not_submitted_f137'] : null),
-	// 			// 'not_submitted_grade10' => (!empty($_POST['not_submitted_grade10']) ? $_POST['not_submitted_grade10'] : null),
-	// 			// 'not_submitted_grade11' => (!empty($_POST['not_submitted_grade11']) ? $_POST['not_submitted_grade11'] : null),
-	// 			// 'not_submitted_grade12' => (!empty($_POST['not_submitted_grade12']) ? $_POST['not_submitted_grade12'] : null),
-	// 			// 'not_submitted_psa' => (!empty($_POST['not_submitted_psa']) ? $_POST['not_submitted_psa'] : null),
-	// 			// 'not_submitted_goodmoral' => (!empty($_POST['not_submitted_goodmoral']) ? $_POST['not_submitted_goodmoral'] : null),
-	// 			// 'not_submitted_medcert' => (!empty($_POST['not_submitted_medcert']) ? $_POST['not_submitted_medcert'] : null),
-	// 			'certicate_of_completion' => (!empty($_POST['certicate_of_completion']) ? $_POST['certicate_of_completion'] : null),
-	// 		];
-	// 		// die(print_r($data));
-	// 		$res = $getrefmodel->updateSendLackingDocuments(
-	// 			$id, 
-	// 			$_POST['email'], 
-	// 			$data, 
-	// 			$_POST['remarks']
-	// 		);
-	// 	}else{
-	// 		$data = [
-	// 			'sc_pup_remarks' => (!empty($_POST['sc_pup_remarks']) ? $_POST['sc_pup_remarks'] : null),
-	// 			's_one_photocopy_sarform' => (!empty($_POST['s_one_photocopy_sarform']) ? $_POST['s_one_photocopy_sarform'] : null),
-	// 			'submit_original_sarform' => (!empty($_POST['submit_original_sarform']) ? $_POST['submit_original_sarform'] : null),
-	// 			'no_dry_sealf137' => (!empty($_POST['no_dry_sealf137']) ? $_POST['no_dry_sealf137'] : null),
-	// 			'submit_original_f137' => (!empty($_POST['submit_original_f137']) ? $_POST['submit_original_f137'] : null),			
-	// 			'no_dry_sealgrade10' => (!empty($_POST['no_dry_sealgrade10']) ? $_POST['no_dry_sealgrade10'] : null),
-	// 			's_one_photocopy_grade10' => (!empty($_POST['s_one_photocopy_grade10']) ? $_POST['s_one_photocopy_grade10'] : null),
-	// 			'submit_original_grade10' => (!empty($_POST['submit_original_grade10']) ? $_POST['submit_original_grade10'] : null),		
-	// 			'no_dry_sealgrade11' => (!empty($_POST['no_dry_sealgrade11']) ? $_POST['no_dry_sealgrade11'] : null),
-	// 			's_one_photocopy_grade11' => (!empty($_POST['s_one_photocopy_grade11']) ? $_POST['s_one_photocopy_grade11'] : null),
-	// 			'submit_original_grade11' => (!empty($_POST['submit_original_grade11']) ? $_POST['submit_original_grade11'] : null),		
-	// 			'no_dry_sealgrade12' => (!empty($_POST['no_dry_sealgrade12']) ? $_POST['no_dry_sealgrade12'] : null),
-	// 			's_one_photocopy_grade12' => (!empty($_POST['s_one_photocopy_grade12']) ? $_POST['s_one_photocopy_grade12'] : null),
-	// 			'submit_original_grade12' => (!empty($_POST['submit_original_grade12']) ? $_POST['submit_original_grade12'] : null),
-	// 			's_one_photocopy_psa' => (!empty($_POST['s_one_photocopy_psa']) ? $_POST['s_one_photocopy_psa'] : null),
-	// 			'submit_original_psa' => (!empty($_POST['submit_original_psa']) ? $_POST['submit_original_psa'] : null),
-	// 			'no_dry_sealgoodmoral' => (!empty($_POST['no_dry_sealgoodmoral']) ? $_POST['no_dry_sealgoodmoral'] : null),
-	// 			's_one_photocopy_goodmoral' => (!empty($_POST['s_one_photocopy_goodmoral']) ? $_POST['s_one_photocopy_goodmoral'] : null),
-	// 			'submit_original_goodmoral' => (!empty($_POST['submit_original_goodmoral']) ? $_POST['submit_original_goodmoral'] : null),
-	// 			'submit_original_medcert' => (!empty($_POST['submit_original_medcert']) ? $_POST['submit_original_medcert'] : null),
-	// 			'submit_twobytwo' => (!empty($_POST['submit_twobytwo']) ? $_POST['submit_twobytwo'] : null),
-	// 			// 'not_submitted_sarform' => (!empty($_POST['not_submitted_sarform']) ? $_POST['not_submitted_sarform'] : null),
-	// 			// 'not_submitted_f137' => (!empty($_POST['not_submitted_f137']) ? $_POST['not_submitted_f137'] : null),
-	// 			// 'not_submitted_grade10' => (!empty($_POST['not_submitted_grade10']) ? $_POST['not_submitted_grade10'] : null),
-	// 			// 'not_submitted_grade11' => (!empty($_POST['not_submitted_grade11']) ? $_POST['not_submitted_grade11'] : null),
-	// 			// 'not_submitted_grade12' => (!empty($_POST['not_submitted_grade12']) ? $_POST['not_submitted_grade12'] : null),
-	// 			// 'not_submitted_psa' => (!empty($_POST['not_submitted_psa']) ? $_POST['not_submitted_psa'] : null),
-	// 			// 'not_submitted_goodmoral' => (!empty($_POST['not_submitted_goodmoral']) ? $_POST['not_submitted_goodmoral'] : null),
-	// 			// 'not_submitted_medcert' => (!empty($_POST['not_submitted_medcert']) ? $_POST['not_submitted_medcert'] : null),
-	// 			'certicate_of_completion' => (!empty($_POST['certicate_of_completion']) ? $_POST['certicate_of_completion'] : null),
-	// 		];
-	// 		$res = $getrefmodel->insertSendLackingDocuments(
-	// 			$id, 
-	// 			$_POST['email'], 
-	// 			$data, 
-	// 			$_POST['remarks']
-	// 		);
-	// 	}
-	// 	if (
-	// 		$_POST['admission_status'] == 'incomplete' || 
-	// 		$_POST['admission_status'] =='complete' || 
-	// 		$_POST['admission_status'] =='rechecking'
-	// 	) {
-	// 		if ($res) {
-	// 			$this->session->setFlashData('success', 'Email Sent!');
-	// 			return redirect()->to(base_url('admissionregistrar'));
-	// 		} else {
-	// 			$this->session->setFlashData('warning', 'Error');
-	// 			return redirect()->to(base_url('admissionregistrar'));
-	// 		}
-	// 	}else{
-	// 		$this->session->setFlashData('error', 'Please select adminssion status!');
-	//         return redirect()->to(base_url('admission'));
-	// 	}	
-	// }
 	public function showstudentIncompleteAdmission()
 	{
 		$getstudent = new StudentsModel;
@@ -1731,24 +1719,26 @@ class AdmissionController extends BaseController
 		}
 	}
 
-	public function setForRetrievingFiles($id)
+public function setForRetrievingFiles($id)
 	{
 		$getstudentadmissionmodel = new StudentadmissionModel;
 		$getRefForRetrievedModel = new RefForRetrievedModel;
+		
+// 		die(print_r($_POST));
 
 		if ($this->request->getMethod() == "post") {
 			$data = [
-				'f137ID' => $_POST['f137ID'],
-				'f138ID' => $_POST['f138ID'],
-				'cert_dry_sealID' => $_POST['cert_dry_sealID'],
-				'cert_dry_sealID_twelve' => $_POST['cert_dry_sealID_twelve'],
+				'f137ID' => !empty($_POST['f137ID']) ? $_POST['f137ID'] : 0,
+				'f138ID' => !empty($_POST['f138ID']) ? $_POST['f138ID'] : 0,
+				'cert_dry_sealID' => !empty($_POST['cert_dry_sealID']) ? $_POST['cert_dry_sealID'] : 0,
+				'cert_dry_sealID_twelve' => !empty($_POST['cert_dry_sealID_twelve']) ? $_POST['cert_dry_sealID_twelve'] : 0,
 			];
 			
 			$send_mail_label= [
-				'f137ID' => ['Form 137', $_POST['f137ID']],
-				'f138ID' => ['Grade 10 Card', $_POST['f138ID']],
-				'cert_dry_sealID' => ['Grade 11 Card', $_POST['cert_dry_sealID']],
-				'cert_dry_sealID_twelve' => ['Grade 12 Card', $_POST['cert_dry_sealID_twelve']],
+				'f137ID' => ['Form 137', !empty($_POST['f137ID']) ? $_POST['f137ID'] : ''],
+				'f138ID' => ['Grade 10 Card', !empty($_POST['f138ID']) ? $_POST['f138ID'] : ''],
+				'cert_dry_sealID' => ['Grade 11 Card', !empty($_POST['cert_dry_sealID']) ? $_POST['cert_dry_sealID'] : ''],
+				'cert_dry_sealID_twelve' => ['Grade 12 Card', !empty($_POST['cert_dry_sealID_twelve']) ? $_POST['cert_dry_sealID_twelve'] : ''],
 			];
 
 			$is_checklist = false;
@@ -1764,18 +1754,29 @@ class AdmissionController extends BaseController
 						$getRefForRetrievedData = $getRefForRetrievedModel->__getRetrievedAdmissionFilesByStudentId(
 							$id, 
 							$requirementsID
-						)[0];
-						if($getRefForRetrievedData['requirementsID'] == $requirementsID){
-							$is_selected_checklist_added = false;
-						}else{
-							$getRefForRetrievedModel->__setInsertRetrievedAdmissionFiles(
+						);
+						if(empty($getRefForRetrievedData)){
+						    $getRefForRetrievedModel->__setInsertRetrievedAdmissionFiles(
 								$id, 
 								$requirementsID, 
 								$_POST['reasons']
 							);
 							$send_email_data[] = ['requirementsID' =>$requirementsID];
 							$is_selected_checklist_added = true;
+						}else{
+    						if($getRefForRetrievedData['requirementsID'][0] == $requirementsID){
+    							$is_selected_checklist_added = false;
+    						}else{
+    							$getRefForRetrievedModel->__setInsertRetrievedAdmissionFiles(
+    								$id, 
+    								$requirementsID, 
+    								$_POST['reasons']
+    							);
+    							$send_email_data[] = ['requirementsID' =>$requirementsID];
+    							$is_selected_checklist_added = true;
+    						}
 						}
+				// 		die(print_r($getRefForRetrievedData));
 					}
 				}
 				// die(print_r($delete_student_admission_data));
@@ -1852,7 +1853,11 @@ class AdmissionController extends BaseController
 		$getstudent = new StudentsModel;
 		$model = new AdmissionDocumentStatusModel(); 
 		$getstudent = new StudentsModel;
-
+		$getstudentadmission_files = new StudentadmissionfilesModel;
+		$getstudentadmission_files_status = new AdmissionDocumentStatusModel();
+		
+		$this->data['studentadmission_status'] = $getstudentadmission_files_status->__getStudentAdmissionStatus($id);
+		$this->data['studentadmission_files'] = $getstudentadmission_files->__getStudentFiles($id);		
 		$this->data['documentstatus'] =   $model->__getStudentAdmissionStatus($id);
 // 		die(print_r($this->data['documentstatus']));
 		$this->data['image_file_record'] = $getStudentFileImages->__getStudentImageFiles($id);

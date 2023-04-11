@@ -15,7 +15,9 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.23/sl-1.3.1/datatables.min.css"/>
     <link rel="stylesheet" href="<?php echo base_url('css/student/student.css'); ?>">
     
+    
     <title>OCT-DRS</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
   </head>
   <main class="page-content" id="content">
@@ -41,54 +43,73 @@
                 <?php if($_SESSION['role'] == "Superadmin"):?>
                   <a class="btn dashboard" href="<?=base_url('users')?>">Superadmin Dashboard</a>
                 <?php endif ?>
+                <?php if($_SESSION['role'] == "HapAndSSO"):?>
+                  <a class="btn dashboard" href="<?=base_url('/document-requests')?>">Back to Dashboard</a>
+                <?php endif ?>
+                
                 <?php if($_SESSION['role'] == "Admin" || $_SESSION['role'] == "Admission"):?>
-                  <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Home</a>
-                  <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="<?php echo base_url('admission'); ?>">Dashboard</a></li>
-                    <li><a class="dropdown-item" href="<?php echo base_url('admission/add-student-form'); ?>">Add Student</a></li>                      
-                    <li><a class="dropdown-item" href="<?=base_url('form-137/requests')?>"> Form 137 Request</a></li>
-                  </ul>
-                <?php endif ?>
-
-                <?php if($_SESSION['role'] == "Superadmin" || $_SESSION['role'] == "Admin"):?>
-                  <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="background-color: maroon;">
-                    <li class="nav-item dropdown d-flex">
-                      <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
-                        <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
-                          <li><a class="dropdown-item" href="/admission/complete">Complete Submission</a></li>
-                          <li><a class="dropdown-item" href="/admission/incomplete">Incomplete Submission</a></li>
-                          <li><a class="dropdown-item" href="/admission/retrieved-files">Retrieved Credentials</a></li>
-                          <li><a class="dropdown-item" href="/admission/request-rechecking">Rechecking Credentials</a></li>
-                          
+                    <div class="nav-item dropdown dropdown-parent">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Home</a>
+                        <ul class="dropdown-menu dropdown-menu-child" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="<?php echo base_url('admission'); ?>">Dashboard</a></li>
+                            <li><a class="dropdown-item" href="<?php echo base_url('admission/add-student-form'); ?>">Add Student</a></li>                      
                         </ul>
+                    </div>
                 <?php endif ?>
+                
                 <?php if($_SESSION['role'] == "Admission"):?>
-                  <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="background-color: maroon;">
-                    <li class="nav-item dropdown d-flex">
-                      <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
-                        <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
-                          <li><a class="dropdown-item" href="/admission/complete">Complete Submission</a></li>
-                          <li><a class="dropdown-item" href="/admission/incomplete">Incomplete Submission</a></li>
-                          <li><a class="dropdown-item" href="/admission/retrieved-files">Retrieved Credentials</a></li>
-                          <li><a class="dropdown-item" href="/admission/request-rechecking">Rechecking Credentials</a></li>
-                          <li><a class="dropdown-item" href="/document-requests">Good Moral Requests</a></li>
+                    <div class="nav-item dropdown dropdown-parent">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Document Request</a>
+                        <ul class="dropdown-menu dropdown-menu-child" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="<?=base_url('form-137/requests')?>"> Form 137 Request</a></li>
+                            <li><a class="dropdown-item" href="<?=base_url('/document-requests')?>"> Good Moral</a></li>
                         </ul>
+                    </div>
                 <?php endif ?>
-
-                    
-
-              <ul class="navbar-nav logout">
-                <li class="nav-item dropdown d-flex">
-                  <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="far fa-user-circle"></i> <?php echo $_SESSION['username'];?></a>
-                    <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
-                      <li><a class="dropdown-item" style="color: black;"  href="#" id="passwordModal" data-bs-toggle="modal" data-bs-target="#passwordForm" ><i class="fas fa-lock"></i> Change Password</a></li>
-                      <li><a class="dropdown-item" href="/logout">Logout <i class="fas fa-sign-out-alt"></i></a></li>
-                    </ul>
-                </li>
-              </ul>
+                
+                <?php if($_SESSION['role'] == "Admission" || $_SESSION['role'] == "Superadmin" || $_SESSION['role'] == "Admin"):?>
+                    <div class="nav-item dropdown dropdown-parent">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Manage Credentials</a>
+                        <ul class="dropdown-menu dropdown-menu-child" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/admission/complete">Complete Submission</a></li>
+                            <li><a class="dropdown-item" href="/admission/incomplete">Incomplete Submission</a></li>
+                            <li><a class="dropdown-item" href="/admission/retrieved-files">Retrieved Credentials</a></li>
+                            <li><a class="dropdown-item" href="/admission/request-rechecking">Rechecking Credentials</a></li>
+                            <li><a class="dropdown-item" href="/admission/completestudentupload">Complete Upload</a></li>
+                            <li><a class="dropdown-item" href="/admission/incompletestudentupload">Incomplete Upload</a></li>
+                        </ul>
+                    </div>
+                <?php endif ?>
+                
+                <ul class="navbar-nav logout">
+                    <li class="nav-item dropdown dropdown-parent">
+                      <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="far fa-user-circle"></i> <?php echo $_SESSION['username'];?></a>
+                        <ul class="dropdown-menu dropdown-menu-child" aria-labelledby="navbarDropdown">
+                          <li><a class="dropdown-item" style="color: black;"  href="#" id="passwordModal" data-bs-toggle="modal" data-bs-target="#passwordForm" ><i class="fas fa-lock"></i> Change Password</a></li>
+                          <li><a class="dropdown-item" href="/logout">Logout <i class="fas fa-sign-out-alt"></i></a></li>
+                        </ul>
+                    </li>
+                </ul>
+              
+                <style>
+                .dropdown-parent:hover .dropdown-menu-child {
+                  display: block;
+                }
+                </style>
+                
+                <script>
+                function showDropdown(dropdownId) {
+                  var dropdown = document.getElementById(dropdownId);
+                  dropdown.classList.add('show');
+                }
+                
+                function hideDropdown(dropdownId) {
+                  var dropdown = document.getElementById(dropdownId);
+                  dropdown.classList.remove('show');
+                }
+                </script>
             </div>
-  
           </div>
         </nav>
     </nav>

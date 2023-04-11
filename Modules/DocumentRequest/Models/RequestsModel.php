@@ -18,9 +18,28 @@ class RequestsModel extends BaseModel
     parent::__construct();
   }
 
-  public function getDetails($condition = [], $id = null, $status_array = 0){
-    $this->select('requests.id, requests.approved_at ,requests.receipt_img,requests.receipt_number,requests.uploaded_at,requests.slug, requests.disapproved_at,students.firstname,students.middlename, students.suffix,students.status as student_status,students.student_number, students.lastname,requests.completed_at, requests.reason, requests.created_at, courses.course, 
-    courses.abbreviation, requests.status, requests.request_code');
+  public function getDetails($condition = [], $id = null, $status_array = 0, $role_status = null){
+    $this->select('
+        requests.id, 
+        requests.approved_at ,
+        requests.receipt_img,
+        requests.receipt_number,
+        requests.uploaded_at,
+        requests.slug, 
+        requests.disapproved_at,
+        students.firstname,
+        students.middlename, 
+        students.suffix,
+        students.status as student_status,
+        students.student_number, 
+        students.lastname,
+        requests.completed_at, 
+        requests.reason, 
+        requests.created_at, 
+        courses.course, 
+        courses.abbreviation, 
+        requests.status, 
+        requests.request_code');
     $this->join('students', 'students.id = student_id');
     $this->join('courses', 'courses.id = students.course_id');
     foreach ($condition as $condition => $value) {
@@ -30,13 +49,60 @@ class RequestsModel extends BaseModel
     if($status_array == 1){
       $this->whereIn('requests.status', ['f', 'p', 'y']);
     }
-    // die(print_r($this->findAll()));
+    
+    if ($role_status != null){
+        $this->join('request_details', 'request_id = requests.id', 'left');
+        // $this->join('documents', 'request_details.document_id = documents.id');
+        $this->whereNotIn('request_details.document_id', [6, 26, 27]);
+    }
+    
     if ($id != null){
       $this->where('requests.id', $id);
     }
     return $this->findAll();
     
   }
+  
+  public function getDetailsForExcemptedDocument($condition = [], $id = null, $status_array = 0){
+    $this->select('
+        requests.id, 
+        requests.approved_at ,
+        requests.receipt_img,
+        requests.receipt_number,
+        requests.uploaded_at,
+        requests.slug, 
+        requests.disapproved_at,
+        students.firstname,
+        students.middlename, 
+        students.suffix,
+        students.status as student_status,
+        students.student_number, 
+        students.lastname,
+        requests.completed_at, 
+        requests.reason, 
+        requests.created_at, 
+        courses.course, 
+        courses.abbreviation, 
+        requests.status, 
+        requests.request_code');
+    $this->join('students', 'students.id = student_id');
+    $this->join('request_details', 'request_details.request_id = requests.id');
+    $this->join('courses', 'courses.id = students.course_id');
+    foreach ($condition as $condition => $value) {
+      $this->where($condition, $value); 
+    }
+    
+    if($status_array == 1){
+      $this->whereIn('requests.status', ['f', 'p', 'y']);
+    }
+    
+    if ($id != null){
+      $this->where('requests.id', $id);
+    }
+    return $this->findAll();
+    
+  }
+  
   public function updateRequestStatus($id, $data){
           
     return $this->update($id, $data); 

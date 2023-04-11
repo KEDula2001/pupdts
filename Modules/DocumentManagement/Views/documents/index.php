@@ -46,14 +46,14 @@
                           <thead class="table-dark">
                             <tr>
                               <th width="5%">#</th>
-                              <th width="20%">Document</th>
+                              <th width="10%">Document</th>
                               <th width="5%">Price</th>
                               <th width="5%">Template</th>
                               <th width="5%">Per Page Payment</th>
                               <th width="5%">Free on first Request</th>
-                              <th width="20%">Notes</th>
+                              <th width="25%">Notes</th>
                               <th width="15%">Office Requirements</th>
-                              <th width="20%">Actions</th>
+                              <th width="25%">Actions</th>
                             </tr>
                           </thead>
                           <tbody>

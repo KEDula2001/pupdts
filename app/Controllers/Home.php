@@ -101,7 +101,10 @@ class Home extends BaseController
 			'birthdate' => 'required',
 			'middlename' => 'required',
 			'email' => 'required|valid_email|is_unique[users.email,id]',
-			'course_id' => 'required'
+			'course_id' => [
+			    'label' => 'course',
+			    'rules' => 'required'
+			    ]
         ])) {
 
 			$getcourses = new CourseModel;

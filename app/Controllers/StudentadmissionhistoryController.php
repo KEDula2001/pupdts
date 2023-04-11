@@ -12,6 +12,8 @@ class StudentadmissionhistoryController extends BaseController
 {
 	public function index($id)
 	{
+	    $getstudentadmission_files_status = new AdmissionDocumentStatusModel();
+		$this->data['studentadmission_status'] = $getstudentadmission_files_status->__getStudentAdmissionStatus($id);
 		$getstudentadmission = new StudentadmissionModel;
 		$getremarks = new RefremarksModel;
 		$getstudentadmission_files = new StudentadmissionfilesModel;

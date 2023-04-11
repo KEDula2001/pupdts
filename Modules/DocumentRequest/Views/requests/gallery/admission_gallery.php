@@ -47,7 +47,12 @@
                           </div>
                       </a>
                   <?php else: ?>
-                    <h3 class="text-center">-No File-</h3>
+                    <a href="<?php echo base_url('uploads/'.isset($studentadmission_files['sar_pupcct_results_files'])); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
+                    <h3 align = "center">No File </h3>
+                    <div align = "center">
+                    <label style="color:#dc3545;" class = "text-center">PUPCET/CAEPUP Result</label>
+                  </div>
+                  </a>
                   <?php endif ?>
                   <?php if(!empty($studentadmission_files['f137_files'])): ?>
                       <a href="<?php echo base_url('uploads/'.$studentadmission_files['f137_files']); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
@@ -63,10 +68,15 @@
                           </div>
                       </a>
                   <?php else: ?>
-                    <h3 align="center">-No File-</h3>
+                    <a href="<?php echo base_url('uploads/'.isset($studentadmission_files['f137_files'])); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
+                    <h3 align = "center">No File </h3>
+                    <div align = "center">
+                    <label style="color:#dc3545;" class = "text-center">Form 137</label>
+                  </div>
+                  </a>
                   <?php endif ?>
                   <?php if(!empty($studentadmission_files['g10_files'])): ?>
-                      <a href="<?php echo base_url('uploads/'.$studentadmission_files['g10_files']); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
+                      <a href="<?php echo base_url('uploads/'.isset($studentadmission_files['g10_files'])); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
                           <?php if (!empty($studentadmission_files['g10_files'])): ?>
                             <img src="<?php echo base_url('uploads/'.$studentadmission_files['g10_files']); ?>" class="img-fluid card">
                           <?php else: ?>
@@ -79,7 +89,12 @@
                           </div>
                       </a>
                   <?php else: ?>
-                    <h3 align="center">-No File-</h3>
+                    <a href="<?php echo base_url('uploads/'.isset($studentadmission_files['g10_files'])); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
+                    <h3 align = "center">No File </h3>
+                    <div align = "center">
+                    <label style="color:#dc3545;" class = "text-center">Grade 10 Report Card</label>
+                  </div>
+                  </a>
                   <?php endif ?>
                   <?php if(!empty($studentadmission_files['g11_files'])): ?>
                       <a href="<?php echo base_url('uploads/'.$studentadmission_files['g11_files']); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
@@ -95,7 +110,12 @@
                           </div>
                       </a>
                   <?php else: ?>
-                    <h3 align="center">-No File-</h3>
+                    <a href="<?php echo base_url('uploads/'.isset($studentadmission_files['g11_files'])); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
+                    <h3 align = "center">No File </h3>
+                    <div align = "center">
+                    <label style="color:#dc3545;" class = "text-center">Grade 11 Report Card</label>
+                  </div>
+                  </a>
                   <?php endif ?>
                   <?php if(!empty($studentadmission_files['g12_files'])): ?>
                       <a href="<?php echo base_url('uploads/'.$studentadmission_files['g12_files']); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
@@ -111,7 +131,12 @@
                           </div>
                       </a>
                   <?php else: ?>
-                    <h3 align="center">-No File-</h3>
+                    <a href="<?php echo base_url('uploads/'.isset($studentadmission_files['g12_files'])); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
+                    <h3 align = "center">No File </h3>
+                    <div align = "center">
+                    <label style="color:#dc3545;" class = "text-center">Grade 12 Report Card</label>
+                  </div>
+                  </a>
                   <?php endif ?>
                   <?php if(!empty($studentadmission_files['psa_nso_files'])): ?>
                       <a href="<?php echo base_url('uploads/'.$studentadmission_files['psa_nso_files']); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
@@ -127,7 +152,12 @@
                           </div>
                       </a>
                   <?php else: ?>
-                    <h3 align="center">-No File-</h3>
+                    <a href="<?php echo base_url('uploads/'.isset($studentadmission_files['psa_nso_files'])); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
+                    <h3 align = "center">No File </h3>
+                    <div align = "center">
+                    <label style="color:#dc3545;" class = "text-center">PSA/NSO Birth Certificate</label>
+                  </div>
+                  </a>
                   <?php endif ?>
                   <?php if(!empty($studentadmission_files['good_moral_files'])): ?>
                       <a href="<?php echo base_url('uploads/'.$studentadmission_files['good_moral_files']); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
@@ -143,7 +173,12 @@
                           </div>
                       </a>
                   <?php else: ?>
-                    <h3 align="center">-No File-</h3>
+                    <a href="<?php echo base_url('uploads/'.isset($studentadmission_files['good_moral_files'])); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
+                    <h3 align = "center">No File </h3>
+                    <div align = "center">
+                    <label style="color:#dc3545;" class = "text-center">Good moral</label>
+                  </div>
+                  </a>
                   <?php endif ?>
                   <?php if(!empty($studentadmission_files['medical_cert_files'])): ?>
                       <a href="<?php echo base_url('uploads/'.$studentadmission_files['medical_cert_files']); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
@@ -159,7 +194,12 @@
                           </div>
                       </a>
                   <?php else: ?>
-                    <h3 align="center">-No File-</h3>
+                    <a href="<?php echo base_url('uploads/'.isset($studentadmission_files['medical_cert_files'])); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
+                    <h3 align = "center">No File </h3>
+                    <div align = "center">
+                    <label style="color:#dc3545;" class = "text-center">Medical Certificate </label>
+                  </div>
+                  </a>
                   <?php endif ?>
                   <?php if(!empty($studentadmission_files['picture_two_by_two_files'])): ?>
                       <a href="<?php echo base_url('uploads/'.$studentadmission_files['picture_two_by_two_files']); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
@@ -175,7 +215,12 @@
                           </div>
                       </a>
                   <?php else: ?>
-                    <h3 align="center">-No File-</h3>
+                    <a href="<?php echo base_url('uploads/'.isset($studentadmission_files['picture_two_by_two_files'])); ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3" style="text-decoration: none;">
+                    <h3 align = "center">No File </h3>
+                    <div align = "center">
+                    <label style="color:#dc3545;" class = "text-center">2x2 Picture</label>
+                  </div>
+                  </a>
                   <?php endif ?>
               </div>
             </div>

@@ -14,14 +14,14 @@
             <div class="card m-2">
                 <div class="card-body">
                     <div class="row">
-                    <?php if(session()->get('office') != 'HAP' && session()->get('office') != 'Student Services'):?>
+                    
                         <div class="table-responsive">
                             
                             <table class="table table-striped table-bordered mt-3 dataTable">
                                 <thead>
                                     <tr>
                                         <th class="text-center">Name</th>
-                                        <th class="text-center">Request Code</th>
+                                        <th class="text-center">Request Code | Document Name</th>
                                         <th class="text-center">Date Requested</th>
                                         <th class="text-center">Gen. Clearance</th>
                                         <th class="text-center">Library</th>
@@ -36,8 +36,8 @@
                                         <tr>
                                             
                                             <td><?=esc(ucwords($request['firstname'].'  ')) ?><?=esc($request['lastname'])?></td>
-                                            <th><?= $request['slug'] ?></th>
-                                            <td><?= $request['created_at'] ?></td>
+                                            <th><?= $request['slug'].' | '.$request['document']  ?></th>
+                                            <td><?= date('F d, Y - H:i A', strtotime(esc($request['created_at']))) ?></td>
                                             <th class="text-center">
                                                 <a href="/approval/generate-clearance/<?= $request['id'] ?>" target="_blank"><u>View</u></a>
                                             </th>          
@@ -130,7 +130,7 @@
                                                 <?php endif; ?>
                                             </td>
                                             <td class="text-center">
-                                                <?php if(session()->get('office')=='Internal Audit'):?>
+                                                <?php if(session()->get('office')=='Internal Audit' || session()->get('role')=='HapAndSSO' ):?>
                                                     <button 
                                                         <?php if($request['internal_audit'] == 0):?>
                                                             onclick="approvePerOffices('/approval/apply-approval/edit/', 5, <?=$request['request_id']?>, <?=$request['id']?>, '<?=$request['slug']?>', '/approval');" 
@@ -157,14 +157,8 @@
                             </table>
                         </div>
                     </div>
-                    <?php endif;?>
+                   
                 </div>
-                <?php if(session()->get('office') == 'HAP' || session()->get('office') == 'Student Services'): ?>
-                    <h4>Current Function</h4>   
-                    <a href="<?php echo base_url('document-requests'); ?>" class="btn btn-primary">Good Moral Requests</a>
-
-                                
-                        <?php endif;?>
             </div>
         </div>
     </div>

@@ -75,13 +75,14 @@ class StudentadmissionModel extends Model
 		($data['cert_dry_sealID'] != 0 ? $this->set('cert_dry_sealID', 0) : '');
 		($data['cert_dry_sealID_twelve'] != 0 ? $this->set('cert_dry_sealID_twelve', 0) : '');
 
+        $this->set('admission_status', 'incomplete');
+        
 		$this->where('studID', $userID);
 
 		($data['f137ID'] != 0 ? $this->where('f137ID', $data['f137ID']) : '');
 		($data['f138ID'] != 0 ? $this->where('f138ID', $data['f138ID']) : '');
 		($data['cert_dry_sealID'] != 0 ? $this->where('cert_dry_sealID', $data['cert_dry_sealID']) : '');
 		($data['cert_dry_sealID_twelve'] != 0 ? $this->where('cert_dry_sealID_twelve', $data['cert_dry_sealID_twelve']) : '');
-
         return $this->update();
 	}
 	public function __getSAMDetails($id){

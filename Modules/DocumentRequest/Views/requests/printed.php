@@ -1,10 +1,18 @@
     <section class="content">
-      <div class="col-6 offset-3">
-        <div class="form-floating">
-          <input type="text" class="form-control mb-3"onEnter="scan()" name="slug" id="slug" class="floatingInput" placeholder="Student Number" required>
-          <label for="floatingInput">Enter Request Code Here</label>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-floating">
+                    <input type="text" class="form-control mb-3" onEnter="scan()" name="slug" id="slug" class="floatingInput" placeholder="Student Number" required>
+                    <label for="floatingInput">Enter Request Code Here</label>
+                </div>
+            </div>
+            <div class="col-6 d-flex align-items-center justify-content-end">
+                <div class="text-end">
+                    <a class="btn btn-primary" href="printed-requests/get-report">Generate Report</a>
+                </div>
+            </div>
         </div>
-      </div>
+
       <div class="row">
         <div class="col-md-12">
           <div class="card">
@@ -13,6 +21,7 @@
                   <div class="row mt-3 mb-3">
                     <div class="col-12">
                       <div class="input-group mb-3">
+                          
                         <label class="input-group-text" for="document">Filter by Documents: </label>
                         <select class="form-select" id="document" onchange="filterPrintedDocument()">
                           <?php if (empty($documents)): ?>

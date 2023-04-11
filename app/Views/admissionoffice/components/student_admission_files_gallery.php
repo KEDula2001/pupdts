@@ -383,6 +383,127 @@
         </div>  
       </div>
     </div>
+
+    
+    <div class="card">
+              <div class="card-header">
+                <h4><b>Admission Edit Upload</b></h4>
+                <p style="font-size: 12px;color: red;"><i>
+                  Note:
+                  <li style="font-size: 12px;color: red;">Please submit the scanned documents required below before submitting the hard copy of the requirements to the School admission office.</li>
+                  <li style="font-size: 12px;color: red;">Make sure you have no pending sanctions from the university or else all your document request will be rejected.</li>
+                  <li style="font-size: 12px;color: red;">You are required to upload all softcopies of your admission credentials.</li>
+                  </i></p>
+              </div>
+              <form action="<?php echo base_url('admission/student-upload-files-set-documents/'.$student['user_id']); ?>" method="post" enctype="multipart/form-data">
+                <div class="card-body">
+                  <!-- sar form/PUPCET result -->
+                  <div class="mb-3">
+                    <label for="formFile1" class="form-label">SAR Form/PUPCET Result:</label>
+                    <?php if(empty($studentadmission_files['sar_pupcct_results_files'])) : ?>  
+                    <input class="form-control" type="file" name="sar_pupcct_results_files" id="formFile1">
+                    <?php else :?>
+                    <br>
+                    <input class="form-control" type="text" name="sar_pupcct_results_files" id="formFile1" disabled value = "<?=$studentadmission_files['sar_pupcct_results_files']?>">
+                    <?php endif; ?>
+                  </div>
+                  <!-- sar form/PUPCET result -->
+                  <!-- f137 -->
+                  <div class="mb-3">
+                    <label for="formFile2" class="form-label">F137:</label>
+                    <?php if(empty($studentadmission_files['f137_files'])) : ?>  
+                    <input class="form-control" type="file" name="f137_files" id="formFile2">
+                    <?php else :?>
+                    <br>
+                    <input class="form-control" type="text" name="f137_files" id="formFile2" disabled value = "<?=$studentadmission_files['f137_files']?>">
+                    <?php endif; ?>
+                  </div>
+                  <!-- f137 -->
+                  <!-- G10 Card -->
+                  <div class="mb-3">
+                    <label for="formFile3" class="form-label">Grade 10 Card:</label>
+                    <?php if(empty($studentadmission_files['g10_files'])) : ?> 
+                    <input class="form-control" type="file" name="g10_files" id="formFile3">
+                    <?php else :?>
+                    <br>
+                    <input class="form-control" type="text" name="g10_files" id="formFile3" disabled value = "<?=$studentadmission_files['g10_files']?>">
+                    <?php endif; ?>
+                  </div>
+                  <!-- G10 Card -->
+                
+
+                  <div class="mb-3">
+                    <label for="formFile11" class="form-label">Grade 11 Card:</label>
+                    <?php if(empty($studentadmission_files['g11_files'])) : ?> 
+                    <input class="form-control" type="file" name="g11_files" id="formFile11">
+                    <?php else :?>
+                    <br>
+                    <input class="form-control" type="text" name="g11_files" id="formFile11" disabled value = "<?=$studentadmission_files['g11_files']?>">
+                    <?php endif; ?>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="formFile11" class="form-label">Grade 12 Card:</label>
+                    <?php if(empty($studentadmission_files['g12_files'])) : ?> 
+                    <input class="form-control" type="file" name="g12_files" id="formFile12">
+                    <?php else :?>
+                    <br>
+                    <input class="form-control" type="text" name="g12_files" id="formFile11" disabled value = "<?=$studentadmission_files['g12_files']?>">
+                    <?php endif; ?>
+                  </div>
+
+
+                  <!-- PSA/NSO -->
+                  <div class="mb-3">
+                    <label for="formFile4" class="form-label">PSA/NSO Birth Certificate:</label>
+                    <?php if(empty($studentadmission_files['psa_nso_files'])) : ?> 
+                    <input class="form-control" type="file" name="psa_nso_files" id="formFile4">
+                    <?php else :?>
+                    <br>
+                    <input class="form-control" type="text" name="psa_nso_files" id="formFile4" disabled value = "<?=$studentadmission_files['psa_nso_files']?>">
+                    <?php endif; ?>
+                  </div>
+                  <!-- PSA/NSO -->
+                  <!-- Good Moral -->
+                  <div class="mb-3">
+                    <label for="formFile5" class="form-label">Good Moral:</label>
+                    <?php if(empty($studentadmission_files['good_moral_files'])) : ?> 
+                    <input class="form-control" type="file" name="good_moral_files" id="formFile5">
+                    <?php else :?>
+                    <br>
+                    <input class="form-control" type="text" name="good_moral_files" id="formFile5" disabled value = "<?=$studentadmission_files['good_moral_files']?>">
+                    <?php endif; ?>
+                  </div>
+                  <!-- Good Moral -->
+                  <!-- Medical Clearance -->
+                  <div class="mb-3">
+                    <label for="formFile6" class="form-label">Medical Clearance:</label>
+                    <?php if(empty($studentadmission_files['medical_cert_files'])) : ?> 
+                    <input class="form-control" type="file" name="medical_cert_files" id="formFile6">
+                    <?php else :?>
+                    <br>
+                    <input class="form-control" type="text" name="medical_cert_files" id="formFile6" disabled value = "<?=$studentadmission_files['medical_cert_files']?>">
+                    <?php endif; ?>
+                  </div>
+                  <!-- Medical Clearance -->
+                  <!-- 2x2 Picture -->
+                  <div class="mb-3">
+                    <label for="formFile7" class="form-label">2x2 Picture:</label>
+                    <?php if(empty($studentadmission_files['picture_two_by_two_files'])) : ?> 
+                    <input class="form-control" type="file" name="picture_two_by_two_files" id="formFile7">
+                    <?php else :?>
+                    <br>
+                    <input class="form-control" type="text" name="picture_two_by_two_files" id="formFile6" disabled value = "<?=$studentadmission_files['picture_two_by_two_files']?>">
+                    <?php endif; ?>
+                  </div>
+                  <!-- 2x2 Picture -->
+                </div>
+                
+                <div class="card-footer">
+                  <button style="background-color:maroon;color: white;" type="submit" name="btnsavefiles" class="form-control">Save Files</button>
+                </div>
+              </form> 
+            </div>
   </div>
 </div>
 

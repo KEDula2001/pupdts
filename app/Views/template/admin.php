@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col">
       <img src="<?=base_url()?>/img/pupt-logo.png" alt="">
-      <span class="align-middle">PUPT ACT-DRS</span>
+      <span class="align-middle">PUPT OCT-DRS</span>
       <div class="dropdown float-end">
         <a class="btn dashboard btn-light btn-sm" href="<?=base_url('dashboards')?>">
           <i class="fas fa-tachometer-alt"></i> Dashboard
@@ -11,9 +11,18 @@
         <!-- <a class="btn completerqt btn-light btn-sm" href="<?=base_url('form-137/requests')?>">
           <i class="fas fa-file"></i> Form 137 Requests
         </a> -->
+        <?php if($_SESSION['role'] == 'Admission'): ?>
         <a class="btn completerqt btn-light btn-sm" href="<?=base_url('admission')?>">
           <i class="fas fa-file"></i> Admission Office
         </a>
+        
+        <?php elseif($_SESSION['role'] == 'HapAndSSO'): ?>
+        <a class="btn completerqt btn-light btn-sm" href="<?=base_url('/approval')?>">
+          <i class="fas fa-file"></i> Approval
+        </a>
+        <?php else:?>
+        <?php endif;?>
+
         
 
         <button class="btn logout btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">

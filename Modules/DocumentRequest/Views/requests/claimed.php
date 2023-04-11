@@ -20,7 +20,7 @@
                         <label for="document" class="form-label fw-bold">Document</label>
                         <select id="document" class="form-select" name="d">
                             <?php if ($hide_filter == true): ?>
-                                <option value="0" selected>All</option>
+                                    <option disabled selected> Select Documents</option>
                                 <?php foreach($documents as $document): ?>
                                     <?php if($document['id'] == 6): ?>
                                        <option value="<?=esc($document['id'])?>"><?=esc(ucwords($document['document']))?></option>
@@ -28,9 +28,9 @@
                                 <?php endforeach; ?>
                             <?php else: ?>
                                 <?php if (empty($documents)): ?>
-                                    <option value="" disabled selected>--No Documents Found--</option>
+                                    <option disabled selected>--No Documents Found--</option>
                                 <?php else: ?>
-                                    <option value="" selected>All</option>
+                                    <option disabled selected> Select Documents</option>
                                     <?php foreach($documents as $document): ?>
                                         <?php if($document['id'] != 6): ?>
                                            <option value="<?=esc($document['id'])?>"><?=esc(ucwords($document['document']))?></option>

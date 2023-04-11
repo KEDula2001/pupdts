@@ -172,7 +172,12 @@
                               <?php foreach ($request_details_process as $request_detail): ?>
                                 <tr>
                                   <td><?= esc($request_detail['document']) ?></td>
-                                  <td><?= esc(empty($request_detail['remark']) ? 'N/A': esc($request_detail['remark'])) ?></td>
+                                  <?php 
+                                      $printed_at = new DateTime($request_detail['printed_at']);
+                                      $formatted_date = $printed_at->format('F d, Y');
+                                    ?>
+                                    <td><?= $formatted_date ?></td>
+                                  
                                 </tr>
                               <?php endforeach; ?>
                             <?php endif; ?>

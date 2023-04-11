@@ -380,30 +380,30 @@
                                   <?=esc(ucwords($student['abbreviation'].' '.$student['year_graduated']))?>
                                 </label>
                                 <hr>
-                                <form action="<?php echo base_url('admission/retreived-admission-files/'.$student['user_id']); ?>" method="post" autocomplete="off">   
+                                <form action="<?php echo base_url('admission/retreived-admission-files/'.$student['user_id']); ?>" method="post">   
                                      
-                                <?php if(isset($res['f137ID']) != 0):?>                         
+                                  <?php if(!empty($res['f137ID'])):?>                         
                                     <input type="checkbox" value="2" name="f137ID" id="f137ID">
                                     <label for="f137ID">Form 137</label> <br>
                                   <?php else:?>                       
                                     <input type="checkbox" value="2" name="f137ID" disabled>
                                     <label for="f137ID">Form 137</label> <br>
                                   <?php endif;?> 
-                                  <?php if(isset($res['f138ID']) != 0):?>                         
+                                  <?php if(!empty($res['f138ID'])):?>                         
                                     <input type="checkbox" value="3" name="f138ID">
                                     <label for="f138ID">Grade 10 Card</label> <br>
                                   <?php else:?>                       
                                     <input type="checkbox" value="3" name="f138ID" disabled>
                                     <label for="f138ID">Grade 10 Card</label> <br>
                                   <?php endif;?>    
-                                  <?php if(isset($res['cert_dry_sealID']) != 0):?>                         
+                                  <?php if(!empty($res['cert_dry_sealID'])):?>                         
                                     <input type="checkbox" value="11" name="cert_dry_sealID">
                                     <label for="cert_dry_sealID">Grade 11 Card</label> <br>
                                   <?php else:?>                       
                                     <input type="checkbox" value="11" name="cert_dry_sealID" disabled>
                                     <label for="cert_dry_sealID">Grade 11 Card</label> <br>
                                   <?php endif;?>     
-                                  <?php if(isset($res['cert_dry_sealID_twelve']) != 0):?>                         
+                                  <?php if(!empty($res['cert_dry_sealID_twelve'])):?>                         
                                     <input type="checkbox" value="12" name="cert_dry_sealID_twelve">
                                     <label for="cert_dry_sealID_twelve">Grade 12 Card</label> <br>
                                   <?php else:?>                       

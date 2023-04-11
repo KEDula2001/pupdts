@@ -103,7 +103,7 @@
                                                       <?php if ($approval_ctr++ == 0): ?>
                                                           <tr>
                                                             <th>Office</th>
-                                                            <th>Approve Date</th>
+                                                            <th>Date Approved</th>
                                                             <th>Hold Date</th>
                                                             <th>Hold Remark</th>
                                                           </tr>

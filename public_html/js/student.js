@@ -133,8 +133,11 @@ $(document).ready(function() {
                       if (value == '') {
                         Swal.showValidationMessage('First input missing')
                       }
-                      else if (value.length != 11) {
-                        Swal.showValidationMessage('The input of the number must be at the lenght of 11 numbers')
+                      else if (!/^[0-9]+$/.test(value)) {
+                        Swal.showValidationMessage('Please input a valid contact number.')
+                      }
+                      else if (/^[0-9]+$/.test(value) && value.length != 11) {
+                        Swal.showValidationMessage('The input of the number must be at the lenght of 11 numbers only.')
                       }
                     }
                   })

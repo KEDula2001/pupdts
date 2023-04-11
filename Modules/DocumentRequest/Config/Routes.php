@@ -24,6 +24,19 @@ $routes->group('document-requests', ['namespace' => 'Modules\DocumentRequest\Con
     $routes->get('clearance/(:num)', 'DocumentRequests::clearance/$1');
     $routes->get('certsteno/(:num)', 'DocumentRequests::certsteno/$1');
     $routes->get('ReadmissionCert/(:num)', 'DocumentRequests::ReadmissionCert/$1');
+    $routes->get('waiverunderprob/(:num)', 'DocumentRequests::waiverunderprob/$1');
+    $routes->get('rasreadmission/(:num)', 'DocumentRequests::rasreadmission/$1');
+    $routes->get('rasladderized/(:num)', 'DocumentRequests::rasladderized/$1');
+    
+    $routes->get('CertficateforUndergratuateProbation/(:num)', 'DocumentRequests::CertficateforUndergratuateProbation/$1');
+    $routes->get('certregularunitscourse/(:num)', 'DocumentRequests::certregularunitscourse/$1');
+    $routes->get('certofregunitsAdSubject/(:num)', 'DocumentRequests::certofregunitsAdSubject/$1');
+    $routes->get('certmediumundergrat/(:num)', 'DocumentRequests::certmediumundergrat/$1');
+    $routes->get('certmedium/(:num)', 'DocumentRequests::certmedium/$1');
+    $routes->get('certofenrollmentpresent/(:num)', 'DocumentRequests::certofenrollmentpresent/$1');
+    $routes->get('certofenrolleecross/(:num)', 'DocumentRequests::certofenrolleecross/$1');
+    $routes->get('certofEnrollmentUndergrad/(:num)', 'DocumentRequests::certofEnrollmentUndergrad/$1');
+    
 
     
     $routes->get('requestforNameBirthdate/(:num)', 'DocumentRequests::requestforNameBirthdate/$1');
@@ -77,6 +90,7 @@ $routes->group('approval', ['namespace' => 'Modules\DocumentRequest\Controllers'
 $routes->group('printed-requests', ['namespace' => 'Modules\DocumentRequest\Controllers'], function($routes)
 {
     $routes->get('/', 'DocumentRequests::printed');
+    $routes->get('get-report', 'DocumentRequests::doctoclaimreport');
     $routes->get('filter', 'DocumentRequests::filterPrinted');
     $routes->get('get-printed', 'DocumentRequests::getPrinted');
     $routes->post('scan', 'DocumentRequests::claimRequest');

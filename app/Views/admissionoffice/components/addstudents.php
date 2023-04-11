@@ -133,7 +133,7 @@
                   <div class="form-group mb-3">
                     <label for="course" hi>Course <small class="text-danger">*</small></label>
                       <select class="form-control" name="course_id">
-                        <option class="active" hidden>Select Course</option>
+                        <option selected disabled>Select Course</option>
                         <?php if (!empty($courses)): ?>
                           <?php foreach ($courses as $course): ?>
                             <option value="<?=esc($course['id'])?>"><?=esc($course['course'])?></option>
