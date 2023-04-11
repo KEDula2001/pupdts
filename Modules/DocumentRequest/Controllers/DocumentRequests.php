@@ -43,7 +43,7 @@ class DocumentRequests extends BaseController
         $this->data['request_documents'] = $this->requestDetailModel->getDetails(['request_details.received_at' => null, 'request_details.document_id' => 27]);
     }
     else{
-        $this->data['requests'] = $this->requestModel->getDetails(['requests.status' => 'p']);
+        $this->data['requests'] = $this->requestModel->getDetailsForApprovedClearances(['requests.status' => 'p'], null, 0, 1);
         $this->data['request_documents'] = $this->requestDetailModel->getDetails(['request_details.received_at' => null], 1);
     }
     
@@ -137,7 +137,7 @@ class DocumentRequests extends BaseController
     $this->data['request_documents'] = $this->requestDetailModel->getDetails(['request_details.received_at' => null, 'request_details.document_id' => 27]);
     }
     else{
-        $this->data['requests'] = $this->requestModel->getDetails(['requests.status' => 'y']);
+        $this->data['requests'] = $this->requestModel->getDetailsForPayments(['requests.status' => 'y'], null, 0, 1);
         $this->data['request_documents'] = $this->requestDetailModel->getDetails(['request_details.received_at' => null], 1);
     // die(json_encode($this->data['requests']));
         

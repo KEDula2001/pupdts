@@ -51,14 +51,104 @@ class RequestsModel extends BaseModel
     }
     
     if ($role_status != null){
-        $this->join('request_details', 'request_id = requests.id', 'left');
-        // $this->join('documents', 'request_details.document_id = documents.id');
         $this->whereNotIn('request_details.document_id', [6, 26, 27]);
     }
     
     if ($id != null){
       $this->where('requests.id', $id);
     }
+    return $this->findAll();
+    
+  }
+  public function getDetailsForApprovedClearances($condition = [], $id = null, $status_array = 0, $role_status = null){
+    $this->select('
+        requests.id, 
+        requests.approved_at ,
+        requests.receipt_img,
+        requests.receipt_number,
+        requests.uploaded_at,
+        requests.slug, 
+        requests.disapproved_at,
+        students.firstname,
+        students.middlename, 
+        students.suffix,
+        students.status as student_status,
+        students.student_number, 
+        students.lastname,
+        requests.completed_at, 
+        requests.reason, 
+        requests.created_at, 
+        courses.course, 
+        courses.abbreviation, 
+        requests.status, 
+        requests.request_code');
+    $this->join('students', 'students.id = student_id');
+    $this->join('courses', 'courses.id = students.course_id');
+    $this->join('request_details', 'request_details.request_id = requests.id');
+    foreach ($condition as $condition => $value) {
+      $this->where($condition, $value); 
+    }
+    
+    if($status_array == 1){
+      $this->whereIn('requests.status', ['f', 'p', 'y']);
+    }
+    
+    if ($role_status != null){
+        $this->whereNotIn('request_details.document_id', [6, 26, 27]);
+    }
+    
+    if ($id != null){
+      $this->where('requests.id', $id);
+    }
+
+    $this->groupBy('request_details.request_id');
+    return $this->findAll();
+    
+  }
+  public function getDetailsForPayments($condition = [], $id = null, $status_array = 0, $role_status = null){
+    $this->select('
+        requests.id, 
+        requests.approved_at ,
+        requests.receipt_img,
+        requests.receipt_number,
+        requests.uploaded_at,
+        requests.slug, 
+        requests.disapproved_at,
+        students.firstname,
+        students.middlename, 
+        students.suffix,
+        students.status as student_status,
+        students.student_number, 
+        students.lastname,
+        requests.completed_at, 
+        requests.reason, 
+        requests.created_at, 
+        courses.course, 
+        courses.abbreviation, 
+        requests.status, 
+        requests.request_code
+      ');
+    $this->join('students', 'students.id = student_id');
+    $this->join('courses', 'courses.id = students.course_id');
+    $this->join('request_details', 'request_details.request_id = requests.id');
+    foreach ($condition as $condition => $value) {
+      $this->where($condition, $value); 
+    }
+    
+    if($status_array == 1){
+      $this->whereIn('requests.status', ['f', 'p', 'y']);
+    }
+    
+    if ($role_status != null){
+        $this->whereNotIn('request_details.document_id', [6, 26, 27]);
+    }
+    
+    if ($id != null){
+      $this->where('requests.id', $id);
+    }
+
+    $this->groupBy('request_details.request_id');
+    
     return $this->findAll();
     
   }

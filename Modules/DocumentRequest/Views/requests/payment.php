@@ -19,7 +19,7 @@
                 <?php if (!empty($requests)): ?>
                   <?php foreach ($requests as $request): ?>
                     <tr class="active-row">
-                      <td><?=esc($request['slug'])?></td>
+                      <td><?= esc($request['slug'])?></td>
                       
                       <td style="text-transform: uppercase;"><?= ucwords(esc($request['firstname']) . ' ' . esc($request['lastname']) . ' ' . esc($request['suffix'])) ?></td>
                       <td><?= ucwords(esc($request['student_status'])) ?></td>
