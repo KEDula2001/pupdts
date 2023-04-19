@@ -23,7 +23,8 @@ class App extends BaseConfig
 	 *
 	 * @var string
 	 */
-	public $baseURL = 'http://octdrsweb.puptcapstone.net/';
+	// public $baseURL = 'http://octdrsweb.puptcapstone.net/';
+	public $baseURL = 'http://localhost:8080/';
 
 	/**
 	 * --------------------------------------------------------------------------

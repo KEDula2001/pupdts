@@ -365,13 +365,14 @@ $(document).ready(function() {
     })
 });
 
-
-
 function showDetail(checkbox){
+  var ckName = document.getElementsByName(checkbox.name);
+  for (var i = 0, c; c = ckName[i]; i++) {
+    c.disabled = !(!checkbox.checked || c === checkbox);
+  }
   if (checkbox.checked == true) {
     document.getElementById('qty-form-'+checkbox.id).disabled = false;
     document.getElementById('free-form-'+checkbox.id).disabled = false;
-
   } else {
     document.getElementById('qty-form-'+checkbox.id).disabled = true;
     document.getElementById('free-form-'+checkbox.id).disabled = true;

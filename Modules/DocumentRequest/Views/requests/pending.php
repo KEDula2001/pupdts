@@ -49,7 +49,7 @@
                           <?php endif;?>
                         </ul>
                       </td>
-                      <td><?= date('F d, Y - H:i A', strtotime(esc($request['created_at']))) ?></td>
+                      <td><?= date('F d, Y - H:i A', strtotime(esc($request['updated_at']))) ?></td>
                       <td>
                         <button onClick="denyRequest(<?=esc($request['id'])?>, '<?=esc($request['student_number'])?>')" class="btn btn-reject btn-danger"> Reject </button>
                       </td>
