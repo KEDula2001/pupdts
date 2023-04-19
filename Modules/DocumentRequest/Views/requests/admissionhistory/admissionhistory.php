@@ -380,10 +380,10 @@
                 <div align="center">
                     <?php if (!empty($studentadmission_details['admission_status'])): ?>
                       <?php if ($studentadmission_details['admission_status'] != 'complete'): ?>
-                        <button type="submit" name="btnrechecking" class="btn btn-danger" <?php if ($studentadmission_details['admission_status'] == 'rechecking'){echo 'disabled';} ?>>Re-check My Documents</button>
+                        <button type="submit" name="btnrechecking" class="btn btn-danger" <?php if ($studentadmission_details['admission_status'] == 'rechecking'){echo 'disabled';} ?>>Recheck My Documents</button>
                       <?php endif ?>
                   <?php else: ?>
-                    <button type="submit" disabled name="btnrechecking" class="btn btn-danger">Re-check My Documents</button>
+                    <button type="submit" disabled name="btnrechecking" class="btn btn-danger">Recheck My Documents</button>
                   <?php endif ?>
                 </div>
             </form>

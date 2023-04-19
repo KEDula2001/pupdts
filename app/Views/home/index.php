@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-sm-12 col-md-5 col-lg-4 mx-auto d-flex flex-column min-vh-100 justify-content-center align-items-center">
         <div class="card my-5">
-            <img class="card-img-top" src="/img/acts-bg28.png" alt="Card image cap">
+            <img class="card-img-top" src="../img/acts-bg29.png">
       
             <div class="card-body">
               <div class="text-center">

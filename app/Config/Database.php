@@ -30,14 +30,15 @@ class Database extends Config
 	 *
 	 * @var array
 	 */
-
-//Local============================
+	 
+	 
+	 //Local============================
 	public $default = [
 		'DSN'      => '',
 		'hostname' => 'localhost',
-		'username' => 'root',
-		'password' => '',
-		'database' => 'odrs_db',
+		'username' => 'u395184583_octdrsroot',
+		'password' => '+N4883aBE4Re',
+		'database' => 'u395184583_octdrsmainDB',
 		'DBDriver' => 'MySQLi',
 		'DBPrefix' => '',
 		'pConnect' => false,
@@ -51,6 +52,27 @@ class Database extends Config
 		'failover' => [],
 		'port'     => 3306,
 	];
+
+// //Local============================
+// 	public $default = [
+// 		'DSN'      => '',
+// 		'hostname' => 'localhost',
+// 		'username' => 'root',
+// 		'password' => '',
+// 		'database' => 'odrs_db',
+// 		'DBDriver' => 'MySQLi',
+// 		'DBPrefix' => '',
+// 		'pConnect' => false,
+// 		'DBDebug'  => (ENVIRONMENT !== 'production'),
+// 		'charset'  => 'utf8',
+// 		'DBCollat' => 'utf8_general_ci',
+// 		'swapPre'  => '',
+// 		'encrypt'  => false,
+// 		'compress' => false,
+// 		'strictOn' => true,
+// 		'failover' => [],
+// 		'port'     => 3306,
+// 	];
 
 //Production ==================
 	// public $default = [

@@ -32,7 +32,7 @@ class DocumentRequests extends BaseController
   public function index() 
   {
     if($_SESSION['role'] == "Admission"){
-        $this->data['requests'] = $this->requestModel->getDetailsForExcemptedDocument(['requests.status' => 'p', 'request_details.document_id' => 6]);
+        $this->data['requests'] = $this->requestDetailModel->getDetails(['request_details.status' => 'p','request_details.document_id' => 6]);
         $this->data['request_documents'] = $this->requestDetailModel->getDetails(['request_details.received_at' => null, 'request_details.document_id' => 6]);
     }
     else if($_SESSION['role'] == "HapAndSSO"){
@@ -125,8 +125,9 @@ class DocumentRequests extends BaseController
   }
 
   public function payment(){
+     
     if($_SESSION['role'] == "Admission"){
-        $this->data['requests'] = $this->requestModel->getDetailsForExcemptedDocument(['requests.status' => 'p', 'request_details.document_id' => 6]);
+        $this->data['requests'] = $this->requestDetailModel->getDetails(['request_details.status' => 'p','request_details.document_id' => 6]);
         $this->data['request_documents'] = $this->requestDetailModel->getDetails(['request_details.received_at' => null, 'request_details.document_id' => 6]);
     }else if($_SESSION['role'] == "HapAndSSO"){
         $this->data['requests'] = $this->requestModel->getDetailsForExcemptedDocument(['requests.status' => 'p', 'request_details.document_id' => 26]);
@@ -411,7 +412,7 @@ class DocumentRequests extends BaseController
     $pdf->Cell(80, 5, '2. Laboratory:         '.($data['laboratory']==0?'NOT CLEARED':'CLEARED'));
     $pdf->Cell(70, 5, '5. Internal Audit:     '.($data['internal_audit']==0?'NOT CLEARED':'CLEARED'));
     $pdf->Ln(4);
-    $pdf->Cell(80, 5, '3. C.M.T. (ROTC):      '.($data['rotc']==0?'NOT CLEARED':'CLEARED'));
+    $pdf->Cell(80, 5, '3. C.M.T. (NSTP):      '.($data['rotc']==0?'NOT CLEARED':'CLEARED'));
     $pdf->Cell(70, 5, '6. Legal Office:       '.($data['internal_audit']==0?'NOT CLEARED':'CLEARED'));
 
     $pdf->Ln(8);
@@ -522,37 +523,7 @@ class DocumentRequests extends BaseController
     $pdf->Ln(4);
     $pdf->Cell(16, 5, ' IMMEDIATE FAMILY - BRING SPECIAL POWER OF ATTORNEY AND A PHOTOCOPY OF VALID I.D.');
 
-    $pdf->SetX(160);
-    $pdf->SetY(250);
-
-    // Button to validate and print
-    $pdf->Button('print', 30, 10, 'Print', 'Print()', array('lineWidth'=>2, 'borderStyle'=>'beveled', 'fillColor'=>array(194,8,8), 'strokeColor'=>array(64, 64, 64)));
-
-    // Reset Button
-    $pdf->Button('reset', 30, 10, 'Reset', array('S'=>'ResetForm'), array('lineWidth'=>2, 'borderStyle'=>'beveled', 'fillColor'=>array(128, 196, 255), 'strokeColor'=>array(64, 64, 64)));
-
-    // Submit Button
-    $pdf->Button('submit', 30, 10, 'Submit', array('S'=>'SubmitForm', 'F'=>'http://localhost/printvars.php', 'Flags'=>array('ExportFormat')), array('lineWidth'=>2, 'borderStyle'=>'beveled', 'fillColor'=>array(124,252,0), 'strokeColor'=>array(64, 64, 64)));
-
-    // Form validation functions
-    $js = <<<EOD
-    function CheckField(name,message) {
-        var f = getField(name);
-        if(f.value == '') {
-            app.alert(message);
-            f.setFocus();
-            return false;
-        }
-        return true;
-    }
-    function Print() {
-        print();
-    }
-    EOD;
-
-    // Add Javascript code
-    $pdf->IncludeJS($js);
-
+    
     // -----------------------------------------------------------------------------
     // output the HTML content
     // -----------------------------------------------------------------------------
@@ -1411,7 +1382,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
     
         $pdf->Ln(9);
         $pdf->SetFont('lucidafaxdemib', 'B', 18);
-        $pdf->Cell(0, 5, 'C E R I F I C A T I O N', 0, 1, 'C');
+        $pdf->Cell(0, 5, 'C E R T I F I C A T I O N', 0, 1, 'C');
         $pdf->SetFont('lucidafax', '', 11);
         $pdf->Ln(10);
     
@@ -1431,7 +1402,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
         
         $pdf->Ln(9);
         $pdf->writeHTML('<p style="text-indent: 50px">This is to certify that ', 0, 0, true, 1);
-        $pdf->writeHTML($data['lastname'] . ', ' . $data['firstname'] . ' ' . $data['middlename'] . ', from ' . $data['course'] . ' is readmitted in this campus this ', 0, 0, true, 1);
+        $pdf->writeHTML($data['firstname'] . ' ' . $data['middlename'] . ' ' . $data['lastname'] . ' from ' . $data['course'] . ' is readmitted in this campus this ', 0, 0, true, 1);
         $pdf->writeHTML('  ', 0, 0, true, 1);
         $pdf->TextField('semester', 19, 5);
         $pdf->writeHTML('Semester of S.Y. ' . SCHOOL_YEAR . '.', 0, 0, true, 1);
@@ -1455,13 +1426,13 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
         $pdf->Cell(100, 5, ' ');
         $pdf->Cell(34, 5, 'Signed:');
         $pdf->Ln(6);
-        $pdf->Cell(130, 5, ' ');
+        $pdf->Cell(125, 5, ' ');
         $pdf->SetFont('lucidafaxdemib', '', 11);
-        $pdf->Cell(100, 5, 'LIWANAG L. MALIKSI');
+        $pdf->Cell(90, 5, 'LIWANAG L. MALIKSI');
         $pdf->Ln(6);
         $pdf->SetFont('lucidafax', '', 11);
-        $pdf->Cell(132, 5, ' ');
-        $pdf->Cell(100, 5, 'Head of Admission');
+        $pdf->Cell(110, 5, ' ');
+        $pdf->Cell(95, 5, 'Head, Admission and Guidance Office');
     
         $pdf->Ln(20);
         $pdf->writeHTML('(To be filled-up by the Admission Officer)');
@@ -1521,41 +1492,6 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
         $pdf->Ln(4);
         $pdf->SetFont('lucidafax', '', 9);
         $pdf->writeHTML('File this certificate and clearance with his/her enrollment evaluation form.', 0, 0, true, 1);
-        
-        $pdf->SetY(230);
-    
-        // Button to validate and print
-        $pdf->Button('print', 30, 10, 'Print', 'Print()', array('lineWidth'=>2, 'borderStyle'=>'beveled', 'fillColor'=>array(194,8,8), 'strokeColor'=>array(64, 64, 64)));
-    
-        // Reset Button
-        $pdf->Button('reset', 30, 10, 'Reset', array('S'=>'ResetForm'), array('lineWidth'=>2, 'borderStyle'=>'beveled', 'fillColor'=>array(128, 196, 255), 'strokeColor'=>array(64, 64, 64)));
-    
-        // Form validation functions
-        $js = <<<EOD
-        function CheckField(name,message) {
-            var f = getField(name);
-            if(f.value == '') {
-                app.alert(message);
-                f.setFocus();
-                return false;
-            }
-            return true;
-        }
-        function Print() {
-                if(!CheckField('semester','Semester is mandatory')) {return;}
-                if(!CheckField('amount','Amount is mandatory')) {return;}
-                if(!CheckField('school_year1','School year admitted is mandatory')) {return;}
-                if(!CheckField('semester1','Current semester attending is mandatory')) {return;}
-                if(!CheckField('semester2','Last semester attended is mandatory')) {return;}
-                if(!CheckField('school_year2','School year for last semester attended is mandatory')) {return;}
-                if(!CheckField('year_level','Year level is mandatory')) {return;}
-                if(!CheckField('status','Status is mandatory')) {return;}
-                print();
-            }
-        EOD;
-    
-        // Add Javascript code
-        $pdf->IncludeJS($js);
     
         // -----------------------------------------------------------------------------
         // output the HTML content
@@ -1648,7 +1584,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
     
         $pdf->Ln(9);
         $pdf->SetFont('lucidafaxdemib', 'B', 18);
-        $pdf->Cell(0, 5, 'C E R I F I C A T I O N', 0, 1, 'C');
+        $pdf->Cell(0, 5, 'C E R T I F I C A T I O N', 0, 1, 'C');
         $pdf->SetFont('lucidafax', '', 11);
         $pdf->Ln(6);
     
@@ -2070,7 +2006,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
     $pdf->Cell(80, 5, '2. Laboratory:         CLEARED');
     $pdf->Cell(70, 5, '5. Internal Audit:     CLEARED');
     $pdf->Ln(4);
-    $pdf->Cell(80, 5, '3. C.M.T. (ROTC):      CLEARED');
+    $pdf->Cell(80, 5, '3. C.M.T. (NSTP):      CLEARED');
     $pdf->Cell(70, 5, '6. Legal Office:       CLEARED');
 
     $pdf->Ln(8);
@@ -2749,7 +2685,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
     
         $pdf->Ln(9);
         $pdf->SetFont('lucidafaxdemib', 'B', 18);
-        $pdf->Cell(0, 5, 'C E R I F I C A T I O N', 0, 1, 'C');
+        $pdf->Cell(0, 5, 'C E R T I F I C A T I O N', 0, 1, 'C');
         $pdf->SetFont('lucidafax', '', 11);
         $pdf->Ln(10);
     
@@ -3429,7 +3365,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
     
         $pdf->Ln(9);
         $pdf->SetFont('lucidafaxdemib', 'B', 18);
-        $pdf->Cell(0, 5, 'C E R I F I C A T I O N', 0, 1, 'C');
+        $pdf->Cell(0, 5, 'C E R T I F I C A T I O N', 0, 1, 'C');
         $pdf->SetFont('lucidafax', '', 11);
         $pdf->Ln(10);
     
@@ -3735,7 +3671,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
 
     $pdf->Ln(9);
     $pdf->SetFont('lucidafaxdemib', 'B', 18);
-    $pdf->Cell(0, 5, 'C E R I F I C A T I O N', 0, 1, 'C');
+    $pdf->Cell(0, 5, 'C E R T I F I C A T I O N', 0, 1, 'C');
     $pdf->SetFont('lucidafax', '', 11);
     $pdf->Ln(10);
 
@@ -4917,7 +4853,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
 
     $pdf->Ln(9);
     $pdf->SetFont('lucidafaxdemib', 'B', 18);
-    $pdf->Cell(0, 5, 'C E R I F I C A T I O N', 0, 1, 'C');
+    $pdf->Cell(0, 5, 'C E R T I F I C A T I O N', 0, 1, 'C');
     $pdf->SetFont('lucidafax', '', 11);
     $pdf->Ln(10);
 
@@ -5210,7 +5146,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
 
     $pdf->Ln(9);
     $pdf->SetFont('lucidafaxdemib', 'B', 18);
-    $pdf->Cell(0, 5, 'C E R I F I C A T I O N', 0, 1, 'C');
+    $pdf->Cell(0, 5, 'C E R T I F I C A T I O N', 0, 1, 'C');
     $pdf->SetFont('lucidafax', '', 11);
     $pdf->Ln(10);
 
@@ -5512,7 +5448,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
 
     $pdf->Ln(9);
     $pdf->SetFont('lucidafaxdemib', 'B', 18);
-    $pdf->Cell(0, 5, 'C E R I F I C A T I O N', 0, 1, 'C');
+    $pdf->Cell(0, 5, 'C E R T I F I C A T I O N', 0, 1, 'C');
     $pdf->SetFont('lucidafax', '', 11);
     $pdf->Ln(10);
 
@@ -5720,7 +5656,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
 
     $pdf->Ln(9);
     $pdf->SetFont('lucidafaxdemib', 'B', 18);
-    $pdf->Cell(0, 5, 'C E R I F I C A T I O N', 0, 1, 'C');
+    $pdf->Cell(0, 5, 'C E R T I F I C A T I O N', 0, 1, 'C');
     $pdf->SetFont('lucidafax', '', 11);
     $pdf->Ln(10);
 
@@ -5932,7 +5868,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
 
     $pdf->Ln(9);
     $pdf->SetFont('lucidafaxdemib', 'B', 18);
-    $pdf->Cell(0, 5, 'C E R I F I C A T I O N', 0, 1, 'C');
+    $pdf->Cell(0, 5, 'C E R T I F I C A T I O N', 0, 1, 'C');
     $pdf->SetFont('lucidafax', '', 11);
     $pdf->Ln(10);
 
@@ -6158,7 +6094,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
 
     $pdf->Ln(9);
     $pdf->SetFont('lucidafaxdemib', 'B', 18);
-    $pdf->Cell(0, 5, 'C E R I F I C A T I O N', 0, 1, 'C');
+    $pdf->Cell(0, 5, 'C E R T I F I C A T I O N', 0, 1, 'C');
     $pdf->SetFont('lucidafax', '', 11);
     $pdf->Ln(10);
 
@@ -6347,7 +6283,7 @@ Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
 
     $pdf->Ln(9);
     $pdf->SetFont('lucidafaxdemib', 'B', 18);
-    $pdf->Cell(0, 5, 'C E R I F I C A T I O N', 0, 1, 'C');
+    $pdf->Cell(0, 5, 'C E R T I F I C A T I O N', 0, 1, 'C');
     $pdf->SetFont('lucidafax', '', 11);
     $pdf->Ln(10);
 

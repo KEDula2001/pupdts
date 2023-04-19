@@ -27,11 +27,19 @@
                       <td><?=strtoupper(esc($request['reason']))?></td>
                       <td>
                         <ul>
+                        <?php if ($_SESSION['role'] == "Admin"):?>
                           <?php foreach ($request_documents as $request_document): ?>
                             <?php if (esc($request_document['request_id']) == esc($request['id'])): ?>
                                 <li><?=' ( '  . esc($request_document['quantity']) . ' ) ' .esc($request_document['document']) ?></li>
                             <?php endif; ?>
                           <?php endforeach; ?>
+                          <?php else: ?>
+                          <?php foreach ($request_documents as $request_document): ?>
+                            <?php if (esc($request_document['request_id']) == esc($request['request_id'])): ?>
+                                <li><?=' ( '  . esc($request_document['quantity']) . ' ) ' .esc($request_document['document']) ?></li>
+                            <?php endif; ?>
+                          <?php endforeach; ?>
+                          <?php endif;?>
                         </ul>
                       </td>
                       <td><?= date('F d, Y - H:i A', strtotime(esc($request['approved_at']))) ?></td>

@@ -20,6 +20,13 @@
         <a class="btn completerqt btn-light btn-sm" href="<?=base_url('/approval')?>">
           <i class="fas fa-file"></i> Approval
         </a>
+        
+        
+        <?php elseif($_SESSION['role'] == 'Admin'): ?>
+        <a class="btn completerqt btn-light btn-sm" href="<?=base_url('admission')?>">
+          <i class="fas fa-file"></i> Admission Panel
+        </a>
+        
         <?php else:?>
         <?php endif;?>
 

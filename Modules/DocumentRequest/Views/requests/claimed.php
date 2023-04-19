@@ -18,7 +18,7 @@
                     <div class="row mb-3">
                       <div class="col-4">
                         <label for="document" class="form-label fw-bold">Document</label>
-                        <select id="document" class="form-select" name="d">
+                        <select required id="document" class="form-select" name="d">
                             <?php if ($hide_filter == true): ?>
                                     <option disabled selected> Select Documents</option>
                                 <?php foreach($documents as $document): ?>

@@ -26,7 +26,7 @@
                                         <th class="text-center">Gen. Clearance</th>
                                         <th class="text-center">Library</th>
                                         <th class="text-center">Laboratory</th>
-                                        <th class="text-center">ROTC</th>
+                                        <th class="text-center">NSTP</th>
                                         <th class="text-center">Accounting Office</th>
                                         <th class="text-center">Internal Audit and Legal Office</th>
                                     </tr>
