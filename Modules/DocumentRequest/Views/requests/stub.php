@@ -1,4 +1,4 @@
-<br>
+
 <h4 style="text-align:center"> Claiming Stub</h4>
 <?php $document_price = 0 ?>
 <?php foreach ($requests as $request): ?>

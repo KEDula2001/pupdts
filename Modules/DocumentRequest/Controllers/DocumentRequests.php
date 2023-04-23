@@ -1086,8 +1086,8 @@ EOD;
     $pdf->SetKeywords('Report, ODRS, Document');
     
     // set margins
-    $pdf->SetMargins(PDF_MARGIN_LEFT, 60, PDF_MARGIN_RIGHT, 90);
-    $pdf->SetHeaderMargin(PDF_MARGIN_HEADER-5);
+    $pdf->SetMargins(PDF_MARGIN_LEFT, 45, PDF_MARGIN_RIGHT, 90);
+    $pdf->SetHeaderMargin(PDF_MARGIN_HEADER-10);
     $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
 
     // set default header data
@@ -1102,6 +1102,7 @@ EOD;
     // set header and footer fonts
     $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
     $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+    $pdf->SetPrintFooter(false);
 
     // set default monospaced font
     $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
@@ -1123,55 +1124,58 @@ EOD;
     // set font
 
     // add a page
-    $pdf->AddPage();
-    $pdf->SetFont('helvetica', '', 10);
+    // add a page
+$pdf->AddPage();
+$pdf->SetFont('helvetica', '', 10);
 
-    // -----------------------------------------------------------------------------
-    
-    $data['documents'] = $this->requestDetailModel->getReports($_GET['t'], $_GET['a'], $_GET['d']);
-    $data['types'] = $_GET;
-    $data['document'] = $this->documentModel->get(['id' => $_GET['d']])[0]['document'];
-    $reportTable = view('Modules\DocumentRequest\Views\requests\report',$data);
+// -----------------------------------------------------------------------------
+$data['documents'] = $this->requestDetailModel->getReports($_GET['t'], $_GET['a'], $_GET['d']);
+$data['types'] = $_GET;
+$data['document'] = $this->documentModel->get(['id' => $_GET['d']])[0]['document'];
+$reportTable = view('Modules\DocumentRequest\Views\requests\report',$data);
 
-    $pdf->writeHTML($reportTable, true, false, false, false, '');
+$pdf->writeHTML($reportTable, true, false, false, false, '');
 
-    $pdf->SetFont('helvetica', '', 12);
+$pdf->SetFont('helvetica', '', 12);
 
-    $pdf->Ln(4);
+$pdf->Ln(4);
 
-    $pdf->SetFont('helvetica', '', 10);
+$pdf->SetFont('helvetica', '', 10);
 
-    $pdf->AddPage();
+$pdf->AddPage();
 
-    $data['documents'] = $this->requestDetailModel->getSummary($_GET['t'], $_GET['a'], $_GET['d']);
+$data['documents'] = $this->requestDetailModel->getSummary($_GET['t'], $_GET['a'], $_GET['d']);
 
-    $data['types'] = $_GET;
-    $data['document'] = $this->documentModel->get(['id' => $_GET['d']])[0]['document'];
-    $summaryTable = view('Modules\DocumentRequest\Views\requests\summary',$data);
+$data['types'] = $_GET;
+$data['document'] = $this->documentModel->get(['id' => $_GET['d']])[0]['document'];
+$summaryTable = view('Modules\DocumentRequest\Views\requests\summary',$data);
 
-    $pdf->writeHTML($summaryTable, true, false, false, false, '');
-    
-    // -----------------------------------------------------------------------------
-    // Output the PDF
-    // Fit text on cell by reducing font size
+$pdf->writeHTML($summaryTable, true, false, false, false, '');
 
-    $pdf->setPrintFooter(false);
+// add the footer image to every page
+for ($i = 1; $i <= $pdf->getNumPages(); $i++) {
+    $pdf->setPage($i);
+    $pdf->SetPrintFooter(false);
     $pdf->SetAutoPageBreak(false);
-        
+
     $pdf->SetX(100);
     $pdf->SetY(150);
-        
+
     $image_file = K_PATH_IMAGES . 'landscape-footer.jpg';
     $imageY = $pdf->GetPageHeight() - PDF_MARGIN_BOTTOM - 30;
     $pdf->Image($image_file, 0, $pdf->GetPageHeight()-75, $pdf->GetPageWidth(), 75);
-    
-    //Close and output PDF document
-    $pdf->Output('report.pdf', 'I');
+}
 
-    //============================================================+
-    // END OF FILE
-    //============================================================+
-    die();
+// -----------------------------------------------------------------------------
+// Output the PDF
+
+$pdf->Output('report.pdf', 'I');
+
+//============================================================+
+// END OF FILE
+//============================================================+
+die();
+
   }
   
   //---------------------------------------------------------------------------
