@@ -47,8 +47,8 @@
                               </ul>
                             </td>
                             <td><?= esc($request['reason']) ?></td>
-                            <td><?=date('F d, Y - h:i A', strtotime(esc($request['created_at'])))?></td>
-                            <td><?=date('F d, Y - h:i A', strtotime(esc($request['completed_at'])))?></td>
+                            <td><?=date('M d, Y h:i a', strtotime(esc($request['created_at'])))?></td>
+                            <td><?=date('M d, Y h:i a', strtotime(esc($request['completed_at'])))?></td>
                          
                             <td>
                               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#history<?=esc($request['id'])?>">

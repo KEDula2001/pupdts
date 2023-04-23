@@ -1,14 +1,14 @@
-<br>
-<h1>Summary Report</h1>
-<br>
-<h3><?=esc($document)?> -  (<?=esc(ucwords($types['t']))?> | <?=esc(ucwords($types['a']))?> )</h3>
-<table cellspacing="0" cellpadding="5" border="1">
-  <tr style="text-align: center;">
-    <td width="20%"> <b># of Students</b> </td>
-    <td width="20%"> <b>Estimated Number of Days to Proess</b> </td>
-    <td width="20%"> <b>Date Requested</b> </td>
-    <td width="20%"> <b>Date Printed</b> </td>
-    <td width="20%"> <b>Remark</b> </td>
+<br><br><br>
+<table cellspacing="1" cellpadding="6" border="1"  width = "100%" style="font-family: timesnewroman">
+  <tr style="text-align: center">
+      <td><strong></sstrong>REGISTRATION AND ADMISSION OFFICE</strong><br /><i>SUMMARY REPORT</i><br /><b><i><?=esc(ucwords($types['t']))?> | <?=esc(ucwords($types['a']))?></i></b></td>
+  </tr>
+  <tr style="text-align: center;font-family: timesnewroman; background-color: #CCCCFF">
+        <td width="20%"> <b># OF STUDENTS</b> </td>
+    <td width="20%"> <b>ESTIMATED NUMBER OF DAYS TO PROCESS</b> </td>
+    <td width="20%"> <b>DATE REQUESTED</b> </td>
+    <td width="20%"> <b>DATE PRINTED</b> </td>
+    <td width="20%"> <b>REMARKS</b> </td>
   </tr>
   <?php if (empty($documents)): ?>
     <tr>
@@ -32,8 +32,8 @@
       </tr>
       <?php $total += $document['count'] ?>
     <?php endforeach; ?>
-    <tr>
-      <td align="right"><b><?=$total?></b></td>
+    <tr style="background-color: #CCCCFF">
+      <td align="center"><b><?=$total?></b></td>
       <td align="left"><b>Total</b></td>
       <td colspan="3" align="right"><b>Average Acted Upon Before the Deadline: Within the day = 5.0</b></td>
     </tr>

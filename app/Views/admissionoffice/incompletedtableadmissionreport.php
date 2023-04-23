@@ -6,7 +6,7 @@
 
 
   <div class="card">
-    <div class="card-body">
+    <div class="card-body" style="page-break-after: always">
       <table class="table table-responsive table-striped table-bordered mt-3 dataTable" style="width:100%" cellspacing="1" cellpadding="5" border="1" style = "text-align: center">
         <thead class="table-dark">
           <tr style="text-align: center;">

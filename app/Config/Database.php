@@ -30,15 +30,12 @@ class Database extends Config
 	 *
 	 * @var array
 	 */
-	 
-	 
-	 //Local============================
-	public $default = [
+	 public $default = [
 		'DSN'      => '',
 		'hostname' => 'localhost',
-		'username' => 'root',
-		'password' => '',
-		'database' => 'odrs_db',
+		'username' => 'u395184583_octdrsroot',
+		'password' => '+N4883aBE4Re',
+		'database' => 'u395184583_octdrsmainDB',
 		'DBDriver' => 'MySQLi',
 		'DBPrefix' => '',
 		'pConnect' => false,
@@ -52,6 +49,7 @@ class Database extends Config
 		'failover' => [],
 		'port'     => 3306,
 	];
+	 
 
 // //Local============================
 // 	public $default = [

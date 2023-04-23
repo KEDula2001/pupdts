@@ -42,13 +42,14 @@
                           <?php endforeach; ?>
                           <?php else: ?>
                           <?php foreach ($request_documents as $request_document): ?>
-                            <?php if (esc($request_document['request_id']) == esc($request['request_id'])): ?>
+                            <?php if (esc($request_document['request_id']) == esc($request['id'])): ?>
                                 <li><?=' ( '  . esc($request_document['quantity']) . ' ) ' .esc($request_document['document']) ?></li>
                             <?php endif; ?>
                           <?php endforeach; ?>
                           <?php endif;?>
                         </ul>
                       </td>
+                      
                       <td><?= date('F d, Y - H:i A', strtotime(esc($request['updated_at']))) ?></td>
                       <td>
                         <button onClick="denyRequest(<?=esc($request['id'])?>, '<?=esc($request['student_number'])?>')" class="btn btn-reject btn-danger"> Reject </button>

@@ -1755,6 +1755,7 @@ public function setForRetrievingFiles($id)
 							$id, 
 							$requirementsID
 						);
+				// 		die($getRefForRetrievedData[0]['requirementsID']);
 						if(empty($getRefForRetrievedData)){
 						    $getRefForRetrievedModel->__setInsertRetrievedAdmissionFiles(
 								$id, 
@@ -1764,9 +1765,9 @@ public function setForRetrievingFiles($id)
 							$send_email_data[] = ['requirementsID' =>$requirementsID];
 							$is_selected_checklist_added = true;
 						}else{
-    						if($getRefForRetrievedData['requirementsID'][0] == $requirementsID){
-    							$is_selected_checklist_added = false;
-    						}else{
+    				// 		if($getRefForRetrievedData[0]['requirementsID'] == $requirementsID){
+    				// 			$is_selected_checklist_added = false;
+    				// 		}else{
     							$getRefForRetrievedModel->__setInsertRetrievedAdmissionFiles(
     								$id, 
     								$requirementsID, 
@@ -1774,12 +1775,10 @@ public function setForRetrievingFiles($id)
     							);
     							$send_email_data[] = ['requirementsID' =>$requirementsID];
     							$is_selected_checklist_added = true;
-    						}
+    				// 		}
 						}
-				// 		die(print_r($getRefForRetrievedData));
 					}
 				}
-				// die(print_r($delete_student_admission_data));
 				if($is_selected_checklist_added == true){
 					foreach ($send_mail_label as $label) {
 						foreach ($send_email_data as $email_data) {
@@ -1858,7 +1857,7 @@ public function setForRetrievingFiles($id)
 		
 		$this->data['studentadmission_status'] = $getstudentadmission_files_status->__getStudentAdmissionStatus($id);
 		$this->data['studentadmission_files'] = $getstudentadmission_files->__getStudentFiles($id);		
-		$this->data['documentstatus'] =   $model->__getStudentAdmissionStatus($id);
+		$this->data['documentstatus'] = $model->__getStudentAdmissionStatus($id);
 // 		die(print_r($this->data['documentstatus']));
 		$this->data['image_file_record'] = $getStudentFileImages->__getStudentImageFiles($id);
 		$this->data['student'] = $getstudent->__getStudentWhereEqualToUserID($id);

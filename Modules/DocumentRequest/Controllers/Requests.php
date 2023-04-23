@@ -226,9 +226,8 @@ class Requests extends BaseController
     $data['request_documents'] = $this->requestDetailModel->getDetails(['requests.student_id' => $_SESSION['student_id'], 'request_details.request_id' => $id]);
 		$data['document_notes'] = $this->documentNoteModel->getDetails();
     $pdf->SetTitle('Stub');
-
-
-		$pdf->SetHeaderData('header.png', '200', '', '');
+	
+	$pdf->SetHeaderData('header.png', '200', '', '');
     // die(PDF_HEADER_LOGO);
     $pdf->setPrintHeader(true);
     // set header and footer fonts
@@ -293,7 +292,7 @@ All requested credentials will be released to the following assigned representat
 
 • PARENTS/SIBLINGS/SPOUSE/CHILDREN - with formal authorization letter duly signed by the student with two (2) valid ID\'s with picture of both the student/client and the representative and photo copy of the representative\'s PSA (NSO) Birth Certificate and PSA (NSO) marriage contract for the spouse.
 • REPRESENTATIVE OTHER THAN THE IMMEDIATE FAMILY - with Special Power of Attorney from the student concerned, duly notarized in the country/place of residence and two (2) valid ID\'s with picture of both'
-    , 0, 'J', 0, 0, '', '', true, 0, false, true, 80, 'T');
+    , 0, 'L', 0, 0, '', '', true, 0, false, true, 80, 'T');
 
     $pdf->Ln(15);
 

@@ -86,10 +86,6 @@ body footer img {
   color: blanchedalmond !important;
 }
 
-.dropdown:hover .dropdown-menu {
-  display: block;
-}
-
 .dashboard {
   font-family: 'Open Sans', sans-serif;
 }

@@ -133,11 +133,8 @@ $(document).ready(function() {
                       if (value == '') {
                         Swal.showValidationMessage('First input missing')
                       }
-                      else if (!/^[0-9]+$/.test(value)) {
-                        Swal.showValidationMessage('Please input a valid contact number.')
-                      }
-                      else if (/^[0-9]+$/.test(value) && value.length != 11) {
-                        Swal.showValidationMessage('The input of the number must be at the lenght of 11 numbers only.')
+                      else if (value.length != 11) {
+                        Swal.showValidationMessage('The input of the number must be at the lenght of 11 numbers')
                       }
                     }
                   })
@@ -368,13 +365,14 @@ $(document).ready(function() {
     })
 });
 
-
-
 function showDetail(checkbox){
+  var ckName = document.getElementsByName(checkbox.name);
+  for (var i = 0, c; c = ckName[i]; i++) {
+    c.disabled = !(!checkbox.checked || c === checkbox);
+  }
   if (checkbox.checked == true) {
     document.getElementById('qty-form-'+checkbox.id).disabled = false;
     document.getElementById('free-form-'+checkbox.id).disabled = false;
-
   } else {
     document.getElementById('qty-form-'+checkbox.id).disabled = true;
     document.getElementById('free-form-'+checkbox.id).disabled = true;

@@ -44,6 +44,8 @@ $routes->group('document-requests', ['namespace' => 'Modules\DocumentRequest\Con
     $routes->get('certificateofladderize/(:num)', 'DocumentRequests::certificateofladderize/$1');
     $routes->get('certRegUnitsAdSub/(:num)', 'DocumentRequests::certRegUnitsAdSub/$1'); 
     $routes->get('certRegUnitsAdSubBrid/(:num)', 'DocumentRequests::certRegUnitsAdSubBrid/$1');
+    $routes->get('certGME/(:num)', 'DocumentRequests::goodmoralGME/$1');
+    $routes->get('certsubjectdesc/(:num)', 'DocumentRequests::certsubjectdesc/$1');
     
 });
 

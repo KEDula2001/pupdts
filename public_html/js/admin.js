@@ -112,6 +112,7 @@ var adminPaymentTable = $('#admin-payment-table').DataTable({
 });
 
 var adminPendingTable = $('#admin-pending-table').DataTable({
+  order: [[9, 'asc']],
   "columnDefs" : [{
     "targets" : [0,1],
     "visible" : false,
@@ -124,7 +125,7 @@ var adminPendingTable = $('#admin-pending-table').DataTable({
   "bAutoWidth": false,
   "dom": '<"row"<"col-6"<"select-pending mb-3">><"col-6"f>>t<"row"<"col-6"<"action-pending mt-3">><"col-6 float-end mt-3"p>>',
   fnInitComplete: function(){
-      $('div.select-pending').html('<span class="h2"> Office Approved Clearances </span><span class="p"><br><i>Here is the list of requestors who has been cleared by the six offices. Approve to notify them to proceed to  payment. </span>');
+      $('div.select-pending').html('<span class="h2"> Office Approved Clearances </span><span class="p"><br><i>Here are the list of requestors to approve before their document is to be processed. </span>');
       $('div.action-pending').html('<button onClick="confirmSelect()" class="btn btn-primary">Approve Selected</button>');
     }
 });
@@ -949,13 +950,12 @@ $("#slug").keypress(function (e){
       },
       url: 'printed-requests/get-printed',
       success: function(data){
-          console.log(data);
         var form = '';
         const requests = JSON.parse(data);
         var value = [];
         var request_id;
         for(var i = 0; i < requests.length; i++) {
-          console.log(requests[i]);
+          console.log(data);
           request_id = requests[i]['request_id']
           form += `<div class="form-check">
                     <input class="form-check-input" type="checkbox" value="`+requests[i]['id']+`" id="id-`+requests[i]['id']+`">

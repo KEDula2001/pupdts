@@ -17,8 +17,8 @@ class Generalreport extends BaseController
         // set document information
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor('PUPT Taguig ODRS');
-        $pdf->SetTitle('Report');
-        $pdf->SetSubject('Documet Request Report');
+        $pdf->SetTitle('Dashboard Report');
+        $pdf->SetSubject('Dashboard Report');
         $pdf->SetKeywords('Report, ODRS, Document');
 
         // set default header data
@@ -52,11 +52,21 @@ class Generalreport extends BaseController
 
         // set font
 
+        $pdf->setPrintHeader(false);
+        $pdf->setPrintFooter(false);
+        $pdf->SetAutoPageBreak(false);
+        
         // add a page
-        $pdf->AddPage();
+        $pdf->AddPage('L');
+        
+        $pdf->SetX(20);
+        $pdf->SetY(50);
+        
+        $image_file = K_PATH_IMAGES . 'landscape-header.jpg';
+        $imageY = $pdf->GetPageHeight() - PDF_MARGIN_TOP;
+        $pdf->Image($image_file, 0, 0, $pdf->GetPageWidth(), 50);
 
-
-        $pdf->SetFont('helvetica', '', 10);
+        $pdf->SetFont('times', '', 12);
 
         // -----------------------------------------------------------------------------
         $data['request_count'] = count($this->requestModel->getDetails(['requests.status' => 'p']));
@@ -66,22 +76,29 @@ class Generalreport extends BaseController
         $reportTable = view('Modules\DocumentRequest\Views\requests\dashboardreport',$data);
 
         $pdf->writeHTML($reportTable, true, false, false, false, '');
+/**
+        $pdf->Ln(15);
+        $pdf->SetFont('times', '', 12);
+        $pdf->Cell(18, 5, 'Prepared by:                                                                                                             Noted by:');
+        $pdf->Ln(15);
+        $pdf->SetFont('times', 'B', 12);
+        $pdf->Cell(18, 5, 'MHEL P. GARCIA                                                                                                DR. MARISSA B. FERRER');
+        $pdf->Ln(6);
+        $pdf->SetFont('times', '', 12);
+        $pdf->Cell(18, 5, 'Branch Registrar/Head of Registration Office                                                         Branch Director');
+**/
+        $pdf->SetX(100);
+        $pdf->SetY(150);
+        
+        $image_file = K_PATH_IMAGES . 'landscape-footer.jpg';
+        $imageY = $pdf->GetPageHeight() - PDF_MARGIN_BOTTOM - 30;
+        $pdf->Image($image_file, 20, $pdf->GetPageHeight()-75, $pdf->GetPageWidth()-40, 75);
+        
+        // $image_file, 20          adjusts left
+        // GetPageHeight()-75       adjusts bottom
 
-        $pdf->SetFont('helvetica', '', 12);
-
-
-    // Fit text on cell by reducing font size
-        $pdf->MultiCell(89, 40, 'Prepared By:
-
-   Mhel Garcia
-    Branch Registrar', 0, 'C', 0, 0, '', '', true, 0, false, true, 40, 'M' ,true);
-        $pdf->MultiCell(89, 40, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'M');
-        $pdf->MultiCell(89, 40, 'Noted By:
-
-    Dr. Marissa B. Ferrer
-    Branch Director', 0, 'C', 0, 1, '', '', true, 0, false, true, 40, 'M');
-
-
+        
+        
         //Close and output PDF document
         $pdf->Output('report.pdf', 'I');
 

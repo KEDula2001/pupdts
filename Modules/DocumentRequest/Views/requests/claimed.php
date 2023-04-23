@@ -18,12 +18,44 @@
                     <div class="row mb-3">
                       <div class="col-4">
                         <label for="document" class="form-label fw-bold">Document</label>
-                        <select required id="document" class="form-select" name="d">
+                        <select id="document" class="form-select" name="d">
                             <?php if ($hide_filter == true): ?>
                                     <option disabled selected> Select Documents</option>
                                 <?php foreach($documents as $document): ?>
-                                    <?php if($document['id'] == 6): ?>
-                                       <option value="<?=esc($document['id'])?>"><?=esc(ucwords($document['document']))?></option>
+                                    <?php if($document['id'] == 6 && $document['id'] != 26): ?>
+                                       <option value="<?=esc($document['id'])?>"><?php
+                          $prepositions = array('of', 'in', 'on', 'at', 'by', 'with', 'to', 'from', 'into', 'onto', 'upon', 'out', 'over', 'through', 'under', 'up', 'down', 'for', 'as', 'before', 'after', 'during', 'since', 'throughout', 'till', 'until', 'above', 'below', 'beneath', 'beside', 'between', 'among', 'around', 'behind', 'beyond', 'inside', 'outside', 'underneath', 'within', 'without');
+
+                          $document = $document['document'];
+                          preg_match_all('/\(([^)]+)\)/', $document, $matches); // find all substrings enclosed in parentheses
+                          foreach ($matches[1] as $match) { // loop through each substring
+                              $capitalized = '';
+                              foreach (explode(' ', $match) as $word) {
+                                  if ($word === strtoupper($word)) { // preserve existing capitalization
+                                      $capitalized .= $word . ' ';
+                                  } else {
+                                      $capitalized .= ucfirst(strtolower($word)) . ' '; // capitalize first letter of each word
+                                  }
+                              }
+                              $capitalized = rtrim($capitalized); // remove trailing space
+                              $document = str_replace('(' . $match . ')', '(' . $capitalized . ')', $document); // replace the original substring with a modified version
+                          }
+
+                          $words = explode(' ', $document);
+                          foreach ($words as $i => $word) {
+                              if (in_array(strtolower($word), $prepositions)) {
+                                  echo strtolower($word) . ' ';
+                              } else if ($word === strtoupper($word) || $word === ucfirst(strtolower($word))) {
+                                  echo $word . ' ';
+                              } else {
+                                  if (preg_match('/^\((.*)\)$/', $word, $matches)) { // check if the word is enclosed in parentheses
+                                      echo '(' . ucfirst(strtolower($matches[1])) . ') '; // capitalize first letter of the enclosed word and add back parentheses
+                                  } else {
+                                      echo ucfirst(strtolower($word)) . ' '; // capitalize first letter of each word
+                                    }
+                                }
+                            }
+                          ?></option>
                                     <?php endif; ?>
                                 <?php endforeach; ?>
                             <?php else: ?>
@@ -32,7 +64,7 @@
                                 <?php else: ?>
                                     <option disabled selected> Select Documents</option>
                                     <?php foreach($documents as $document): ?>
-                                        <?php if($document['id'] != 6): ?>
+                                        <?php if($document['id'] != 6 && $document['id'] != 26): ?>
                                            <option value="<?=esc($document['id'])?>"><?=esc(ucwords($document['document']))?></option>
                                         <?php endif; ?>
                                     <?php endforeach; ?>
@@ -74,8 +106,40 @@
                       <?php else: ?>
                         <option value="0" selected>All</option>
                         <?php foreach($documents as $document): ?>
-                            <?php if($document['id'] != 6): ?>
-                               <option value="<?=esc($document['id'])?>"><?=esc(ucwords($document['document']))?></option>
+                            <?php if($document['id'] != 6 && $document['id'] != 26): ?>
+                               <option value="<?=esc($document['id'])?>"><?php
+                          $prepositions = array('of', 'in', 'on', 'at', 'by', 'with', 'to', 'from', 'into', 'onto', 'upon', 'out', 'over', 'through', 'under', 'up', 'down', 'for', 'as', 'before', 'after', 'during', 'since', 'throughout', 'till', 'until', 'above', 'below', 'beneath', 'beside', 'between', 'among', 'around', 'behind', 'beyond', 'inside', 'outside', 'underneath', 'within', 'without');
+
+                          $document = $document['document'];
+                          preg_match_all('/\(([^)]+)\)/', $document, $matches); // find all substrings enclosed in parentheses
+                          foreach ($matches[1] as $match) { // loop through each substring
+                              $capitalized = '';
+                              foreach (explode(' ', $match) as $word) {
+                                  if ($word === strtoupper($word)) { // preserve existing capitalization
+                                      $capitalized .= $word . ' ';
+                                  } else {
+                                      $capitalized .= ucfirst(strtolower($word)) . ' '; // capitalize first letter of each word
+                                  }
+                              }
+                              $capitalized = rtrim($capitalized); // remove trailing space
+                              $document = str_replace('(' . $match . ')', '(' . $capitalized . ')', $document); // replace the original substring with a modified version
+                          }
+
+                          $words = explode(' ', $document);
+                          foreach ($words as $i => $word) {
+                              if (in_array(strtolower($word), $prepositions)) {
+                                  echo strtolower($word) . ' ';
+                              } else if ($word === strtoupper($word) || $word === ucfirst(strtolower($word))) {
+                                  echo $word . ' ';
+                              } else {
+                                  if (preg_match('/^\((.*)\)$/', $word, $matches)) { // check if the word is enclosed in parentheses
+                                      echo '(' . ucfirst(strtolower($matches[1])) . ') '; // capitalize first letter of the enclosed word and add back parentheses
+                                  } else {
+                                      echo ucfirst(strtolower($word)) . ' '; // capitalize first letter of each word
+                                    }
+                                }
+                            }
+                          ?></option>
                             <?php endif; ?>
                         <?php endforeach; ?>
                       <?php endif; ?>
@@ -108,8 +172,8 @@
                         <td><?=ucwords(esc($request_detail['abbreviation']))?></td>
                         <td style="text-transform: uppercase;"><?=ucwords(esc($request_detail['document']))?></td>
                         <td style="text-transform: uppercase;"><?=ucwords(esc($request_detail['reason']))?></td>
-                        <td><?=date('M d, y - H:i A', strtotime(esc($request_detail['confirmed_at'])))?></td>
-                        <td><?=date('M d, y - H:i A', strtotime(esc($request_detail['printed_at'])))?></td>
+                        <td><?=date('F d, Y - h:i A', strtotime(esc($request_detail['confirmed_at'])))?></td>
+                        <td><?=date('F d, Y - h:i A', strtotime(esc($request_detail['printed_at'])))?></td>
                         <td>
                             <?php $startTimeStamp = strtotime(esc($request_detail['confirmed_at'])) ?>
                             <?php $endTimeStamp = strtotime(esc($request_detail['printed_at'])) ?>
@@ -120,7 +184,7 @@
                            
                             <?php $numberDays = intval($numberDays) ?>
                             
-                            <?= $numberDays. " days" ?>
+                            <?= ($numberDays == 0 || $numberDays < 0 ? "Within the day" : $numberDays. " day(s)") ?>
                         </td>
                       </tr>
                     <?php endforeach; ?>

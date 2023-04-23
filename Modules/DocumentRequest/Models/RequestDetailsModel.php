@@ -81,6 +81,39 @@ class RequestDetailsModel extends BaseModel
     
     return $this->findAll();
   }
+  
+  public function getDetailsForSSO($conditions = []){
+
+    $this->select('
+      request_details.*, 
+      requests.slug,
+      requests.created_at as requested_at, 
+      requests.confirmed_at,
+      requests.reason, 
+      documents.document,
+      documents.per_page_payment,
+      documents.template, 
+      students.firstname, 
+      students.lastname, 
+      students.middlename,
+      CONCAT(students.firstname, students.lastname) as fullname, 
+      students.suffix, 
+      courses.course, 
+      courses.abbreviation,
+      students.student_number,
+      users.email,
+    ');
+    $this->join('requests', 'request_details.request_id = requests.id');
+    $this->join('documents', 'request_details.document_id = documents.id');
+    $this->join('students', 'requests.student_id = students.id');
+    $this->join('users', 'users.id = students.user_id');
+    $this->join('courses', 'students.course_id = courses.id');
+    foreach ($conditions as $condition => $value) {
+      $this->where($condition , $value);
+    }
+    
+    return $this->findAll();
+  }
 
  public function getDetailsReport($conditions = [], $id = null){
 
