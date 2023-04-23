@@ -1117,7 +1117,7 @@ function script(){
     var type = 'yearly';
     if ($('#type').val() == 'monthly') {
       type = 'month';
-    } else if ($('#type').val() == 'yearly'){
+    } else if ($('#type').val() == 'q1' ||$('#type').val() == 'q2'||$('#type').val() == 'q3'||$('#type').val() == 'q4'){
       type = 'text';
     } else {
       type = 'date';

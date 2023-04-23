@@ -62,7 +62,7 @@
                                 <?php if (empty($documents)): ?>
                                     <option disabled selected>--No Documents Found--</option>
                                 <?php else: ?>
-                                    <option disabled selected> Select Documents</option>
+                                    <option value="0"> All</option>
                                     <?php foreach($documents as $document): ?>
                                         <?php if($document['id'] != 6 && $document['id'] != 26): ?>
                                            <option value="<?=esc($document['id'])?>"><?=esc(ucwords($document['document']))?></option>
@@ -75,7 +75,10 @@
                       <div class="col-4">
                         <label  for="type" class="form-label fw-bold">Type</label>
                         <select id="type" class="form-select" name="t">
-                          <option value="yearly">Yearly</option>
+                          <option value="q1">1st Quarter</option>
+                          <option value="q2">2nd Quarter</option>
+                          <option value="q3">3rd Quarter</option>
+                          <option value="q4">4th Quarter</option>
                           <option value="monthly">Monthy</option>
                           <option value="daily">Daily</option>
                         </select>

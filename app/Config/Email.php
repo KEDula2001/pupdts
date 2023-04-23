@@ -9,7 +9,7 @@ class Email extends BaseConfig
 	/**
 	 * @var string
 	 */
-	public $fromEmail = 'noreply@rodras.puptaguigcs.net';
+	public $fromEmail = 'noreply@octdrsite.puptcapstone.net';
 
 	/**
 	 * @var string
@@ -54,7 +54,7 @@ class Email extends BaseConfig
 	 *
 	 * @var string
 	 */
-	public $SMTPUser = 'noreply@rodras.puptaguigcs.net';
+	public $SMTPUser = 'noreply@octdrsite.puptcapstone.net';
 
 	/**
 	 * SMTP Password

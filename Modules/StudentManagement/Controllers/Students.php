@@ -251,7 +251,7 @@ class Students extends BaseController
 			$mail = \Config\Services::email();
 			$mail->setTo($email);
 			$mail->setSubject('User Account Password');
-			$mail->setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig OCT-DRS');
+			$mail->setFrom('noreply@octdrsite.puptcapstone.net', 'PUP-Taguig OCT-DRS');
 			$mail->setMessage('Your Account has been successfully made! <br> Username: ' .  $username . ' <br> Password: '  . $password);
       if ($mail->send()) {
         return true;
@@ -279,7 +279,7 @@ class Students extends BaseController
       $mail = \Config\Services::email();
       $mail->setTo($email);
       $mail->setSubject('Notice of Lacking Documents');
-      $mail->setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig OCT-DRS');
+      $mail->setFrom('noreply@octdrsite.puptcapstone.net', 'PUP-Taguig OCT-DRS');
       $mail->setMessage('Good Day, '.$firstname.' '.$middlename.' '.$lastname.'! <br>
         This is to acknowledge that you have retrieved the following for the purpose of '. $reason.'
         today from PUP - Taguig. <br>'.$html.'You are advised to return it immediately to the university
@@ -310,7 +310,7 @@ class Students extends BaseController
       $mail = \Config\Services::email();
       $mail->setTo($email);
       $mail->setSubject('Notice of Lacking Documents');
-      $mail->setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig OCT-DRS');
+      $mail->setFrom('noreply@octdrsite.puptcapstone.net', 'PUP-Taguig OCT-DRS');
       $mail->setMessage('Good Day!<br><br>Good day, '.$firstname.' '.$middlename.' '.$lastname.'! 
         Following up on your Admission Credentials, here are the documents you need to submit/resubmit with their corresponding remarks. 
         Please comply immediately. <br> Thank you!'.$html. '<br><br><br><br> Regards, <br><br><br>PUPT OCT-DRS'); 
@@ -339,7 +339,7 @@ class Students extends BaseController
     $mail = \Config\Services::email();
     $mail->setTo($email);
     $mail->setSubject('Notice of Lacking Documents');
-    $mail->setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig OCT-DRS');
+    $mail->setFrom('noreply@octdrsite.puptcapstone.net', 'PUP-Taguig OCT-DRS');
     $mail->setMessage('Good Day!<br><br>Good day, '.$firstname.' '.$middlename.' '.$lastname.'! 
       Following up on your Admission Credentials, here are the documents status with their corresponding remarks. 
       Please comply immediately. <br> Thank you!'.$html. '<br><br><br><br> Regards, <br><br><br>PUPT OCT-DRS'); 
@@ -366,7 +366,7 @@ class Students extends BaseController
     // public function sendNotifiedLackingDocuments($data){
     //   $mail = \Config\Services::email(); 
     //   $mail->setTo($email); 
-    //   $setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig OCT-DRS');
+    //   $setFrom('noreply@octdrsite.puptcapstone.net', 'PUP-Taguig OCT-DRS');
     //   $mail->setMessage('Good Day! <br> <br> Good day! Sending here with the list of your lacking documents. Please comply');
     //   $mail->setMessage('<ul>'); 
       

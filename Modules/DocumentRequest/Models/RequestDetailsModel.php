@@ -267,15 +267,31 @@ public function getSummary($type, $date, $document){
   $this->groupBy(['DAY(request_details.printed_at)', 'MONTH(request_details.printed_at)', 'YEAR(request_details.printed_at)']);
   return $this->findAll();
 }
-  public function getReports($type, $date, $document){
+  public function getReports($type, $date, $document = 0){
 
     $this->select('request_details.*, students.level ,students.status as student_status,students.suffix,students.year_graduated,requests.confirmed_at,documents.price,requests.created_at as requested_at, requests.reason, documents.document, documents.price, students.firstname, students.lastname, students.student_number, courses.course, courses.abbreviation');
     $this->join('requests', 'request_id = requests.id');
     $this->join('documents', 'document_id = documents.id');
     $this->join('students', 'requests.student_id = students.id');
     $this->join('courses', 'students.course_id = courses.id');
-    if($type == 'yearly'){
-      $this->where('year(request_details.printed_at)', $date);
+
+    $q1 = [1, 3];
+    $q2 = [4, 6];
+    $q3 = [7, 9];
+    $q4 = [10, 12];
+    
+    if($type == 'q1'){
+      $this->where('month(request_details.printed_at) >=', $q1[0]);
+      $this->where('month(request_details.printed_at) <=', $q1[1]);
+    } else if ($type == 'q2') {
+      $this->where('month(request_details.printed_at) >=', $q2[0]);
+      $this->where('month(request_details.printed_at) <=', $q2[1]);
+    } else if ($type == 'q3') {
+      $this->where('month(request_details.printed_at) >=', $q3[0]);
+      $this->where('month(request_details.printed_at) <=', $q3[1]);
+    } else if ($type == 'q4') {
+      $this->where('month(request_details.printed_at) >=', $q4[0]);
+      $this->where('month(request_details.printed_at) <=', $q4[1]);
     } else if ($type == 'monthly') {
       $slice = explode('-', $date);
       $this->where('month(request_details.printed_at)', $slice[1]);
@@ -283,7 +299,9 @@ public function getSummary($type, $date, $document){
     } else {
       $this->where('date(request_details.printed_at)', $date);
     }
-    $this->where('request_details.document_id', $document);
+    if($document != 0){
+      $this->where('request_details.document_id', $document);
+    }
     return $this->findAll();
   }
 

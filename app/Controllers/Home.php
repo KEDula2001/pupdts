@@ -153,7 +153,7 @@ class Home extends BaseController
 			$mail = \Config\Services::email();
 			$mail->setTo($_POST['email']);
 			$mail->setSubject('User Account Password');
-			$mail->setFrom('noreply@rodras.puptaguigcs.net', 'PUP-Taguig OCT-DRS');
+			$mail->setFrom('noreply@octdrsite.puptcapstone.net', 'PUP-Taguig OCT-DRS');
 			$mail->setMessage('This is your new password! <br> Password: '  . $password);
 			if ($mail->send()) {
 				return json_encode(['status' => true]);
