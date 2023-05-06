@@ -66,6 +66,9 @@ class Generalreport extends BaseController
         $imageY = $pdf->GetPageHeight() - PDF_MARGIN_TOP;
         $pdf->Image($image_file, 0, 0, $pdf->GetPageWidth(), 50);
 
+        $pdf->ln(3);
+        $pdf->writeHTML('<hr style="margin-bottom: 7px; ">', true, 1);
+
         $pdf->SetFont('times', '', 12);
 
         // -----------------------------------------------------------------------------
@@ -91,8 +94,8 @@ class Generalreport extends BaseController
         $pdf->SetY(150);
         
         $image_file = K_PATH_IMAGES . 'landscape-footer.jpg';
-        $imageY = $pdf->GetPageHeight() - PDF_MARGIN_BOTTOM - 30;
-        $pdf->Image($image_file, 20, $pdf->GetPageHeight()-75, $pdf->GetPageWidth()-40, 75);
+        $imageY = $pdf->GetPageHeight() - PDF_MARGIN_BOTTOM - 45;
+        $pdf->Image($image_file, 20, $pdf->GetPageHeight()-75, $pdf->GetPageWidth()-60, 75);
         
         // $image_file, 20          adjusts left
         // GetPageHeight()-75       adjusts bottom

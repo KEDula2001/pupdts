@@ -31,6 +31,7 @@ class DocumentRequests extends BaseController
 
   public function index() 
   {
+    //  die($_SESSION['role']);
     if($_SESSION['role'] == "Admission"){
         $this->data['requests'] = $this->requestDetailModel->getDetails(['request_details.status' => 'p','request_details.document_id' => 6]);
         $this->data['request_documents'] = $this->requestDetailModel->getDetails(['request_details.received_at' => null, 'request_details.document_id' => 6]);
@@ -157,6 +158,7 @@ class DocumentRequests extends BaseController
   }
 
   public function approval() {
+      
     // $this->data['request_details'] = $this->requestDetailModel->getDetails(['requests.status' => 'f']);
     $this->data['requests'] = $this->requestDetailModel->getDetails(['requests.status' => 'f']);
     // $this->data['view'] = 'Modules\DocumentRequest\Views\requests\approval';
@@ -1133,7 +1135,11 @@ $pdf->SetFont('helvetica', '', 10);
 // -----------------------------------------------------------------------------
 $data['documents'] = $this->requestDetailModel->getReports($_GET['t'], $_GET['a'], $_GET['d']);
 $data['types'] = $_GET;
-$data['document'] = $this->documentModel->get(['id' => $_GET['d']])[0]['document'];
+if($_GET['d'] == 0){
+    $data['document'] = $this->documentModel->get();
+} else {
+    $data['document'] = $this->documentModel->get(['id' => $_GET['d']])[0]['document'];
+}
 $reportTable = view('Modules\DocumentRequest\Views\requests\report',$data);
 
 $pdf->writeHTML($reportTable, true, false, false, false, '');
@@ -1148,8 +1154,13 @@ $pdf->AddPage();
 
 $data['documents'] = $this->requestDetailModel->getSummary($_GET['t'], $_GET['a'], $_GET['d']);
 
+
 $data['types'] = $_GET;
-$data['document'] = $this->documentModel->get(['id' => $_GET['d']])[0]['document'];
+if($_GET['d'] == 0){
+    $data['document'] = $this->documentModel->get();
+} else {
+    $data['document'] = $this->documentModel->get(['id' => $_GET['d']])[0]['document'];
+}
 $summaryTable = view('Modules\DocumentRequest\Views\requests\summary',$data);
 
 $pdf->writeHTML($summaryTable, true, false, false, false, '');
@@ -1285,7 +1296,7 @@ die();
     $pdf->SetY(150);
         
     $image_file = K_PATH_IMAGES . 'landscape-footer.jpg';
-    $imageY = $pdf->GetPageHeight() - PDF_MARGIN_BOTTOM - 30;
+    $imageY = $pdf->GetPageHeight() - PDF_MARGIN_BOTTOM - 50;
     $pdf->Image($image_file, 20, $pdf->GetPageHeight()-75, $pdf->GetPageWidth()-50, 75);
         
     //Close and output PDF document
@@ -1349,7 +1360,7 @@ die();
         $pdf->SetTitle('Readmission Certificate');
         $pdf->SetSubject('Readmission Certificate');
         // set default header data
-        $pdf->SetHeaderData('landscape-header.jpg', '200', '', '');
+        $pdf->SetHeaderData('landscape-header.jpg', '250', '', '');
         // set header and footer fonts
         
         $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
@@ -1359,7 +1370,7 @@ die();
         $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
     
         // set margins
-        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP + 10, PDF_MARGIN_RIGHT);
+        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP + 18, PDF_MARGIN_RIGHT);
         $pdf->SetHeaderMargin(3);
         $pdf->SetFooterMargin(PDF_MARGIN_FOOTER + 15);
     
@@ -1411,12 +1422,6 @@ die();
         $pdf->MultiCell(90, 10, date('F d, Y'), 0, 'R', 0, 0, 88, '', '', true, 0, false, true, 40, 'T');
         
         $pdf->Ln(12);
-    
-        $html = <<<EOD
-          <h1>XHTML Form Example</h1>
-          <form method="post" action="http://localhost/printvars.php" enctype="multipart/form-data">
-EOD;
-    
         $pdf->SetFont('lucidafax', '', 11);
         $pdf->writeHTML('To Whom It May Concern:', 0, 0, true, 1);
         
@@ -1435,7 +1440,7 @@ EOD;
         // OR Number
         $pdf->Ln(10);
         $pdf->SetFont('lucidafax', '', 11);
-        $pdf->Cell(34, 5, 'OR#');
+        $pdf->Cell(11, 5, 'OR#');
         $pdf->SetTextColor(238, 75, 43);
         $pdf->writeHTML("".$data['request_code'], 35, 5);
         $pdf->SetTextColor(0,0,0);
@@ -1459,7 +1464,7 @@ EOD;
         $pdf->Cell(110, 5, ' ');
         $pdf->Cell(95, 5, 'Head, Admission and Guidance Office');
     
-        $pdf->Ln(20);
+        $pdf->Ln(10);
         $pdf->writeHTML('(To be filled-up by the Admission Officer)');
         $pdf->Ln(6);
         $pdf->writeHTML('STUDENT NUMBER: ', 0, 0, true, 1);
@@ -1518,6 +1523,32 @@ EOD;
         $pdf->SetFont('lucidafax', '', 9);
         $pdf->writeHTML('File this certificate and clearance with his/her enrollment evaluation form.', 0, 0, true, 1);
     
+         $pdf->Ln(6);
+        $pdf->SetFont('lucidafax', '', 11);
+        $pdf->writeHTML('Not valid without', 0, 0, true, 1);
+        $pdf->Ln(4);
+        $pdf->writeHTML('University Dry Seal', 0, 0, true, 1);
+       
+    
+        // OR Number
+        $pdf->Ln(5);
+        $pdf->SetFont('lucidafax', '', 11);
+        $pdf->Cell(34, 5, 'OR Number:');
+        $pdf->SetTextColor(238, 75, 43);
+        $pdf->writeHTML("".$data['request_code'], 35, 5);
+        $pdf->SetTextColor(0,0,0);
+    
+        // Date
+        $pdf->Ln(0);
+        $pdf->Cell(34, 5, 'Date:');
+        $pdf->TextField('date', 29, 5, array(), array('v'=>date('m-d-Y'), 'dv'=>date('m-d-Y')));
+        
+        //sghsese
+        $pdf->Ln(6);
+        $pdf->SetFont('lucidafax', '', 11);
+        $pdf->Cell(23, 4, '/shgsese20');
+        $pdf->TextField('yearshg', 5, 5);
+        
         // -----------------------------------------------------------------------------
         // output the HTML content
         // -----------------------------------------------------------------------------
@@ -1545,7 +1576,7 @@ EOD;
         $pdf->SetTitle('Certification of Steno Units');
         $pdf->SetSubject('Certification of Steno Units');
         // set default header data
-        $pdf->SetHeaderData('landscape-header.jpg', '200', '', '');
+        $pdf->SetHeaderData('landscape-header.jpg', '250', '', '');
         // set header and footer fonts
         
         $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
@@ -1555,7 +1586,7 @@ EOD;
         $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
     
         // set margins
-        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP + 10, PDF_MARGIN_RIGHT);
+        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP + 18, PDF_MARGIN_RIGHT);
         $pdf->SetHeaderMargin(3);
         $pdf->SetFooterMargin(PDF_MARGIN_FOOTER + 15);
     
@@ -1597,65 +1628,57 @@ EOD;
     
         $pdf->Ln(7);
         $pdf->SetTextColor(0,0,0);
-        $pdf->SetFont('lucidafax', '', 12);
-        $pdf->MultiCell(90, 10, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
-        $pdf->MultiCell(90, 10, date('F d, Y'), 0, 'R', 0, 0, 72, '', '', true, 40, false, true, 40, 'T');
-        $pdf->Ln(6);
+        $pdf->SetFont('lucidafax', '', 10);
+        $pdf->MultiCell(100, 10, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
+        $pdf->MultiCell(100, 10, date('F d, Y'), 0, 'R', 0, 0, 72, '', '', true, 40, false, true, 40, 'T');
     
-        $html = <<<EOD
-          <h1>XHTML Form Example</h1>
-          <form method="post" action="http://localhost/printvars.php" enctype="multipart/form-data">
-EOD;
-    
-        $pdf->Ln(12);
+        $pdf->Ln(15);
         $pdf->SetFont('lucidafaxdemib', 'B', 18);
         $pdf->Cell(0, 5, 'C E R T I F I C A T I O N', 0, 1, 'C');
         $pdf->SetFont('lucidafax', '', 11);
-        $pdf->Ln(12);
+        $pdf->Ln(7);
     
-        $pdf->SetFont('lucidafax', '', 11);
+        $pdf->SetFont('lucidafax', '', 10);
         $pdf->writeHTML('To Whom It May Concern:', 0, 0, true, 1);
-        
-        $pdf->Ln(12);
-        $pdf->writeHTML('<p style="text-indent: 50px">This is to certify that ', 0, 0, true, 1);
+
+        $pdf->writeHTML('<br><br><p style="text-indent: 50px">This is to certify that ', 0, 0, true, 1);
         
         // name
         $prefix = $data['gender'] == 'm' ? 'Mr': 'Ms';
         $name =  $prefix .'. '.$data['firstname'] . ' ' . $data['middlename'] . ' ' . $data['lastname'];
-        $pdf->SetFont('lucidafaxdemib', '', 11);
+        $pdf->SetFont('lucidafaxdemib', '', 10);
         $pdf->writeHTML($name, 0, 0, true, 1);
-        $pdf->SetFont('lucidafax', '', 11);
+        $pdf->SetFont('lucidafax', '', 10);
         $pdf->writeHTML(', a graduate of the Polytechnic University of the Philippines Taguig Branch and received the degree of ', 0, 0, true, 1);
     
         //course
-        $pdf->SetFont('lucidafaxdemib', '', 11);
+        $pdf->SetFont('lucidafaxdemib', '', 10);
         $pdf->writeHTML($data['course'], 0, 0, true, 1);
-        $pdf->SetFont('lucidafax', '', 11);
+        $pdf->SetFont('lucidafax', '', 10);
         $pdf->writeHTML(', on ', 0, 0, true, 1);  
         $pdf->writeHTML(' ', 0, 0, true, 1);
     
         // Date Receive Degree
-        $pdf->SetFont('lucidafaxdemib', '', 11);
+        $pdf->SetFont('lucidafaxdemib', '', 10);
         $pdf->TextField('date_receive', 45, 5);
         $pdf->writeHTML('.', 0, 0, true, 1);
     
         // name
-        $pdf->Ln(10);
         $prefix = $data['gender'] == 'm' ? 'Mr': 'Ms';
         $name =  $prefix .'. '. $data['lastname'];
-        $pdf->SetFont('lucidafaxdemib', '', 11);
-        $pdf->writeHTML('<p style="text-indent: 50px">' . $name, 0, 0, true, 1);
-        $pdf->SetFont('lucidafax', '', 11);
+        $pdf->SetFont('lucidafaxdemib', '', 10);
+        $pdf->writeHTML('<br><br><p style="text-indent: 50px">' . $name, 0, 0, true, 1);
+        $pdf->SetFont('lucidafax', '', 10);
         $pdf->writeHTML(' had taken and successfully completed the following ', 0, 0, true, 1);
-        $pdf->SetFont('lucidafaxdemib', '', 11);
+        $pdf->SetFont('lucidafaxdemib', '', 10);
         $pdf->writeHTML(' units in stenography ', 0, 0, true, 1);
-        $pdf->SetFont('lucidafax', '', 11);
+        $pdf->SetFont('lucidafax', '', 10);
         $pdf->writeHTML(' subjects: ', 0, 0, true, 1);
     
         //subject code
         $pdf->Ln(10);
         $pdf->Cell(9, 5, ' ');
-        $pdf->SetFont('lucidafaxdemib', '', 11);
+        $pdf->SetFont('lucidafaxdemib', '', 10);
         $pdf->writeHTML('SUBJECT CODE', 0, 0, true, 1);
         $pdf->Cell(38, 5, ' ');
         
@@ -1669,7 +1692,7 @@ EOD;
         //  subjects
         $pdf->Ln(6);
         $pdf->Cell(12, 5, ' ');
-        $pdf->SetFont('lucidafax', '', 7);
+        $pdf->SetFont('lucidafax', '', 10);
         $pdf->TextField('subjectcode1', 27, 5);
         $pdf->Cell(4, 5, ' ');
         $pdf->TextField('subject1', 114, 5);
@@ -1733,7 +1756,7 @@ EOD;
         $pdf->writeHTML(' units', 0, 0, true, 1);
     
         $pdf->Ln(4);
-        $pdf->SetFont('lucidafaxdemib', '', 11);
+        $pdf->SetFont('lucidafaxdemib', '', 10);
         $pdf->Cell(16, 5, ' ');
         $pdf->writeHTML('___________________________________________________________________________________', 0, 0, true, 1);
         $pdf->Ln(6);
@@ -1743,32 +1766,32 @@ EOD;
         $pdf->TextField('total_unit', 6, 5);
         $pdf->writeHTML(' units', 0, 0, true, 1);
     
-        $pdf->SetFont('lucidafax', '', 11);
-        $pdf->writeHTML('<br><br><p style="text-indent: 50px"; text-align="">This certification is issued this ', 0, 0, true, 1);
+         $pdf->Ln(0);
+        $pdf->SetFont('lucidafax', '', 10);
+        $pdf->writeHTML('<br><p style="text-indent: 50px"; text-align="">This certification is issued this ', 0, 0, true, 1);
         $pdf->MultiCell(110, 10, date('jS').' of ' .date('F Y') . ' upon the request of ', 0, 'L', 0, 0, '', '', true, 0, false, true, 40, 'T');
         $pronoun['objective'] = $data['gender'] == 'm' ? 'him': 'her';
-        $pdf->SetFont('lucidafaxdemib', '', 11);
+        $pdf->SetFont('lucidafaxdemib', '', 10);
         $pdf->writeHTML($prefix . '. ' . $data['lastname'], 0, 0, true, 1); 
         $pdf->SetFont('lucidafax', '', 11);
-        $pdf->writeHTML(' for whatever purpose it may serve him/her.', 0, 0, true, 1);   
+        $pdf->writeHTML(' for whatever purpose it may serve ' . $pronoun['objective'], 0, 0, true, 1);   
     
-        $pdf->Ln(13);
-        $pdf->SetFont('lucidafaxdemib', '', 12);
-        $pdf->Cell(18, 5, '                                                                             MHEL P. GARCIA');
+        $pdf->Ln(16);
+        $pdf->SetFont('lucidafaxdemib', '', 10);
+        $pdf->Cell(18, 5, '                                                                                                        MHEL P. GARCIA');
         $pdf->Ln(6);
-        $pdf->SetFont('lucidafax', '', 12);
-        $pdf->Cell(18, 5, '                                                             Branch Registrar/Head of Registration Office');
+        $pdf->SetFont('lucidafax', '', 10);
+        $pdf->Cell(18, 5, '                                                                                         Branch Registrar/Head of Registration Office');
     
-        $pdf->Ln(8);
-        $pdf->SetFont('lucidafax', '', 5);
-        $pdf->writeHTML('Not valid without', 0, 0, true, 1);
         $pdf->Ln(2);
+        $pdf->SetFont('lucidafax', '', 10);
+        $pdf->writeHTML('Not valid without', 0, 0, true, 1);
+        $pdf->Ln(4);
         $pdf->writeHTML('University Dry Seal', 0, 0, true, 1);
-       
     
         // OR Number
-        $pdf->Ln(3);
-        $pdf->SetFont('lucidafax', '', 11);
+        $pdf->Ln(5);
+        $pdf->SetFont('lucidafax', '', 10);
         $pdf->Cell(34, 5, 'OR Number:');
         $pdf->SetTextColor(238, 75, 43);
         $pdf->writeHTML("".$data['request_code'], 35, 5);
@@ -1779,6 +1802,12 @@ EOD;
         $pdf->Cell(34, 5, 'Date:');
         $pdf->TextField('date', 29, 5, array(), array('v'=>date('m-d-Y'), 'dv'=>date('m-d-Y')));
         
+        //sghsese
+        $pdf->Ln(5);
+        $pdf->SetFont('lucidafax', '', 10);
+        $pdf->Cell(23, 4, '/shgsese20');
+        $pdf->TextField('yearshg', 5, 5);
+
         // -----------------------------------------------------------------------------
         // output the HTML content
         // -----------------------------------------------------------------------------
@@ -2149,15 +2178,7 @@ EOD;
         $pdf->SetFont('arial', '', 10);
         $pdf->MultiCell(90, 10, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
         $pdf->MultiCell(90, 10, date('F d, Y'), 0, 'R', 0, 0, '', '', true, 0, false, true, 40, 'T');
-        $pdf->Ln(4);
-    
-      
-        $html = <<<EOD
-          <h1>XHTML Form Example</h1>
-          <form method="post" action="http://localhost/printvars.php" enctype="multipart/form-data">
-EOD;
-    
-        $pdf->Ln(12);
+        $pdf->Ln(7);
     
         $pdf->SetFont( 'lucidafaxdemib', 'B', 11 );
         $pdf->writeHTML('MHEL P. GARCIA', 0, 0, true, 1);
@@ -2331,7 +2352,7 @@ EOD;
         $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
     
         // set margins
-        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP + 10, PDF_MARGIN_RIGHT);
+        $pdf->SetMargins(PDF_MARGIN_LEFT + 5, PDF_MARGIN_TOP + 15, PDF_MARGIN_RIGHT +5, PDF_MARGIN_BOTTOM+5);
         $pdf->SetHeaderMargin(3);
         $pdf->SetFooterMargin(PDF_MARGIN_FOOTER + 15);
     
@@ -2376,25 +2397,22 @@ EOD;
         $pdf->SetFont('lucidafax', '', 12);
         $pdf->MultiCell(90, 10, '', 0, 'R', 0, 0, '', '', true, 0, false, true, 40, 'T');
         $pdf->MultiCell(90, 10, date('F d, Y'), 0, 'R', 0, 0, 68,'', '', true, 0, false, true, 40, 'T');
-        $pdf->Ln(6);
-    
-       
+        $pdf->Ln(15);
     
         $html = <<<EOD
           <h1>XHTML Form Example</h1>
           <form method="post" action="http://localhost/printvars.php" enctype="multipart/form-data">
 EOD;
     
-        $pdf->Ln(8);
+        $pdf->Ln(9);
         $pdf->SetFont('lucidafaxdemib', 'B', 18);
         $pdf->Cell(0, 5, 'C E R T I F I C A T I O N', 0, 1, 'C');
         $pdf->SetFont('lucidafax', '', 11);
-        $pdf->Ln(12);
+        $pdf->Ln(15);
     
         $pdf->SetFont('lucidafax', '', 11);
         $pdf->writeHTML('To Whom It May Concern:', 0, 0, true, 1);
-        
-        $pdf->Ln(12);
+        $pdf->Ln(15);
         $pdf->writeHTML('<p style="text-indent: 50px">This is to certify that ', 0, 0, true, 1);
         
         // name
@@ -2420,29 +2438,29 @@ EOD;
         $pronoun['subjective'] = $details['gender'] == 'm' ? 'he': 'she';
         $pronoun['possesive'] = $details['gender'] == 'm' ? 'his': 'hers';
         $pronoun['objective'] = $details['gender'] == 'm' ? 'him': 'her';
-         $pdf->Ln(8);
+         $pdf->Ln(28);
         $pdf->writeHTML('<p style="text-indent: 50px"; text-align="">This certification is issued this ', 0, 0, true, 1);
     
         $pdf->MultiCell(110, 10, date('jS').' of ' .date('F Y') . ' upon the request of ' . $name , 0, 'L', 0, 0, '', '', true, 0, false, true, 40, 'T');
         $pdf->writeHTML($details['lastname'] . ' for whatever purpose it may serve ' . $pronoun['objective'] . '.', 0, 0, true, 1);
     
-        $pdf->Ln(13);
+        $pdf->Ln(20);
         $pdf->SetFont('lucidafaxdemib', '', 12);
         $pdf->Cell(18, 5, '                                                                             MHEL P. GARCIA');
         $pdf->Ln(6);
         $pdf->SetFont('lucidafax', '', 12);
         $pdf->Cell(18, 5, '                                                             Branch Registrar/Head of Registration Office');
     
-        $pdf->Ln(8);
+        $pdf->Ln(35);
     
-        $pdf->SetFont('lucidafax', '', 5);
+        $pdf->SetFont('lucidafax', '', 11);
         $pdf->writeHTML('Not valid without', 0, 0, true, 1);
-        $pdf->Ln(2);
+        $pdf->Ln(4);
         $pdf->writeHTML('University Dry Seal', 0, 0, true, 1);
        
     
         // OR Number
-        $pdf->Ln(7);
+        $pdf->Ln(10);
         $pdf->SetFont('lucidafax', '', 11);
         $pdf->Cell(34, 5, 'OR Number:');
         $pdf->SetTextColor(238, 75, 43);
@@ -2454,6 +2472,12 @@ EOD;
         $pdf->Cell(34, 5, 'Date:');
         $pdf->TextField('date', 33, 5, array(), array('v'=>date('m-d-Y'), 'dv'=>date('m-d-Y')));
     
+        //sghsese
+        $pdf->Ln(6);
+        $pdf->SetFont('lucidafax', '', 11);
+        $pdf->Cell(23, 4, '/shgsese20');
+        $pdf->TextField('yearshg', 5, 5);
+
         /**
         $pdf->setPrintFooter(false);
         $image_file = K_PATH_IMAGES . 'main-footer.jpg';
@@ -2485,7 +2509,7 @@ EOD;
         $pdf->SetTitle('Certification of NSTP CWTS');
         $pdf->SetSubject('Certification of NSTP - CWTS');
         // set default header data
-        $pdf->SetHeaderData('landscape-header.jpg', '200', '', '');
+        $pdf->SetHeaderData('landscape-header.jpg', '250', '', '');
         // set header and footer fonts
         
         $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
@@ -2495,7 +2519,7 @@ EOD;
         $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
     
         // set margins
-        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP + 10, PDF_MARGIN_RIGHT);
+        $pdf->SetMargins(PDF_MARGIN_LEFT + 5, PDF_MARGIN_TOP + 18, PDF_MARGIN_RIGHT +5, PDF_MARGIN_BOTTOM+5);
         $pdf->SetHeaderMargin(3);
         $pdf->SetFooterMargin(PDF_MARGIN_FOOTER + 15);
     
@@ -2538,28 +2562,19 @@ EOD;
         $pdf->Ln(12);
         $pdf->SetTextColor(0,0,0);
         $pdf->SetFont('lucidafax', '', 12);
-        $pdf->MultiCell(90, 10, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
-        $pdf->MultiCell(90, 10, date('F d, Y'), 0, 'R', 0, 0, 70, '', '', true, 0, false, true, 40, 'T');
-        $pdf->Ln(6);
-    
-       
-    
-        $html = <<<EOD
-          <h1>XHTML Form Example</h1>
-          <form method="post" action="http://localhost/printvars.php" enctype="multipart/form-data">
-EOD;
-    
-        $pdf->Ln(8);
+        $pdf->MultiCell(98, 10, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
+        $pdf->MultiCell(98, 10, date('F d, Y'), 0, 'R', 0, 0, 70, '', '', true, 0, false, true, 40, 'T');
+        $pdf->Ln(23);
+
         $pdf->SetFont('lucidafaxdemib', 'B', 18);
         $pdf->Cell(0, 5, 'C E R T I F I C A T I O N', 0, 1, 'C');
         $pdf->SetFont('lucidafax', '', 11);
-        $pdf->Ln(12);
+        $pdf->Ln(17);
     
         $pdf->SetFont('lucidafax', '', 11);
         $pdf->writeHTML('To Whom It May Concern:', 0, 0, true, 1);
-        
-        $pdf->Ln(12);
-        $pdf->writeHTML('<p style="text-indent: 50px">This is to certify that ', 0, 0, true, 1);
+
+        $pdf->writeHTML('<br><br><p style="text-indent: 50px">This is to certify that ', 0, 0, true, 1);
         
         // name
         $prefix = $data['gender'] == 'm' ? 'Mr': 'Ms';
@@ -2583,14 +2598,13 @@ EOD;
         $pronoun['objective'] = $data['gender'] == 'm' ? 'him': 'her';
         $pdf->writeHTML(' S.Y. ' . SCHOOL_YEAR, 0, 0, true, 1);
         $pdf->SetFont('lucidafax', '', 11);
-        $pdf->writeHTML('in this University with Serial Number ', 0, 0, true, 1);
-        $pdf->writeHTML(' ', 0, 0, true, 1);
+        $pdf->writeHTML('in this University with Serial Number ');
         $pdf->SetFont('lucidafaxdemib', '', 11);
-        $pdf->TextField('serial_number', 40, 5);
+        $pdf->writeHTML('C-13-113593-16', 0, 0, true, 1);
         $pdf->SetFont('lucidafax', '', 11);
         $pdf->writeHTML(' in compliance with RA 9163 "National Service Training Program (NSTP) Act of 2001."', 0, 0, true, 1);
     
-        $pdf->writeHTML('<br><br><p style="text-indent: 50px"; text-align="">This certification has been issued upon the request of ', 0, 0, true, 1);
+        $pdf->writeHTML('<br><p style="text-indent: 50px"; text-align="">This certification has been issued upon the request of ', 0, 0, true, 1);
         $named =  $prefix .'. ';
         $pdf->writeHTML($data['lastname'], 0, 0, true, 1);
         $pdf->writeHTML(' copy for ', 0, 0, true, 1);
@@ -2598,22 +2612,21 @@ EOD;
         $pdf->SetFont('lucidafaxdemib', '', 11);
         $pdf->TextField('school', 180, 5);
     
-        $pdf->Ln(16);
-        $pdf->SetFont('lucidafaxdemib', '', 12);
-        $pdf->Cell(18, 5, '                                                                             MHEL P. GARCIA');
+        $pdf->Ln(21);
+        $pdf->SetFont('lucidafaxdemib', '', 11);
+        $pdf->Cell(18, 5, '                                                                                        MHEL P. GARCIA');
         $pdf->Ln(6);
-        $pdf->SetFont('lucidafax', '', 12);
-        $pdf->Cell(18, 5, '                                                             Branch Registrar/Head of Registration Office');
+        $pdf->SetFont('lucidafax', '', 11);
+        $pdf->Cell(18, 5, '                                                                        Branch Registrar/Head of Registration Office');
     
-        $pdf->Ln(8);
-        $pdf->SetFont('lucidafax', '', 5);
+        $pdf->Ln(30);
+        $pdf->SetFont('lucidafax', '', 11);
         $pdf->writeHTML('Not valid without', 0, 0, true, 1);
-        $pdf->Ln(2);
+        $pdf->Ln(4);
         $pdf->writeHTML('University Dry Seal', 0, 0, true, 1);
-       
     
         // OR Number
-        $pdf->Ln(7);
+        $pdf->Ln(10);
         $pdf->SetFont('lucidafax', '', 11);
         $pdf->Cell(34, 5, 'OR Number:');
         $pdf->SetTextColor(238, 75, 43);
@@ -2621,9 +2634,16 @@ EOD;
         $pdf->SetTextColor(0,0,0);
     
         // Date
-        $pdf->Ln(6);
+        $pdf->Ln(0);
         $pdf->Cell(34, 5, 'Date:');
         $pdf->TextField('date', 33, 5, array(), array('v'=>date('m-d-Y'), 'dv'=>date('m-d-Y')));
+        
+        //sghsese
+        $pdf->Ln(6);
+        $pdf->SetFont('lucidafax', '', 11);
+        $pdf->Cell(23, 4, '/shgsese20');
+        $pdf->TextField('yearshg', 5, 5);
+
     
         // -----------------------------------------------------------------------------
         // output the HTML content
@@ -2768,7 +2788,7 @@ EOD;
     }
 
     </style>
-    <span class = "firstspan"><p> This is to certify that <span class = "highlightnamespan">'. $name .'</span> is a student of this University and that '.$pronoun['subjective'].' shows good moral character and has not been disciplined for any violation of the rules and regulations of the University. <br/><br/> This certification is being issued upon '.$pronoun['possesive'].' request for whatever legitimate purpose it may serve him/her.</p></span>';
+    <span class = "firstspan"><p> This is to certify that <span class = "highlightnamespan">'. $name .'</span> is a student of this University and that '.$pronoun['subjective'].' shows good moral character and has not been disciplined for any violation of the rules and regulations of the University. <br/><br/> This certification is being issued upon '.$pronoun['possesive'].' request for whatever legitimate purpose it may serve ' . $pronoun['objective'] . '.</p></span>';
 
 // output the HTML content
     $pdf->writeHTML($html, true, 0, true, false, '');
@@ -2879,7 +2899,7 @@ EOD;
     $pdf->Write(0, $txt, '', 0, 'L', true, 0, false, false, 0);
      $txt = <<<EOD
    
-    EOD;
+EOD;
     // print a block of text using Write()
     $pdf->Write(0, $txt, '', 0, 'L', true, 0, false, false, 0);
     $txt = <<<EOD
@@ -2938,7 +2958,7 @@ EOD;
     }
 
     </style>
-    <span class = "firstspan"><p> This is to certify that <span class = "highlightnamespan">'. $name .'</span> is a student of this University and that '.$pronoun['subjective'].' shows good moral character and has not been disciplined for any violation of the rules and regulations of the University. <br/><br/> This certification is being issued upon '.$pronoun['possesive'].' request for whatever legitimate purpose it may serve him/her.</p></span>';
+    <span class = "firstspan"><p> This is to certify that <span class = "highlightnamespan">'. $name .'</span> is a student of this University and that '.$pronoun['subjective'].' shows good moral character and has not been disciplined for any violation of the rules and regulations of the University. <br/><br/> This certification is being issued upon '.$pronoun['possesive'].' request for whatever legitimate purpose it may serve ' . $pronoun['objective'] . '.</p></span>';
 
 // output the HTML content
     $pdf->writeHTML($html, true, 0, true, false, '');
@@ -3108,7 +3128,7 @@ EOD;
     }
 
     </style>
-    <span class = "firstspan"><p> This is to certify that <span class = "highlightnamespan">'. $name .'</span> is a student of this University and that '.$pronoun['subjective'].' shows good moral character and has not been disciplined for any violation of the rules and regulations of the University. <br/><br/> This certification is being issued upon '.$pronoun['possesive'].' request for whatever legitimate purpose it may serve him/her.</p></span>';
+    <span class = "firstspan"><p> This is to certify that <span class = "highlightnamespan">'. $name .'</span> is a student of this University and that '.$pronoun['subjective'].' shows good moral character and has not been disciplined for any violation of the rules and regulations of the University. <br/><br/> This certification is being issued upon '.$pronoun['possesive'].' request for whatever legitimate purpose it may serve ' . $pronoun['objective'] . '.</p></span>';
 
 // output the HTML content
     $pdf->writeHTML($html, true, 0, true, false, '');
@@ -3202,39 +3222,39 @@ EOD;
     // -----------------------------------------------------------------------------
     $txt = <<<EOD
                  
-    EOD;
+EOD;
     // print a block of text using Write()
     $pdf->Write(0, $txt, '', 0, 'L', true, 0, false, false, 0);
     $date = date('F d, Y');
      $txt = <<<EOD
    
-    EOD;
+EOD;
     // print a block of text using Write()
     $pdf->Write(0, $txt, '', 0, 'L', true, 0, false, false, 0);
      $txt = <<<EOD
    
-    EOD;
+EOD;
 
      // print a block of text using Write()
     $pdf->Write(0, $txt, '', 0, 'L', true, 0, false, false, 0);
      $txt = <<<EOD
    
-    EOD;
+EOD;
     // print a block of text using Write()
     $pdf->Write(0, $txt, '', 0, 'L', true, 0, false, false, 0);
     $txt = <<<EOD
                   $date
-    EOD;
+EOD;
     // print a block of text using Write()
     $pdf->Write(0, $txt, '', 0, 'R', true, 0, false, false, 0);
      $txt = <<<EOD
    
-    EOD;
+EOD;
     // print a block of text using Write()
     $pdf->Write(0, $txt, '', 0, 'L', true, 0, false, false, 0);
      $txt = <<<EOD
    
-    EOD;
+EOD;
     
     // print a block of text using Write()
     //$pdf->Write(0, $txt, '', 0, 'L', true, 0, false, false, 0);
@@ -3314,16 +3334,16 @@ EOD;
     die('here');
   }
 
-  public function certificateofladderize($request_id){
-   $pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, 'LETTER', true, 'UTF-8', false);
-    $data = $this->formRequestModel->getDetails(['form_requests.id' => $id])[0];
+  public function certificateofladderize($id){
+    $pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, 'LETTER', true, 'UTF-8', false);
+   $data = $this->requestDetailModel->getDetails(['request_details.id' => $id])[0];
     // set document information
     $pdf->SetCreator(PDF_CREATOR);
     $pdf->SetAuthor('PUPT ODRS');
     $pdf->SetTitle('Certificate of Ladderized Enrolment');
     $pdf->SetSubject('Certificate of Ladderized Enrolment');
     // set default header data
-    $pdf->SetHeaderData('landscape-header.jpg', '200', '', '');
+    $pdf->SetHeaderData('landscape-header.jpg', '250', '', '');
     // set header and footer fonts
     $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
     $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
@@ -3332,7 +3352,7 @@ EOD;
     $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
     // set margins
-    $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP + 10, PDF_MARGIN_RIGHT);
+    $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP + 18, PDF_MARGIN_RIGHT);
     $pdf->SetHeaderMargin(3);
     $pdf->SetFooterMargin(PDF_MARGIN_FOOTER + 15);
 
@@ -3348,74 +3368,107 @@ EOD;
         $pdf->setLanguageArray($l);
     }
     // ---------------------------------------------------------
-
-
-    // set font
-
     // add a page
     $pdf->AddPage();
+    
     // disable auto-page-break
     // set bacground image
     $pdf->SetFont('lucidafaxdemib', '', 9);
 
-    $pdf->Ln(12);
+    $pdf->Ln(14);
     $pdf->SetTextColor(0,0,0);
     $pdf->SetFont('lucidafax', '', 12);
+    $pdf->MultiCell(100, 10, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
+    $pdf->MultiCell(100, 10, date('F d, Y'), 0, 'R', 0, 0, 60, '', '', true, 0, false, true, 40, 'T');
 
-    $pdf->MultiCell(90, 10, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
-    $pdf->MultiCell(90, 10, date('F d, Y'), 0, 'R', 0, 0, '', '', true, 0, false, true, 40, 'T');
-
-    $pdf->Ln(20);
+    $pdf->Ln(23);
+    $pdf->SetFont('lucidafaxdemib', 'B', 18);
+    $pdf->Cell(0, 5, 'C E R T I F I C A T I O N', 0, 1, 'C');
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->Ln(12);
 
     $pdf->SetFont('lucidafax', '', 12);
     $pdf->MultiCell(70, 30, 'To Whom It May Concern:', 0, 'L', 0, 0, '', '', true, 0, false, true, 40, 'T');
 
-    $pdf->Ln(8);
-    $pdf->writeHTML('<p style="text-indent: 50px">This is to certify that ', 0, 0, true, 1);
+    $pdf->writeHTML('<br><br><br><p style="text-indent: 50px">This is to certify that ', 0, 0, true, 1);
     $pdf->SetFont('lucidafaxdemib', '', 12);
     $pdf->writeHTML(ucwords($data['firstname'] . ' ' . $data['middlename'] . ' '. $data['lastname'] . ' '. $data['suffix']).' ', 0, 0, true, 1);
     $pdf->SetFont('lucidafax', '', 12);
     $pdf->writeHTML('is a bonafide student of this University taking up ', 0, 0, true, 1);
     $pdf->SetFont('lucidafaxdemib', '', 12);
-    $pdf->writeHTML(ucwords($data['course']).'.', 0, 0, true, 1);
-    
-    $pdf->Ln(8);
+    $course = strtolower($data['course']); // convert course to lowercase
+    $exclude = array('a', 'an', 'the', 'in', 'on', 'at', 'to', 'for', 'of');
+    $words = explode(' ', $course);
+    foreach ($words as $key => $word) {
+        if (!in_array($word, $exclude) || $key == 0) {
+            $words[$key] = ucfirst($word);
+        }
+    }
+    $course_title = implode(' ', $words);
+    $pdf->writeHTML($course_title . '.', 0, 0, true, 1);
+
     $pdf->SetFont('lucidafax', '', 12);
-    $pdf->writeHTML('<p style="text-indent: 50px">This also certifies that this course is under a ladderized program. Holders of this Diploma program have the opportunity to further their studies to ', 0, 0, true, 1);
+    $pdf->writeHTML('<br><br><p style="text-indent: 50px">This also certifies that this course is under a ladderized program. Holders of this Diploma program have the opportunity to further their studies to ', 0, 0, true, 1);
     $pdf->SetFont('lucidafaxdemib', '', 12);
-    $pdf->writeHTML(ucwords($data['course']).'.', 0, 0, true, 1);
+    $course = strtolower($data['course']); // convert course to lowercase
+    $exclude = array('a', 'an', 'the', 'in', 'on', 'at', 'to', 'for', 'of');
+    $words = explode(' ', $course);
+    foreach ($words as $key => $word) {
+        if (!in_array($word, $exclude) || $key == 0) {
+            $words[$key] = ucfirst($word);
+        }
+    }
+    $course_title = implode(' ', $words);
+    $pdf->writeHTML($course_title, 0, 0, true, 1);
+
     $pdf->SetFont('lucidafax', '', 12);
     $pdf->writeHTML('when all the requirements have been met. ', 0, 0, true, 1);
 
-    $pdf->Ln(8);
     $pdf->SetFont('lucidafax', '', 12);
-    $pdf->writeHTML('<p style="text-indent: 50px">This certification is being issued upon the request of the aforementioned name for whatever legal purpose it may serve.', 0, 0, true, 1);
+    $pdf->writeHTML('<br><br><p style="text-indent: 50px">This certification is being issued upon the request of the aforementioned name for whatever legal purpose it may serve.', 0, 0, true, 1);
 
-    $pdf->Ln(20);
-
+    $pdf->Ln(22);
     $pdf->SetFont('lucidafaxdemib', '', 12);
-    $pdf->MultiCell(60, 1, '', 0, 'C', 0, 0, '', '', true, 0, false, true, 40, 'T');
-    $pdf->MultiCell(20, 1, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
-    $pdf->MultiCell(90, 1, 'MHEL P. GARCIA', 0, 'C', 0, 0, '', '', true, 0, false, true, 40, 'T');
-
+    $pdf->Cell(18, 5, '                                                                             MHEL P. GARCIA');
     $pdf->Ln(4);
+    $pdf->SetFont('lucidafax', '', 12);
+    $pdf->Cell(18, 5, '                                                             Branch Registrar/Head of Registration Office');
 
-
-
+    /**$pdf->Ln(4);
     $pdf->SetFont('lucidafax', '', 10);
-
-    $pdf->MultiCell(60, 10, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
-    $pdf->MultiCell(20, 10, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
-    $pdf->MultiCell(90, 10, '      Branch Registrar/ Head of Registration Office', 0, 'L', 0, 0, '', '', true, 300, false, true, 40, 'T');
-
-    $pdf->Ln(8);
     $pdf->MultiCell(90, 10, 'Reference No.', 0, 'L', 0, 0, '', '', true, 0, false, true, 0, 'T');
     $pdf->Ln(4);
     $pdf->SetTextColor(255,0,0);
     $pdf->SetFont('lucidafaxdemib', '', 12);
 
     $pdf->MultiCell(90, 10, 'PUPTG-F137-' . date('Y', strtotime($data['created_at'])). '-' . substr(str_repeat(0, 5).$data['id'], - 5), 0, 'L', 0, 0, '', '', true, 0, false, true, 0, 'T');
-
+    **/
+    
+    $pdf->Ln(9);
+    $pdf->SetFont('lucidafax', '', 11);
+        $pdf->writeHTML('Not valid without', 0, 0, true, 1);
+        $pdf->Ln(4);
+        $pdf->writeHTML('University Dry Seal', 0, 0, true, 1);
+    
+        // OR Number
+        $pdf->Ln(7);
+        $pdf->SetFont('lucidafax', '', 11);
+        $pdf->Cell(34, 5, 'OR Number:');
+        $pdf->SetTextColor(238, 75, 43);
+        $pdf->writeHTML("".$data['request_code'], 35, 5);
+        $pdf->SetTextColor(0,0,0);
+    
+        // Date
+        $pdf->Ln(1);
+        $pdf->Cell(34, 5, 'Date:');
+        $pdf->TextField('date', 29, 5, array(), array('v'=>date('m-d-Y'), 'dv'=>date('m-d-Y')));
+    
+        //sghsese
+        $pdf->Ln(6);
+        $pdf->SetFont('lucidafax', '', 11);
+        $pdf->Cell(23, 4, '/shgsese20');
+        $pdf->TextField('yearshg', 5, 5);
+        
     // -----------------------------------------------------------------------------
     // output the HTML content
     // -----------------------------------------------------------------------------
@@ -3432,9 +3485,9 @@ EOD;
     die('here');
   }
 
-  public function certRegUnitsAdSubBrid($request_id){
-    $pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, 'LETTER', true, 'UTF-8', false);
-        $data = $this->formRequestModel->getDetails(['form_requests.id' => $id])[0];
+  public function certRegUnitsAdSubBrid($id){
+        $pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, 'LETTER', true, 'UTF-8', false);
+        $data = $this->requestDetailModel->getDetails(['request_details.id' => $id])[0];
         
         // set document information
         $pdf->SetCreator(PDF_CREATOR);
@@ -3623,12 +3676,12 @@ EOD;
         $pdf->TextField('total_unit', 6, 5);
         $pdf->writeHTML(' units', 0, 0, true, 1);
     
-        $pdf->Ln(8);
+        $pdf->Ln(5);
         $pdf->SetFont('lucidafax', '', 11);
         $pdf->writeHTML('<br><br><p style="text-indent: 50px"; text-align="">This certification is issued upon the request of ', 0, 0, true, 1);
         
         // name
-        $prefix = $details['gender'] == 'm' ? 'Mr': 'Ms';
+        $prefix = $data['gender'] == 'm' ? 'Mr': 'Ms';
         $name =  $prefix .'. '.$data['firstname'] . ' ' . $data['middlename'] . ' ' . $data['lastname'];
         $pdf->SetFont('lucidafaxdemib', '', 11);
         $pdf->writeHTML($name, 0, 0, true, 1);
@@ -3645,12 +3698,11 @@ EOD;
     
     
         $pdf->writeHTML($tbl, true, false, false, false, '');
-    
-        $pdf->SetFont('lucidafax', '', 5);
+         $pdf->Ln(5);
+        $pdf->SetFont('lucidafax', '', 11);
         $pdf->writeHTML('Not valid without', 0, 0, true, 1);
-        $pdf->Ln(2);
+        $pdf->Ln(4);
         $pdf->writeHTML('University Dry Seal', 0, 0, true, 1);
-       
     
         // OR Number
         $pdf->Ln(7);
@@ -3665,6 +3717,12 @@ EOD;
         $pdf->Cell(34, 5, 'Date:');
         $pdf->TextField('date', 29, 5, array(), array('v'=>date('m-d-Y'), 'dv'=>date('m-d-Y')));
     
+        //sghsese
+        $pdf->Ln(6);
+        $pdf->SetFont('lucidafax', '', 11);
+        $pdf->Cell(23, 4, '/shgsese20');
+        $pdf->TextField('yearshg', 5, 5);
+
         // -----------------------------------------------------------------------------
         // output the HTML content
         // -----------------------------------------------------------------------------
@@ -3684,20 +3742,17 @@ EOD;
 
   public function certRegUnitsAdSub($id){
    
-    $pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, 'LETTER', true, 'UTF-8', false);
+   $pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, 'LETTER', true, 'UTF-8', false);
     $data = $this->requestDetailModel->getDetails(['request_details.id' => $id])[0];
-    $receipt_code = $this->requestModel->findReceiptCode($id);
-
-    
     // set document information
     $pdf->SetCreator(PDF_CREATOR);
     $pdf->SetAuthor('PUPT OCT-DRS');
-    $pdf->SetTitle('Certification of Regular Units - Additional Subject');
-    $pdf->SetSubject('Certification of Regular Units - Additional Subject');
+    $pdf->SetTitle('Certification of Regular Units - Bridging');
+    $pdf->SetSubject('Certification of Regular Units - Bridging');
     // set default header data
-    $pdf->SetHeaderData('landscape-header.jpg', '200', '', '');
+    $pdf->SetHeaderData('header.png', '200', '', '');
     // set header and footer fonts
-
+    
     $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
     $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
 
@@ -3749,28 +3804,28 @@ EOD;
     $pdf->SetTextColor(0,0,0);
     $pdf->SetFont('lucidafax', '', 12);
     $pdf->MultiCell(90, 10, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
-    $pdf->MultiCell(90, 10, date('F d, Y'), 0, 'R', 0, 0, 60, '', '', true, 0, false, true, 40, 'T');
+    $pdf->MultiCell(90, 10, date('F d, Y'), 0, 'L', 0, 0, '', '', true, 0, false, true, 40, 'T');
     $pdf->Ln(6);
 
-
+   
 
     $html = <<<EOD
       <h1>XHTML Form Example</h1>
       <form method="post" action="http://localhost/printvars.php" enctype="multipart/form-data">
-EOD;
+    EOD;
 
-    $pdf->Ln(8);
+    $pdf->Ln(9);
     $pdf->SetFont('lucidafaxdemib', 'B', 18);
-    $pdf->Cell(0, 5, 'C E R T I F I C A T I O N', 0, 1, 'C');
+    $pdf->Cell(0, 5, 'C E R I F I C A T I O N', 0, 1, 'C');
     $pdf->SetFont('lucidafax', '', 11);
-    $pdf->Ln(12);
+    $pdf->Ln(10);
 
     $pdf->SetFont('lucidafax', '', 11);
     $pdf->writeHTML('To Whom It May Concern:', 0, 0, true, 1);
-
-    $pdf->Ln(12);
+    
+    $pdf->Ln(9);
     $pdf->writeHTML('<p style="text-indent: 50px">This is to certify that ', 0, 0, true, 1);
-
+    
     //course
     $pdf->SetFont('lucidafaxdemib', '', 11);
     $pdf->writeHTML($data['course'], 0, 0, true, 1);
@@ -3815,7 +3870,7 @@ EOD;
     $pdf->Cell(7, 5, ' ');
     $pdf->TextField('subject1_unit', 5, 5);
     $pdf->writeHTML(' units', 0, 0, true, 1);
-
+    
     //subject 2
     $pdf->Ln(7);
     $pdf->Cell(12, 5, ' ');
@@ -3839,16 +3894,16 @@ EOD;
     $pdf->SetFont('lucidafaxdemib', '', 11);
     $pdf->Cell(16, 5, ' ');
     $pdf->writeHTML('___________________________________________________________________________________', 0, 0, true, 1);
-    $pdf->Ln(8);
+    $pdf->Ln(6);
     $pdf->Cell(60, 5, ' ');
-    $pdf->writeHTML('REGULAR LOAD', 0, 0, true, 1);
+    $pdf->writeHTML('REGULAR UNITS', 0, 0, true, 1);
     $pdf->Cell(70, 5, ' ');
     $pdf->TextField('regular_unit', 6, 5);
     $pdf->writeHTML(' units', 0, 0, true, 1);
 
-    $pdf->Ln(8);
+    $pdf->Ln(9);
     $pdf->SetFont('lucidafax', '', 11);
-    $pdf->Cell(12, 5, 'Additional Subject:');
+    $pdf->Cell(12, 5, 'Bridging Subject:');
     $pdf->Ln(6);
     $pdf->Cell(12, 5, ' ');
     $pdf->TextField('subjectcode4', 27, 5);
@@ -3858,7 +3913,7 @@ EOD;
     $pdf->TextField('subject4_unit', 5, 5);
     $pdf->writeHTML(' units', 0, 0, true, 1);
 
-    $pdf->Ln(8);
+    $pdf->Ln(7);
     $pdf->Cell(12, 5, ' ');
     $pdf->TextField('subjectcode5', 27, 5);
     $pdf->Cell(4, 5, ' ');
@@ -3871,45 +3926,41 @@ EOD;
     $pdf->SetFont('lucidafaxdemib', '', 11);
     $pdf->Cell(16, 5, ' ');
     $pdf->writeHTML('___________________________________________________________________________________', 0, 0, true, 1);
-    $pdf->Ln(8);
+    $pdf->Ln(6);
     $pdf->Cell(60, 5, ' ');
     $pdf->writeHTML('TOTAL', 0, 0, true, 1);
     $pdf->Cell(87, 5, ' ');
     $pdf->TextField('total_unit', 6, 5);
     $pdf->writeHTML(' units', 0, 0, true, 1);
 
-    $pdf->Ln(8);
+    $pdf->Ln(7);
     $pdf->SetFont('lucidafax', '', 11);
     $pdf->writeHTML('<br><br><p style="text-indent: 50px"; text-align="">This certification is issued upon the request of ', 0, 0, true, 1);
-
+    
     // name
     $prefix = $data['gender'] == 'm' ? 'Mr': 'Ms';
     $name =  $prefix .'. '.$data['firstname'] . ' ' . $data['middlename'] . ' ' . $data['lastname'];
     $pdf->SetFont('lucidafaxdemib', '', 11);
     $pdf->writeHTML($name, 0, 0, true, 1);
-
+    
     $pdf->SetFont('lucidafax', '', 11);
     $pdf->writeHTML(' for scholarship purposes only.', 0, 0, true, 1);    
 
     $tbl = <<<EOD
-      <br><br><br><br>
-      <style>
+       <br><br><br>
+       <style>
       .headHL{
         font-family: lucidafaxdemib;
         
       }
       </style>
       <table border="0" cellpadding="2" cellspacing="2" align="center">
-      <tr nobr="true">
+       <tr nobr="true">
         <td></td>
-        <td class = "headHL" >MHEL P. GARCIA</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>Branch Registrar/Head of Registration Office</td>
-      </tr>
+        <td class = "headHL" >MHEL P. GARCIA <br />Branch Registrar/Head of Registration Office</td>
+       </tr>
       </table>
-EOD;
+    EOD;
 
 
     $pdf->writeHTML($tbl, true, false, false, false, '');
@@ -3918,20 +3969,61 @@ EOD;
     $pdf->writeHTML('Not valid without', 0, 0, true, 1);
     $pdf->Ln(2);
     $pdf->writeHTML('University Dry Seal', 0, 0, true, 1);
-
+   
 
     // OR Number
-    $pdf->Ln(5);
+    $pdf->Ln(7);
     $pdf->SetFont('lucidafax', '', 11);
     $pdf->Cell(34, 5, 'OR Number:');
     $pdf->SetTextColor(238, 75, 43);
-    $pdf->writeHTML("".$data['request_code'], 35, 5);
+    $pdf->TextField('or_number', 35, 5);
     $pdf->SetTextColor(0,0,0);
 
     // Date
-    $pdf->Ln(1);
+    $pdf->Ln(6);
     $pdf->Cell(34, 5, 'Date:');
     $pdf->TextField('date', 29, 5, array(), array('v'=>date('m-d-Y'), 'dv'=>date('m-d-Y')));
+    
+    $pdf->SetXY(100,230);
+
+    // Button to validate and print
+    $pdf->Button('print', 30, 10, 'Print', 'Print()', array('lineWidth'=>2, 'borderStyle'=>'beveled', 'fillColor'=>array(194,8,8), 'strokeColor'=>array(64, 64, 64)));
+
+    // Reset Button
+    $pdf->Button('reset', 30, 10, 'Reset', array('S'=>'ResetForm'), array('lineWidth'=>2, 'borderStyle'=>'beveled', 'fillColor'=>array(128, 196, 255), 'strokeColor'=>array(64, 64, 64)));
+
+    // Form validation functions
+    $js = <<<EOD
+    function CheckField(name,message) {
+        var f = getField(name);
+        if(f.value == '') {
+            app.alert(message);
+            f.setFocus();
+            return false;
+        }
+        return true;
+    }
+    function Print() {
+        if(!CheckField('year_level','Year Level is mandatory')) {return;}
+        if(!CheckField('unit_word','Unit in word is mandatory')) {return;}
+        if(!CheckField('unit_number','Unit in number inside parethesis is mandatory')) {return;}
+        if(!CheckField('semester','Semester is mandatory')) {return;}
+        if(!CheckField('subjectcode1','Subject Code for Regular Units is mandatory')) {return;}
+        if(!CheckField('subject1','Subject for Regular Units is mandatory')) {return;}
+        if(!CheckField('subject1_unit','Unit of Subject for Regular Units is mandatory')) {return;}
+        if(!CheckField('regular_unit','Total of Regular Units is mandatory')) {return;}
+        if(!CheckField('subjectcode4','Subject Code for Bridging Units is mandatory')) {return;}
+        if(!CheckField('subject4','Subject for Bridging Units is mandatory')) {return;}
+        if(!CheckField('subject4_unit','Unit of Subject for Bridging Units is mandatory')) {return;}
+        if(!CheckField('total_unit','Total of Units is mandatory')) {return;}
+        if(!CheckField('or_number','OR Number is mandatory')) {return;}
+        if(!CheckField('date','Date is mandatory')) {return;}
+        print();
+    }
+    EOD;
+
+    // Add Javascript code
+    $pdf->IncludeJS($js);
 
     // -----------------------------------------------------------------------------
     // output the HTML content
@@ -3957,10 +4049,10 @@ EOD;
     // set document information
     $pdf->SetCreator(PDF_CREATOR);
     $pdf->SetAuthor('PUPT OCT-DRS');
-    $pdf->SetTitle('Verification - Undergraduate');
-    $pdf->SetSubject('Verification - Undergraduate');
+    $pdf->SetTitle('Certification of Verification for Undergraduates Probation');
+    $pdf->SetSubject('Certification of Verification for Undergraduates Probation');
     // set default header data
-    $pdf->SetHeaderData('landscape-header.jpg', '200', '', '');
+    $pdf->SetHeaderData('landscape-header.jpg', '250', '', '');
     // set header and footer fonts
     
     $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
@@ -3970,8 +4062,8 @@ EOD;
     $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
     // set margins
-    $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP + 10, PDF_MARGIN_RIGHT);
-    $pdf->SetHeaderMargin(3);
+    $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP + 18, PDF_MARGIN_RIGHT);
+    $pdf->SetHeaderMargin(1);
     $pdf->SetFooterMargin(PDF_MARGIN_FOOTER + 15);
 
     // set auto page breaks
@@ -4010,48 +4102,44 @@ EOD;
     // set default form properties
     $pdf->setFormDefaultProp(array('lineWidth'=>1, 'borderStyle'=>'solid', 'fillColor'=>array(255, 255, 255), 'strokeColor'=>array(255, 255, 255)));
 
-    $pdf->Ln(12);
+    $pdf->Ln(5);
     $pdf->SetTextColor(0,0,0);
-    $pdf->SetFont('lucidafax', '', 12);
+    $pdf->SetFont('lucidafax', '', 10);
 
     $pdf->MultiCell(90, 10, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
-    $pdf->MultiCell(90, 10, date('F d, Y'), 0, 'R', 0, 0, '', '', true, 0, false, true, 40, 'T');
-    $pdf->Ln(16);
-
-   
+    $pdf->MultiCell(55, 10, date('F d, Y'), 0, 'R', 0, 0, '', '', true, 0, false, true, 40, 'T');
+    $pdf->Ln(7);
 
     $html = <<<EOD
       <h1>XHTML Form Example</h1>
       <form method="post" action="http://localhost/printvars.php" enctype="multipart/form-data">
 EOD;
 
-    $pdf->SetFont('lucidafax', '', 11);
-
     // Name of Receiver
-    $pdf->SetFont('lucidafaxdemib', 'B', 11);
+    $pdf->SetFont('lucidafaxdemib', 'B', 10);
     $pdf->TextField('receiver', 60, 5);
     $pdf->Ln(6);
-    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->SetFont('lucidafax', '', 10);
     $pdf->TextField('position', 60, 5);
     $pdf->Ln(6);
     $pdf->TextField('department', 60, 5);
     $pdf->Ln(6);
 
     // Address
-    $pdf->TextField('address', 60, 18, array('multiline'=>true, 'lineWidth'=>0, 'borderStyle'=>'none'), array('v'=>'Human Resources Group', 'dv'=>'St. Luke\'s Medical Center - Global City'));
-    $pdf->Ln(32);
+    $pdf->TextField('address', 60, 15, array('multiline'=>true, 'lineWidth'=>0, 'borderStyle'=>'none'), array('v'=>'Human Resources Group', 'dv'=>'St. Luke\'s Medical Center - Global City'));
+    $pdf->Ln(25);
 
-    $pdf->SetFont('lucidafaxdemib', 'B', 18);
+    $pdf->SetFont('lucidafaxdemib', 'B', 17);
     $pdf->Cell(0, 5, 'V E R I F I C A T I O N', 0, 1, 'C');
     $pdf->SetFont('lucidafax', '', 11);
     $pdf->Ln(8);
 
-    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->SetFont('lucidafax', '', 10);
     $pdf->writeHTML('<p style="text-indent: 50px">This is to confirm that ', 0, 0, true, 1);
     $prefix = $data['gender'] == 'm' ? 'Mr': 'Ms';
     $name =  $prefix .'. '.$data['firstname'] . ' ' . $data['lastname'];
     
-    $pdf->SetFont('lucidafaxdemib', '', 11);
+    $pdf->SetFont('lucidafaxdemib', '', 10);
     $pdf->writeHTML($name, 0, 0, true, 1);
     $pdf->SetFont('lucidafax', '', 12);
     $pdf->writeHTML(' is a ', 0, 0, true, 1);
@@ -4064,26 +4152,26 @@ EOD;
     //  degree
     $pdf->Ln(8);
     $pdf->Cell(13, 5, '');
-    $pdf->SetFont('lucidafax', '', 12);
+    $pdf->SetFont('lucidafax', '', 10);
     $pdf->Cell(70, 5, 'Degree                                      :');
     // haba ng entry field
-    $pdf->SetFont('lucidafaxdemib', '', 11);
+    $pdf->SetFont('lucidafaxdemib', '', 10);
     $pdf->TextField('degree', 90, 18, array('multiline'=>true, 'lineWidth'=>0, 'borderStyle'=>'none'), array('v'=>'BACHELOR OF SCIENCE IN BUSINESS ADMINISTRATION MAJOR IN HUMAN RESOURCE MANAGEMENT'));
     
     // DATE OF ADMISSION
     $pdf->Ln(20);
     $pdf->Cell(13, 5, '');
-    $pdf->SetFont('lucidafax', '', 12);
+    $pdf->SetFont('lucidafax', '', 10);
     $pdf->Cell(70, 5, 'Date of Admission/Enrolment :');
-    $pdf->SetFont('lucidafaxdemib', '', 11);
+    $pdf->SetFont('lucidafaxdemib', '', 10);
     $pdf->TextField('date_admission', 26, 5);
 
     // Latest Date of Enrolment
     $pdf->Ln(6);
     $pdf->Cell(13, 5, '');
-    $pdf->SetFont('lucidafax', '', 12);
+    $pdf->SetFont('lucidafax', '', 10);
     $pdf->Cell(70, 5, 'Latest Date of Enrolment         :');
-    $pdf->SetFont('lucidafaxdemib', '', 11);
+    $pdf->SetFont('lucidafaxdemib', '', 10);
     // first -  second  - third
     $pdf->TextField('date_enrolment', 18, 5);
     $pdf->Cell(38, 5, ' Semester, S.Y. 20');
@@ -4096,7 +4184,7 @@ EOD;
     //  Tentative Date of Graduation
     $pdf->Ln(6);
     $pdf->Cell(13, 5, '');
-    $pdf->SetFont('lucidafax', '', 12);
+    $pdf->SetFont('lucidafax', '', 10);
     $pdf->Cell(70, 5, 'Tentative Date of Graduation  :');
     $pdf->SetFont('lucidafaxdemib', '', 11);
     $pdf->TextField('date_graduation', 35, 5);
@@ -4104,13 +4192,13 @@ EOD;
     // Mode of Study
     $pdf->Ln(6);
     $pdf->Cell(13, 5, '');
-    $pdf->SetFont('lucidafax', '', 12);
+    $pdf->SetFont('lucidafax', '', 10);
     $pdf->Cell(70, 5, 'Mode of Study                          :');
     $pdf->SetFont('lucidafaxdemib', '', 11);
     $pdf->TextField('study_mode', 40, 5);
 
-    $pdf->Ln(16);
-    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->Ln(12);
+    $pdf->SetFont('lucidafax', '', 10);
     $pronoun['subjective'] = $data['gender'] == 'm' ? 'he': 'she';
     $pronoun['possesive'] = $data['gender'] == 'm' ? 'his': 'hers';
     $pronoun['objective'] = $data['gender'] == 'm' ? 'him': 'her';
@@ -4123,6 +4211,38 @@ EOD;
     $org = 'organization';
     $pdf->Ln(8);
     $pdf->writeHTML('<p style="text-indent: 50px">This verification is issued upon the request of the organization to facilitate the processing of ' . $pronoun['objective'] . ' application.<br><br>' , 0, 0, true, 1);
+    $pdf->Ln(8);
+    $pdf->SetFont('lucidafaxdemib', '', 10);
+    $pdf->Cell(18, 5, '                                                                                    DR. MARISSA B. FERRER, REM, RPsy');
+    
+    $pdf->Ln(5);
+    $pdf->SetFont('lucidafax', '', 10);
+    $pdf->Cell(18, 5, '                                                                                                        Branch Director');
+    
+    $pdf->Ln(2);
+        $pdf->SetFont('lucidafax', '', 10);
+        $pdf->Cell(23, 4, 'Not Valid Without');
+        $pdf->Ln(4);
+        $pdf->Cell(23, 4, 'University Dry Seal');
+
+    // OR Number
+        $pdf->Ln(5);
+        $pdf->SetFont('lucidafax', '', 10);
+        $pdf->Cell(21, 5, 'OR Number:');
+        $pdf->SetTextColor(238, 75, 43);
+        $pdf->writeHTML("".$data['request_code'], 35, 5);
+        $pdf->SetTextColor(0,0,0);
+    
+        // Date
+        $pdf->Ln(0);
+        $pdf->Cell(34, 5, 'Date:');
+        $pdf->TextField('date', 29, 5, array(), array('v'=>date('m-d-Y'), 'dv'=>date('m-d-Y')));
+        
+        //sghsese
+        $pdf->Ln(6);
+        $pdf->SetFont('lucidafax', '', 10);
+        $pdf->Cell(23, 4, '/shgsese20');
+        $pdf->TextField('yearshg', 5, 5);
 
     // -----------------------------------------------------------------------------
     // output the HTML content
@@ -4799,8 +4919,11 @@ EOD;
   }
   
   
-  public function certregularunitscourse($id){
-    $pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, 'LETTER', true, 'UTF-8', false);
+  
+  
+  
+ public function certregularunitscourse($id){
+$pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, 'LETTER', true, 'UTF-8', false);
     $data = $this->requestDetailModel->getDetails(['request_details.id' => $id])[0];
     // set document information
     $pdf->SetCreator(PDF_CREATOR);
@@ -4808,7 +4931,7 @@ EOD;
     $pdf->SetTitle('Certification of Regular Units - Course');
     $pdf->SetSubject('Certification of Regular Units - Course');
     // set default header data
-    $pdf->SetHeaderData('landscape-header.jpg', '200', '', '');
+    $pdf->SetHeaderData('landscape-header.jpg', '250', '', '');
     // set header and footer fonts
     
     $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
@@ -4818,7 +4941,7 @@ EOD;
     $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
     // set margins
-    $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP + 10, PDF_MARGIN_RIGHT);
+    $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP + 18, PDF_MARGIN_RIGHT);
     $pdf->SetHeaderMargin(3);
     $pdf->SetFooterMargin(PDF_MARGIN_FOOTER + 15);
 
@@ -4861,27 +4984,25 @@ EOD;
     $pdf->Ln(12);
     $pdf->SetTextColor(0,0,0);
     $pdf->SetFont('lucidafax', '', 12);
-    $pdf->MultiCell(90, 10, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
-    $pdf->MultiCell(90, 10, date('F d, Y'), 0, 'R', 0, 0, 70, '', '', true, 0, false, true, 40, 'T');
+    $pdf->MultiCell(130, 10, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
+    $pdf->MultiCell(130, 10, date('F d, Y'), 0, 'L', 0, 0, '', '', true, 0, false, true, 40, 'T');
     $pdf->Ln(6);
-
-   
 
     $html = <<<EOD
       <h1>XHTML Form Example</h1>
       <form method="post" action="http://localhost/printvars.php" enctype="multipart/form-data">
 EOD;
 
-    $pdf->Ln(8);
+    $pdf->Ln(9);
     $pdf->SetFont('lucidafaxdemib', 'B', 18);
     $pdf->Cell(0, 5, 'C E R T I F I C A T I O N', 0, 1, 'C');
     $pdf->SetFont('lucidafax', '', 11);
-    $pdf->Ln(12);
+    $pdf->Ln(10);
 
     $pdf->SetFont('lucidafax', '', 11);
     $pdf->writeHTML('To Whom It May Concern:', 0, 0, true, 1);
     
-    $pdf->Ln(12);
+    $pdf->Ln(9);
     $pdf->writeHTML('<p style="text-indent: 50px">This is to certify that ', 0, 0, true, 1);
     
     //course
@@ -4986,7 +5107,7 @@ EOD;
     $pdf->TextField('total_unit', 6, 5);
     $pdf->writeHTML(' units', 0, 0, true, 1);
 
-    $pdf->Ln(7);
+    $pdf->Ln(1);
     $pdf->SetFont('lucidafax', '', 11);
     $pdf->writeHTML('<br><br><p style="text-indent: 50px"; text-align="">This certification is issued upon the request of ', 0, 0, true, 1);
     
@@ -4999,33 +5120,581 @@ EOD;
     $pdf->SetFont('lucidafax', '', 11);
     $pdf->writeHTML(' for scholarship purposes only.', 0, 0, true, 1);    
 
-        $pdf->Ln(16);
-        $pdf->SetFont('lucidafaxdemib', '', 12);
-        $pdf->Cell(18, 5, '                                                                             MHEL P. GARCIA');
-        $pdf->Ln(4);
-        $pdf->SetFont('lucidafax', '', 12);
-        $pdf->Cell(18, 5, '                                                             Branch Registrar/Head of Registration Office');
+    $tbl = <<<EOD
+      <br><br><br><br>
+      <style>
+      .headHL{
+        font-family: lucidafaxdemib;
         
-        $pdf->Ln(8);
+      }
+      </style>
+      <table border="0" cellpadding="2" cellspacing="2" align="center">
+      <tr nobr="true">
+        <td></td>
+        <td class = "headHL" >MHEL P. GARCIA</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Branch Registrar/Head of Registration Office</td>
+      </tr>
+      </table>
+EOD;
 
-    $pdf->SetFont('lucidafax', '', 5);
+
+    $pdf->writeHTML($tbl, true, false, false, false, '');
+
+    $pdf->SetFont('lucidafax', '', 11);
     $pdf->writeHTML('Not valid without', 0, 0, true, 1);
-    $pdf->Ln(2);
+    $pdf->Ln(4);
     $pdf->writeHTML('University Dry Seal', 0, 0, true, 1);
    
+
+    // OR Number
+    $pdf->Ln(5);
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->Cell(34, 5, 'OR Number:');
+    $pdf->SetTextColor(238, 75, 43);
+    $pdf->TextField('or_number', 35, 5);
+    $pdf->SetTextColor(0,0,0);
+
+    // Date
+    $pdf->Ln(5);
+    $pdf->Cell(34, 5, 'Date:');
+    $pdf->TextField('date', 29, 5, array(), array('v'=>date('m-d-Y'), 'dv'=>date('m-d-Y')));
+    
+    //sghsese
+    $pdf->Ln(5);
+    $pdf->SetFont('lucidafax', '',11);
+    $pdf->Cell(23, 4, '/shgsese20');
+    $pdf->TextField('yearshg', 5, 5);
+
+    // -----------------------------------------------------------------------------
+    // output the HTML content
+    // -----------------------------------------------------------------------------
+    /**$pdf->SetXY(12, 172);
+    $pdf->Image(APPPATH . 'libraries/tcpdf/examples/images/signature.png', '', '', 35, 20, '', '', 'T', false, 300, '', false, false, 1, false, false, false);
+    
+    **/
+    //Close and output PDF document
+    $pdf->Output('example_014.pdf', 'I');
+
+    //============================================================+
+    // END OF FILE
+    //============================================================+
+    die('here');
+  }
+  
+  public function certofenrollmentpresent($id){
+      
+    $pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, 'LETTER', true, 'UTF-8', false);
+    $data = $this->requestDetailModel->getDetails(['request_details.id' => $id])[0];
+    // set document information
+    $pdf->SetCreator(PDF_CREATOR);
+    $pdf->SetAuthor('PUPT OCT-DRS');
+    $pdf->SetTitle('Certification of Enrollment - Cross Enrollment');
+    $pdf->SetSubject('Certification of Enrollment - Cross Enrollment');
+    // set default header data
+    $pdf->SetHeaderData('landscape-header.jpg', '250', '', '');
+    // set header and footer fonts
+    
+    $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+    $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+
+    // set default monospaced font
+    $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+    // set margins
+    $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP + 18, PDF_MARGIN_RIGHT);
+    $pdf->SetHeaderMargin(3);
+    $pdf->SetFooterMargin(PDF_MARGIN_FOOTER + 15);
+
+    // set auto page breaks
+    $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+    // set image scale factor
+    $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+    // set some language-dependent strings (optional)
+    if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
+        require_once(dirname(__FILE__).'/lang/eng.php');
+        $pdf->setLanguageArray($l);
+    }
+    // ---------------------------------------------------------
+
+    // IMPORTANT: disable font subsetting to allow users editing the document
+    $pdf->setFontSubsetting(false);
+
+    // set font
+    $pdf->SetFont('lucidafax', '', 10, '', false);
+
+    // add a page
+    $pdf->AddPage();
+
+    /*
+    It is possible to create text fields, combo boxes, check boxes and buttons.
+    Fields are created at the current position and are given a name.
+    This name allows to manipulate them via JavaScript in order to perform some validation for instance.
+    */
+
+    /*
+    02-25-23
+    maia's reference material: https://tcpdf.org/examples/example_014/
+    */
+
+    // set default form properties
+    $pdf->setFormDefaultProp(array('lineWidth'=>1, 'borderStyle'=>'solid', 'fillColor'=>array(255, 255, 255), 'strokeColor'=>array(255, 255, 255)));
+
+    $pdf->Ln(12);
+    $pdf->SetTextColor(0,0,0);
+    $pdf->SetFont('lucidafax', '', 12);
+    $pdf->MultiCell(120, 10, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
+    $pdf->MultiCell(120, 10, date('F d, Y'), 0, 'L', 0, 0, '', '', true, 0, false, true, 40, 'T');
+    $pdf->Ln(6);
+
+    $pdf->Ln(15);
+    $pdf->SetFont('lucidafaxdemib', 'B', 18);
+    $pdf->Cell(0, 5, 'C E R T I F I C A T I O N', 0, 1, 'C');
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->Ln(14);
+
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->writeHTML('To Whom It May Concern:', 0, 0, true, 1);
+    $pdf->writeHTML('<br><br><p style="text-indent: 50px">This is to certify that ', 0, 0, true, 1);
+    
+    // name
+    $prefix = $data['gender'] == 'm' ? 'Mr': 'Ms';
+    $name =  $prefix .'. '.$data['firstname'] . ' ' . $data['lastname'];
+    $pdf->SetFont('lucidafaxdemib', '', 11);
+    $pdf->writeHTML($name, 0, 0, true, 1);
+    $pdf->writeHTML(', is enrolled in this Branch, ', 0, 0, true, 1);
+    $pdf->writeHTML('  ', 0, 0, true, 1);
+    $pdf->SetFont('lucidafaxdemib', '', 11);
+    $pdf->TextField('semester', 20, 5);
+    $pronoun['subjective'] = $data['gender'] == 'm' ? 'he': 'she';
+    $pronoun['possesive'] = $data['gender'] == 'm' ? 'his': 'hers';
+    $pronoun['objective'] = $data['gender'] == 'm' ? 'him': 'her';
+    $pdf->Ln(5);
+    $pdf->writeHTML(' Semester of S.Y. ' . SCHOOL_YEAR, 0, 0, true, 1);
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->writeHTML(' under our ', 0, 0, true, 1);
+    $pdf->SetFont('lucidafaxdemib', '', 11);
+    $pdf->writeHTML($data['course'], 0, 0, true, 1);
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->writeHTML(' program.', 0, 0, true, 1);
+    $pdf->SetFont('lucidafax', '', 11);
+    /**$pdf->writeHTML('She is enrolled in ', 0, 0, true, 1);
+    $pdf->SetFont('lucidafaxdemib', '    ', 11);
+    $pdf->writeHTML(' ', 0, 0, true, 1);
+    $pdf->TextField('enrolled_subjects', 120, 5);
+    $pdf->Ln(6);
+    $pdf->TextField('additional_enrolled_subjects', 180, 5);
+    $pdf->Ln(6);
+    $pdf->TextField('additional_enrolled_subjects2', 180, 5);
+    **/
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->writeHTML('<br><br><p style="text-indent: 50px"; text-align="">This certification is issued this ', 0, 0, true, 1);
+    $named =  $prefix .'. '.$data['firstname'];
+    $pdf->MultiCell(110, 10, date('jS').' of ' .date('F Y') . ' upon the request of ' . $named , 0, 'L', 0, 0, '', '', true, 0, false, true, 40, 'T');
+    $pdf->writeHTML($data['lastname'] . ' for whatever purpose it may serve ' . $pronoun['objective'] . '.', 0, 0, true, 1);
+
+    $tbl = <<<EOD
+      <br><br><br><br><br><br>
+      <style>
+      .headHL{
+        font-family: lucidafaxdemib;
+        
+      }
+      </style>
+      <table border="0" cellpadding="2" cellspacing="2" align="center">
+      <tr nobr="true">
+        <td></td>
+        <td class = "headHL" >MHEL P. GARCIA</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Branch Registrar/Head of Registration Office</td>
+      </tr>
+      </table>
+EOD;
+
+
+    $pdf->writeHTML($tbl, true, false, false, false, '');
+
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->writeHTML('Not valid without', 0, 0, true, 1);
+    $pdf->Ln(4);
+    $pdf->writeHTML('University Dry Seal', 0, 0, true, 1);
+   
+    // OR Number
+    $pdf->Ln(7);
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->Cell(34, 5, 'OR Number:');
+    $pdf->SetTextColor(238, 75, 43);
+    $pdf->TextField('or_number', 35, 5);
+    $pdf->SetTextColor(0,0,0);
+
+    // Date
+    $pdf->Ln(6);
+    $pdf->Cell(34, 5, 'Date:');
+    $pdf->TextField('date', 33, 5, array(), array('v'=>date('m-d-Y'), 'dv'=>date('m-d-Y')));
+    
+    //sghsese
+    $pdf->Ln(6);
+    $pdf->SetFont('lucidafax', '',11);
+    $pdf->Cell(23, 4, '/shgsese20');
+    $pdf->TextField('yearshg', 5, 5);
+
+    // -----------------------------------------------------------------------------
+    // output the HTML content
+    // -----------------------------------------------------------------------------
+    /**$pdf->SetXY(12, 172);
+    $pdf->Image(APPPATH . 'libraries/tcpdf/examples/images/signature.png', '', '', 35, 20, '', '', 'T', false, 300, '', false, false, 1, false, false, false);
+
+    **/
+    //Close and output PDF document
+    $pdf->Output('example_014.pdf', 'I');
+
+    //============================================================+
+    // END OF FILE
+    //============================================================+
+    die('here');
+  }
+  
+  public function certmedium($id){
+    $pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, 'LETTER', true, 'UTF-8', false);
+    $data = $this->requestDetailModel->getDetails(['request_details.id' => $id])[0];
+    // set document information
+    $pdf->SetCreator(PDF_CREATOR);
+    $pdf->SetAuthor('PUPT OCT-DRS');
+    $pdf->SetTitle('Certification of Medium Instruction');
+    $pdf->SetSubject('Certification of Medium Instruction');
+    // set default header data
+    $pdf->SetHeaderData('landscape-header.jpg', '250', '', '');
+    // set header and footer fonts
+    
+    $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+    $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+
+    // set default monospaced font
+    $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+    // set margins
+    $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP + 18, PDF_MARGIN_RIGHT);
+    $pdf->SetHeaderMargin(3);
+    $pdf->SetFooterMargin(PDF_MARGIN_FOOTER + 15);
+
+    // set auto page breaks
+    $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+    // set image scale factor
+    $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+    // set some language-dependent strings (optional)
+    if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
+        require_once(dirname(__FILE__).'/lang/eng.php');
+        $pdf->setLanguageArray($l);
+    }
+    // ---------------------------------------------------------
+
+    // IMPORTANT: disable font subsetting to allow users editing the document
+    $pdf->setFontSubsetting(false);
+
+    // set font
+    $pdf->SetFont('lucidafax', '', 10, '', false);
+
+    // add a page
+    $pdf->AddPage();
+
+    /*
+    It is possible to create text fields, combo boxes, check boxes and buttons.
+    Fields are created at the current position and are given a name.
+    This name allows to manipulate them via JavaScript in order to perform some validation for instance.
+    */
+
+    /*
+    02-25-23
+    maia's reference material: https://tcpdf.org/examples/example_014/
+    */
+
+    // set default form properties
+    $pdf->setFormDefaultProp(array('lineWidth'=>1, 'borderStyle'=>'solid', 'fillColor'=>array(255, 255, 255), 'strokeColor'=>array(255, 255, 255)));
+
+    $pdf->Ln(15);
+    $pdf->SetTextColor(0,0,0);
+    $pdf->SetFont('lucidafax', '', 12);
+    $pdf->MultiCell(125, 10, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
+    $pdf->MultiCell(90, 10, date('F d, Y'), 0, 'L', 0, 0, '', '', true, 0, false, true, 40, 'T');
+
+    $pdf->Ln(20);
+    $pdf->SetFont('lucidafaxdemib', 'B', 18);
+    $pdf->Cell(0, 5, 'C E R T I F I C A T I O N', 0, 1, 'C');
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->Ln(16);
+
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->writeHTML('To Whom It May Concern:', 0, 0, true, 1);
+    
+    $pdf->Ln(15);
+    $pdf->writeHTML('<p style="text-indent: 50px">This is to certify that ', 0, 0, true, 1);
+    
+    // name
+    $prefix = $data['gender'] == 'm' ? 'Mr': 'Ms';
+    $name =  $prefix .'. '.$data['firstname'] . ' ' . $data['lastname'];
+    $pdf->SetFont('lucidafaxdemib', '', 11);
+    $pdf->writeHTML($name, 0, 0, true, 1);
+    
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->writeHTML(' has attended tertiary education in this institution with a degree in ', 0, 0, true, 1);
+    $pdf->SetFont('lucidafaxdemib', '', 11);
+    $pdf->writeHTML($data['course'], 0, 0, true, 1);
+    $pdf->SetFont('lucidafax', '', 11);
+    $pronoun['subjective'] = $data['gender'] == 'm' ? 'He': 'She';
+    $pdf->writeHTML('. ' . $pronoun['subjective'] . ' is a member of ', 0, 0, true, 1);
+    $pdf->SetFont('lucidafaxdemib', '', 11);
+    $pdf->writeHTML('Batch ', 0, 0, true, 1);
+    $pdf->writeHTML(' ', 0, 0, true, 1);
+    $pdf->SetFont('lucidafaxdemib', 'B', 11);
+    $pdf->TextField('batch', 11, 5);
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->writeHTML(' graduates of this University.', 0, 0, true, 1);
+    
+    $pdf->writeHTML('<br><p style="text-indent: 50px"; text-align="">This certifies further that ', 0, 0, true, 1);
+    $pdf->SetFont('lucidafaxdemib', '', 11);
+    $pdf->writeHTML('English language ', 0, 0, true, 1);
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->writeHTML(' is the ', 0, 0, true, 1);
+    $pdf->SetFont('lucidafaxdemib', '', 11);
+    $pdf->writeHTML(' medium of instruction', 0, 0, true, 1);
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->writeHTML(' used in all courses offered by the University.', 0, 0, true, 1);
+    
+    $pdf->writeHTML('<br><p style="text-indent: 50px"; text-align="">This certification is issued this ', 0, 0, true, 1);
+    $named =  $prefix .'. ';
+    $pdf->MultiCell(110, 10, date('jS').' of ' .date('F Y') . ' upon the request of ' . $named , 0, 'L', 0, 0, '', '', true, 0, false, true, 40, 'T');
+    $pronoun['objective'] = $data['gender'] == 'm' ? 'him': 'her';
+    $pdf->writeHTML($data['lastname'] . ' for whatever purpose it may serve ' . $pronoun['objective'] . '.', 0, 0, true, 1);
+
+    $tbl = <<<EOD
+       <br><br><br><br>
+       <style>
+      .headHL{
+        font-family: lucidafaxdemib;
+      }
+      </style>
+      <table border="0" cellpadding="2" cellspacing="2" align="center">
+       <tr nobr="true">
+        <td></td>
+        <td class = "headHL" >DR. MARISSA B. FERRER, DEM, RPsy</td>
+       </tr>
+       <tr nobr="true">
+        <td></td>
+        <td>Director</td>
+       </tr>
+      </table>
+EOD;
+
+     $pdf->writeHTML($tbl, true, false, false, false, '');
+
+    $pdf->Ln(5);
+    
+        $pdf->SetFont('lucidafax', '', 11);
+        $pdf->writeHTML('Not valid without', 0, 0, true, 1);
+        $pdf->Ln(4);
+        $pdf->writeHTML('University Dry Seal', 0, 0, true, 1);
+
+    
+    // OR Number
+    $pdf->Ln(10);
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->Cell(34, 5, 'OR Number:');
+    $pdf->SetTextColor(238, 75, 43);
+    $pdf->TextField('or_number', 35, 5);
+    $pdf->SetTextColor(0,0,0);
+
+    // Date
+        $pdf->Ln(5);
+        $pdf->Cell(34, 5, 'Date:');
+        $pdf->TextField('date', 33, 5, array(), array('v'=>date('m-d-Y'), 'dv'=>date('m-d-Y')));
+
+    
+     //sghsese
+        $pdf->Ln(6);
+        $pdf->SetFont('lucidafax', '', 11);
+        $pdf->Cell(23, 4, '/shgsese20');
+        $pdf->TextField('yearshg', 5, 5);
+
+    // -----------------------------------------------------------------------------
+    // output the HTML content
+    // -----------------------------------------------------------------------------
+    /**$pdf->SetXY(12, 172);
+    $pdf->Image(APPPATH . 'libraries/tcpdf/examples/images/signature.png', '', '', 35, 20, '', '', 'T', false, 300, '', false, false, 1, false, false, false);
+
+    **/
+
+    //Close and output PDF document
+    $pdf->Output('example_014.pdf', 'I');
+
+    //============================================================+
+    // END OF FILE
+    //============================================================+
+    die('here');
+  }
+  
+  public function certmediumundergrat($id){
+    $pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, 'LETTER', true, 'UTF-8', false);
+    $data = $this->requestDetailModel->getDetails(['request_details.id' => $id])[0];
+    // set document information
+    $pdf->SetCreator(PDF_CREATOR);
+    $pdf->SetAuthor('PUPT OCT-DRS');
+    $pdf->SetTitle('Certification of Medium Instruction - Undergraduate');
+    $pdf->SetSubject('Certification of Medium Instruction - Undergraduate');
+    // set default header data
+    $pdf->SetHeaderData('landscape-header.jpg', '250', '', '');
+    // set header and footer fonts
+    
+    $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+    $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+
+    // set default monospaced font
+    $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+    // set margins
+    $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP + 18, PDF_MARGIN_RIGHT);
+    $pdf->SetHeaderMargin(3);
+    $pdf->SetFooterMargin(PDF_MARGIN_FOOTER + 15);
+
+    // set auto page breaks
+    $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+    // set image scale factor
+    $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+    // set some language-dependent strings (optional)
+    if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
+        require_once(dirname(__FILE__).'/lang/eng.php');
+        $pdf->setLanguageArray($l);
+    }
+    // ---------------------------------------------------------
+
+    // IMPORTANT: disable font subsetting to allow users editing the document
+    $pdf->setFontSubsetting(false);
+
+    // set font
+    $pdf->SetFont('lucidafax', '', 10, '', false);
+
+    // add a page
+    $pdf->AddPage();
+
+    /*
+    It is possible to create text fields, combo boxes, check boxes and buttons.
+    Fields are created at the current position and are given a name.
+    This name allows to manipulate them via JavaScript in order to perform some validation for instance.
+    */
+
+    /*
+    02-25-23
+    maia's reference material: https://tcpdf.org/examples/example_014/
+    */
+
+    // set default form properties
+    $pdf->setFormDefaultProp(array('lineWidth'=>1, 'borderStyle'=>'solid', 'fillColor'=>array(255, 255, 255), 'strokeColor'=>array(255, 255, 255)));
+
+    $pdf->Ln(12);
+    $pdf->SetTextColor(0,0,0);
+    $pdf->SetFont('lucidafax', '', 12);
+    $pdf->MultiCell(127, 10, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
+    $pdf->MultiCell(127, 10, date('F d, Y'), 0, 'L', 0, 0, '', '', true, 0, false, true, 40, 'T');
+
+    $pdf->Ln(18);
+    $pdf->SetFont('lucidafaxdemib', 'B', 18);
+    $pdf->Cell(0, 5, 'C E R T I F I C A T I O N', 0, 1, 'C');
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->Ln(15);
+
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->writeHTML('To Whom It May Concern:', 0, 0, true, 1);
+    
+    $pdf->writeHTML('<br><br><p style="text-indent: 50px">This is to certify that ', 0, 0, true, 1);
+    
+    // name
+    $prefix = $data['gender'] == 'm' ? 'Mr': 'Ms';
+    $name =  $prefix .'. '.$data['firstname'] . ' ' . $data['lastname'];
+    $pdf->SetFont('lucidafaxdemib', '', 11);
+    $pdf->writeHTML($name, 0, 0, true, 1);
+    
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->writeHTML(', was enrolled in the tertiary education in this institution with a course ', 0, 0, true, 1);
+    $pdf->SetFont('lucidafaxdemib', '', 11);
+    $pdf->writeHTML($data['course'], 0, 0, true, 1);
+    $pronoun['subjective'] = $data['gender'] == 'm' ? 'He': 'She';
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->writeHTML(' until S.Y. 20', 0, 0, true, 1);
+    $pdf->TextField('year1', 7, 5);
+    $pdf->writeHTML('. ' . $pronoun['subjective'] . ' has been admitted on the basis of her admission requirements presented in the University, S.Y. 20', 0, 0, true, 1);
+    $pdf->TextField('year2', 7, 5);
+    $pdf->writeHTML('.', 0, 0, true, 1);
+    
+    $pdf->writeHTML('<br><br><p style="text-indent: 50px"; text-align="">This certifies further that ', 0, 0, true, 1);
+    $pdf->SetFont('lucidafaxdemib', '', 11);
+    $pdf->writeHTML('English language ', 0, 0, true, 1);
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->writeHTML(' is the ', 0, 0, true, 1);
+    $pdf->SetFont('lucidafaxdemib', '', 11);
+    $pdf->writeHTML(' medium of instruction', 0, 0, true, 1);
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->writeHTML(' used in all courses offered by the University.', 0, 0, true, 1);
+
+    $pdf->writeHTML('<br><br><p style="text-indent: 50px"; text-align="">This certification is issued this ', 0, 0, true, 1);
+    $named =  $prefix .'. ';
+    $pdf->MultiCell(110, 10, date('jS').' of ' .date('F Y') . ' upon the request of ' . $named , 0, 'L', 0, 0, '', '', true, 0, false, true, 40, 'T');
+    $pronoun['objective'] = $data['gender'] == 'm' ? 'him': 'her';
+    $pdf->writeHTML($data['lastname'] . ' for whatever purpose it may serve ' . $pronoun['objective'] . '.', 0, 0, true, 1);
+
+    $tbl = <<<EOD
+       <br><br><br><br><br>
+       <style>
+      .headHL{
+        font-family: lucidafaxdemib;
+      }
+      </style>
+      <table border="0" cellpadding="2" cellspacing="2" align="center">
+       <tr nobr="true">
+        <td></td>
+        <td class = "headHL" >DR. MARISSA B. FERRER, DEM, RPsy</td>
+       </tr>
+       <tr nobr="true">
+        <td></td>
+        <td>Director</td>
+       </tr>
+      </table>
+EOD;
+
+    $pdf->writeHTML($tbl, true, false, false, false, '');
+
+    $pdf->Ln(10);
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->writeHTML('Not valid without', 0, 0, true, 1);
+    $pdf->Ln(4);
+    $pdf->writeHTML('University Dry Seal', 0, 0, true, 1);
 
     // OR Number
     $pdf->Ln(7);
     $pdf->SetFont('lucidafax', '', 11);
     $pdf->Cell(34, 5, 'OR Number:');
     $pdf->SetTextColor(238, 75, 43);
-    $pdf->writeHTML("".$data['request_code'], 35, 5);
+    $pdf->TextField('or_number', 35, 5);
     $pdf->SetTextColor(0,0,0);
 
     // Date
     $pdf->Ln(6);
     $pdf->Cell(34, 5, 'Date:');
-    $pdf->TextField('date', 29, 5, array(), array('v'=>date('m-d-Y'), 'dv'=>date('m-d-Y')));
+    $pdf->TextField('date', 33, 5, array(), array('v'=>date('m-d-Y'), 'dv'=>date('m-d-Y')));
+    
+    //sghsese
+        $pdf->Ln(6);
+        $pdf->SetFont('lucidafax', '', 11);
+        $pdf->Cell(23, 4, '/shgsese20');
+        $pdf->TextField('yearshg', 5, 5);
     
     // -----------------------------------------------------------------------------
     // output the HTML content
@@ -5044,6 +5713,192 @@ EOD;
     die('here');
   }
   
+  public function certofEnrollmentUndergrad($id){
+    $pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, 'LETTER', true, 'UTF-8', false);
+    $data = $this->requestDetailModel->getDetails(['request_details.id' => $id])[0];
+    // set document information
+    $pdf->SetCreator(PDF_CREATOR);
+    $pdf->SetAuthor('PUPT OCT-DRS');
+    $pdf->SetTitle('Certification of Enrollment - Undergraduate');
+    $pdf->SetSubject('Certification of Enrollment - Undergraduate');
+    // set default header data
+    $pdf->SetHeaderData('landscape-header.jpg', '250', '', '');
+    // set header and footer fonts
+    
+    $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+    $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+
+    // set default monospaced font
+    $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+    // set margins
+    $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP + 18, PDF_MARGIN_RIGHT);
+    $pdf->SetHeaderMargin(3);
+    $pdf->SetFooterMargin(PDF_MARGIN_FOOTER + 15);
+
+    // set auto page breaks
+    $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+    // set image scale factor
+    $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+    // set some language-dependent strings (optional)
+    if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
+        require_once(dirname(__FILE__).'/lang/eng.php');
+        $pdf->setLanguageArray($l);
+    }
+    // ---------------------------------------------------------
+
+    // IMPORTANT: disable font subsetting to allow users editing the document
+    $pdf->setFontSubsetting(false);
+
+    // set font
+    $pdf->SetFont('lucidafax', '', 10, '', false);
+
+    // add a page
+    $pdf->AddPage();
+
+    /*
+    It is possible to create text fields, combo boxes, check boxes and buttons.
+    Fields are created at the current position and are given a name.
+    This name allows to manipulate them via JavaScript in order to perform some validation for instance.
+    */
+
+    /*
+    02-25-23
+    maia's reference material: https://tcpdf.org/examples/example_014/
+    */
+
+    // set default form properties
+    $pdf->setFormDefaultProp(array('lineWidth'=>1, 'borderStyle'=>'solid', 'fillColor'=>array(255, 255, 255), 'strokeColor'=>array(255, 255, 255)));
+
+    $pdf->Ln(12);
+    $pdf->SetTextColor(0,0,0);
+    $pdf->SetFont('lucidafax', '', 12);
+    $pdf->MultiCell(122, 10, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
+    $pdf->MultiCell(120, 10, date('F d, Y'), 0, 'L', 0, 0, '', '', true, 0, false, true, 40, 'T');
+
+    $pdf->Ln(20);
+    $pdf->SetFont('lucidafaxdemib', 'B', 18);
+    $pdf->Cell(0, 5, 'C E R T I F I C A T I O N', 0, 1, 'C');
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->Ln(15);
+
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->writeHTML('To Whom It May Concern:', 0, 0, true, 1);
+
+    $pdf->writeHTML('<br><br><p style="text-indent: 50px">This is to certify that ', 0, 0, true, 1);
+    
+    // name
+    $prefix = $data['gender'] == 'm' ? 'Mr': 'Ms';
+    $name =  $prefix .'. '.$data['firstname'] . ' ' . $data['lastname'];
+    $pdf->SetFont('lucidafaxdemib', '', 11);
+    $pdf->writeHTML($name, 0, 0, true, 1);
+    
+
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->writeHTML(', was enrolled in this Branch from ', 0, 0, true, 1);
+    $pdf->writeHTML('  ', 0, 0, true, 1);
+    $pdf->Ln(5);
+    $pdf->SetFont('lucidafaxdemib', '', 11);
+    $pdf->TextField('semester1', 20, 5);
+    $pdf->writeHTML(' Semester of S.Y. 20', 0, 0, true, 1);
+    $pdf->TextField('year1', 7, 5);
+    $pdf->Cell(9, 5, '- 20');
+    $pdf->TextField('year2', 7, 5);
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->Cell(10, 5, ' to ');
+    $pdf->SetFont('lucidafaxdemib', '', 11);
+    $pdf->TextField('semester2', 20, 5);
+    $pdf->writeHTML(' Semester of S.Y. 20', 0, 0, true, 1);
+    $pdf->TextField('year3', 7, 5);
+    $pdf->Cell(9, 5, '- 20');
+    $pdf->TextField('year4', 7, 5);
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->writeHTML(' and readmitted in the ', 0, 0, true, 1);
+    $pdf->SetFont('lucidafaxdemib', '', 11);
+    $pdf->writeHTML('  ', 0, 0, true, 1);
+    $pdf->TextField('semester3', 20, 5);
+    $pdf->writeHTML(' Semester of S.Y. 20', 0, 0, true, 1);
+    $pdf->TextField('year5', 7, 5);
+    $pdf->Cell(9, 5, '- 20');
+    $pdf->TextField('year6', 7, 5);
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->writeHTML(' under our ' . $data['course'] . ' program.', 0, 0, true, 1);
+
+    $pdf->writeHTML('<br><br><p style="text-indent: 50px"; text-align="">This certification is issued this ', 0, 0, true, 1);
+    $named =  $prefix .'. '.$data['firstname'];
+    $pdf->MultiCell(110, 10, date('jS').' of ' .date('F Y') . ' upon the request of ' . $named , 0, 'L', 0, 0, '', '', true, 0, false, true, 40, 'T');
+    $pronoun['subjective'] = $data['gender'] == 'm' ? 'he': 'she';
+    $pronoun['possesive'] = $data['gender'] == 'm' ? 'his': 'hers';
+    $pronoun['objective'] = $data['gender'] == 'm' ? 'him': 'her';
+    $pdf->writeHTML($data['lastname'] . ' for whatever purpose it may serve ' . $pronoun['objective'] . '.', 0, 0, true, 1);
+
+    $tbl = <<<EOD
+      <br><br><br><br>
+      <style>
+      .headHL{
+        font-family: lucidafaxdemib;
+        
+      }
+      </style>
+      <table border="0" cellpadding="2" cellspacing="2" align="center">
+      <tr nobr="true">
+        <td></td>
+        <td class = "headHL" >MHEL P. GARCIA</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Branch Registrar/Head of Registration Office</td>
+      </tr>
+      </table>
+EOD;
+
+
+    $pdf->writeHTML($tbl, true, false, false, false, '');
+
+    $pdf->Ln(20);
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->writeHTML('Not valid without', 0, 0, true, 1);
+    $pdf->Ln(4);
+    $pdf->writeHTML('University Dry Seal', 0, 0, true, 1);
+   
+
+    // OR Number
+    $pdf->Ln(10);
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->Cell(34, 5, 'OR Number:');
+    $pdf->SetTextColor(238, 75, 43);
+    $pdf->TextField('or_number', 35, 5);
+    $pdf->SetTextColor(0,0,0);
+
+    // Date
+    $pdf->Ln(6);
+    $pdf->Cell(34, 5, 'Date:');
+    $pdf->TextField('date', 33, 5, array(), array('v'=>date('m-d-Y'), 'dv'=>date('m-d-Y')));
+    
+     //sghsese
+        $pdf->Ln(6);
+        $pdf->SetFont('lucidafax', '', 11);
+        $pdf->Cell(23, 4, '/shgsese20');
+        $pdf->TextField('yearshg', 5, 5);
+    
+    // -----------------------------------------------------------------------------
+    // output the HTML content
+    // -----------------------------------------------------------------------------
+    /**$pdf->SetXY(12, 172);
+    $pdf->Image(APPPATH . 'libraries/tcpdf/examples/images/signature.png', '', '', 35, 20, '', '', 'T', false, 300, '', false, false, 1, false, false, false);
+
+    **/
+
+    //Close and output PDF document
+    $pdf->Output('example_014.pdf', 'I');
+
+    //============================================================+
+    // END OF FILE
+    //============================================================+
+    die('here');
+  }
   
   public function certofregunitsAdSubject($id){
     $pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, 'LETTER', true, 'UTF-8', false);
@@ -5054,7 +5909,7 @@ EOD;
     $pdf->SetTitle('Certification of Regular Units - Additional Subject');
     $pdf->SetSubject('Certification of Regular Units - Additional Subject');
     // set default header data
-    $pdf->SetHeaderData('landscape-header.jpg', '200', '', '');
+    $pdf->SetHeaderData('landscape-header.jpg', '250', '', '');
     // set header and footer fonts
     
     $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
@@ -5064,7 +5919,7 @@ EOD;
     $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
     // set margins
-    $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP + 10, PDF_MARGIN_RIGHT);
+    $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP + 18, PDF_MARGIN_RIGHT);
     $pdf->SetHeaderMargin(3);
     $pdf->SetFooterMargin(PDF_MARGIN_FOOTER + 15);
 
@@ -5107,27 +5962,19 @@ EOD;
     $pdf->Ln(7);
     $pdf->SetTextColor(0,0,0);
     $pdf->SetFont('lucidafax', '', 12);
-    $pdf->MultiCell(90, 10, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
-    $pdf->MultiCell(90, 10, date('F d, Y'), 0, 'R', 0, 0, 70, '', '', true, 0, false, true, 40, 'T');
-    $pdf->Ln(6);
-
-   
-
-    $html = <<<EOD
-      <h1>XHTML Form Example</h1>
-      <form method="post" action="http://localhost/printvars.php" enctype="multipart/form-data">
-EOD;
-
-    $pdf->Ln(8);
+    $pdf->MultiCell(129, 10, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
+    $pdf->MultiCell(129, 10, date('F d, Y'), 0, 'L', 0, 0, '', '', true, 0, false, true, 40, 'T');
+    
+    $pdf->Ln(15);
     $pdf->SetFont('lucidafaxdemib', 'B', 18);
     $pdf->Cell(0, 5, 'C E R T I F I C A T I O N', 0, 1, 'C');
     $pdf->SetFont('lucidafax', '', 11);
-    $pdf->Ln(12);
+    $pdf->Ln(10);
 
     $pdf->SetFont('lucidafax', '', 11);
     $pdf->writeHTML('To Whom It May Concern:', 0, 0, true, 1);
     
-    $pdf->Ln(12);
+    $pdf->Ln(9);
     $pdf->writeHTML('<p style="text-indent: 50px">This is to certify that ', 0, 0, true, 1);
     
     //course
@@ -5237,9 +6084,8 @@ EOD;
     $pdf->TextField('total_unit', 6, 5);
     $pdf->writeHTML(' units', 0, 0, true, 1);
 
-    $pdf->Ln(7);
     $pdf->SetFont('lucidafax', '', 11);
-    $pdf->writeHTML('<br><br><p style="text-indent: 50px"; text-align="">This certification is issued upon the request of ', 0, 0, true, 1);
+    $pdf->writeHTML('<br><p style="text-indent: 50px"; text-align="">This certification is issued upon the request of ', 0, 0, true, 1);
     
     // name
     $prefix = $data['gender'] == 'm' ? 'Mr': 'Ms';
@@ -5250,33 +6096,51 @@ EOD;
     $pdf->SetFont('lucidafax', '', 11);
     $pdf->writeHTML(' for scholarship purposes only.', 0, 0, true, 1);    
 
-        $pdf->Ln(13);
-        $pdf->SetFont('lucidafaxdemib', '', 12);
-        $pdf->Cell(18, 5, '                                                                             MHEL P. GARCIA');
-        $pdf->Ln(6);
-        $pdf->SetFont('lucidafax', '', 12);
-        $pdf->Cell(18, 5, '                                                             Branch Registrar/Head of Registration Office');
+    $tbl = <<<EOD
+      <br><br><br><br>
+      <style>
+      .headHL{
+        font-family: lucidafaxdemib;
         
-        $pdf->Ln(8);
+      }
+      </style>
+      <table border="0" cellpadding="2" cellspacing="2" align="center">
+      <tr nobr="true">
+        <td></td>
+        <td class = "headHL" >MHEL P. GARCIA</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Branch Registrar/Head of Registration Office</td>
+      </tr>
+      </table>
+EOD;
 
-    $pdf->SetFont('lucidafax', '', 5);
+    $pdf->writeHTML($tbl, true, false, false, false, '');
+
+    $pdf->SetFont('lucidafax', '', 11);
     $pdf->writeHTML('Not valid without', 0, 0, true, 1);
-    $pdf->Ln(2);
+    $pdf->Ln(4);
     $pdf->writeHTML('University Dry Seal', 0, 0, true, 1);
    
-
     // OR Number
-    $pdf->Ln(5);
+    $pdf->Ln(4);
     $pdf->SetFont('lucidafax', '', 11);
     $pdf->Cell(34, 5, 'OR Number:');
     $pdf->SetTextColor(238, 75, 43);
-    $pdf->writeHTML("".$data['request_code'], 35, 5);
+    $pdf->TextField('or_number', 35, 5);
     $pdf->SetTextColor(0,0,0);
 
     // Date
-    $pdf->Ln(6);
+    $pdf->Ln(4);
     $pdf->Cell(34, 5, 'Date:');
     $pdf->TextField('date', 29, 5, array(), array('v'=>date('m-d-Y'), 'dv'=>date('m-d-Y')));
+    
+    //sghsese
+        $pdf->Ln(6);
+        $pdf->SetFont('lucidafax', '', 11);
+        $pdf->Cell(23, 4, '/shgsese20');
+        $pdf->TextField('yearshg', 5, 5);
 
     // -----------------------------------------------------------------------------
     // output the HTML content
@@ -5295,17 +6159,16 @@ EOD;
     die('here');
   }
   
-  
-  public function certmedium($id){
+  public function certofenrolleecross($id){
     $pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, 'LETTER', true, 'UTF-8', false);
     $data = $this->requestDetailModel->getDetails(['request_details.id' => $id])[0];
     // set document information
     $pdf->SetCreator(PDF_CREATOR);
     $pdf->SetAuthor('PUPT OCT-DRS');
-    $pdf->SetTitle('Certification of Medium Instruction');
-    $pdf->SetSubject('Certification of Medium Instruction');
+    $pdf->SetTitle('Certification of Enrollment - Present');
+    $pdf->SetSubject('Certification of Enrollment - Present');
     // set default header data
-    $pdf->SetHeaderData('landscape-header.jpg', '200', '', '');
+    $pdf->SetHeaderData('landscape-header.jpg', '250', '', '');
     // set header and footer fonts
     
     $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
@@ -5315,197 +6178,7 @@ EOD;
     $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
     // set margins
-    $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP + 10, PDF_MARGIN_RIGHT, 5);
-    $pdf->SetHeaderMargin(3);
-
-    // set auto page breaks
-    $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-
-    // set image scale factor
-    $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-
-    // set some language-dependent strings (optional)
-    if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
-        require_once(dirname(__FILE__).'/lang/eng.php');
-        $pdf->setLanguageArray($l);
-    }
-    // ---------------------------------------------------------
-
-    // IMPORTANT: disable font subsetting to allow users editing the document
-    $pdf->setFontSubsetting(false);
-
-    // set font
-    $pdf->SetFont('lucidafax', '', 10, '', false);
-
-    // add a page
-    $pdf->AddPage();
-
-    /*
-    It is possible to create text fields, combo boxes, check boxes and buttons.
-    Fields are created at the current position and are given a name.
-    This name allows to manipulate them via JavaScript in order to perform some validation for instance.
-    */
-
-    /*
-    02-25-23
-    maia's reference material: https://tcpdf.org/examples/example_014/
-    */
-
-    // set default form properties
-    $pdf->setFormDefaultProp(array('lineWidth'=>1, 'borderStyle'=>'solid', 'fillColor'=>array(255, 255, 255), 'strokeColor'=>array(255, 255, 255)));
-
-    $pdf->Ln(12);
-    $pdf->SetTextColor(0,0,0);
-    $pdf->SetFont('lucidafax', '', 12);
-    $pdf->MultiCell(90, 10, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
-    $pdf->MultiCell(90, 10, date('F d, Y'), 0, 'R', 0, 0, '', '', true, 0, false, true, 40, 'T');
-    $pdf->Ln(6);
-
-    $html = <<<EOD
-      <h1>XHTML Form Example</h1>
-      <form method="post" action="http://localhost/printvars.php" enctype="multipart/form-data">
-EOD;
-
-    $pdf->Ln(8);
-    $pdf->SetFont('lucidafaxdemib', 'B', 18);
-    $pdf->Cell(0, 5, 'C E R T I F I C A T I O N', 0, 1, 'C');
-    $pdf->SetFont('lucidafax', '', 11);
-    $pdf->Ln(12);
-
-    $pdf->SetFont('lucidafax', '', 11);
-    $pdf->writeHTML('To Whom It May Concern:', 0, 0, true, 1);
-    
-    $pdf->Ln(12);
-    $pdf->writeHTML('<p style="text-indent: 50px">This is to certify that ', 0, 0, true, 1);
-    
-    // name
-    $prefix = $data['gender'] == 'm' ? 'Mr': 'Ms';
-    $name =  $prefix .'. '.$data['firstname'] . ' ' . $data['lastname'];
-    $pdf->SetFont('lucidafaxdemib', '', 11);
-    $pdf->writeHTML($name, 0, 0, true, 1);
-    
-    $pdf->SetFont('lucidafax', '', 11);
-    $pdf->writeHTML(' has attended tertiary education in this institution with a degree in ', 0, 0, true, 1);
-    $pdf->SetFont('lucidafaxdemib', '', 11);
-    $pdf->writeHTML($data['course'], 0, 0, true, 1);
-    $pdf->SetFont('lucidafax', '', 11);
-    $pronoun['subjective'] = $data['gender'] == 'm' ? 'He': 'She';
-    $pdf->writeHTML('. ' . $pronoun['subjective'] . ' is a member of ', 0, 0, true, 1);
-    $pdf->SetFont('lucidafaxdemib', '', 11);
-    $pdf->writeHTML('Batch ', 0, 0, true, 1);
-    $pdf->writeHTML(' ', 0, 0, true, 1);
-    $pdf->SetFont('lucidafaxdemib', 'B', 11);
-    $pdf->TextField('batch', 11, 5);
-    $pdf->SetFont('lucidafax', '', 11);
-    $pdf->writeHTML(' graduates of this University.', 0, 0, true, 1);
-    
-    $pdf->writeHTML('<br><br><p style="text-indent: 50px"; text-align="">This certifies further that ', 0, 0, true, 1);
-    $pdf->SetFont('lucidafaxdemib', '', 11);
-    $pdf->writeHTML('English language ', 0, 0, true, 1);
-    $pdf->SetFont('lucidafax', '', 11);
-    $pdf->writeHTML(' is the ', 0, 0, true, 1);
-    $pdf->SetFont('lucidafaxdemib', '', 11);
-    $pdf->writeHTML(' medium of instruction', 0, 0, true, 1);
-    $pdf->SetFont('lucidafax', '', 11);
-    $pdf->writeHTML(' used in all courses offered by the University.', 0, 0, true, 1);
-
-
-    $pdf->writeHTML('<br><br><p style="text-indent: 50px"; text-align="">This certification is issued this ', 0, 0, true, 1);
-    $named =  $prefix .'. ';
-    $pdf->MultiCell(110, 10, date('jS').' of ' .date('F Y') . ' upon the request of ' . $named , 0, 'L', 0, 0, '', '', true, 0, false, true, 40, 'T');
-    $pronoun['objective'] = $data['gender'] == 'm' ? 'him': 'her';
-    $pdf->writeHTML($data['lastname'] . ' for whatever purpose it may serve ' . $pronoun['objective'] . '.', 0, 0, true, 1);
-
-    $tbl = <<<EOD
-       <br><br><br><br>
-       <style>
-      .headHL{
-        font-family: lucidafaxdemib;
-        
-      }
-      </style>
-      <table border="0" cellpadding="2" cellspacing="2" align="center">
-       <tr nobr="true">
-        <td></td>
-        <td class = "headHL" >DR. MARISSA B. FERRER, REM, RPsy</td>
-       </tr>
-       <tr>
-       <td></td>
-        <td>Director</td>
-       </tr>
-      </table>
-EOD;
-
-
-    $pdf->writeHTML($tbl, true, false, false, false, '');
-
-    $pdf->SetFont('lucidafax', '', 5);
-    $pdf->writeHTML('Not valid without', 0, 0, true, 1);
-    $pdf->Ln(2);
-    $pdf->writeHTML('University Dry Seal', 0, 0, true, 1);
-   
-
-    // OR Number
-    $pdf->Ln(7);
-    $pdf->SetFont('lucidafax', '', 11);
-    $pdf->Cell(34, 5, 'OR Number:');
-    $pdf->SetTextColor(238, 75, 43);
-    $pdf->writeHTML("".$data['request_code'], 35, 5);
-    $pdf->SetTextColor(0,0,0);
-
-    // Date
-    $pdf->Ln(1);
-    $pdf->Cell(34, 5, 'Date:');
-    $pdf->TextField('date', 33, 5, array(), array('v'=>date('m-d-Y'), 'dv'=>date('m-d-Y')));
-
-    // -----------------------------------------------------------------------------
-    // output the HTML content
-    // -----------------------------------------------------------------------------
-    /**$pdf->SetXY(12, 172);
-    $pdf->Image(APPPATH . 'libraries/tcpdf/examples/images/signature.png', '', '', 35, 20, '', '', 'T', false, 300, '', false, false, 1, false, false, false);
-
-    **/
-    /**
-    $pdf->setPrintFooter(false);
-    
-    $pdf->SetX(100);
-    $pdf->SetY(150);
-    $image_file = K_PATH_IMAGES . 'main-footer.jpg';
-    $imageY = $pdf->GetPageHeight() - PDF_MARGIN_BOTTOM - 30;
-    $pdf->Image($image_file, 20, $pdf->GetPageHeight()-45, $pdf->GetPageWidth()-40, 35);
-    **/
-        // $image_file, 20          adjusts left
-        // GetPageHeight()-75       adjusts bottom
-
-    //Close and output PDF document
-    $pdf->Output('example_014.pdf', 'I');
-
-    //============================================================+
-    // END OF FILE
-    //============================================================+
-    die('here');
-  }
-  
-  public function certmediumundergrat($id){
-    $pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, 'LETTER', true, 'UTF-8', false);
-    $data = $this->requestDetailModel->getDetails(['request_details.id' => $id])[0];
-    // set document information
-    $pdf->SetCreator(PDF_CREATOR);
-    $pdf->SetAuthor('PUPT OCT-DRS');
-    $pdf->SetTitle('Certification of Medium Instruction - Undergraduate');
-    $pdf->SetSubject('Certification of Medium Instruction - Undergraduate');
-    // set default header data
-    $pdf->SetHeaderData('landscape-header.jpg', '200', '', '');
-    // set header and footer fonts
-    
-    $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-    $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
-
-    // set default monospaced font
-    $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-
-    // set margins
-    $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP + 10, PDF_MARGIN_RIGHT);
+    $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP + 18, PDF_MARGIN_RIGHT);
     $pdf->SetHeaderMargin(3);
     $pdf->SetFooterMargin(PDF_MARGIN_FOOTER + 15);
 
@@ -5548,381 +6221,20 @@ EOD;
     $pdf->Ln(12);
     $pdf->SetTextColor(0,0,0);
     $pdf->SetFont('lucidafax', '', 12);
-    $pdf->MultiCell(90, 10, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
-    $pdf->MultiCell(90, 10, date('F d, Y'), 0, 'R', 0, 0, '', '', true, 0, false, true, 40, 'T');
-    $pdf->Ln(6);
+    $pdf->MultiCell(120, 10, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
+    $pdf->MultiCell(120, 10, date('F d, Y'), 0, 'L', 0, 0, '', '', true, 0, false, true, 40, 'T');
 
-    $html = <<<EOD
-      <h1>XHTML Form Example</h1>
-      <form method="post" action="http://localhost/printvars.php" enctype="multipart/form-data">
-EOD;
-
-    $pdf->Ln(8);
+    $pdf->Ln(15);
     $pdf->SetFont('lucidafaxdemib', 'B', 18);
     $pdf->Cell(0, 5, 'C E R T I F I C A T I O N', 0, 1, 'C');
     $pdf->SetFont('lucidafax', '', 11);
-    $pdf->Ln(12);
+    $pdf->Ln(10);
 
     $pdf->SetFont('lucidafax', '', 11);
-    $pdf->writeHTML('To Whom It May Concern:', 0, 0, true, 1);
+    $pdf->writeHTML('<br><br>To Whom It May Concern:', 0, 0, true, 1);
     
-    $pdf->Ln(12);
-    $pdf->writeHTML('<p style="text-indent: 50px">This is to certify that ', 0, 0, true, 1);
-    
-    // name
-    $prefix = $data['gender'] == 'm' ? 'Mr': 'Ms';
-    $name =  $prefix .'. '.$data['firstname'] . ' ' . $data['lastname'];
-    $pdf->SetFont('lucidafaxdemib', '', 11);
-    $pdf->writeHTML($name, 0, 0, true, 1);
-    
-    $pdf->SetFont('lucidafax', '', 11);
-    $pdf->writeHTML(' was enrolled in the tertiary education in this istitution with a course ', 0, 0, true, 1);
-    $pdf->SetFont('lucidafaxdemib', '', 11);
-    $pdf->writeHTML($data['course'], 0, 0, true, 1);
-    $pronoun['subjective'] = $data['gender'] == 'm' ? 'He': 'She';
-    $pdf->SetFont('lucidafax', '', 11);
-    $pdf->writeHTML(' until S.Y. 20', 0, 0, true, 1);
-    $pdf->TextField('year1', 7, 5);
-    $pdf->writeHTML('. ' . $pronoun['subjective'] . ' has been admitted on the basis of her admission requirements presented in the University, S.Y. 20', 0, 0, true, 1);
-    $pdf->TextField('year2', 7, 5);
-    $pdf->writeHTML('.', 0, 0, true, 1);
-    
-    $pdf->Ln(4);
-    $pdf->writeHTML('<br><br><p style="text-indent: 50px"; text-align="">This certifies further that ', 0, 0, true, 1);
-    $pdf->SetFont('lucidafaxdemib', '', 11);
-    $pdf->writeHTML('English language ', 0, 0, true, 1);
-    $pdf->SetFont('lucidafax', '', 11);
-    $pdf->writeHTML(' is the ', 0, 0, true, 1);
-    $pdf->SetFont('lucidafaxdemib', '', 11);
-    $pdf->writeHTML(' medium of instruction', 0, 0, true, 1);
-    $pdf->SetFont('lucidafax', '', 11);
-    $pdf->writeHTML(' used in all courses offered by the University.', 0, 0, true, 1);
-    $pdf->Ln(4);
-
-    $pdf->writeHTML('<br><br><p style="text-indent: 50px"; text-align="">This certification is issued this ', 0, 0, true, 1);
-    $named =  $prefix .'. ';
-    $pdf->MultiCell(110, 10, date('jS').' of ' .date('F Y') . ' upon the request of ' . $named , 0, 'L', 0, 0, '', '', true, 0, false, true, 40, 'T');
-    $pronoun['objective'] = $data['gender'] == 'm' ? 'him': 'her';
-    $pdf->writeHTML($data['lastname'] . ' for whatever purpose it may serve ' . $pronoun['objective'] . '.', 0, 0, true, 1);
-
-    $tbl = <<<EOD
-       <br><br><br><br><br>
-       <style>
-      .headHL{
-        font-family: lucidafaxdemib;
-        
-      }
-      </style>
-      <table border="0" cellpadding="2" cellspacing="2" align="center">
-       <tr nobr="true">
-        <td></td>
-        <td class = "headHL" >DR. MARISSA B. FERRER, REM, RPsy</td>
-       </tr>
-       <tr>
-        <td></td>
-        <td>Director</td>
-       </tr>
-      </table>
-EOD;
-
-
-    $pdf->writeHTML($tbl, true, false, false, false, '');
-
-    $pdf->SetFont('lucidafax', '', 5);
-    $pdf->writeHTML('Not valid without', 0, 0, true, 1);
-    $pdf->Ln(2);
-    $pdf->writeHTML('University Dry Seal', 0, 0, true, 1);
-   
-
-    // OR Number
-    $pdf->Ln(7);
-    $pdf->SetFont('lucidafax', '', 11);
-    $pdf->Cell(34, 5, 'OR Number:');
-    $pdf->SetTextColor(238, 75, 43);
-    $pdf->writeHTML("".$data['request_code'], 35, 5);
-    $pdf->SetTextColor(0,0,0);
-
-    // Date
-    $pdf->Ln(1);
-    $pdf->Cell(34, 5, 'Date:');
-    $pdf->TextField('date', 33, 5, array(), array('v'=>date('m-d-Y'), 'dv'=>date('m-d-Y')));
-    
-    // -----------------------------------------------------------------------------
-    // output the HTML content
-    // -----------------------------------------------------------------------------
-    /**$pdf->SetXY(12, 172);
-    $pdf->Image(APPPATH . 'libraries/tcpdf/examples/images/signature.png', '', '', 35, 20, '', '', 'T', false, 300, '', false, false, 1, false, false, false);
-
-    **/
-
-    //Close and output PDF document
-    $pdf->Output('example_014.pdf', 'I');
-
-    //============================================================+
-    // END OF FILE
-    //============================================================+
-    die('here');
-  }
-  
-  
-  public function certofEnrollmentUndergrad($id){
-    $pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, 'LETTER', true, 'UTF-8', false);
-    $data = $this->requestDetailModel->getDetails(['request_details.id' => $id])[0];
-    // set document information
-    $pdf->SetCreator(PDF_CREATOR);
-    $pdf->SetAuthor('PUPT OCT-DRS');
-    $pdf->SetTitle('Certification of Enrollment - Undergraduate');
-    $pdf->SetSubject('Certification of Enrollment - Undergraduate');
-    // set default header data
-    $pdf->SetHeaderData('landscape-header.jpg', '200', '', '');
-    // set header and footer fonts
-    
-    $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-    $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
-
-    // set default monospaced font
-    $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-
-    // set margins
-    $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP + 10, PDF_MARGIN_RIGHT);
-    $pdf->SetHeaderMargin(3);
-    $pdf->SetFooterMargin(PDF_MARGIN_FOOTER + 15);
-
-    // set auto page breaks
-    $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-
-    // set image scale factor
-    $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-
-    // set some language-dependent strings (optional)
-    if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
-        require_once(dirname(__FILE__).'/lang/eng.php');
-        $pdf->setLanguageArray($l);
-    }
-    // ---------------------------------------------------------
-
-    // IMPORTANT: disable font subsetting to allow users editing the document
-    $pdf->setFontSubsetting(false);
-
-    // set font
-    $pdf->SetFont('lucidafax', '', 10, '', false);
-
-    // add a page
-    $pdf->AddPage();
-
-    /*
-    It is possible to create text fields, combo boxes, check boxes and buttons.
-    Fields are created at the current position and are given a name.
-    This name allows to manipulate them via JavaScript in order to perform some validation for instance.
-    */
-
-    /*
-    02-25-23
-    maia's reference material: https://tcpdf.org/examples/example_014/
-    */
-
-    // set default form properties
-    $pdf->setFormDefaultProp(array('lineWidth'=>1, 'borderStyle'=>'solid', 'fillColor'=>array(255, 255, 255), 'strokeColor'=>array(255, 255, 255)));
-
-    $pdf->Ln(12);
-    $pdf->SetTextColor(0,0,0);
-    $pdf->SetFont('lucidafax', '', 12);
-    $pdf->MultiCell(90, 10, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
-    $pdf->MultiCell(90, 10, date('F d, Y'), 0, 'R', 0, 0, 70, '', '', true, 0, false, true, 40, 'T');
-    $pdf->Ln(6);
-
-   
-
-    $html = <<<EOD
-      <h1>XHTML Form Example</h1>
-      <form method="post" action="http://localhost/printvars.php" enctype="multipart/form-data">
-EOD;
-
-    $pdf->Ln(8);
-    $pdf->SetFont('lucidafaxdemib', 'B', 18);
-    $pdf->Cell(0, 5, 'C E R T I F I C A T I O N', 0, 1, 'C');
-    $pdf->SetFont('lucidafax', '', 11);
-    $pdf->Ln(12);
-
-    $pdf->SetFont('lucidafax', '', 11);
-    $pdf->writeHTML('To Whom It May Concern:', 0, 0, true, 1);
-    
-    $pdf->Ln(12);
-    $pdf->writeHTML('<p style="text-indent: 50px">This is to certify that ', 0, 0, true, 1);
-    
-    // name
-    $prefix = $data['gender'] == 'm' ? 'Mr': 'Ms';
-    $name =  $prefix .'. '.$data['firstname'] . ' ' . $data['lastname'];
-    $pdf->SetFont('lucidafaxdemib', '', 11);
-    $pdf->writeHTML($name, 0, 0, true, 1);
-    
-
-    $pdf->SetFont('lucidafax', '', 11);
-    $pdf->writeHTML(' was enrolled in this Branch from ', 0, 0, true, 1);
-    $pdf->writeHTML('  ', 0, 0, true, 1);
-    $pdf->Ln(4);
-    $pdf->SetFont('lucidafaxdemib', '', 11);
-    $pdf->TextField('semester1', 20, 5);
-    $pdf->writeHTML(' Semester of S.Y. 20', 0, 0, true, 1);
-    $pdf->TextField('year1', 7, 5);
-    $pdf->Cell(10, 5, '- 20');
-    $pdf->TextField('year2', 7, 5);
-    $pdf->SetFont('lucidafax', '', 11);
-    $pdf->Cell(10, 5, ' to ');
-    $pdf->SetFont('lucidafaxdemib', '', 11);
-    $pdf->TextField('semester2', 20, 5);
-    $pdf->writeHTML(' Semester of S.Y. 20', 0, 0, true, 1);
-    $pdf->TextField('year3', 7, 5);
-    $pdf->Cell(10, 5, '- 20');
-    $pdf->TextField('year4', 7, 5);
-    $pdf->SetFont('lucidafax', '', 11);
-    $pdf->writeHTML(' and readmitted in the ', 0, 0, true, 1);
-    $pdf->SetFont('lucidafaxdemib', '', 11);
-    $pdf->writeHTML('  ', 0, 0, true, 1);
-    $pdf->TextField('semester3', 20, 5);
-    $pdf->writeHTML(' Semester of S.Y. 20', 0, 0, true, 1);
-    $pdf->TextField('year5', 7, 5);
-    $pdf->Cell(10, 5, '- 20');
-    $pdf->TextField('year6', 7, 5);
-    $pdf->SetFont('lucidafax', '', 11);
-    $pdf->writeHTML(' under our ' . $data['course'] . ' program.', 0, 0, true, 1);
-    $pdf->writeHTML('<br><br><p style="text-indent: 50px"; text-align="">This certification is issued this ', 0, 0, true, 1);
-    $named =  $prefix .'. '.$data['firstname'];
-    $pdf->MultiCell(110, 10, date('jS').' of ' .date('F Y') . ' upon the request of ' . $named , 0, 'L', 0, 0, '', '', true, 0, false, true, 40, 'T');
-    $pronoun['subjective'] = $data['gender'] == 'm' ? 'he': 'she';
-    $pronoun['possesive'] = $data['gender'] == 'm' ? 'his': 'hers';
-    $pronoun['objective'] = $data['gender'] == 'm' ? 'him': 'her';
-    $pdf->writeHTML($data['lastname'] . ' for whatever purpose it may serve ' . $pronoun['objective'] . '.', 0, 0, true, 1);
-
-
-        $pdf->Ln(16);
-        $pdf->SetFont('lucidafaxdemib', '', 12);
-        $pdf->Cell(18, 5, '                                                                             MHEL P. GARCIA');
-        $pdf->Ln(4);
-        $pdf->SetFont('lucidafax', '', 12);
-        $pdf->Cell(18, 5, '                                                             Branch Registrar/Head of Registration Office');
-        
-        $pdf->Ln(15);
-
-    $pdf->SetFont('lucidafax', '', 5);
-    $pdf->writeHTML('Not valid without', 0, 0, true, 1);
-    $pdf->Ln(2);
-    $pdf->writeHTML('University Dry Seal', 0, 0, true, 1);
-   
-
-    // OR Number
-    $pdf->Ln(7);
-    $pdf->SetFont('lucidafax', '', 11);
-    $pdf->Cell(34, 5, 'OR Number:');
-    $pdf->SetTextColor(238, 75, 43);
-    $pdf->writeHTML("".$data['request_code'], 35, 5);
-    $pdf->SetTextColor(0,0,0);
-
-    // Date
-    $pdf->Ln(1);
-    $pdf->Cell(34, 5, 'Date:');
-    $pdf->TextField('date', 33, 5, array(), array('v'=>date('m-d-Y'), 'dv'=>date('m-d-Y')));
-    
-    // -----------------------------------------------------------------------------
-    // output the HTML content
-    // -----------------------------------------------------------------------------
-    /**$pdf->SetXY(12, 172);
-    $pdf->Image(APPPATH . 'libraries/tcpdf/examples/images/signature.png', '', '', 35, 20, '', '', 'T', false, 300, '', false, false, 1, false, false, false);
-
-    **/
-
-    //Close and output PDF document
-    $pdf->Output('example_014.pdf', 'I');
-
-    //============================================================+
-    // END OF FILE
-    //============================================================+
-    die('here');
-  }
-  
-  
-  public function certofenrollmentpresent($id){
-    $pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, 'LETTER', true, 'UTF-8', false);
-    $data = $this->requestDetailModel->getDetails(['request_details.id' => $id])[0];
-    // set document information
-    $pdf->SetCreator(PDF_CREATOR);
-    $pdf->SetAuthor('PUPT OCT-DRS');
-    $pdf->SetTitle('Certification of Enrollment');
-    $pdf->SetSubject('Certification of Enrollment');
-    // set default header data
-    $pdf->SetHeaderData('landscape-header.jpg', '200', '', '');
-    // set header and footer fonts
-    
-    $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-    $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
-
-    // set default monospaced font
-    $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-
-    // set margins
-    $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP + 10, PDF_MARGIN_RIGHT);
-    $pdf->SetHeaderMargin(3);
-    $pdf->SetFooterMargin(PDF_MARGIN_FOOTER + 15);
-
-    // set auto page breaks
-    $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-
-    // set image scale factor
-    $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-
-    // set some language-dependent strings (optional)
-    if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
-        require_once(dirname(__FILE__).'/lang/eng.php');
-        $pdf->setLanguageArray($l);
-    }
-    // ---------------------------------------------------------
-
-    // IMPORTANT: disable font subsetting to allow users editing the document
-    $pdf->setFontSubsetting(false);
-
-    // set font
-    $pdf->SetFont('lucidafax', '', 10, '', false);
-
-    // add a page
-    $pdf->AddPage();
-
-    /*
-    It is possible to create text fields, combo boxes, check boxes and buttons.
-    Fields are created at the current position and are given a name.
-    This name allows to manipulate them via JavaScript in order to perform some validation for instance.
-    */
-
-    /*
-    02-25-23
-    maia's reference material: https://tcpdf.org/examples/example_014/
-    */
-
-    // set default form properties
-    $pdf->setFormDefaultProp(array('lineWidth'=>1, 'borderStyle'=>'solid', 'fillColor'=>array(255, 255, 255), 'strokeColor'=>array(255, 255, 255)));
-
-    $pdf->Ln(12);
-    $pdf->SetTextColor(0,0,0);
-    $pdf->SetFont('lucidafax', '', 12);
-    $pdf->MultiCell(90, 10, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
-    $pdf->MultiCell(90, 10, date('F d, Y'), 0, 'R', 0, 0, 70,'', '', true, 0, false, true, 40, 'T');
-    $pdf->Ln(6);
-
-    $html = <<<EOD
-      <h1>XHTML Form Example</h1>
-      <form method="post" action="http://localhost/printvars.php" enctype="multipart/form-data">
-EOD;
-
-    $pdf->Ln(8);
-    $pdf->SetFont('lucidafaxdemib', 'B', 18);
-    $pdf->Cell(0, 5, 'C E R T I F I C A T I O N', 0, 1, 'C');
-    $pdf->SetFont('lucidafax', '', 11);
-    $pdf->Ln(12);
-
-    $pdf->SetFont('lucidafax', '', 11);
-    $pdf->writeHTML('To Whom It May Concern:', 0, 0, true, 1);
-    
-    $pdf->Ln(1);
-    $pdf->writeHTML('<p style="text-indent: 50px">This is to certify that ', 0, 0, true, 1);
+    $pdf->Ln(9);
+    $pdf->writeHTML('<br><p style="text-indent: 50px">This is to certify that ', 0, 0, true, 1);
     
     // name
     $prefix = $data['gender'] == 'm' ? 'Mr': 'Ms';
@@ -5942,33 +6254,53 @@ EOD;
     $pdf->writeHTML(' of S.Y. ' . SCHOOL_YEAR . ' under our ' . $data['course'] . ' program.', 0, 0, true, 1);
     $pdf->writeHTML('<br><br><p style="text-indent: 50px"; text-align="">This certification is issued upon this request for whatever legal pupose it may serve '.$pronoun['objective'] . '.', 0, 0, true, 1);
 
-        $pdf->Ln(12);
-        $pdf->SetFont('lucidafaxdemib', '', 12);
-        $pdf->Cell(18, 5, '                                                                             MHEL P. GARCIA');
-        $pdf->Ln(4);
-        $pdf->SetFont('lucidafax', '', 12);
-        $pdf->Cell(18, 5, '                                                             Branch Registrar/Head of Registration Office');
+    $tbl = <<<EOD
+      <br><br><br>
+      <style>
+      .headHL{
+        font-family: lucidafaxdemib;
         
-        $pdf->Ln(8);
+      }
+      </style>
+      <table border="0" cellpadding="2" cellspacing="2" align="center">
+      <tr nobr="true">
+        <td></td>
+        <td class = "headHL" >MHEL P. GARCIA</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Branch Registrar/Head of Registration Office</td>
+      </tr>
+      </table>
+EOD;
 
-    $pdf->SetFont('lucidafax', '', 5);
+
+    $pdf->writeHTML($tbl, true, false, false, false, '');
+
+    $pdf->Ln(30);
+    $pdf->SetFont('lucidafax', '', 11);
     $pdf->writeHTML('Not valid without', 0, 0, true, 1);
-    $pdf->Ln(2);
+    $pdf->Ln(4);
     $pdf->writeHTML('University Dry Seal', 0, 0, true, 1);
-   
 
     // OR Number
-    $pdf->Ln(7);
+    $pdf->Ln(10);
     $pdf->SetFont('lucidafax', '', 11);
     $pdf->Cell(34, 5, 'OR Number:');
     $pdf->SetTextColor(238, 75, 43);
-    $pdf->writeHTML("".$data['request_code'], 35, 5);
+    $pdf->TextField('or_number', 35, 5);
     $pdf->SetTextColor(0,0,0);
 
     // Date
-    $pdf->Ln(6);
+    $pdf->Ln(5);
     $pdf->Cell(34, 5, 'Date:');
     $pdf->TextField('date', 33, 5, array(), array('v'=>date('m-d-Y'), 'dv'=>date('m-d-Y')));
+    
+     //sghsese
+        $pdf->Ln(6);
+        $pdf->SetFont('lucidafax', '', 11);
+        $pdf->Cell(23, 4, '/shgsese20');
+        $pdf->TextField('yearshg', 5, 5);
 
     // -----------------------------------------------------------------------------
     // output the HTML content
@@ -5977,7 +6309,6 @@ EOD;
     $pdf->Image(APPPATH . 'libraries/tcpdf/examples/images/signature.png', '', '', 35, 20, '', '', 'T', false, 300, '', false, false, 1, false, false, false);
 
     **/
-
     //Close and output PDF document
     $pdf->Output('example_014.pdf', 'I');
 
@@ -5988,16 +6319,18 @@ EOD;
   }
   
   
-  public function certofenrolleecross($id){
+  
+  
+  public function certdiploma($id){
     $pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, 'LETTER', true, 'UTF-8', false);
     $data = $this->requestDetailModel->getDetails(['request_details.id' => $id])[0];
     // set document information
     $pdf->SetCreator(PDF_CREATOR);
     $pdf->SetAuthor('PUPT OCT-DRS');
-    $pdf->SetTitle('Certification of Enrollment');
-    $pdf->SetSubject('Certification of Enrollment');
+    $pdf->SetTitle('Certification of Enrollment - Present');
+    $pdf->SetSubject('Certification of Enrollment - Present');
     // set default header data
-    $pdf->SetHeaderData('landscape-header.jpg', '200', '', '');
+    $pdf->SetHeaderData('landscape-header.jpg', '250', '', '');
     // set header and footer fonts
     
     $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
@@ -6007,7 +6340,7 @@ EOD;
     $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
     // set margins
-    $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP + 10, PDF_MARGIN_RIGHT);
+    $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP + 18, PDF_MARGIN_RIGHT);
     $pdf->SetHeaderMargin(3);
     $pdf->SetFooterMargin(PDF_MARGIN_FOOTER + 15);
 
@@ -6050,28 +6383,20 @@ EOD;
     $pdf->Ln(12);
     $pdf->SetTextColor(0,0,0);
     $pdf->SetFont('lucidafax', '', 12);
-    $pdf->MultiCell(90, 10, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
-    $pdf->MultiCell(90, 10, date('F d, Y'), 0, 'R', 0, 0, 70, '', '', true, 0, false, true, 40, 'T');
-    $pdf->Ln(6);
+    $pdf->MultiCell(120, 10, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
+    $pdf->MultiCell(120, 10, date('F d, Y'), 0, 'L', 0, 0, '', '', true, 0, false, true, 40, 'T');
 
-   
-
-    $html = <<<EOD
-      <h1>XHTML Form Example</h1>
-      <form method="post" action="http://localhost/printvars.php" enctype="multipart/form-data">
-    EOD;
-
-    $pdf->Ln(8);
+    $pdf->Ln(15);
     $pdf->SetFont('lucidafaxdemib', 'B', 18);
     $pdf->Cell(0, 5, 'C E R T I F I C A T I O N', 0, 1, 'C');
     $pdf->SetFont('lucidafax', '', 11);
-    $pdf->Ln(12);
+    $pdf->Ln(10);
 
     $pdf->SetFont('lucidafax', '', 11);
-    $pdf->writeHTML('To Whom It May Concern:', 0, 0, true, 1);
+    $pdf->writeHTML('<br><br>To Whom It May Concern:', 0, 0, true, 1);
     
-    $pdf->Ln(12);
-    $pdf->writeHTML('<p style="text-indent: 50px">This is to certify that ', 0, 0, true, 1);
+    $pdf->Ln(9);
+    $pdf->writeHTML('<br><p style="text-indent: 50px">This is to certify that ', 0, 0, true, 1);
     
     // name
     $prefix = $data['gender'] == 'm' ? 'Mr': 'Ms';
@@ -6080,56 +6405,53 @@ EOD;
     $pdf->writeHTML($name, 0, 0, true, 1);
     
 
-    $pdf->SetFont('lucidafax', '', 11);
-    $pdf->writeHTML(', a cross-enrolle from');
+    $pdf->SetFont('lucidafax', '', 12);
+    $pdf->writeHTML(' is enrolled in this Branch, ', 0, 0, true, 1);
     $pdf->writeHTML('  ', 0, 0, true, 1);
-    $pdf->TextField('name_school', 90, 5);
-    $pdf->writeHTML(', is presently enrolled in this Branch, ', 0, 0, true, 1);
-    $pdf->writeHTML('  ', 0, 0, true, 1);
-    $pdf->SetFont('lucidafaxdemib', '', 11);
     $pdf->TextField('semester', 20, 5);
+    $pdf->writeHTML(' Semester ', 0, 0, true, 1);
     $pronoun['subjective'] = $data['gender'] == 'm' ? 'he': 'she';
     $pronoun['possesive'] = $data['gender'] == 'm' ? 'his': 'hers';
     $pronoun['objective'] = $data['gender'] == 'm' ? 'him': 'her';
-    $pdf->Ln(5);
-    $pdf->writeHTML(' Semester of S.Y. ' . SCHOOL_YEAR . ' under our ' . $data['course'] . ' program.', 0, 0, true, 1);
-    $pdf->SetFont('lucidafax', '', 11);
-    $pdf->writeHTML('She is enrolled in ', 0, 0, true, 1);
-    $pdf->SetFont('lucidafaxdemib', '    ', 11);
-    $pdf->writeHTML(' ', 0, 0, true, 1);
-    $pdf->TextField('enrolled_subjects', 65, 5);
-    $pdf->Ln(6);
-    $pdf->TextField('additional_enrolled_subjects', 190, 5);
-    $pdf->Ln(8);
-    $pdf->TextField('additional_enrolled_subjects2', 190, 5);
-    $pdf->SetFont('lucidafax', '', 11);
-    $pdf->writeHTML('<br><br><p style="text-indent: 50px"; text-align="">This certification is issued this ', 0, 0, true, 1);
-    $named =  $prefix .'. '.$data['firstname'];
-    $pdf->MultiCell(110, 10, date('jS').' of ' .date('F Y') . ' upon the request of ' . $named , 0, 'L', 0, 0, '', '', true, 0, false, true, 40, 'T');
-    $pdf->writeHTML($data['lastname'] . ' for whatever purpose it may serve ' . $pronoun['objective'] . '.', 0, 0, true, 1);
+    $pdf->writeHTML(' of S.Y. ' . SCHOOL_YEAR . ' under our ' . $data['course'] . ' program.', 0, 0, true, 1);
+    $pdf->writeHTML('<br><br><p style="text-indent: 50px"; text-align="">This certification is issued upon this request for whatever legal pupose it may serve '.$pronoun['objective'] . '.', 0, 0, true, 1);
 
-
-        $pdf->Ln(16);
-        $pdf->SetFont('lucidafaxdemib', '', 12);
-        $pdf->Cell(18, 5, '                                                                             MHEL P. GARCIA');
-        $pdf->Ln(4);
-        $pdf->SetFont('lucidafax', '', 12);
-        $pdf->Cell(18, 5, '                                                             Branch Registrar/Head of Registration Office');
+    $tbl = <<<EOD
+      <br><br><br>
+      <style>
+      .headHL{
+        font-family: lucidafaxdemib;
         
-        $pdf->Ln(8);
+      }
+      </style>
+      <table border="0" cellpadding="2" cellspacing="2" align="center">
+      <tr nobr="true">
+        <td></td>
+        <td class = "headHL" >MHEL P. GARCIA</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Branch Registrar/Head of Registration Office</td>
+      </tr>
+      </table>
+EOD;
+
+
+    $pdf->writeHTML($tbl, true, false, false, false, '');
+
+    $pdf->writeHTML($tbl, true, false, false, false, '');
 
     $pdf->SetFont('lucidafax', '', 5);
     $pdf->writeHTML('Not valid without', 0, 0, true, 1);
     $pdf->Ln(2);
     $pdf->writeHTML('University Dry Seal', 0, 0, true, 1);
-   
 
     // OR Number
     $pdf->Ln(7);
     $pdf->SetFont('lucidafax', '', 11);
     $pdf->Cell(34, 5, 'OR Number:');
     $pdf->SetTextColor(238, 75, 43);
-    $pdf->writeHTML("".$data['request_code'], 35, 5);
+    $pdf->TextField('or_number', 35, 5);
     $pdf->SetTextColor(0,0,0);
 
     // Date
@@ -6144,7 +6466,6 @@ EOD;
     $pdf->Image(APPPATH . 'libraries/tcpdf/examples/images/signature.png', '', '', 35, 20, '', '', 'T', false, 300, '', false, false, 1, false, false, false);
 
     **/
-
     //Close and output PDF document
     $pdf->Output('example_014.pdf', 'I');
 
@@ -6153,7 +6474,661 @@ EOD;
     //============================================================+
     die('here');
   }
-
   
+  
+  
+  
+  
+  
+  public function certofgrade($id){
+    $pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, 'LETTER', true, 'UTF-8', false);
+    $data = $this->requestDetailModel->getDetails(['request_details.id' => $id])[0];
+    // set document information
+    $pdf->SetCreator(PDF_CREATOR);
+    $pdf->SetAuthor('PUPT OCT-DRS');
+    $pdf->SetTitle('Certification of Enrollment - Present');
+    $pdf->SetSubject('Certification of Enrollment - Present');
+    // set default header data
+    $pdf->SetHeaderData('landscape-header.jpg', '250', '', '');
+    // set header and footer fonts
+    
+    $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+    $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
 
+    // set default monospaced font
+    $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+    // set margins
+    $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP + 18, PDF_MARGIN_RIGHT);
+    $pdf->SetHeaderMargin(3);
+    $pdf->SetFooterMargin(PDF_MARGIN_FOOTER + 15);
+
+    // set auto page breaks
+    $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+    // set image scale factor
+    $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+    // set some language-dependent strings (optional)
+    if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
+        require_once(dirname(__FILE__).'/lang/eng.php');
+        $pdf->setLanguageArray($l);
+    }
+    // ---------------------------------------------------------
+
+    // IMPORTANT: disable font subsetting to allow users editing the document
+    $pdf->setFontSubsetting(false);
+
+    // set font
+    $pdf->SetFont('lucidafax', '', 10, '', false);
+
+    // add a page
+    $pdf->AddPage();
+
+    /*
+    It is possible to create text fields, combo boxes, check boxes and buttons.
+    Fields are created at the current position and are given a name.
+    This name allows to manipulate them via JavaScript in order to perform some validation for instance.
+    */
+
+    /*
+    02-25-23
+    maia's reference material: https://tcpdf.org/examples/example_014/
+    */
+
+    // set default form properties
+    $pdf->setFormDefaultProp(array('lineWidth'=>1, 'borderStyle'=>'solid', 'fillColor'=>array(255, 255, 255), 'strokeColor'=>array(255, 255, 255)));
+
+    $pdf->Ln(12);
+    $pdf->SetTextColor(0,0,0);
+    $pdf->SetFont('lucidafax', '', 12);
+    $pdf->MultiCell(120, 10, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
+    $pdf->MultiCell(120, 10, date('F d, Y'), 0, 'L', 0, 0, '', '', true, 0, false, true, 40, 'T');
+
+    $pdf->Ln(15);
+    $pdf->SetFont('lucidafaxdemib', 'B', 18);
+    $pdf->Cell(0, 5, 'C E R T I F I C A T I O N', 0, 1, 'C');
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->Ln(10);
+
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->writeHTML('<br><br>To Whom It May Concern:', 0, 0, true, 1);
+    
+    $pdf->Ln(9);
+    $pdf->writeHTML('<br><p style="text-indent: 50px">This is to certify that ', 0, 0, true, 1);
+    
+    // name
+    $prefix = $data['gender'] == 'm' ? 'Mr': 'Ms';
+    $name =  $prefix .'. '.$data['firstname'] . ' ' . $data['lastname'];
+    $pdf->SetFont('lucidafaxdemib', '', 11);
+    $pdf->writeHTML($name, 0, 0, true, 1);
+    
+
+    $pdf->SetFont('lucidafax', '', 12);
+    $pdf->writeHTML(' is enrolled in this Branch, ', 0, 0, true, 1);
+    $pdf->writeHTML('  ', 0, 0, true, 1);
+    $pdf->TextField('semester', 20, 5);
+    $pdf->writeHTML(' Semester ', 0, 0, true, 1);
+    $pronoun['subjective'] = $data['gender'] == 'm' ? 'he': 'she';
+    $pronoun['possesive'] = $data['gender'] == 'm' ? 'his': 'hers';
+    $pronoun['objective'] = $data['gender'] == 'm' ? 'him': 'her';
+    $pdf->writeHTML(' of S.Y. ' . SCHOOL_YEAR . ' under our ' . $data['course'] . ' program.', 0, 0, true, 1);
+    $pdf->writeHTML('<br><br><p style="text-indent: 50px"; text-align="">This certification is issued upon this request for whatever legal pupose it may serve '.$pronoun['objective'] . '.', 0, 0, true, 1);
+
+    $tbl = <<<EOD
+      <br><br><br>
+      <style>
+      .headHL{
+        font-family: lucidafaxdemib;
+        
+      }
+      </style>
+      <table border="0" cellpadding="2" cellspacing="2" align="center">
+      <tr nobr="true">
+        <td></td>
+        <td class = "headHL" >MHEL P. GARCIA</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Branch Registrar/Head of Registration Office</td>
+      </tr>
+      </table>
+EOD;
+
+
+    $pdf->writeHTML($tbl, true, false, false, false, '');
+
+    $pdf->writeHTML($tbl, true, false, false, false, '');
+
+    $pdf->SetFont('lucidafax', '', 5);
+    $pdf->writeHTML('Not valid without', 0, 0, true, 1);
+    $pdf->Ln(2);
+    $pdf->writeHTML('University Dry Seal', 0, 0, true, 1);
+
+    // OR Number
+    $pdf->Ln(7);
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->Cell(34, 5, 'OR Number:');
+    $pdf->SetTextColor(238, 75, 43);
+    $pdf->TextField('or_number', 35, 5);
+    $pdf->SetTextColor(0,0,0);
+
+    // Date
+    $pdf->Ln(6);
+    $pdf->Cell(34, 5, 'Date:');
+    $pdf->TextField('date', 33, 5, array(), array('v'=>date('m-d-Y'), 'dv'=>date('m-d-Y')));
+
+    // -----------------------------------------------------------------------------
+    // output the HTML content
+    // -----------------------------------------------------------------------------
+    /**$pdf->SetXY(12, 172);
+    $pdf->Image(APPPATH . 'libraries/tcpdf/examples/images/signature.png', '', '', 35, 20, '', '', 'T', false, 300, '', false, false, 1, false, false, false);
+
+    **/
+    //Close and output PDF document
+    $pdf->Output('example_014.pdf', 'I');
+
+    //============================================================+
+    // END OF FILE
+    //============================================================+
+    die('here');
+  }
+  
+  
+  
+  
+  public function subdesc($id){
+    $pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, 'LETTER', true, 'UTF-8', false);
+    $data = $this->requestDetailModel->getDetails(['request_details.id' => $id])[0];
+    // set document information
+    $pdf->SetCreator(PDF_CREATOR);
+    $pdf->SetAuthor('PUPT OCT-DRS');
+    $pdf->SetTitle('Certification of Enrollment - Present');
+    $pdf->SetSubject('Certification of Enrollment - Present');
+    // set default header data
+    $pdf->SetHeaderData('landscape-header.jpg', '250', '', '');
+    // set header and footer fonts
+    
+    $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+    $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+
+    // set default monospaced font
+    $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+    // set margins
+    $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP + 18, PDF_MARGIN_RIGHT);
+    $pdf->SetHeaderMargin(3);
+    $pdf->SetFooterMargin(PDF_MARGIN_FOOTER + 15);
+
+    // set auto page breaks
+    $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+    // set image scale factor
+    $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+    // set some language-dependent strings (optional)
+    if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
+        require_once(dirname(__FILE__).'/lang/eng.php');
+        $pdf->setLanguageArray($l);
+    }
+    // ---------------------------------------------------------
+
+    // IMPORTANT: disable font subsetting to allow users editing the document
+    $pdf->setFontSubsetting(false);
+
+    // set font
+    $pdf->SetFont('lucidafax', '', 10, '', false);
+
+    // add a page
+    $pdf->AddPage();
+
+    /*
+    It is possible to create text fields, combo boxes, check boxes and buttons.
+    Fields are created at the current position and are given a name.
+    This name allows to manipulate them via JavaScript in order to perform some validation for instance.
+    */
+
+    /*
+    02-25-23
+    maia's reference material: https://tcpdf.org/examples/example_014/
+    */
+
+    // set default form properties
+    $pdf->setFormDefaultProp(array('lineWidth'=>1, 'borderStyle'=>'solid', 'fillColor'=>array(255, 255, 255), 'strokeColor'=>array(255, 255, 255)));
+
+    $pdf->Ln(12);
+    $pdf->SetTextColor(0,0,0);
+    $pdf->SetFont('lucidafax', '', 12);
+    $pdf->MultiCell(120, 10, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
+    $pdf->MultiCell(120, 10, date('F d, Y'), 0, 'L', 0, 0, '', '', true, 0, false, true, 40, 'T');
+
+    $pdf->Ln(15);
+    $pdf->SetFont('lucidafaxdemib', 'B', 18);
+    $pdf->Cell(0, 5, 'C E R T I F I C A T I O N', 0, 1, 'C');
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->Ln(10);
+
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->writeHTML('<br><br>To Whom It May Concern:', 0, 0, true, 1);
+    
+    $pdf->Ln(9);
+    $pdf->writeHTML('<br><p style="text-indent: 50px">This is to certify that ', 0, 0, true, 1);
+    
+    // name
+    $prefix = $data['gender'] == 'm' ? 'Mr': 'Ms';
+    $name =  $prefix .'. '.$data['firstname'] . ' ' . $data['lastname'];
+    $pdf->SetFont('lucidafaxdemib', '', 11);
+    $pdf->writeHTML($name, 0, 0, true, 1);
+    
+
+    $pdf->SetFont('lucidafax', '', 12);
+    $pdf->writeHTML(' is enrolled in this Branch, ', 0, 0, true, 1);
+    $pdf->writeHTML('  ', 0, 0, true, 1);
+    $pdf->TextField('semester', 20, 5);
+    $pdf->writeHTML(' Semester ', 0, 0, true, 1);
+    $pronoun['subjective'] = $data['gender'] == 'm' ? 'he': 'she';
+    $pronoun['possesive'] = $data['gender'] == 'm' ? 'his': 'hers';
+    $pronoun['objective'] = $data['gender'] == 'm' ? 'him': 'her';
+    $pdf->writeHTML(' of S.Y. ' . SCHOOL_YEAR . ' under our ' . $data['course'] . ' program.', 0, 0, true, 1);
+    $pdf->writeHTML('<br><br><p style="text-indent: 50px"; text-align="">This certification is issued upon this request for whatever legal pupose it may serve '.$pronoun['objective'] . '.', 0, 0, true, 1);
+
+    $tbl = <<<EOD
+      <br><br><br>
+      <style>
+      .headHL{
+        font-family: lucidafaxdemib;
+        
+      }
+      </style>
+      <table border="0" cellpadding="2" cellspacing="2" align="center">
+      <tr nobr="true">
+        <td></td>
+        <td class = "headHL" >MHEL P. GARCIA</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Branch Registrar/Head of Registration Office</td>
+      </tr>
+      </table>
+EOD;
+
+
+    $pdf->writeHTML($tbl, true, false, false, false, '');
+
+    $pdf->writeHTML($tbl, true, false, false, false, '');
+
+    $pdf->SetFont('lucidafax', '', 5);
+    $pdf->writeHTML('Not valid without', 0, 0, true, 1);
+    $pdf->Ln(2);
+    $pdf->writeHTML('University Dry Seal', 0, 0, true, 1);
+
+    // OR Number
+    $pdf->Ln(7);
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->Cell(34, 5, 'OR Number:');
+    $pdf->SetTextColor(238, 75, 43);
+    $pdf->TextField('or_number', 35, 5);
+    $pdf->SetTextColor(0,0,0);
+
+    // Date
+    $pdf->Ln(6);
+    $pdf->Cell(34, 5, 'Date:');
+    $pdf->TextField('date', 33, 5, array(), array('v'=>date('m-d-Y'), 'dv'=>date('m-d-Y')));
+
+    // -----------------------------------------------------------------------------
+    // output the HTML content
+    // -----------------------------------------------------------------------------
+    /**$pdf->SetXY(12, 172);
+    $pdf->Image(APPPATH . 'libraries/tcpdf/examples/images/signature.png', '', '', 35, 20, '', '', 'T', false, 300, '', false, false, 1, false, false, false);
+
+    **/
+    //Close and output PDF document
+    $pdf->Output('example_014.pdf', 'I');
+
+    //============================================================+
+    // END OF FILE
+    //============================================================+
+    die('here');
+  }
+  
+  
+  
+  
+  
+  public function transrecords($id){
+    $pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, 'LETTER', true, 'UTF-8', false);
+    $data = $this->requestDetailModel->getDetails(['request_details.id' => $id])[0];
+    // set document information
+    $pdf->SetCreator(PDF_CREATOR);
+    $pdf->SetAuthor('PUPT OCT-DRS');
+    $pdf->SetTitle('Certification of Enrollment - Present');
+    $pdf->SetSubject('Certification of Enrollment - Present');
+    // set default header data
+    $pdf->SetHeaderData('landscape-header.jpg', '250', '', '');
+    // set header and footer fonts
+    
+    $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+    $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+
+    // set default monospaced font
+    $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+    // set margins
+    $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP + 18, PDF_MARGIN_RIGHT);
+    $pdf->SetHeaderMargin(3);
+    $pdf->SetFooterMargin(PDF_MARGIN_FOOTER + 15);
+
+    // set auto page breaks
+    $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+    // set image scale factor
+    $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+    // set some language-dependent strings (optional)
+    if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
+        require_once(dirname(__FILE__).'/lang/eng.php');
+        $pdf->setLanguageArray($l);
+    }
+    // ---------------------------------------------------------
+
+    // IMPORTANT: disable font subsetting to allow users editing the document
+    $pdf->setFontSubsetting(false);
+
+    // set font
+    $pdf->SetFont('lucidafax', '', 10, '', false);
+
+    // add a page
+    $pdf->AddPage();
+
+    /*
+    It is possible to create text fields, combo boxes, check boxes and buttons.
+    Fields are created at the current position and are given a name.
+    This name allows to manipulate them via JavaScript in order to perform some validation for instance.
+    */
+
+    /*
+    02-25-23
+    maia's reference material: https://tcpdf.org/examples/example_014/
+    */
+
+    // set default form properties
+    $pdf->setFormDefaultProp(array('lineWidth'=>1, 'borderStyle'=>'solid', 'fillColor'=>array(255, 255, 255), 'strokeColor'=>array(255, 255, 255)));
+
+    $pdf->Ln(12);
+    $pdf->SetTextColor(0,0,0);
+    $pdf->SetFont('lucidafax', '', 12);
+    $pdf->MultiCell(120, 10, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
+    $pdf->MultiCell(120, 10, date('F d, Y'), 0, 'L', 0, 0, '', '', true, 0, false, true, 40, 'T');
+
+    $pdf->Ln(15);
+    $pdf->SetFont('lucidafaxdemib', 'B', 18);
+    $pdf->Cell(0, 5, 'C E R T I F I C A T I O N', 0, 1, 'C');
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->Ln(10);
+
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->writeHTML('<br><br>To Whom It May Concern:', 0, 0, true, 1);
+    
+    $pdf->Ln(9);
+    $pdf->writeHTML('<br><p style="text-indent: 50px">This is to certify that ', 0, 0, true, 1);
+    
+    // name
+    $prefix = $data['gender'] == 'm' ? 'Mr': 'Ms';
+    $name =  $prefix .'. '.$data['firstname'] . ' ' . $data['lastname'];
+    $pdf->SetFont('lucidafaxdemib', '', 11);
+    $pdf->writeHTML($name, 0, 0, true, 1);
+    
+
+    $pdf->SetFont('lucidafax', '', 12);
+    $pdf->writeHTML(' is enrolled in this Branch, ', 0, 0, true, 1);
+    $pdf->writeHTML('  ', 0, 0, true, 1);
+    $pdf->TextField('semester', 20, 5);
+    $pdf->writeHTML(' Semester ', 0, 0, true, 1);
+    $pronoun['subjective'] = $data['gender'] == 'm' ? 'he': 'she';
+    $pronoun['possesive'] = $data['gender'] == 'm' ? 'his': 'hers';
+    $pronoun['objective'] = $data['gender'] == 'm' ? 'him': 'her';
+    $pdf->writeHTML(' of S.Y. ' . SCHOOL_YEAR . ' under our ' . $data['course'] . ' program.', 0, 0, true, 1);
+    $pdf->writeHTML('<br><br><p style="text-indent: 50px"; text-align="">This certification is issued upon this request for whatever legal pupose it may serve '.$pronoun['objective'] . '.', 0, 0, true, 1);
+
+    $tbl = <<<EOD
+      <br><br><br>
+      <style>
+      .headHL{
+        font-family: lucidafaxdemib;
+        
+      }
+      </style>
+      <table border="0" cellpadding="2" cellspacing="2" align="center">
+      <tr nobr="true">
+        <td></td>
+        <td class = "headHL" >MHEL P. GARCIA</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Branch Registrar/Head of Registration Office</td>
+      </tr>
+      </table>
+EOD;
+
+
+    $pdf->writeHTML($tbl, true, false, false, false, '');
+
+    $pdf->writeHTML($tbl, true, false, false, false, '');
+
+    $pdf->SetFont('lucidafax', '', 5);
+    $pdf->writeHTML('Not valid without', 0, 0, true, 1);
+    $pdf->Ln(2);
+    $pdf->writeHTML('University Dry Seal', 0, 0, true, 1);
+
+    // OR Number
+    $pdf->Ln(7);
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->Cell(34, 5, 'OR Number:');
+    $pdf->SetTextColor(238, 75, 43);
+    $pdf->TextField('or_number', 35, 5);
+    $pdf->SetTextColor(0,0,0);
+
+    // Date
+    $pdf->Ln(6);
+    $pdf->Cell(34, 5, 'Date:');
+    $pdf->TextField('date', 33, 5, array(), array('v'=>date('m-d-Y'), 'dv'=>date('m-d-Y')));
+
+    // -----------------------------------------------------------------------------
+    // output the HTML content
+    // -----------------------------------------------------------------------------
+    /**$pdf->SetXY(12, 172);
+    $pdf->Image(APPPATH . 'libraries/tcpdf/examples/images/signature.png', '', '', 35, 20, '', '', 'T', false, 300, '', false, false, 1, false, false, false);
+
+    **/
+    //Close and output PDF document
+    $pdf->Output('example_014.pdf', 'I');
+
+    //============================================================+
+    // END OF FILE
+    //============================================================+
+    die('here');
+  }
+  
+  
+  
+  
+  public function certofgrad($id){
+    $pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, 'LETTER', true, 'UTF-8', false);
+    $data = $this->requestDetailModel->getDetails(['request_details.id' => $id])[0];
+    // set document information
+    $pdf->SetCreator(PDF_CREATOR);
+    $pdf->SetAuthor('PUPT OCT-DRS');
+    $pdf->SetTitle('Certification of Enrollment - Present');
+    $pdf->SetSubject('Certification of Enrollment - Present');
+    // set default header data
+    $pdf->SetHeaderData('landscape-header.jpg', '250', '', '');
+    // set header and footer fonts
+    
+    $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+    $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+
+    // set default monospaced font
+    $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+    // set margins
+    $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP + 18, PDF_MARGIN_RIGHT);
+    $pdf->SetHeaderMargin(3);
+    $pdf->SetFooterMargin(PDF_MARGIN_FOOTER + 15);
+
+    // set auto page breaks
+    $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+    // set image scale factor
+    $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+    // set some language-dependent strings (optional)
+    if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
+        require_once(dirname(__FILE__).'/lang/eng.php');
+        $pdf->setLanguageArray($l);
+    }
+    // ---------------------------------------------------------
+
+    // IMPORTANT: disable font subsetting to allow users editing the document
+    $pdf->setFontSubsetting(false);
+
+    // set font
+    $pdf->SetFont('lucidafax', '', 10, '', false);
+
+    // add a page
+    $pdf->AddPage();
+
+    /*
+    It is possible to create text fields, combo boxes, check boxes and buttons.
+    Fields are created at the current position and are given a name.
+    This name allows to manipulate them via JavaScript in order to perform some validation for instance.
+    */
+
+    /*
+    02-25-23
+    maia's reference material: https://tcpdf.org/examples/example_014/
+    */
+
+    // set default form properties
+    $pdf->setFormDefaultProp(array('lineWidth'=>1, 'borderStyle'=>'solid', 'fillColor'=>array(255, 255, 255), 'strokeColor'=>array(255, 255, 255)));
+
+    $pdf->Ln(12);
+    $pdf->SetTextColor(0,0,0);
+    $pdf->SetFont('lucidafax', '', 12);
+    $pdf->MultiCell(120, 10, '', 0, 'J', 0, 0, '', '', true, 0, false, true, 40, 'T');
+    $pdf->MultiCell(120, 10, date('F d, Y'), 0, 'L', 0, 0, '', '', true, 0, false, true, 40, 'T');
+
+    $pdf->Ln(15);
+    $pdf->SetFont('lucidafaxdemib', 'B', 18);
+    $pdf->Cell(0, 5, 'C E R T I F I C A T I O N', 0, 1, 'C');
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->Ln(10);
+
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->writeHTML('<br><br>To Whom It May Concern:', 0, 0, true, 1);
+    
+    $pdf->Ln(9);
+    $pdf->writeHTML('<br><p style="text-indent: 50px">This is to certify that ', 0, 0, true, 1);
+    
+    // name
+    $prefix = $data['gender'] == 'm' ? 'Mr': 'Ms';
+    $name =  $prefix .'. '.$data['firstname'] . ' ' . $data['lastname'];
+    $pdf->SetFont('lucidafaxdemib', '', 11);
+    $pdf->writeHTML($name, 0, 0, true, 1);
+    
+
+    $pdf->SetFont('lucidafax', '', 12);
+    $pdf->writeHTML(' is enrolled in this Branch, ', 0, 0, true, 1);
+    $pdf->writeHTML('  ', 0, 0, true, 1);
+    $pdf->TextField('semester', 20, 5);
+    $pdf->writeHTML(' Semester ', 0, 0, true, 1);
+    $pronoun['subjective'] = $data['gender'] == 'm' ? 'he': 'she';
+    $pronoun['possesive'] = $data['gender'] == 'm' ? 'his': 'hers';
+    $pronoun['objective'] = $data['gender'] == 'm' ? 'him': 'her';
+    $pdf->writeHTML(' of S.Y. ' . SCHOOL_YEAR . ' under our ' . $data['course'] . ' program.', 0, 0, true, 1);
+    $pdf->writeHTML('<br><br><p style="text-indent: 50px"; text-align="">This certification is issued upon this request for whatever legal pupose it may serve '.$pronoun['objective'] . '.', 0, 0, true, 1);
+
+    $tbl = <<<EOD
+      <br><br><br>
+      <style>
+      .headHL{
+        font-family: lucidafaxdemib;
+        
+      }
+      </style>
+      <table border="0" cellpadding="2" cellspacing="2" align="center">
+      <tr nobr="true">
+        <td></td>
+        <td class = "headHL" >MHEL P. GARCIA</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Branch Registrar/Head of Registration Office</td>
+      </tr>
+      </table>
+EOD;
+
+
+    $pdf->writeHTML($tbl, true, false, false, false, '');
+    
+    $pdf->Ln(35);
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->writeHTML('Not valid without', 0, 0, true, 1);
+    $pdf->Ln(4);
+    $pdf->writeHTML('University Dry Seal', 0, 0, true, 1);
+
+    // OR Number
+    $pdf->Ln(7);
+    $pdf->SetFont('lucidafax', '', 11);
+    $pdf->Cell(34, 5, 'OR Number:');
+    $pdf->SetTextColor(238, 75, 43);
+    $pdf->TextField('or_number', 35, 5);
+    $pdf->SetTextColor(0,0,0);
+
+    // Date
+    $pdf->Ln(6);
+    $pdf->Cell(34, 5, 'Date:');
+    $pdf->TextField('date', 33, 5, array(), array('v'=>date('m-d-Y'), 'dv'=>date('m-d-Y')));
+    
+     //sghsese
+        $pdf->Ln(6);
+        $pdf->SetFont('lucidafax', '', 11);
+        $pdf->Cell(23, 4, '/shgsese20');
+        $pdf->TextField('yearshg', 5, 5);
+
+    // -----------------------------------------------------------------------------
+    // output the HTML content
+    // -----------------------------------------------------------------------------
+    /**$pdf->SetXY(12, 172);
+    $pdf->Image(APPPATH . 'libraries/tcpdf/examples/images/signature.png', '', '', 35, 20, '', '', 'T', false, 300, '', false, false, 1, false, false, false);
+
+    **/
+    //Close and output PDF document
+    $pdf->Output('example_014.pdf', 'I');
+
+    //============================================================+
+    // END OF FILE
+    //============================================================+
+    die('here');
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 }

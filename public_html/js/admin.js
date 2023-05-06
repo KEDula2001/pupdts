@@ -112,7 +112,6 @@ var adminPaymentTable = $('#admin-payment-table').DataTable({
 });
 
 var adminPendingTable = $('#admin-pending-table').DataTable({
-  order: [[9, 'asc']],
   "columnDefs" : [{
     "targets" : [0,1],
     "visible" : false,
@@ -955,7 +954,7 @@ $("#slug").keypress(function (e){
         var value = [];
         var request_id;
         for(var i = 0; i < requests.length; i++) {
-          console.log(data);
+          console.log(requests[i]);
           request_id = requests[i]['request_id']
           form += `<div class="form-check">
                     <input class="form-check-input" type="checkbox" value="`+requests[i]['id']+`" id="id-`+requests[i]['id']+`">
@@ -1118,7 +1117,7 @@ function script(){
     var type = 'yearly';
     if ($('#type').val() == 'monthly') {
       type = 'month';
-    } else if ($('#type').val() == 'yearly'){
+    } else if ($('#type').val() == 'q1' ||$('#type').val() == 'q2'||$('#type').val() == 'q3'||$('#type').val() == 'q4'){
       type = 'text';
     } else {
       type = 'date';

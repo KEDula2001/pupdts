@@ -79,6 +79,7 @@
                           <option value="q2">2nd Quarter</option>
                           <option value="q3">3rd Quarter</option>
                           <option value="q4">4th Quarter</option>
+                          <option value="yearly">Yearly</option>
                           <option value="monthly">Monthy</option>
                           <option value="daily">Daily</option>
                         </select>

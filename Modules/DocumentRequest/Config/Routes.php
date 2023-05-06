@@ -37,6 +37,18 @@ $routes->group('document-requests', ['namespace' => 'Modules\DocumentRequest\Con
     $routes->get('certofenrolleecross/(:num)', 'DocumentRequests::certofenrolleecross/$1');
     $routes->get('certofEnrollmentUndergrad/(:num)', 'DocumentRequests::certofEnrollmentUndergrad/$1');
     
+    $routes->get('ladderizedcourse/(:num)', 'DocumentRequests::ladderizedcourse/$1');
+    
+    //maia's requested dummy template
+    $routes->get('certdiploma/(:num)', 'DocumentRequests::certdiploma/$1');
+    $routes->get('certofgrade/(:num)', 'DocumentRequests::certofgrade/$1');
+    $routes->get('subdesc/(:num)', 'DocumentRequests::subdesc/$1');
+    $routes->get('transrecords/(:num)', 'DocumentRequests::transrecords/$1');
+    $routes->get('certofgrad/(:num)', 'DocumentRequests::certofgrad/$1');
+    
+    
+    
+    
 
     
     $routes->get('requestforNameBirthdate/(:num)', 'DocumentRequests::requestforNameBirthdate/$1');

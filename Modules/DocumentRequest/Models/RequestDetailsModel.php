@@ -258,7 +258,8 @@ public function getSummary($type, $date, $document){
     $slice = explode('-', $date);
     $this->where('month(request_details.printed_at)', $slice[1]);
     $this->where('year(request_details.printed_at)', $slice[0]);
-  } else {
+  }
+  else {
     $this->where('date(request_details.printed_at)', $date);
   }
 
@@ -283,15 +284,23 @@ public function getSummary($type, $date, $document){
     if($type == 'q1'){
       $this->where('month(request_details.printed_at) >=', $q1[0]);
       $this->where('month(request_details.printed_at) <=', $q1[1]);
+      $slice = explode('-', $date);
+      $this->where('year(request_details.printed_at)', $slice[0]);
     } else if ($type == 'q2') {
       $this->where('month(request_details.printed_at) >=', $q2[0]);
       $this->where('month(request_details.printed_at) <=', $q2[1]);
+      $slice = explode('-', $date);
+      $this->where('year(request_details.printed_at)', $slice[0]);
     } else if ($type == 'q3') {
       $this->where('month(request_details.printed_at) >=', $q3[0]);
       $this->where('month(request_details.printed_at) <=', $q3[1]);
+      $slice = explode('-', $date);
+      $this->where('year(request_details.printed_at)', $slice[0]);
     } else if ($type == 'q4') {
       $this->where('month(request_details.printed_at) >=', $q4[0]);
       $this->where('month(request_details.printed_at) <=', $q4[1]);
+      $slice = explode('-', $date);
+      $this->where('year(request_details.printed_at)', $slice[0]);
     } else if ($type == 'monthly') {
       $slice = explode('-', $date);
       $this->where('month(request_details.printed_at)', $slice[1]);
